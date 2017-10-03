@@ -1,0 +1,224 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="response_neutral">ಓಕೆ</string>
+    <string name="response_positive">ಹೌದು</string>
+    <string name="response_negative">ಇಲ್ಲ</string>
+
+    <string name="action_settings">ಸೆಟ್ಟಿಂಗ್ಸ್</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_refresh">ರಿಫ್ರೆಶ್</string>
+    <string name="title_activity_survey">ಸರ್ವೇ</string>
+    <string name="title_activity_login">ಲಾಗಿನ್</string>
+    <string name="questions">ಪ್ರಶ್ನೆಗೆ ಕರೆದೊಯಿರಿ</string>
+    <string name="reports">ರಿಪೋರ್ಟ್ಸಗೆ ಕರೆದೊಯಿರಿ</string>
+
+    <!-- Strings related to Boundary selection -->
+    <string name="district">ಜಿಲ್ಲೆ</string>
+    <string name="block">ಬ್ಲಾಕ್</string>
+    <string name="cluster">ಕ್ಲಸ್ಟರ್</string>
+    <string name="school">ಶಾಲೆ</string>
+    <string name="prompt_district">ಜಿಲ್ಲೆ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="prompt_block">ಬ್ಲಾಕ್ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="prompt_cluster">ಕ್ಲಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="prompt_school">ಶಾಲೆ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="prompt_user_type">ಪ್ರತಿಕ್ರಿಯೆಗಾರ ಆಯ್ಕೆ ಮಾಡಿ</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_register">ರಿಜಿಸ್ಟರ್ ಮಾಡಿಲ್ಲವೇ?</string>
+    <string name="prompt_login">ರಿಜಿಸ್ಟರ್ ಆಗಿದ್ದೀರಾ</string>
+    <string name="register">ರಿಜಿಸ್ಟರ್</string>
+    <string name="login">ಲಾಗಿನ್</string>
+    <string name="changePassword">ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಿ</string>
+    <string name="forgotPassword">ಪಾಸ್ವರ್ಡ್ ಮರೆತು ಹೋಯಿತೇ?</string>
+
+    <string name="action_sign_in">ರಿಜಿಸ್ಟರ್ ಮಾಡಿ ಇಲ್ಲವೇ ಲಾಗಿನ್ ಮಾಡಿ</string>
+    <string name="action_sign_in_short">ಲಾಗಿನ್</string>
+    <string name="error_invalid_email">ಇಮೇಲ್ ಅಡ್ರೆಸ್ ಸರಿ ಇಲ್ಲ</string>
+    <string name="error_invalid_password">ಪಾಸ್ವರ್ಡ್ ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ</string>
+    <string name="error_incorrect_password">ಪಾಸ್ವರ್ಡ್ ಸರಿಯಾಗಿಲ್ಲ</string>
+    <string name="error_field_required">ಈ ಮಾಹಿತಿ ಬೇಕಾಗಿದೆ</string>
+    <string name="permission_rationale">Location permissions are needed</string>
+
+    <string name="title_activity_question">ಪ್ರಶ್ನೆಗಳು</string>
+
+    <!-- Dialog button strings -->
+    <string name="Submit">ಸುಬ್ಮಿಟ್</string>
+    <string name="Cancel">ಕ್ಯಾನ್ಸಲ್</string>
+    <string name="Ok">ಓಕೆ</string>
+
+    <!--Strings for the change password dialog -->
+    <string name="dialog_old_password">ಹಳೆಯ ಪಾಸ್ವರ್ಡ್</string>
+    <string name="dialog_new_password">ಹೊಸ ಪಾಸ್ವರ್ಡ್</string>
+    <string name="dialog_reenter_new_password">ಇನ್ನೊಮ್ಮೆ ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಹಾಕಿರಿ</string>
+    <string name="dialog_error_password_mismatch">ಪಾಸ್ವರ್ಡ್ ಹೊಂದಾಣಿಕೆ ಆಗುತ್ತಿಲ್ಲಾ. ಇನ್ನೊಮ್ಮೆ ಹಾಕಿರಿ</string>
+    <!-- Strings for sign up activity -->
+    <string name="title_activity_user_registration">ಬಳಕೆದಾರನ ನೊಂದಣಿ ಚತುಬಾಟಿಕೆಗಳು</string>
+    <string name="title_activity_forgot_password">ಪಾಸ್ವರ್ಡ್ ಮರೆತು ಹೋಯಿತೇ?</string>
+    <string name="prompt_enter_email">ಈ ಮೇಲ್ / ಮೊಬೈಲ್ ನಂಬರ್</string>
+    <string name="prompt_enter_email1">ಇಮೇಲ್ ವಿಳಾಸ</string>
+    <string name="prompt_enter_email1_">ಇಮೇಲ್ ವಿಳಾಸ (ಕಡ್ಡಾಯವಲ್ಲ)</string>
+    <string name="prompt_enter_password">ಪಾಸ್ವರ್ಡ್</string>
+    <string name="confirmPassword">ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ</string>
+    <string name="prompt_verify_password">ಪಾಸ್ವರ್ಡ್ ಇನ್ನೊಮ್ಮೆ ಹಾಕಿ</string>
+    <string name="first_name">ಹೆಸರು</string>
+    <string name="last_name">ಉಪನಾಮ</string>
+    <string name="mobile_number">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</string>
+    <string name="action_register">ರಿಜಿಸ್ಟರ್</string>
+    <string name="title_activity_boundary_selection">ನಿಮ್ಮ ಬೌಂಡರಿ</string>
+    <!-- survey activity strings -->
+    <string name="new_response">ಹೊಸ ಪ್ರತಿಕ್ರಿಯೆ</string>
+    <string name="generate_report">ರಿಪೋರ್ಟ್ ತಯಾರಿಸಿ</string>
+    <string name="list_stories">ಎಲ್ಲಾ ಕಥೆಗಳು</string>
+    <!--Story list activity-->
+    <string name="meta_medium">ಒಟ್ಟೂ ಉತ್ತರಗಳು: %1$s</string>
+    <string name="meta_small">ತಯಾರಿಸಿದ್ದು %1$s ಇಂದು %2$s</string>
+    <string name="meta_total">ಒಟ್ಟೂ ಕಥೆಗಳು: %1$d</string>
+    <string name="meta_total_">ಒಟ್ಟೂ ಕಥೆಗಳು:0</string>
+    <string name="meta_daterange">ಇಂದ %1$s ಗೆ %2$s</string>
+    <string name="meta_total_by_user">ಒಟ್ಟು ಕತೆಗಳು ನಿಮ್ಮಿಂದ: %1$d</string>
+    <string name="meta_total_by_user_">ಒಟ್ಟು ಕತೆಗಳು ನಿಮ್ಮಿಂದ:0</string>
+    <string name="meta_total_by_user_nsy">ನಿಮ್ಮಿಂದ ಸಿಂಕ್ ಆಗದೆ ಇದ್ದ ಕಥೆಗಳು: %1$d</string>
+    <string name="meta_total_by_user_nsy_">ನಿಮ್ಮಿಂದ ಸಿಂಕ್ ಆಗದೆ ಇದ್ದ ಕಥೆಗಳು:0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="backtologin"> <u>ಲಾಗಿನ್ ಗೆ ಹೋಗಿ</u></string>
+    <string name="prompt_start_date">ದಿನಾಂಕ ಶುರು</string>
+    <string name="prompt_end_date">ದಿನಾಂಕ ಮುಕ್ತಾಯ</string>
+    <string name="answer_yes">ಹೌದು</string>
+    <string name="answer_no">ಇಲ್ಲ</string>
+    <string name="answer_unknown">ಗೊತ್ತಿಲ್ಲ</string>
+    <string name="prompt_new_rsponse">ಇನ್ನೊಂದು ಪ್ರತಿಕ್ರಿಯೆ ರೆಕಾರ್ಡ್ ಮಾಡಬೇಕೆ?</string>
+    <!--empty response-->
+    <string name="survey_empty_response_title">ಎಲ್ಲಾ ಪ್ರಶ್ನೆಯನ್ನೂ ಉತ್ತರಿಸಿಲ್ಲ</string>
+    <string name="survey_empty_response_body">* ಕಥೆಯನ್ನು ಸುಭ್ಮಿಟ್ ಮಾಡಲು ಎಲ್ಲಾ ಪ್ರಶ್ನೆಯನ್ನು ಉತ್ತರಿಸಬೇಕು</string>
+
+    <!-- Shridhar Dev-->
+    <string name="enter_valid_email_or_Phone">ದಯವಿಟ್ಟು ಸರಿಯಾದ ಫೋನ್ ನಂಬರ್ ಹಾಕಿ</string>
+    <string name="enter_ten_digit_number">ದಯವಿಟ್ಟು 10 ನಂಬ್ರಗಳ ಫೋನ್ ನಂಬರನ್ನು ಹಾಕಿರಿ</string>
+    <string name="enter_valid_email">Please enter valid email id</string>
+    <string name="selectState">Please Select Your Survey State</string>
+
+    <string name="selectLanguage">Please Select Application language</string>
+    <string name="selectYourState">---- Select survey state ----</string>
+    <string name="selectYourLanguage">---- Select your language ----</string>
+    <array name="states">
+        <item>---- Select survey state ----</item>
+        <item>Karnataka</item>
+        <item>Orissa</item>
+
+    </array>
+
+    <array name="language">
+        <item>---- Select your language ----</item>
+        <item>English</item>
+        <item>Kannada</item>
+
+    </array>
+
+    <array name="reportType">
+        <item>District</item>
+        <item>Block</item>
+        <item>Cluster</item>
+        <item>School</item>
+
+
+    </array>
+
+
+
+
+    <string name="noInternetCon">ಇಂಟರ್‌ನೆಟ್ ಸಂಪರ್ಕ ಇಲ್ಲ</string>
+    <string name="emailorPasswordWrong">ಈ-ಮೇಲ್ / ಪಾಸ್ವರ್ಡ್ ತಪ್ಪು</string>
+    <string name="pleaseEnterValidEmailorPhone">ದಯವಿಟ್ಟು ಸರಿಯಾದ ಇಮೇಲ್ / ಫೋನ್ ನಂಬರ್ ಹಾಕಿರಿ</string>
+    <string name="authenticating">ದೃಢೀಕರಿಸಲಾಗುತ್ತಿದೆ ...</string>
+    <string name="resetPassword">ರಿಸೆಟ್ ಪಾಸ್ವರ್ಡ್</string>
+    <string name="numberOfSchools">ಶಾಲೆಗಳ ಸಂಖ್ಯೆ</string>
+    <string name="numberOfSchoolsWithRespo">ಪ್ರತಿಕ್ರಿಯೆ ಇರುವ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ</string>
+    <string name="numberOfRespo">ಒಟ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳ ಸಂಖ್ಯೆಗಳು</string>
+    <string name="updateSurveys">ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ನವೀಕರಿಸಿ</string>
+    <string name="community">ಸಮುದಾಯ</string>
+    <string name="sync">Sync</string>
+    <string name="uploadingStories"> ಕಥೆಯನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
+    <string name="downloadingSurvey"> ಸರ್ವೆಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
+    <string name="downloadingQuestion"> ಪ್ರಶ್ನೆಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
+    <string name="downloadingQuestionGroup"> ಪ್ರಶ್ನೆ ಗುಂಪನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
+    <string name="survey"> ಸರ್ವೇ </string>
+    <string name="updateSurvey">ಅಪಡೇಟ್ ಸರ್ವೇ</string>
+    <string name="settings">ಸೆಟ್ಟಿಂಗ್ಸ್</string>
+    <string name="surveySync">ಸರ್ವೇ ಸಿಂಕ್</string>
+    <string name="next">ಮುಂದಿನ</string>
+    <string name="surveyType">ಸರ್ವೇ ಪ್ರಕಾರಗಳು</string>
+    <string name="summary">ಸಾರಾಂಶ</string>
+    <string name="download_survey">ಪ್ರಶ್ನೆ ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
+    <string name="syncSurvey">ಸಿಂಕ್ ಸರ್ವೇ</string>
+    <string name="responseSaved">ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="selectSummaryLevel">ಸಮ್ಮರೀ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="communitySurvey">ಸಮುದಾಯ ಸರ್ವೇ</string>
+    <string name="gkaMonitoring">ಜಿಕೆಎ ಮಾನಿಟರಿಂಗ್</string>
+    <string name="selectReportLevel">ರಿಪೋರ್ಟ್ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="new_Password">ಹೊಸ ಪಾಸ್ವರ್ಡ್</string>
+    <string name="loadSurveyImage"><u>ಸರ್ವೇ ಇಮೇಜ್ ಅನ್ನು ಲೋಡ್ ಮಾಡಿ</u></string>
+    <string name="loadSurveyImage_">ಲೋಡ್ ಸರ್ವೇ ಇಮೇಜ್</string>
+    <string name="dob">ಜನ್ಮ ದಿನಾಂಕ</string>
+    <string name="schools">ಶಾಲೆಗಳು</string>
+    <string name="pleaseSelectrespondanttype">ಪ್ರತಿಕ್ರಿಯೆಗಾರ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="doesnotmatcherwithpass">ಈ ಕ್ಷೇತ್ರವು ಅಗತ್ಯವಿದೆ ಮತ್ತು ಪಾಸ್ವರ್ಡ್ನೊಂದಿಗೆ ಹೊಂದಾಣಿಕೆಯಾಗುತ್ತಿಲ್ಲ</string>
+    <string name="signupsuccess">ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಅಪ್ ಮಾಡಿದ್ದೀರಿ. ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಮಾಡಿ.</string>
+    <string name="signupfail">ಸೈನ್ ಅಪ್ ವಿಫಲವಾಗಿದೆ</string>
+    <string name="pleaseSelectsurveyLanguage">Please select your SURVEY STATE and LANGUAGE</string>
+    <string name="functioalityprogree">Functionality under progress..</string>
+    <string name="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ ...</string>
+    <string name="dataAlreadynSyn">ಡೇಟಾ ಸಿಂಕ್ ಆಗಿದೆ</string>
+    <string name="doyouwant">ನೀವು ಎಲ್ಲಾ ಕಥೆಗಳನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಲು ಬಯಸುತ್ತೀರಾ</string>
+    <string name="nooserveyimage">ಸರ್ವೇ ಫೋಟೋ ಕಾಣಿಸಿಲ್ಲ</string>
+    <string name="failed">ವಿಫಲವಾಗಿದೆ</string>
+    <string name="syncTitle">ಸಿಂಕ್</string>
+    <string name="downloadingsurveypleasewait">ಕಥೆಗಳನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ</string>
+    <string name="syncing">ಸಿಂಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ ..</string>
+    <string name="uploaded">ಅಪ್ಲೋಡ್ ಮಾಡಲಾಗಿದೆ</string>
+    <string name="stories">ಕಥೆಗಳು..</string>
+    <string name="uploadingstroespleasewait">ಕಥೆಗಳನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ. ದಯಮಾಡಿ ನಿರೀಕ್ಷಿಸಿ</string>
+    <string name="uploading">ಅಪ್ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
+    <string name="uploadingstorw">ಡೇಟಾ ಲೋಡ್ ಆಗುತ್ತಿದೆ</string>
+    <string name="upload">ಅಪ್ಲೋಡ್</string>
+    <string name="downloading"> ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
+    <string name="datasync">ಡೇಟಾ ಸಿಂಕ್ ..</string>
+    <string name="syncneeded">ಸಿಂಕ್ ಅಗತ್ಯವಿದೆ</string>
+    <string name="oksyncnow">ಸರಿ, ಈಗ ಸಿಂಕ್ ಮಾಡಿ</string>
+    <string name="youshouldsync">ILP Konnect ನವೀಕರಣಗಳನ್ನು ಪಡೆಯಲು ನೀವು \"ಸಿಂಕ್ \" ಡೇಟಾವನ್ನು ಮಾಡಬೇಕು.</string>
+    <string name="surveysyncsucc">ಸರ್ವೇ ಯಶಸ್ಸು ಸಿಂಕ್:</string>
+    <string name="surveysyncfail">ಸರ್ವೇ ವಿಫಲಗೊಂಡಿದೆ:</string>
+    <string name="question"> ಪ್ರಶ್ನೆ </string>
+    <string name="questiongroup"> ಪ್ರಶ್ನೆ ಗುಂಪನ್ನು</string>
+    <string name="dataAlreadynSync">ಡೇಟಾ ಸಿಂಕ್ ಆಗಿದೆ</string>
+    <string name="resettingpassword">ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ಅನ್ನು ಮರುಹೊಂದಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="overallreport">ಒಟ್ಟಾರೆ ಸಮ್ಮರೀ</string>
+    <string name="pleaseataachsurveyimage">ದಯವಿಟ್ಟು ಸರ್ವೆ ಚಿತ್ರವನ್ನು ಲಗತ್ತಿಸಿ</string>
+    <string name="takephoto">ಫೋಟೋ ತೆಗೆದುಕೊಳ್ಳಿ</string>
+    <string name="choosefromlib">ಗ್ಯಾಲರೀ ಇಂದ ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="cancel">ಕ್ಯಾನ್ಸಲ್</string>
+    <string name="permission">ಅನುಮತಿ ಅಗತ್ಯ</string>
+    <string name="externalstorage">ಬಾಹ್ಯ ಶೇಖರಣಾ ಅನುಮತಿ ಅಗತ್ಯ</string>
+    <string name="pleaseuploadimage">* ಫೋಟೋ ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
+    <string name="pleaseSelectAppropriateImage">ದಯವಿಟ್ಟು ಸರಿಯಾದ ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="parents">ಪೋಷಕ</string>
+    <string name="teachers">ಶಿಕ್ಷಕ</string>
+    <string name="educationVol">ಸ್ವಯಂಸೇವಕ</string>
+    <string name="cbomember">ಸಿ ಬಿ ಒ ಸದಸ್ಯ</string>
+    <string name="headermaster">ಮುಖ್ಯೋಪಾಧ್ಯಾಯ</string>
+    <string name="sdmcmember">ಎಸ್ ಡಿ ಎಮ್ ಸಿ ಸದಸ್ಯ</string>
+    <string name="localleaders">ಮುಖ್ಯಸ್ಥ</string>
+    <string name="aksharastaff">ಅಕ್ಷರ ಶಿಬ್ಬಂದಿ</string>
+    <string name="educatedyouth">ವಿದ್ಯಾವಂತ ಯುವಕ</string>
+    <string name="govtofficial">ಸರ್ಕಾರಿ ಅಧಿಕೃತ</string>
+    <string name="educationofficial">ಶಿಕ್ಷಣ ಅಧಿಕಾರಿ</string>
+    <string name="electedRepre">ಚುನಾಯಿತ ಪ್ರತಿನಿಧಿ</string>
+    <string name="distancemsg"><![CDATA[ಈ ಸರ್ವೇ ಶಾಲೆ ಆವರಣದಲ್ಲಿ ಮಾಡಿದಂತೆ ಕಂಡುಬರುತ್ತಿಲ್ಲ. ಶಾಲೆ ಮತ್ತ್ತು ನೀವು ಇರುವ ಸ್ಥಳದ ಮಧ್ಯೆ ಇರುವ ದೂರ:]]></string>
+    <string name="distance">ದೂರ</string>
+    <string name="meters">ಮೀಟರ್</string>
+    <string name="km">ಕಿ ಮೀ.</string>
+    <string name="bydate">ದಿನಾಂಕದಂದು</string>
+    <string name="all">ಎಲ್ಲಾ</string>
+    <string name="searchSurveyimage">ಸರ್ವೇ ಇಮೇಜ್ ಹುಡುಕಾಟದ ವಿಧಾನ?</string>
+    <string name="netWorkError">ನೆಟ್ವರ್ಕ್ ದೋಷ</string>
+
+</resources>

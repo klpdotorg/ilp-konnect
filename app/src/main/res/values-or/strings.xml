@@ -1,0 +1,219 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="response_neutral">ଓକେ</string>
+    <string name="response_positive">ହଁ</string>
+    <string name="response_negative">ନା</string>
+
+    <string name="action_settings">ସେଟିଙ୍ଗସ୍</string>
+    <string name="action_logout">ଲଗ୍ ଆଉଟ୍</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="title_activity_survey">Surveys</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="questions">ପ୍ରଶ୍ନ ଅନୁଭାଗ କୁ ନିଅ!</string>
+    <string name="reports">ରିପୋର୍ଟ ଅନୁଭାଗ କୁ ନିଅ!</string>
+
+    <!-- Strings related to Boundary selection -->
+    <string name="district">District</string>
+    <string name="block">ବ୍ଲକ</string>
+    <string name="cluster">କ୍ଲଷ୍ଟର</string>
+    <string name="school">ସ୍କୁଲ</string>
+    <string name="prompt_district">ଜିଲ୍ଲା ବାଛନ୍ତୁ</string>
+    <string name="prompt_block">ବ୍ଲକ ବାଛନ୍ତୁ</string>
+    <string name="prompt_cluster">କ୍ଲଷ୍ଟର ବାଛନ୍ତୁ</string>
+    <string name="prompt_school">ସ୍କୁଲ ବାଛନ୍ତୁ</string>
+    <string name="prompt_user_type">ପ୍ରତିବାଦୀଙ୍କ ପ୍ରକାର ବାଛନ୍ତୁ</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_register">ଉପଭୋକ୍ତା/ୟୁଜର ନୁହନ୍ତି କି?</string>
+    <string name="prompt_login">ଉପଭୋକ୍ତା/ୟୁଜର କି?</string>
+    <string name="register">ରେଜିଷ୍ଟର</string>
+    <string name="login">LOGIN</string>
+    <string name="changePassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ବଦଳ</string>
+    <string name="forgotPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲି ଗଲେ କି?</string>
+
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">LOGIN</string>
+    <string name="error_invalid_email">ଏହି ଇମେଲ୍ ଠିକଣାଟି ଅବୈଧ</string>
+    <string name="error_invalid_password">ଏହି ପାସ୍ଓ୍ୱାର୍ଡ଼ଟି ଅତି ଛୋଟ</string>
+    <string name="error_incorrect_password">ଏହି ପାସ୍ଓ୍ୱାର୍ଡ଼ଟି ଭୁଲ</string>
+    <string name="error_field_required">ଏହି ଫିଲ୍ଡଟି ପୁରଣ କରିବା ଦରକାର</string>
+    <string name="permission_rationale">Location permissions are needed</string>
+
+    <string name="title_activity_question">ପ୍ରଶ୍ନମାନ</string>
+
+    <!-- Dialog button strings -->
+    <string name="Submit">Submit</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Ok">OK</string>
+
+    <!--Strings for the change password dialog -->
+    <string name="dialog_old_password">ପୁରୁଣା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+    <string name="dialog_new_password">ନୂଆ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+    <string name="dialog_reenter_new_password">ପୁନର୍ବାର ନୂଆ ପାସ୍ଓ୍ୱାର୍ଡ଼ ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
+    <string name="dialog_error_password_mismatch">ପାସ୍ଓ୍ୱାର୍ଡ଼ ମେଳ ହେଉ ନାହିଁ, ପୁନର୍ବାର ଏଣ୍ଟର୍ କରନ୍ତୁ</string>
+    <!-- Strings for sign up activity -->
+    <string name="title_activity_user_registration">UserRegistrationActivity</string>
+    <string name="title_activity_forgot_password">ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲି ଗଲେ କି?</string>
+    <string name="prompt_enter_email">E-MAIL/MOBILE NUMBER</string>
+    <string name="prompt_enter_email1">E-MAIL</string>
+    <string name="prompt_enter_password">PASSWORD</string>
+    <string name="confirmPassword">CONFIRM PASSWORD</string>
+    <string name="prompt_verify_password">RE-ENTER PASSWORD</string>
+    <string name="first_name"> FIRST NAME</string>
+    <string name="last_name">LAST NAME</string>
+    <string name="mobile_number">MOBILE NUMBER</string>
+    <string name="action_register">REGISTER</string>
+    <string name="title_activity_boundary_selection">Choose your Boundary</string>
+    <!-- survey activity strings -->
+    <string name="new_response">ନୂତନ ଉତ୍ତର</string>
+    <string name="generate_report">ରିପୋର୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="list_stories">ସମସ୍ତ ଗଳ୍ପମାନ</string>
+    <!--Story list activity-->
+    <string name="meta_medium">ସର୍ବମୋଟ ଉତ୍ତର: %1$s</string>
+    <string name="meta_small">ଗଳ୍ପ କର୍ତ୍ତା %1$s on %2$s</string>
+    <string name="meta_total">ସର୍ବମୋଟ ଗଳ୍ପ: %1$d</string>
+    <string name="meta_total_">ସର୍ବମୋଟ ଗଳ୍ପ:0</string>
+    <string name="meta_daterange">From %1$s to %2$s</string>
+    <string name="meta_total_by_user">ସର୍ବମୋଟ ଗଳ୍ପ ଆପଣଙ୍କ ଦ୍ୱାରା: %1$d</string>
+    <string name="meta_total_by_user_">ସର୍ବମୋଟ ଗଳ୍ପ ଆପଣଙ୍କ ଦ୍ୱାରା: 0</string>
+    <string name="meta_total_by_user_nsy">ଆପଣକଂ ଗଳ୍ପମାନ ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ: %1$d</string>
+    <string name="meta_total_by_user_nsy_">ଆପଣକଂ ଗଳ୍ପମାନ ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ:0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="backtologin">BACK TO <u>LOGIN</u></string>
+    <string name="prompt_start_date">ଆରମ୍ଭ ତାରିଖ</string>
+    <string name="prompt_end_date">ଶେଷ ତାରିଖ</string>
+    <string name="answer_yes">ହଁ</string>
+    <string name="answer_no">ନା</string>
+    <string name="answer_unknown">ଜଣା ନାହିଁ</string>
+
+    <string name="prompt_new_rsponse">ଅନ୍ୟ ଏକ ଉତ୍ତର ରେକର୍ଡ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
+
+    <!--empty response-->
+    <string name="survey_empty_response_title">କୌଣସି ପ୍ରଶ୍ନର ଉତ୍ତର ଦିଆ ଯାଇ ନାହିଁ!</string>
+    <string name="survey_empty_response_body">* ଗଳ୍ପ ଦାଖଲ କରିବା ପାଇଁ ଏକ ବା ଅଧିକ ଉତ୍ତର ନିଶ୍ଚୟ ଦିଅନ୍ତୁ</string>
+
+
+    <!-- Shridhar Dev-->
+    <string name="enter_valid_email_or_Phone">ଦୟା କରି କୌଣସି ବୈଧ ଇମେଲ୍ ଫୋନ୍ ନମ୍ଵର୍ ଦିଅନ୍ତୁ</string>
+    <string name="enter_valid_email">Please enter valid email id</string>
+    <string name="enter_ten_digit_number">Please enter a valid 10 digit phone number</string>
+
+    <string name="selectState">Please Select Your State</string>
+    <string name="selectLanguage">Please Select Application language</string>
+    <string name="selectYourState">---- Select survey state ----</string>
+    <string name="selectYourLanguage">---- Select your language ----</string>
+    <array name="states">
+        <item>---- Select survey state ----</item>
+        <item>Karnataka</item>
+        <item>Orissa</item>
+
+    </array>
+
+    <array name="language">
+        <item>---- Select your language ----</item>
+        <item>English</item>
+        <item>Kannada</item>
+
+    </array>
+    <array name="reportType">
+        <item>District</item>
+        <item>Block</item>
+        <item>Cluster</item>
+        <item>School</item>
+
+
+    </array>
+
+    <string name="noInternetCon">No Internet Connection</string>
+    <string name="emailorPasswordWrong">Email or password wrong</string>
+    <string name="pleaseEnterValidEmailorPhone">Please enter valid email or phone number</string>
+    <string name="authenticating">Authenticating...</string>
+    <string name="resetPassword">Reset Password</string>
+    <string name="numberOfSchools">Number of Schools</string>
+    <string name="numberOfSchoolsWithRespo">Number of Schools with Responses</string>
+    <string name="numberOfRespo">Total Number of Responses</string>
+    <string name="updateSurveys">Update Surveys</string>
+    <string name="community">Community</string>
+    <string name="sync">Sync</string>
+    <string name="uploadingStories">Uploading Stories</string>
+    <string name="downloadingSurvey">Downloading survey</string>
+    <string name="downloadingQuestion">Downloading question</string>
+    <string name="downloadingQuestionGroup">Downloading question group</string>
+    <string name="survey">Survey</string>
+    <string name="updateSurvey">Update Survey</string>
+    <string name="settings">ସେଟିଙ୍ଗସ୍</string>
+    <string name="surveySync">Survey Sync</string>
+    <string name="next">Next</string>
+    <string name="surveyType">Survey Type</string>
+    <string name="summary">Summary</string>
+    <string name="syncSurvey">Sync survey</string>
+    <string name="responseSaved">Response Saved</string>
+    <string name="selectSummaryLevel">Select Summary Level</string>
+    <string name="communitySurvey">Community Survey</string>
+    <string name="gkaMonitoring">GKA Monitoring</string>
+    <string name="selectReportLevel">Select Report Level</string>
+    <string name="new_Password">NEW PASSWORD</string>
+    <string name="loadSurveyImage"><u>Load Survey Image</u></string>
+    <string name="loadSurveyImage_">Load Survey Image</string>
+    <string name="dob">DOB</string>
+    <string name="schools">SCHOOLS</string>
+    <string name="pleaseSelectrespondanttype">Please select Respondent type</string>
+    <string name="doesnotmatcherwithpass">This field is required and must match the value entered in the password field</string>
+    <string name="signupsuccess">You have been successfully signed up. Please Login.</string>
+    <string name="signupfail">Signup failed</string>
+    <string name="pleaseSelectsurveyLanguage">Please select your SURVEY STATE and LANGUAGE</string>
+    <string name="functioalityprogree">Functionality under progress..</string>
+    <string name="loading">Loading...</string>
+    <string name="dataAlreadynSyn">Data Already in Sync</string>
+    <string name="doyouwant">\"Do you want to download all stories?</string>
+    <string name="nooserveyimage">No survey images found</string>
+    <string name="failed">Failed</string>
+    <string name="syncTitle">Sync</string>
+    <string name="downloadingsurveypleasewait">Downloading stories. Please wait.</string>
+    <string name="syncing">Syncing..</string>
+    <string name="uploaded">Uploaded</string>
+    <string name="stories">stories..</string>
+    <string name="uploadingstroespleasewait">Uploading stories. Please wait</string>
+    <string name="uploading">Uploading</string>
+    <string name="uploadingstorw">Uploading stories..</string>
+    <string name="upload">upload</string>
+    <string name="downloading">Downloading</string>
+    <string name="datasync">Data Sync..</string>
+    <string name="syncneeded">Sync Needed</string>
+    <string name="oksyncnow">Ok, Sync Now</string>
+    <string name="youshouldsync">You should \"Sync\" data to get updates from ILP Konnect.</string>
+    <string name="surveysyncsucc">Survey synced success:</string>
+    <string name="surveysyncfail">Survey synced failed:</string>
+    <string name="question">question</string>
+    <string name="questiongroup">questiongroup</string>
+    <string name="resettingpassword">Resetting your password...</string>
+    <string name="overallreport">Summary report</string>
+    <string name="pleaseataachsurveyimage">Please attach survey image</string>
+    <string name="takephoto">Take Photo</string>
+    <string name="choosefromlib">Choose from gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="permission">Permission necessary</string>
+    <string name="externalstorage">External storage permission is necessary</string>
+    <string name="pleaseuploadimage">Please upload image</string>
+    <string name="pleaseSelectAppropriateImage">Please select appropriate image</string>
+    <string name="parents">Parents</string>
+    <string name="teachers">Teachers</string>
+    <string name="educationVol">Education Volunteers</string>
+    <string name="cbomember">CBO Member</string>
+    <string name="headermaster">Headmaster</string>
+    <string name="sdmcmember">SDMC Member</string>
+    <string name="localleaders">Local Leaders</string>
+    <string name="aksharastaff">Akshara Staff</string>
+    <string name="educatedyouth">Educated Youth</string>
+    <string name="govtofficial">Govt Official</string>
+    <string name="educationofficial">Education Official</string>
+    <string name="electedRepre">Elected Representative</string>
+    <string name="distancemsg"><![CDATA[This survey seems to be not taken within school premises Distance between school location & your location :]]></string>
+    <string name="distance">Distance</string>
+    <string name="meters">Meters</string>
+    <string name="km">km</string>
+    <string name="bydate">By Date</string>
+    <string name="all">All</string>
+    <string name="searchSurveyimage">Search survey images by?</string>
+    <string name="netWorkError">Network Error</string>
+</resources>

@@ -1,0 +1,114 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'io.fabric'
+
+android {
+    signingConfigs {
+        release
+        config {
+        }
+    }
+
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "in.org.klp.ilpkonnect"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 2
+        versionName "1.2"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    productFlavors {
+        local {
+            applicationId "in.org.ilp.konnect.local"
+            resValue "string", "app_name", "ILP Konnect Local"
+            buildConfigField 'String', 'HOST', '"http://192.168.1.105:8001"'
+//            buildConfigField 'String', 'HOST', '"https://klp.org.in"'
+        }
+        devel {
+            applicationId "in.org.ilp.konnect.development"
+            resValue "string", "app_name", "ILP Konnect Dev"
+            buildConfigField 'String', 'HOST', '"https://dev.klp.org.in"'
+        }
+        prod {
+            applicationId "in.org.klp.ilpkonnect"
+            resValue "string", "app_name", "ILP Konnect"
+            // change this back to https://klp.org.in after testing phase is done
+            buildConfigField 'String', 'HOST', '"https://klp.org.in"'
+        }
+    }
+}
+
+repositories {
+    jcenter()
+
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+apply plugin: 'com.neenbedankt.android-apt'
+
+play {
+    jsonFile = file('Google Play Android Developer-0b17472fdb08.json')
+    track = 'alpha'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    // squidb - https://github.com/yahoo/squidb
+    // SQLite Asset Helper - https://github.com/jgilfelt/android-sqlite-asset-helper
+    // Volley - https://android.googlesource.com/platform/frameworks/volley
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.zsoltsafrany:needle:1.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.2'
+    compile 'com.yahoo.squidb:squidb:3.0.0'
+    compile 'com.yahoo.squidb:squidb-annotations:3.0.0'
+    compile 'com.yahoo.squidb:squidb-android:3.0.0'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.android.support:cardview-v7:23.0.0'
+    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.google.android.gms:play-services-location:11.0.0'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'com.google.firebase:firebase-messaging:11.0.0'
+    testCompile 'junit:junit:4.12'
+    apt 'com.yahoo.squidb:squidb-processor:3.0.0'
+}
+
+def Properties props = new Properties()
+def propFile = new File('release.properties')
+if (propFile.canRead()) {
+    props.load(new FileInputStream(propFile))
+
+    if (props != null && props.containsKey('KEYSTORE') && props.containsKey('KEYSTORE_PASSWORD') &&
+            props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(props['KEYSTORE'])
+        android.signingConfigs.release.storePassword = props['KEYSTORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+    } else {
+        println 'release.properties found but some entries are missing'
+        android.buildTypes.release.signingConfig = null
+    }
+} else {
+    println 'release.properties not found'
+    android.buildTypes.release.signingConfig = null
+}
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:stretchColumns="0,1"
+    tools:context="in.org.klp.ilpkonnect.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.3"
+        android:cropToPadding="false"
+        android:src="@drawable/ilp_logo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/survey_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorBrandTurquoise"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="@string/survey"
+            android:textColor="@color/colorWhite"
+            android:textSize="8pt" />
+
+        <Button
+            android:id="@+id/sync_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorBrandTurquoise"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="@string/updateSurvey"
+            android:textColor="@color/colorWhite"
+            android:textSize="8pt" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:layout_marginTop="-10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/syncSurvey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+
+            android:layout_weight="1"
+            android:background="@color/colorBrandTurquoise"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="@string/surveySync"
+            android:textColor="@color/colorWhite"
+            android:textSize="8pt" />
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+       android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_weight="0.1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5pt"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#55000000">
+
+        </LinearLayout>
+    <TextView
+        android:id="@+id/tvSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="center"
+        android:text="@string/settings"></TextView>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorGreyMist"
+    tools:context="in.org.klp.ilpkonnect.BoundarySelectionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@color/commonGreenLeaf"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textViewSurveyName"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/textViewSurveyPartner"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reportType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:background="@color/colorGreyMist"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txReport"
+            android:text="@string/selectSummaryLevel" />
+
+        <Spinner
+            android:id="@+id/spnReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_select_boundary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGreyMist"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_district" />
+
+        <Spinner
+            android:id="@+id/select_district"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txBlock"
+            android:text="@string/prompt_block" />
+
+        <Spinner
+            android:id="@+id/select_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txCluster"
+            android:text="@string/prompt_cluster" />
+
+        <Spinner
+            android:id="@+id/select_cluster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linSpinSchool"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_select_school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_school"
+                />
+
+            <Spinner
+                android:id="@+id/select_school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                 />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/date_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none" />
+
+            <EditText
+                android:id="@+id/end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
+                android:inputType="date" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/report_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/buttonripple"
+            android:text="@string/reports"
+            android:textColor="@color/colorWhite"
+            android:visibility="gone" />
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/linBackSchool"
+    android:background="@color/commonGreenLeaf">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/schools"
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:textSize="18sp"/>
+</LinearLayout>
+    <ListView
+        android:id="@+id/school_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
+
+
+
+

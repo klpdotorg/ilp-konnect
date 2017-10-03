@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <Spinner
+        android:id="@+id/spnSurveyType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_rect"
+        android:gravity="center"
+        android:minHeight="40dp"
+        android:padding="4sp"
+        android:textSize="15sp"
+
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:minHeight="80dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnComminitySurvey"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/ripple"
+
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/communitySurvey"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:id="@+id/btnGkMonitoring"
+            android:background="@drawable/ripple"
+
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/gkaMonitoring"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+</LinearLayout>

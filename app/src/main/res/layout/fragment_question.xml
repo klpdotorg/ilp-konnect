@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/commonGreenLeaf"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textViewSchool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorWhite"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/textViewSchoolId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/colorWhite"
+            android:textIsSelectable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGreyMist"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_user_type" />
+
+        <Spinner
+            android:id="@+id/spinnerUserType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:id="@+id/linLayout"
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+<TextView
+    android:layout_width="0dp"
+    android:layout_weight="0.8"
+    android:gravity="center|left"
+    android:id="@+id/tvImageName"
+    android:layout_height="match_parent"
+    android:text="@string/pleaseataachsurveyimage"/>
+<ImageView
+    android:layout_width="0dp"
+    android:layout_weight="0.2"
+    android:id="@+id/imgBtnImage"
+    android:layout_height="wrap_content"
+    app:srcCompat="@drawable/camera_vector"
+    />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="0"
+        android:background="@drawable/buttonripple"
+        android:text="@string/Submit"
+        android:textColor="@color/colorWhite" />
+</LinearLayout>
