@@ -13,7 +13,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-
+//temp
 
         super.attachBaseContext(KLPApplication.updateLanguage(newBase));
 
