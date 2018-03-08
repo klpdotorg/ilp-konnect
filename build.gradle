@@ -1,0 +1,33 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+
+
+
+        google()
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+
+        // The Fabric Gradle plugin uses an open ended version to react
+        // quickly to Android tooling updates
+
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

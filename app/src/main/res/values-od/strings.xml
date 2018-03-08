@@ -1,0 +1,319 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="response_neutral">ଓକେ</string>
+    <string name="response_positive">ହଁ</string>
+    <string name="response_negative">ନା</string>
+
+    <string name="action_settings">ସେଟିଙ୍ଗସ୍</string>
+    <string name="action_logout">ଲଗ୍ ଆଉଟ୍</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="title_activity_survey">Surveys</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="questions">Take me to the questions!</string>
+    <string name="reports">ରିପୋର୍ଟ ଅନୁଭାଗ କୁ ନିଅ!</string>
+
+    <!-- Strings related to Boundary selection -->
+    <string name="district">ଜିଲା</string>
+    <string name="block">ବ୍ଲକ</string>
+    <string name="cluster">କ୍ଲଷ୍ଟର</string>
+    <string name="school">ସ୍କୁଲ</string>
+    <string name="prompt_district">ଜିଲ୍ଲା ବାଛନ୍ତୁ</string>
+    <string name="prompt_block">ବ୍ଲକ ବାଛନ୍ତୁ</string>
+    <string name="prompt_cluster">କ୍ଲଷ୍ଟର ବାଛନ୍ତୁ</string>
+    <string name="prompt_school">ସ୍କୁଲ ବାଛନ୍ତୁ</string>
+    <string name="prompt_user_type">ପ୍ରତିବାଦୀଙ୍କ ପ୍ରକାର ବାଛନ୍ତୁ</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_register">Not a user yet?</string>
+    <string name="prompt_login">Already a user?</string>
+    <string name="register">ରେଜିଷ୍ଟର</string>
+    <string name="login">ଲଗ୍ ଇନ୍</string>
+    <string name="changePassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ବଦଳ</string>
+    <string name="forgotPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲି ଗଲେ କି?</string>
+    <string name="confirmPassword">ପାସୱାର୍ଡ୍ ସୁନିଶ୍ଚିତ କରନ୍ତୁ</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">ଲଗ୍ ଇନ୍</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">ଏହି ଫିଲ୍ଡଟି ପୁରଣ କରିବା ଦରକାର</string>
+    <string name="permission_rationale">Location permissions are needed</string>
+
+    <string name="title_activity_question">ପ୍ରଶ୍ନମାନ</string>
+
+    <!-- Dialog button strings -->
+    <string name="Submit">ସବମିଟ</string>
+    <string name="Cancel">କ୍ୟାନସଲ</string>
+    <string name="Ok">ଓକେ</string>
+    <string name="Ok_">ଓକେ</string>
+
+
+    <!-- Strings for sign up activity -->
+
+    <string name="title_activity_forgot_password">ପାସୱାର୍ଡ୍ ଭୁଲି ଗଲେ କି</string>
+    <string name="prompt_enter_email">E-MAIL/MOBILE NUMBER</string>
+    <string name="prompt_enter_email1">ଇମେଲ୍</string>
+    <string name="prompt_enter_email1_">ଇମେଲ୍ (Optional)</string>
+    <string name="prompt_enter_password">ପାସୱାର୍ଡ୍</string>
+    <string name="prompt_verify_password">ରି-ଏଣ୍ଟର ପାସୱାର୍ଡ୍</string>
+    <string name="first_name">ପ୍ରଥମ ନାମ</string>
+    <string name="last_name">ଶେଷ ନାମ</string>
+    <string name="mobile_number">ମୋବାଇଲ ନ.</string>
+    <string name="action_register">ରେଜିଷ୍ଟର</string>
+    <string name="title_activity_boundary_selection">Choose your Boundary</string>
+    <!-- survey activity strings -->
+    <string name="new_response">ସ୍କୁଲ ପର୍ଯ୍ୟବେକ୍ଷଣ</string>
+    <string name="generate_report">ସର୍ବେକ୍ଷଣ ରିପୋର୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="list_stories">ସମସ୍ତ ଗଳ୍ପମାନ</string>
+    <!--Story list activity-->
+    <string name="meta_medium">ସର୍ବମୋଟ ଉତ୍ତର: %1$s</string>
+<!--    <string name="meta_small">ଗଳ୍ପ କର୍ତ୍ତା %1$s on %2$s</string>-->
+    <string name="meta_small">%1$s  %2$s</string>
+    <string name="meta_total">ସର୍ବମୋଟ ଗଳ୍ପ: %1$d</string>
+    <string name="meta_total_">ସର୍ବମୋଟ ଗଳ୍ପ:0</string>
+    <string name="meta_daterange">From %1$s to %2$s</string>
+    <string name="meta_total_by_user">ସର୍ବମୋଟ ଗଳ୍ପ ଆପଣଙ୍କ ଦ୍ୱାରା:  %1$d</string>
+    <string name="meta_total_by_user_">ସର୍ବମୋଟ ଗଳ୍ପ ଆପଣଙ୍କ ଦ୍ୱାରା: 0</string>
+    <string name="meta_total_by_user_nsy">ଆପଣକଂ ଗଳ୍ପମାନ ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ: %1$d</string>
+    <string name="meta_total_by_user_nsy_">ଆପଣକଂ ଗଳ୍ପମାନ ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ:0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="backtologin">BACK TO <u>LOGIN</u></string>
+    <string name="prompt_start_date">ଆରମ୍ଭ ତାରିଖ</string>
+    <string name="prompt_end_date">ଶେଷ ତାରିଖ</string>
+    <string name="answer_yes">ହଁ</string>
+    <string name="answer_no">ନା</string>
+    <string name="answer_unknown">ଜଣା ନାହିଁ</string>
+
+    <string name="prompt_new_rsponse">ଅନ୍ୟ ଏକ ଉତ୍ତର ରେକର୍ଡ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
+
+    <!--empty response-->
+    <string name="survey_empty_response_title">କୌଣସି ପ୍ରଶ୍ନର ଉତ୍ତର ଦିଆ ଯାଇ ନାହିଁ!</string>
+    <string name="survey_empty_response_body">* ଗଳ୍ପ ଦାଖଲ କରିବା ପାଇଁ ଏକ ବା ଅଧିକ ଉତ୍ତର ନିଶ୍ଚୟ ଦିଅନ୍ତୁ </string>
+
+
+    <!-- Shridhar Dev-->
+    <string name="enter_valid_email_or_Phone">ଦୟା କରି ସଠିକ ଦଶ ଅଙ୍କ ମୋବାଇଲ ନମ୍ବର ଏଣ୍ଟେର କରନ୍ତୁ </string>
+    <string name="enter_valid_email">ଦୟା କରି କୌଣସି ବୈଧ ଇମେଲ୍ ଠିକଣା ଦିଅନ୍ତୁ</string>
+    <string name="enter_ten_digit_number">ଦୟା କରି ସଠିକ ଦଶ ଅଙ୍କ ମୋବାଇଲ ନମ୍ବର ଏଣ୍ଟେର କରନ୍ତୁ </string>
+
+    <string name="selectState">ଆପଣଙ୍କ ଭାଷା ବାଛନ୍ତୁ</string>
+    <string name="selectLanguage">ସ୍କୁଲ ସର୍ବେକ୍ଷଣ ପାଇଁ ପରିସୀମା ବାଛନ୍ତୁ</string>
+
+    <string name="english">English</string>
+
+
+
+
+
+    <array name="reportType">
+        <item>ଜିଲା</item>
+        <item>ବ୍ଲକ</item>
+        <item>କ୍ଲଷ୍ଟର</item>
+        <item>ସ୍କୁଲ</item>
+
+
+    </array>
+
+
+    <string name="noInternetCon">ଇଣ୍ଟର୍ନେଟ୍ ସଂଯୋଗ ଉପଲବ୍ଧ ନାହିଁ</string>
+
+
+    <string name="authenticating">ପ୍ରାମାଣିକତା ଚାଲିଛି...</string>
+    <string name="resetPassword">ପାସୱାର୍ଡ୍ ରିସେଟ୍</string>
+    <string name="numberOfSchools"> ସ୍କୁଲ ସଂଖ୍ୟା</string>
+    <string name="numberOfSchoolsWithRespo">ଅନୁକ୍ରିୟା ମିଳିଥିବା ସ୍କୁଲ ସଂଖ୍ୟା</string>
+    <string name="numberOfRespo">ଅନୁକ୍ରିୟା ସଂଖ୍ୟା</string>
+
+
+    <string name="sync">ସିଂକ୍ରୋନାଇଜ୍</string>
+    <string name="uploadingStories">ବୃତ୍ତାନ୍ତମାନ ଅପଲୋଡ୍ ଚାଲିଛି</string>
+    <string name="downloadingSurvey"> ସର୍ବେକ୍ଷଣ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି</string>
+    <string name="downloadingQuestion"> ପ୍ରଶ୍ନ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି</string>
+    <string name="downloadingQuestionGroup">ପ୍ରଶ୍ନ ସମୂହ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି</string>
+    <string name="survey"> ସର୍ବେକ୍ଷଣ </string>
+    <string name="updateSurvey">ସର୍ବେକ୍ଷଣ ଅଦ୍ୟତନ କରନ୍ତୁ</string>
+    <string name="settings">ସେଲେସତ ଷ୍ଟେଟ-ଲଙ୍ଗୁଆଗେ </string>
+    <string name="surveySync">Survey Sync</string>
+    <string name="next">ପରବର୍ତ୍ତୀ</string>
+    <string name="surveyType">ସର୍ବେକ୍ଷଣ ବାଛନ୍ତୁ</string>
+    <string name="dataAlreadynSync">ଡାଟା ଅଲରାଡି ଆଉଟ-ସ୍ୱୟଂସଡ଼ </string>
+    <string name="summary">ଉସେର ସୁମମାରୀ</string>
+    <string name="download_survey">ସର୍ବେକ୍ଷଣ ପ୍ରଶ୍ନ ସମୂହ ଡାଉନ୍‌ଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="syncSurvey">ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
+
+    <string name="communitySurvey">Community\nSurvey</string>
+    <string name="gkaMonitoring">Ganitha Kalika\nAndolana</string>
+
+
+    <string name="communitySurvey1">Community Survey</string>
+    <string name="gkaMonitoring1">Ganitha Kalika Andolana</string>
+
+
+
+
+
+
+
+
+
+
+    <string name="responseSaved">ସର୍ବେକ୍ଷଣ ସଂରକ୍ଷଣ ସଫଳ</string>
+    <string name="selectSummaryLevel">ସାରାଂଶ ସ୍ତର ବାଛନ୍ତୁ</string>
+    <string name="selectReportLevel">ରିପୋର୍ଟ୍ ସ୍ତର ବାଛନ୍ତୁ</string>
+    <string name="new_Password">ନୂଆ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+    <string name="loadSurveyImage"><u>ସର୍ବେକ୍ଷଣ ଫଟୋ ଲୋଡ କରନ୍ତୁ</u></string>
+
+    <string name="dob">ଜନ୍ମ ତାରିଖ(DD-MM-YYYY)</string>
+    <string name="schools">ସ୍କୁଲ</string>
+    <string name="pleaseSelectrespondanttype">ପ୍ରତିବାଦୀଙ୍କ ପ୍ରକାର ବାଛନ୍ତୁ</string>
+    <string name="doesnotmatcherwithpass">ଏହି ଫିଲ୍ଡଟି ନିହାତି ଜ଼ରୁରୀ ଏବଂ ଏହା ପାସୱାର୍ଡ୍ ସହ ସମାନ ହେବା ଦରକାର </string>
+    <string name="signupsuccess">ଆପଣ ସଫଳତାର ସହ ସାଇନ୍ଅପ୍ କରି ପାରିଛନ୍ତି | ଏବେ ଲଗ୍ ଇନ୍ କରନ୍ତୁ </string>
+
+    <string name="pleaseSelectsurveyLanguage"> ଆପଣଙ୍କ ସର୍ବେକ୍ଷଣ ରାଜ୍ୟ ଏବଂ ଭାଷା ବାଛନ୍ତୁ</string>
+    <string name="functioalityprogree">Functionality under progress..</string>
+    <string name="loading">ଲୋଡ୍ ଚାଲିଛି...</string>
+    <string name="dataAlreadynSyn">ଡାଟା ସିଂକ୍ରୋନାଇଜ୍ ସରିଛି</string>
+    <string name="doyouwant">ସମସ୍ତ ବୃତ୍ତାନ୍ତମାନ ଡାଉନ୍‌ଲୋଡ୍ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
+    <string name="nooserveyimage">ସର୍ବେକ୍ଷଣ ଫଟୋ ମିଳିଲା ନାହିଁ</string>
+    <string name="failed">ଅସଫଳ!!!</string>
+    <string name="syncTitle">ସିଂକ୍ରୋନାଇଜ୍</string>
+    <string name="downloadingsurveypleasewait">ବୃତ୍ତାନ୍ତମାନ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି | ଦୟା କରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
+    <string name="syncing">ସିଂକ୍ରୋନାଇଜ୍ ଚାଲିଛି</string>
+    <string name="uploaded">ଅପଲୋଡ୍ ସରିଲା</string>
+    <string name="stories">ବୃତ୍ତାନ୍ତମାନ</string>
+    <string name="uploadingstroespleasewait">ବୃତ୍ତାନ୍ତମାନ ଅପଲୋଡ୍ ଚାଲିଛି | ଦୟା କରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
+    <string name="uploading"> ଅପଲୋଡ୍ ଚାଲିଛି </string>
+    <string name="uploadingstorw">ଡାଟା ଲୋଡ୍ ଚାଲିଛି...</string>
+    <string name="upload">ଅପଲୋଡ୍</string>
+    <string name="downloading"> ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି </string>
+    <string name="datasync">ଡାଟା ସିଂକ୍ରୋନାଇଜ୍...</string>
+    <string name="syncneeded">ସିଂକ୍ରୋନାଇଜ୍ ଦରକାର</string>
+    <string name="oksyncnow">Ok, ସିଂକ୍ରୋନାଇଜ୍ ଚାଲୁ କରନ୍ତୁ ଏବେ</string>
+    <string name="youshouldsync">ILP Konnect  ରୁ ଯେ କୌଣସି ଅଦ୍ୟତନ ପାଇବା ପାଇଁ ଡାଟା ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
+    <string name="surveysyncsucc">ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ ସଫଳ:</string>
+    <string name="surveysyncfail">ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ ଅସଫଳ:</string>
+    <string name="question">ପ୍ରଶ୍ନ</string>
+    <string name="questiongroup">ପ୍ରଶ୍ନ ସମୂହ</string>
+    <string name="resettingpassword">ପାସୱାର୍ଡ୍ ରିସେଟ୍ ଚାଲିଛି...</string>
+    <string name="overallreport">ସାରାଂଶ ରିପୋର୍ଟ୍</string>
+    <string name="pleaseataachsurveyimage">କ୍ଲାସ୍ ରେ ଶିକ୍ଷକ ପଢେଇଲା ବେଳେ କିମ୍ବା ଵିଦ୍ୟାର୍ଥୀମାନେ ଦଳଗତ କାମ କରିଲା ବେଳେ ଫଟୋ ଉଠାନ୍ତୁ</string>
+    <string name="takephoto">ଫଟୋ ଉଠାନ୍ତୁ</string>
+    <string name="choosefromlib">Gallery ରୁ ବାଛନ୍ତୁ</string>
+    <string name="cancel">କ୍ୟାନସଲ</string>
+    <string name="permission">ଅନୁମତି ଜ଼ରୁର</string>
+    <string name="externalstorage">ବାହ୍ୟ ଷ୍ଟୋରେଜ୍ ପାଇଁ ଅନୁମତି ଦରକାର</string>
+    <string name="pleaseuploadimage">* ଫଟୋ ଅପଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="pleaseSelectAppropriateImage">ଉପଯୁକ୍ତ ଫଟୋ ଅପଲୋଡ୍ ବାଛନ୍ତୁ</string>
+
+
+    <string name="parents">ମାତାପିତା</string>
+    <string name="teachers">ଶିକ୍ଷକ</string>
+    <string name="educationVol">ଶିକ୍ଷା ସ୍ବେଚ୍ଛାସେବକ</string>
+    <string name="cbomember">CBO Member</string>
+    <string name="headermaster">ପ୍ରଧାନ ଅଧ୍ୟାପକ</string>
+    <string name="sdmcmember">ସ୍କୁଲ ପରିଚାଳନ କମିଟି ମେମ୍ବର</string>
+    <string name="localleaders">ସ୍ଥାନୀୟ ନେତା</string>
+    <string name="aksharastaff">Akshara କର୍ମଚାରୀ</string>
+    <string name="educatedyouth">ଶିକ୍ଷିତ ଯୁବ</string>
+    <string name="govtofficial">ସରକାରୀ ଅଧିକାରୀ</string>
+    <string name="educationofficial">CRP</string>
+    <string name="electedRepre">ନିର୍ବାଚିତ ପ୍ରତିନିଧି</string>
+
+
+    <string name="bydate">ତାରିଖ ପର୍ଯ୍ୟନ୍ତ</string>
+    <string name="all">ସମସ୍ତ</string>
+    <string name="searchSurveyimage">ସର୍ବେକ୍ଷଣ ଫଟୋ ସନ୍ଧାନ Criteria</string>
+    <string name="netWorkError">ନେଟ୍‌ୱାର୍କ୍ ତ୍ରୁଟି</string>
+    <string name="nextbutton">ପରବର୍ତ୍ତୀ</string>
+    <string name="enterValidDate">ବୈଧ ତାରିଖ ଫର୍ମାଟ୍(DD-MM-YYYY) Enter କରନ୍ତୁ</string>
+    <string name="enteredDateinFuture">ଭବିଷ୍ୟତ ତାରିଖ Enter  କରିପାରିବେ ନାହିଁ</string>
+    <string name="survey_taken"> ସର୍ବେକ୍ଷଣ ନେଇ ସାରିଛନ୍ତି | ଦୟା କରି ଇଣ୍ଟରନେଟ୍ ଜୋନ ରେ ଆସିଲେ ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
+    <string name="updateProfile">ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ</string>
+    <string name="response_summary">ସାରାଂଶ ଅନୁକ୍ରିୟା</string>
+    <string name="synced">ସିଂକ୍ରୋନାଇଜ୍ ହୋଇଗଲା</string>
+    <string name="notSynced">ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ</string>
+    <string name="noSummarydetail">ସାରାଂଶ ମିଳିଲା ନାହିଁ</string>
+    <string name="noschoolfound">ସ୍କୁଲ ମିଳିଲା ନାହିଁ </string>
+    <string name="noblock">ବ୍ଲକ ମିଳିଲା ନାହିଁ</string>
+    <string name="noClusterfound">Cluster ମିଳିଲା ନାହିଁ</string>
+    <string name="getAllSurveystories">ସମସ୍ତ ସର୍ବେକ୍ଷଣ ବୃତ୍ତାନ୍ତମାନ ଦେଖନ୍ତୁ</string>
+    <string name="setup">ଦଉନ୍ଲୋଡ ଡିଷ୍ଟ୍ରିସସ୍ତା-ମିଳିଲା ନାହିଁ</string>
+    <string name="updating_profile">ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ ଚାଲିଛି...</string>
+    <string name="profileUpdatedSuccessfully">ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ ସଫଳ ହେଲା</string>
+    <string name="oops">ତ୍ରୁଟି ପାଇଁ କ୍ଷମା କରିବେ | ଦୟା କରି କୀଚଚି ସମୟ ପରେ ଲଗ୍ ଇନ୍ କରନ୍ତୁ </string>
+    <string name="name_of_survey">ସର୍ବେକ୍ଷଣର ନାମ: </string>
+    <string name="total_number_of_survey_synced">ସିଂକ୍ରୋନାଇଜ୍ ହୋଇଥିବା ସର୍ବମୋଟ ସର୍ବେକ୍ଷଣ: </string>
+    <string name="total_number_of_school_surveyd">ସର୍ବେକ୍ଷଣ କରାଯାଇଥିବା ସର୍ବମୋଟ ସ୍କୁଲ :</string>
+    <string name="total_number_of_survey_pending">ସିଂକ୍ରୋନାଇଜ୍ ହେବା ଲାଗି ବାକି ଥିବା  ସର୍ବମୋଟ ସର୍ବେକ୍ଷଣ:</string>
+    <string name="mySummary">My Summary</string>
+    <string name="fromData">ଆରମ୍ଭ ତାରିଖ (DD-MM-YYYY)</string>
+    <string name="endDate">ଶେଷ ତାରିଖ (DD-MM-YYYY)</string>
+    <string name="invalidOTP">ଅବୈଧ OTP</string>
+    <string name="otpSentonNumber">OTP ଆପଣଙ୍କ ରେଜିଷ୍ଟର କରିଥିବା ମୋବାଇଲେରେ ପଠା ଯାଇଛି</string>
+    <string name="enterOTPCode">OTP ଏଣ୍ଟେର କରନ୍ତୁ</string>
+    <string name="passwordChanged">ପାସୱାର୍ଡ୍ ରିସେଟ୍ ସଫଳ</string>
+
+
+
+
+
+
+    //Language
+    <string name="selectStateForLanguage">ରାଜ୍ୟ ବାଛନ୍ତୁ</string>
+    <string name="selectLanguageForLanguage">ଭାଷା ବାଛନ୍ତୁ</string>
+    <string name="selectYourState">---- ଆପଣଙ୍କ ସର୍ବେକ୍ଷଣ ରାଜ୍ୟ ଏବଂ ଭାଷା ବାଛନ୍ତୁ ----</string>
+    <string name="selectYourLanguage">---- ଭାଷା ବାଛନ୍ତୁ ----</string>
+    <string name="sendOTP">OTP ପଠାନ୍ତୁ</string>
+    <string name="enterMobileNumber">ମୋବାଇଲେ ନ. ଏଣ୍ଟେର କରନ୍ତୁ</string>
+    <string name="update">ଅଦ୍ୟତନ କରନ୍ତୁ</string>
+    <string name="loadingStateDistrict">ଜିଲା ଲୋଡ୍ ଚାଲିଛି ...</string>
+    <string name="districtblockloading">ଜିଲାର: ବ୍ଲକ ଲୋଡ୍ ଚାଲିଛି ...</string>
+    <string name="districtClusterLoading">ଜିଲାର: Cluster ଲୋଡ୍ ଚାଲିଛି ...</string>
+    <string name="districtsSchoolLoading">ଜିଲାର ସ୍କୁଲ ଲୋଡ୍ ଚାଲିଛି .It will take few minutes for download to complete. Thanks for your patience !!!</string>
+    <string name="districtLeveldataLoadedSchussfully">ଜିଲା ଡାଟା ଲୋଡ୍ ସଫଳ</string>
+    <string name="pleaseLoadDataforSelectedState">ଚୟନ କରାଯାଇଥିବା ରାଜ୍ୟ ପାଇଁ ଡାଟା ଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="downloadDistrcitData">ନୋଟ: ଦରକାର ଥିବା ଜିଲାର ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="downloadDistrcitDataNext">ନୋଟ: ଜିଲା ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ କରନ୍ତୁ ପରବର୍ତୀ ନେଭିଗେଟ୍ କରିବା ପାଇଁ </string>
+    <string name="districtDownloaded">ଜିଲା ଡାଉନ୍‌ଲୋଡ୍ ଶେଷ</string>
+    <string name="pleaseEnterValidOTP">ବୈଧ OTP ଏଣ୍ଟେର କରନ୍ତୁ</string>
+    <string name="forgotPasswordqu">ପାସୱାର୍ଡ୍ ଭୁଲି ଗଲେ କି?</string>
+    <string name="selectDistrict">--ଜିଲ୍ଲା ବାଛନ୍ତୁ--</string>
+    <string name="to">ଠାରୁ</string>
+    <string name="downloadedSurveysandQuestions">ସର୍ବେକ୍ଷଣ ପ୍ରଶ୍ନମାନ ଡାଉନ୍‌ଲୋଡ୍ ସଫଳ</string>
+    <string name="profileUpdationFailed">ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ  ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="schoolloadingfailed">ସ୍କୁଲ ଡାଟା ଲୋଡ୍ ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="summaryLoadingFailed">ସାରାଂଶ ଡାଟା ଲୋଡ୍  ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="reportsLoadingFailed">ରିପୋର୍ଟ ଡାଟା ଲୋଡ୍  ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="questionLoadingFailed">ସର୍ବେକ୍ଷଣ ପ୍ରଶ୍ନମାନ ଲୋଡ୍  ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="syncFailed">ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ ଅସଫଳ</string>
+    <string name="clusterDataLoadingFailed">କ୍ଲଷ୍ଟର ଡାଟା ଲୋଡ୍ ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="districtDataLoadingFailed">ଜିଲା ଡାଟା ଲୋଡ୍ ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="blocksDataLoadingFailed">ବ୍ଲକ ଡାଟା ଲୋଡ୍ ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="stateLoadingFailed">ରାଜ୍ୟ ଡାଟା ଲୋଡ୍ ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="surveyLoadingfailed">ସର୍ବେକ୍ଷଣ ଡାଟା ଲୋଡ୍ ଅସଫଳ... ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="pleaseSelectrespondanttypequestion">ପ୍ରତିବାଦୀଙ୍କ ପ୍ରକାର ବାଛନ୍ତୁ</string>
+    <string name="districtDataAlreadyFound">ବ୍ଲକ ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ ସରିଛି| ପୁନଃବାର ଡାଉନ୍‌ଲୋଡ୍ ଚାହାନ୍ତି କି?</string>
+    <string name="surveyQuestionNotFound">ସର୍ବେକ୍ଷଣ ପ୍ରଶ୍ନମାନ ପୁନଃବାର ଡାଉନ୍‌ଲୋଡ୍ କରି ଭରନ୍ତୁ </string>
+    <string name="doyouwantToLogout">ଆପଣ ନିଶ୍ଚିତ ଲଗ୍ ଆଉଟ୍ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
+
+    <string name="blockDataAlreadyFound">ବ୍ଲକର ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ ସରିଛି| ପୁନଃବାର ଡାଉନ୍‌ଲୋଡ୍ ଚାହାନ୍ତି କି?</string>
+    <string name="blockSchoolLoading">ବ୍ଲକର ସ୍କୁଲ ଲୋଡ୍ ଚାଲିଛି...କିଛି ମିନିଟ୍ ଲାଗିବ| ଆପଣଙ୍କ ଧୈର୍ଯ୍ୟ ପାଇଁ ଧନ୍ୟବାଦ| </string>
+    <string name="blockLeveldataLoadedSchussfully">ବ୍ଲକ ଡାଟା ଲୋଡ୍ ସଫଳ</string>
+    <string name="selectblock">--ବ୍ଲକ ବାଛନ୍ତୁ--</string>
+    <string name="blockandCLusterdownloaded">ଜିଲାର ବ୍ଲକ ଏବଂ କ୍ଲଷ୍ଟର ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ ସରିଛି| ପୁନଃବାର ଡାଉନ୍‌ଲୋଡ୍ ଚାହାନ୍ତି କି?</string>
+    <string name="allSurvey">ଦାଖଲ କରାଯାଇଥିବା ସମସ୍ତ ସର୍ବେକ୍ଷଣ ୨୪ ଘଣ୍ଟାର ସିଂକ୍ରୋନାଇଜ୍ ପରେ ରିପୋର୍ଟ ସୃଷ୍ଟି କରିବା ଲାଗି ଉପଲବ୍ଧ ହେବ</string>
+    <string name="selectgrade">ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ</string>
+    <string name="FAQ">FAQ</string>
+    <string name="pleaseLoginandcontue">Please login and continue</string>
+
+
+    <string-array name="grade_array">
+        <item>-- ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ --</item>
+        <item>grade - 1</item>
+        <item>grade - 2</item>
+        <item>grade - 3</item>
+        <item>grade - 4</item>
+        <item>grade - 5</item>
+
+    </string-array>
+</resources>

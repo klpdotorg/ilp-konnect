@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="in.org.klp.ilpkonnect">
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".KLPApplication"
+        android:allowBackup="false"
+        android:icon="@drawable/ilp_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/KLPTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+     <!--   <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme" />-->
+        <activity
+            android:name=".OTP_VarifyActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme" />
+   <!--     <activity
+            android:name=".SurveyActivity"
+            android:label="@string/title_activity_survey"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.org.klp.ilpkonnect.MainActivity" />
+        </activity>-->
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme">
+
+        </activity>
+
+        <service android:name=".SyncIntentService" />
+
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/title_activity_question"
+
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme">
+
+        </activity>
+
+
+        <activity
+            android:name=".UserRegistrationActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.org.klp.ilpkonnect.LoginActivity" />
+        </activity>
+
+        <receiver
+            android:name=".NetworkChangeReceiver"
+            android:label="NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.org.klp.ilpkonnect.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".ForgotPasswordOTP"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme"></activity>
+        <activity
+            android:name=".BoundarySelectionActivity"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".LoadSurveyImage"
+            android:label="@string/app_name"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".SurveyTypeActivity"
+            android:label="@string/surveyType"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".utils.AppSettings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainDashList"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".UpdateProfileActivity"
+            android:label="@string/updateProfile"
+            android:theme="@style/KLPTheme">
+
+        </activity>
+        <activity
+            android:name=".DataLoad.TempLoading"
+            android:label="@string/setup"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".SummaryActiivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/app_name"
+
+
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+
+        <activity
+            android:name=".StoriesActivity"
+            android:launchMode="singleInstance"
+            android:parentActivityName=".BoundarySelectionActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.org.klp.ilpkonnect.BoundarySelectionActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MyFirebaseInstanceIDService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".SummaryDateScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LanguageSelectionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".FaqPackage.FaqActivity"
+            android:label="@string/FAQ"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".UpdateProfileBeforeLoginActivity"
+            android:label="@string/updateProfile"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

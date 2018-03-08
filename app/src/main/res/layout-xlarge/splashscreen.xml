@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/tv1"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:gravity="center"
+
+
+        app:srcCompat="@drawable/ilp_logo" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#000000"
+        android:textSize="50sp"
+        android:typeface="sans" />
+
+
+
+
+    <!--  <ProgressBar
+
+          android:layout_width="wrap_content"
+          android:layout_marginTop="50dp"
+
+          android:progressDrawable="@drawable/progressstyle"
+          android:layout_height="wrap_content" />-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:id="@+id/btnInternt"
+        android:visibility="gone"
+        android:text="@string/noInternetCon"/>
+
+
+</LinearLayout>
