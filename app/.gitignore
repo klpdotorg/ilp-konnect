@@ -17,3 +17,9 @@ local.properties
 .signing/
 
 .app/build.gradle
+
+/build
+/.idea
+*.iml
+
+.DS_Store
