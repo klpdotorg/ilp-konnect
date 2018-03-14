@@ -146,7 +146,7 @@ public class StoriesActivity extends BaseActivity {
         //Toast.makeText(getApplicationContext(),surveyId+":"+surveyType,Toast.LENGTH_SHORT).show();
 
         try {
-            while (qgCursor.moveToFirst()) {
+            while (qgCursor!=null&&qgCursor.moveToFirst()) {
                 Long questionGroupId = qgCursor.get(QuestionGroup.ID);
                 Query listQGQquery = Query.select().from(QuestionGroupQuestion.TABLE)
                         .where(QuestionGroupQuestion.QUESTIONGROUP_ID.eq(questionGroupId));

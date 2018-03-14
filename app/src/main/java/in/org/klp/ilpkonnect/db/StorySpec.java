@@ -39,5 +39,11 @@ public class StorySpec {
     @ColumnSpec(name="state")
     public String state_key;
 
+    @ColumnSpec(name="group_value")
+    public String group_value;
+
+    @ColumnSpec(name="comments")
+    public String comments;
+
 
 }

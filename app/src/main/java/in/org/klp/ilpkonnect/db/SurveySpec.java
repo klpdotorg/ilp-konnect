@@ -32,6 +32,15 @@ public class SurveySpec {
     @ColumnSpec(name = "comment_required")
     public boolean commentRequired;
 
+
+
+    @ColumnSpec(name = "respondent_required")
+    public boolean respondentRequired;
+
+
+    @ColumnSpec(name = "grade_required")
+    public String gradeRequired;
+
     @ColumnSpec(name = "state_key")
     public String state_key;
 

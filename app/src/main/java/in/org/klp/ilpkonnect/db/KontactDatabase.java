@@ -73,6 +73,7 @@ public class KontactDatabase extends SquidDatabase {
                 Summmary.TABLE,
                 Respondent.TABLE,
                 SummaryInfo.TABLE,
+                Surveyuser.TABLE,
                 MySummary.TABLE
 
 

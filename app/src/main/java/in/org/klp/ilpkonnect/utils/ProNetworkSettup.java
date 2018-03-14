@@ -60,6 +60,7 @@ import in.org.klp.ilpkonnect.db.State;
 import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
+import in.org.klp.ilpkonnect.db.Surveyuser;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -92,13 +93,13 @@ public class ProNetworkSettup {
 
 
     public void getSurveyandQuestionGroup(String url, final String stateKey, final String token, final StateInterface stateInterface) {
-        apiInterface.getSurveyAndQuestionGFromNetworn(url,token).enqueue(new Callback<SurveyAndQuestionGrPojo>() {
+        apiInterface.getSurveyAndQuestionGFromNetworn(url, token).enqueue(new Callback<SurveyAndQuestionGrPojo>() {
             @Override
             public void onResponse(Call<SurveyAndQuestionGrPojo> call, Response<SurveyAndQuestionGrPojo> response) {
 
                 if (response.body() != null && response.code() == 200) {
 
-                    parseSurveyandQuestionGroup(response.body(), stateInterface, stateKey,token);
+                    parseSurveyandQuestionGroup(response.body(), stateInterface, stateKey, token);
 
 
                 } else {
@@ -119,11 +120,12 @@ public class ProNetworkSettup {
 
     }
 
-    private void parseSurveyandQuestionGroup(SurveyAndQuestionGrPojo body, StateInterface stateInterface, String stateKey,String token) {
+    private void parseSurveyandQuestionGroup(SurveyAndQuestionGrPojo body, StateInterface stateInterface, String stateKey, String token) {
 
 
         if (body.getResults() != null && body.getResults().size() > 0) {
-                db.deleteAll(Survey.class);
+            db.deleteAll(Survey.class);
+            db.deleteAll(Surveyuser.class);
             for (int i = 0; i < body.getResults().size(); i++) {
                 long surveyId = body.getResults().get(i).getId();
                 String surveyNameEng = body.getResults().get(i).getName();
@@ -134,20 +136,6 @@ public class ProNetworkSettup {
                     surveyNameLoc = body.getResults().get(i).getName();
                 }
 
-                String partnerName = body.getResults().get(i).getPartner();
-                boolean imageRequired;
-                try {
-                    imageRequired = body.getResults().get(i).getImageRequired();
-                } catch (Exception e) {
-                    imageRequired = false;
-                }
-
-                boolean commentRequired;
-                try {
-                    commentRequired = body.getResults().get(i).getCommentRequired();
-                } catch (Exception e) {
-                    commentRequired = false;
-                }
 
                 if (body.getResults().get(i).getQuestiongroups() != null && body.getResults().get(i).getQuestiongroups().size() > 0) {
                     for (int j = 0; j < body.getResults().get(i).getQuestiongroups().size(); j++) {
@@ -156,17 +144,56 @@ public class ProNetworkSettup {
                         if (source.equalsIgnoreCase("mobile") || source.equalsIgnoreCase("konnectsms")) {
                             // then store survey and question group
                             long surveyGroupId = questionGroupList.get(j).getId();
+                            String partnerName = body.getResults().get(i).getPartner();
+                            boolean imageRequired;
+                            try {
+                                imageRequired = questionGroupList.get(j).getImageRequired();
+                            } catch (Exception e) {
+                                imageRequired = false;
+                            }
 
+                            boolean commentRequired;
+                            try {
+                                commentRequired = questionGroupList.get(j).getCommentsRequired();
+                            } catch (Exception e) {
+                                commentRequired = false;
+                            }
                             Survey survey = new Survey();
                             survey.setId(surveyId);
                             survey.setName(surveyNameEng);
                             survey.setNameLoc(surveyNameLoc != null && !surveyNameLoc.equalsIgnoreCase("") && !surveyNameLoc.equalsIgnoreCase("null") ? surveyNameLoc : surveyNameEng);
                             survey.setPartner(partnerName);
+                            survey.setGradeRequired(questionGroupList.get(j).getGroupText());
+
                             survey.setQuestionGroupId(surveyGroupId);
                             survey.setStateKey(stateKey);
                             survey.setIsImageRequired(imageRequired);
                             survey.setIsCommentRequired(commentRequired);
+                            boolean respondentSelection=false;
+                            if(body.getResults().get(i).getUserTypes()!=null&&body.getResults().get(i).getUserTypes().size()>0)
+                                respondentSelection=false;
+                            else
+                                respondentSelection=true;
+                            survey.setIsRespondentRequired(respondentSelection);
                             boolean b = db.insertforQuestionGroup(survey);
+
+
+                            if (body.getResults().get(i).getUserTypes() != null && body.getResults().get(i).getUserTypes().size() > 0) {
+
+                                for (int k = 0; k < body.getResults().get(i).getUserTypes().size(); k++) {
+                                    Surveyuser surveyuser = new Surveyuser();
+                                    surveyuser.setSurveyid(surveyId);
+                                    surveyuser.setName(body.getResults().get(i).getUserTypes().get(k).getUsertype());
+                                    db.insertforQuestionGroup(surveyuser);
+                                }
+
+                            } else {
+                                //it is public survey
+                                Surveyuser surveyuser = new Surveyuser();
+                                surveyuser.setSurveyid(surveyId);
+                                surveyuser.setName("XYZ");
+                                db.insertforQuestionGroup(surveyuser);
+                            }
 
 
                         }
@@ -179,7 +206,7 @@ public class ProNetworkSettup {
 
             }
             if (body.getNext() != null) {
-                getSurveyandQuestionGroup(body.getNext().toString(), stateKey,token,stateInterface);
+                getSurveyandQuestionGroup(body.getNext().toString(), stateKey, token, stateInterface);
                 //Toast.makeText(getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
 
             } else {
@@ -435,7 +462,7 @@ public class ProNetworkSettup {
     public void DownloadBlocksData(String url, final String statekey, final boolean isDataAlreadyDownloaded, final String token, final SchoolStateInterface stateInterface) {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.getAllBlocksData(url,token).enqueue(new Callback<BlockDetailPojo>() {
+        apiInterface.getAllBlocksData(url, token).enqueue(new Callback<BlockDetailPojo>() {
             @Override
             public void onResponse(Call<BlockDetailPojo> call, Response<BlockDetailPojo> response) {
 
@@ -454,7 +481,7 @@ public class ProNetworkSettup {
                     } catch (Exception e) {
                         //execption
                     }
-                    parseBlockDataToDb(response, stateInterface, statekey, isDataAlreadyDownloaded,token);
+                    parseBlockDataToDb(response, stateInterface, statekey, isDataAlreadyDownloaded, token);
                 } else {
 
                     //Exception
@@ -472,7 +499,7 @@ public class ProNetworkSettup {
 
     }
 
-    private void parseBlockDataToDb(Response<BlockDetailPojo> response, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded,String token) {
+    private void parseBlockDataToDb(Response<BlockDetailPojo> response, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded, String token) {
 
         for (int i = 0; i < response.body().getResults().size(); i++) {
 
@@ -505,7 +532,7 @@ public class ProNetworkSettup {
 
         }
         if (response.body().getNext() != null) {
-            DownloadBlocksData(response.body().getNext().toString(), stateKey, isDataAlreadyDownloaded, token,stateInterface);
+            DownloadBlocksData(response.body().getNext().toString(), stateKey, isDataAlreadyDownloaded, token, stateInterface);
         } else {
             stateInterface.success("success");
         }
@@ -646,7 +673,7 @@ public class ProNetworkSettup {
 
     public void DownloadClusterData(String url, final long distId, final String stateKey, final boolean isDataAlreadyDownloaded, final String token, final SchoolStateInterface stateInterface) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.getAllClusterData(url,token).enqueue(new Callback<ClusterDetailPojo>() {
+        apiInterface.getAllClusterData(url, token).enqueue(new Callback<ClusterDetailPojo>() {
             @Override
             public void onResponse(Call<ClusterDetailPojo> call, Response<ClusterDetailPojo> response) {
 
@@ -666,7 +693,7 @@ public class ProNetworkSettup {
                     }
 
 
-                    parseClusterDataToDb(response, distId, stateInterface, stateKey, isDataAlreadyDownloaded,token);
+                    parseClusterDataToDb(response, distId, stateInterface, stateKey, isDataAlreadyDownloaded, token);
                 } else {
 
                     stateInterface.failed(context.getResources().getString(R.string.clusterDataLoadingFailed));
@@ -686,7 +713,7 @@ public class ProNetworkSettup {
 
     }
 
-    private void parseClusterDataToDb(Response<ClusterDetailPojo> response, long distId, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded,String token) {
+    private void parseClusterDataToDb(Response<ClusterDetailPojo> response, long distId, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded, String token) {
 
         for (int i = 0; i < response.body().getResults().size(); i++) {
             Boundary boundary = new Boundary();
@@ -716,7 +743,7 @@ public class ProNetworkSettup {
             // Log.d("w", i + "");
         }
         if (response.body().getNext() != null) {
-            DownloadClusterData(response.body().getNext(), distId, stateKey, isDataAlreadyDownloaded, token,stateInterface);
+            DownloadClusterData(response.body().getNext(), distId, stateKey, isDataAlreadyDownloaded, token, stateInterface);
             //Toast.makeText(getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
             //  Log.d("Sreee", "------------------------NEXT----");
         } else {
@@ -735,15 +762,13 @@ public class ProNetworkSettup {
     public void setProfileUpdateAction(String firstName, String lastName, final String email, String dob, String usertype, String headertoken, String stateKey, final StateInterface stateInterface) {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> api=null;
-      if(TextUtils.isEmpty(email))
-        {
-            api= apiInterface.setUpdateProfileWithoutEmail(firstName, lastName, usertype, dob, headertoken, stateKey);
+        Call<ResponseBody> api = null;
+        if (TextUtils.isEmpty(email)) {
+            api = apiInterface.setUpdateProfileWithoutEmail(firstName, lastName, usertype, dob, headertoken, stateKey);
 
-        }else
-        {
-            api= apiInterface.setUpdateProfile(firstName, lastName, usertype, dob, email, headertoken, stateKey);
-       }
+        } else {
+            api = apiInterface.setUpdateProfile(firstName, lastName, usertype, dob, email, headertoken, stateKey);
+        }
 
         api.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -754,7 +779,7 @@ public class ProNetworkSettup {
                     try {
 
                         String data = response.body().string();
-                       // Log.d("test", data);
+                        // Log.d("test", data);
                         stateInterface.success(data);
                         updateSessionData(data);
 
@@ -785,7 +810,7 @@ public class ProNetworkSettup {
     public void DownloadSchoolData(String url, final long blockid, final long distId, final String token, final SchoolStateInterface stateInterface) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        apiInterface.getAllSchoolsData(url,token).enqueue(new Callback<SchoolDataPojo>() {
+        apiInterface.getAllSchoolsData(url, token).enqueue(new Callback<SchoolDataPojo>() {
             @Override
             public void onResponse(Call<SchoolDataPojo> call, Response<SchoolDataPojo> response) {
 
@@ -805,7 +830,7 @@ public class ProNetworkSettup {
                     }
 
 
-                    parseSchoolData(response, blockid, distId, stateInterface,token);
+                    parseSchoolData(response, blockid, distId, stateInterface, token);
                 } else {
 
                     stateInterface.failed(context.getResources().getString(R.string.schoolloadingfailed));
@@ -826,7 +851,7 @@ public class ProNetworkSettup {
     }
 
 
-    private void parseSchoolData(Response<SchoolDataPojo> response, long blockid, long distId, SchoolStateInterface stateInterface,String token) {
+    private void parseSchoolData(Response<SchoolDataPojo> response, long blockid, long distId, SchoolStateInterface stateInterface, String token) {
 
         for (int i = 0; i < response.body().getFeatures().size(); i++) {
 
@@ -866,7 +891,7 @@ public class ProNetworkSettup {
             }
         }
         if (response.body().getNext() != null) {
-            DownloadSchoolData(response.body().getNext(), blockid, distId,token, stateInterface);
+            DownloadSchoolData(response.body().getNext(), blockid, distId, token, stateInterface);
             // stateInterface.success("success");//remove this
 
         } else {
@@ -1134,11 +1159,11 @@ public class ProNetworkSettup {
     }
 
 
-    public void getReoportData(final long boundaryId, final long questionGroup, final String stateKey, final String level, final String sdate, String eDate,String token, final StateInterface stateInterface) {
+    public void getReoportData(final long boundaryId, final long questionGroup, final String stateKey, final String level, final String sdate, String eDate, String token, final StateInterface stateInterface) {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchReportData(questionGroup, boundaryId, sdate, eDate, stateKey,token).enqueue(new Callback<ResponseBody>() {
+        apiInterface.fetchReportData(questionGroup, boundaryId, sdate, eDate, stateKey, token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -1161,11 +1186,11 @@ public class ProNetworkSettup {
     }
 
 
-    public void getReoportDataSchool(final long school, final long questionGroup, final String stateKey, final String level, final String sdate, String endDate,String token, final StateInterface stateInterface) {
+    public void getReoportDataSchool(final long school, final long questionGroup, final String stateKey, final String level, final String sdate, String endDate, String token, final StateInterface stateInterface) {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchReportDataSchool(questionGroup, school, sdate, endDate, stateKey,token).enqueue(new Callback<ResponseBody>() {
+        apiInterface.fetchReportDataSchool(questionGroup, school, sdate, endDate, stateKey, token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -1334,7 +1359,7 @@ public class ProNetworkSettup {
     }
 
 
-    public void getCommunitySurveyQuestions(String url, final long groupid, final int count, final int size,String token, final StateInterface stateInterface) {
+    public void getCommunitySurveyQuestions(String url, final long groupid, final int count, final int size, String token, final StateInterface stateInterface) {
 
  /*       try {
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -1353,7 +1378,7 @@ public class ProNetworkSettup {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchCummunitySurveyQuestions(url,token).enqueue(new Callback<QuestionsPojos>() {
+        apiInterface.fetchCummunitySurveyQuestions(url, token).enqueue(new Callback<QuestionsPojos>() {
             @Override
             public void onResponse(Call<QuestionsPojos> call, Response<QuestionsPojos> response) {
 
@@ -1381,7 +1406,7 @@ public class ProNetworkSettup {
 
     private void parseStoringQuestion(QuestionsPojos body, long groupid) {
 
-        if(body.getResults()!=null&&body.getResults().size()>0) {
+        if (body.getResults() != null && body.getResults().size() > 0) {
             //db.deleteAll(QuestionGroupQuestion.class).
             db.deleteWhere(QuestionGroupQuestion.class, QuestionGroupQuestion.QUESTIONGROUP_ID.eq(groupid));
             for (int i = 0; i < body.getResults().size(); i++) {
@@ -1410,7 +1435,7 @@ public class ProNetworkSettup {
                         .setOptions(null)
                         .setType(questiontype)
                         .setSchoolType("primaryschool");
-              //  Log.d("test","qeustion");
+                //  Log.d("test","qeustion");
                 db.insertforQuestionGroup(question);
 
                 QuestionGroupQuestion questionGroupQuestion = new QuestionGroupQuestion()

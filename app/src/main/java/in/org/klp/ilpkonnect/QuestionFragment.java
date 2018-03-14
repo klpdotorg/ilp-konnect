@@ -22,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,6 +50,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -62,6 +65,7 @@ import in.org.klp.ilpkonnect.db.Question;
 import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.School;
 import in.org.klp.ilpkonnect.db.Story;
+import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.dialogs.SignUpResultDialogFragment;
 import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.Constants;
@@ -69,17 +73,17 @@ import in.org.klp.ilpkonnect.utils.DailogUtill;
 import in.org.klp.ilpkonnect.utils.RolesUtils;
 import in.org.klp.ilpkonnect.utils.SessionManager;
 
-public class QuestionFragment extends Fragment {
+public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnMultipleItemsSelectedListener {
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
-
+   /* https://android--code.blogspot.in/2015/08/android-spinner-hint.html*/
     private QuestionAdapter mQuestionsAdapter;
     private Long surveyId;
     private String surveyName;
     private Long schoolId;
     private Long questionGroupId;
     private String mSelectedUserType;
-    private LinearLayout linLayout, respLin,lincomment;
+    private LinearLayout linLayout, respLin, lincomment;
     private KontactDatabase db;
     SessionManager session;
     ImageView imgBtnImage;
@@ -90,14 +94,17 @@ public class QuestionFragment extends Fragment {
     private ImageView ivImage;
     private String userChoosenTask;
     TextView tvImageName;
-
+    EditText edtComment;
     ImageView imgPreview;
     File GlobalImagePath = null;
     ByteArrayOutputStream GLOBALbytes = null;
     QuestionActivity questionActivity;
-    boolean isImageRequired,isCommentRequired;
-
-
+    boolean isImageRequired, isCommentRequired, isRespondentlistRequired;
+    String gradeType;
+    LinearLayout linlayGradeSelection;
+    MultiSelectSpinner spnGrade;
+    Spinner spnGradesingle;
+    boolean isgradeRequired;
     public QuestionFragment() {
     }
 
@@ -117,9 +124,21 @@ public class QuestionFragment extends Fragment {
         schoolId = intent.getLongExtra("schoolId", 0);
         isImageRequired = intent.getBooleanExtra("imageRequired", false);
 
+
         View rootView = inflater.inflate(R.layout.fragment_question, container, false);
 //Toast.makeText(getActivity(),lat+":"+lng,Toast.LENGTH_SHORT).show();
         School school = db.fetch(School.class, schoolId);
+        Survey survey = db.fetch(Survey.class, surveyId);
+        isRespondentlistRequired = survey.isRespondentRequired();
+        isCommentRequired = survey.isCommentRequired();
+        gradeType = survey.getGradeRequired();
+        if(gradeType==null&&gradeType.equalsIgnoreCase(""))
+        {
+            isgradeRequired=false;
+        }else {
+            isgradeRequired=true;
+        }
+
         TextView textViewSchool = rootView.findViewById(R.id.textViewSchool);
         TextView textViewSchoolId = rootView.findViewById(R.id.textViewSchoolId);
         textViewSchool.setText(school.getName());
@@ -129,7 +148,19 @@ public class QuestionFragment extends Fragment {
             textViewSchoolId.setText("DISE Code: NA");
         }
         linLayout = rootView.findViewById(R.id.linLayout);
+        spnGrade = rootView.findViewById(R.id.spnGrade);
+        spnGradesingle = rootView.findViewById(R.id.spnGradesingle);
+
+        requiredMultilevelgrade(gradeType);
+
+
+
+
+
+        spnGrade.setListener(this);
         lincomment = rootView.findViewById(R.id.lincomment);
+        linlayGradeSelection = rootView.findViewById(R.id.linlayGradeSelection);
+        edtComment = rootView.findViewById(R.id.edtComment);
         respLin = rootView.findViewById(R.id.respLin);
         tvImageName = rootView.findViewById(R.id.tvImageName);
         questionActivity = (QuestionActivity) getActivity();
@@ -138,22 +169,6 @@ public class QuestionFragment extends Fragment {
 
 
         checkVisiblity(stateKey);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         if (surveyId == 0) {
@@ -175,7 +190,48 @@ public class QuestionFragment extends Fragment {
         final Spinner spinnerUserType = rootView.findViewById(R.id.spinnerUserType);
         List<String> userTypeNames = new ArrayList<>();
         userTypeNames.addAll(userType.keySet());
-        ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.question_spinner, userTypeNames);
+
+
+
+
+        final ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.question_spinner,userTypeNames){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+
+
+
+
+
+
+
+        //    ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.question_spinner, userTypeNames);
         spinnerUserType.setAdapter(userTypeAdapter);
         // spinnerUserType.setSelection(8);//PR
         mSelectedUserType = "PR";
@@ -237,7 +293,7 @@ public class QuestionFragment extends Fragment {
                 final Long currentTS = System.currentTimeMillis();
                 //  Toast.makeText(getActivity(),currentTS+"(((((",Toast.LENGTH_SHORT).show();
 
-                if (isImageRequired == false) {
+                if (isRespondentlistRequired) {
                     mSelectedUserType = userType.get(spinnerUserType.getSelectedItem().toString());
 
                 } else {
@@ -251,9 +307,141 @@ public class QuestionFragment extends Fragment {
                 AlertDialog noAnswerDialog = new AlertDialog.Builder(getContext()).create();
 
                 noAnswerDialog.setCancelable(false);
+                boolean flag = true;
+                //------------------------------------------
 
-                boolean flag = false;
-                if (isImageRequired == false) {
+
+                Log.d("tag",isImageRequired+":"+isgradeRequired+":"+isCommentRequired+":"+isRespondentlistRequired);
+                String message="";
+                if (isImageRequired || isgradeRequired || isCommentRequired||isRespondentlistRequired||mQuestionsAdapter.getQuestionSize() == 0||answers.size() != mQuestionsAdapter.getQuestionSize()) {
+
+                    if (mQuestionsAdapter.getQuestionSize() == 0||answers.size() != mQuestionsAdapter.getQuestionSize())
+                    {
+                        if(mQuestionsAdapter.getQuestionSize() == 0)
+                        {
+                            message = getString(R.string.surveyQuestionNotFound);
+                            flag=false;
+
+                        }else {
+                            message = getString(R.string.survey_empty_response_body);
+                            flag=false;
+                        }
+
+                     }
+                     if(isRespondentlistRequired)
+                     {
+                         if (spinnerUserType.getSelectedItemPosition() == 0) {
+                             if (!message.trim().equalsIgnoreCase("")) {
+                                 message = message + "\n";
+                             }
+                             message = message + "* " + getResources().getString(R.string.pleaseSelectrespondanttypequestion);
+                             flag=false;
+                         }
+                     }
+                     if(isImageRequired)
+                     {
+                         if(getFilePath() == null || getBitMapFile() == null)
+                         {
+                             if (!message.trim().equalsIgnoreCase("")) {
+                                 message = message + "\n";
+                             }
+                             message = message + getResources().getString(R.string.pleaseuploadimage);
+                             flag=false;
+                         }
+                     }
+
+                     if(isCommentRequired)
+                    {
+                        if(TextUtils.isEmpty(edtComment.getText().toString().trim()))
+                        {
+                            if (!message.trim().equalsIgnoreCase("")) {
+                                message = message + "\n";
+                            }
+                            message = message +"* "+ getResources().getString(R.string.pleaseENterComment);
+                            flag=false;
+                        }
+                    }
+                    if(isgradeRequired)
+                    {
+                        if(gradeType.equalsIgnoreCase("grade")) {
+                            if (spnGradesingle.getSelectedItemPosition() == 0) {
+                                if (!message.trim().equalsIgnoreCase("")) {
+                                    message = message + "\n";
+                                }
+                                message = message + "* "+getResources().getString(R.string.PleaseSelectGrade);
+                                flag = false;
+                            }
+                        }if(gradeType.equalsIgnoreCase("multigrade")) {
+
+                                if (spnGrade.getSelectedItem().toString().equalsIgnoreCase("") ){
+                                    if (!message.trim().equalsIgnoreCase("")) {
+                                        message = message + "\n";
+                                    }
+                                    message = message + "* "+getResources().getString(R.string.PleaseSelectGrade);
+                                    flag = false;
+                                }
+
+                        }
+                    }
+
+
+
+
+                }
+
+
+                if(flag){
+
+                    final Story story = new Story();
+                    story.setSchoolId(schoolId);
+                    story.setUserId(Long.parseLong(user.get(SessionManager.KEY_ID)));
+                    story.setGroupId(questionGroupId);
+                    story.setStateKey(session.getStateSelection());
+                    story.setRespondentType(mSelectedUserType);
+                    if(isCommentRequired)
+                    {
+                        story.setComments(edtComment.getText().toString().trim());
+                    }
+                    if(isgradeRequired)
+                    {
+                        if(gradeType.equalsIgnoreCase("grade"))
+                        {
+                        story.setGroupValue(    spnGradesingle.getSelectedItem().toString().trim());
+                        }
+                        if(gradeType.equalsIgnoreCase("multigrade"))
+                        {
+                            story.setGroupValue(     spnGrade.getSelectedItem().toString().trim());
+                        }
+                    }
+
+                    //    Toast.makeText(getActivity(),currentTS+"",Toast.LENGTH_LONG).show();
+                    if (isImageRequired == true) {
+                        story.setImage(StoreImageToFile());
+
+                    }
+                    story.setCreatedAt(currentTS);
+                    storetoDB(story, answers, currentTS);
+
+
+
+
+                }else {
+
+                    noAnswerDialog.setMessage(message);
+                    noAnswerDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    noAnswerDialog.show();
+                }
+
+
+                //----------------------------------------
+
+/*                if (isImageRequired == false) {
                     if (answers.size() != mQuestionsAdapter.getQuestionSize() || spinnerUserType.getSelectedItemPosition() == 0) {
                         flag = false;
                         String msg = "";
@@ -333,7 +521,7 @@ public class QuestionFragment extends Fragment {
                         }
 
                     }
-                }
+                }*/
             }
         });
 
@@ -352,6 +540,66 @@ public class QuestionFragment extends Fragment {
         return rootView;
     }
 
+    private void requiredMultilevelgrade(String level) {
+
+        List<String> gradeList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.grade_array)));
+        gradeList.add(0,getResources().getString(R.string.selectgrade));
+        //    ArrayAdapter<String> gradeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.textviewmultispinner, getResources().getStringArray(R.array.grade_array));
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.textviewmultispinner,gradeList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spnGradesingle.setAdapter(spinnerArrayAdapter);
+        spnGrade.setItems(getResources().getStringArray(R.array.grade_array));
+        spnGrade.setSelection(new int[]{-1});
+
+      /*  if(level==null)
+        {
+            spnGrade.setVisibility(View.GONE);
+            spnGradesingle.setVisibility(View.GONE);
+        }else {
+            if (level.equalsIgnoreCase("grade")) {
+                //
+                spnGrade.setVisibility(View.GONE);
+            } else {
+                spnGradesingle.setVisibility(View.GONE);
+            }
+        }*/
+
+
+
+
+
+
+
+    }
+
     private void checkVisiblity(String stateKey) {
 
 
@@ -361,29 +609,39 @@ public class QuestionFragment extends Fragment {
             userType = new LinkedHashMap<String, String>();
             userType.put(getResources().getString(R.string.pleaseSelectrespondanttype), "No");
             userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
-        } else
-        {
+        } else {
             linLayout.setVisibility(View.VISIBLE);
             respLin.setVisibility(View.GONE);
             userType = new LinkedHashMap<String, String>();
             userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
         }
-        if(isCommentRequired)
-        {
+        if (isCommentRequired) {
             lincomment.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             lincomment.setVisibility(View.GONE);
         }
 
+       if (isgradeRequired) {
+           spnGradesingle.setVisibility(View.GONE);
+           spnGrade.setVisibility(View.GONE);
+            if(gradeType.equalsIgnoreCase("grade")) {
+                spnGradesingle.setVisibility(View.VISIBLE);
+            }
+            if(gradeType.equalsIgnoreCase("multigrade"))
+            {
+                spnGrade.setVisibility(View.VISIBLE);
+            }
+        } else {
+            linlayGradeSelection.setVisibility(View.GONE);
+        }
 
 
     }
 
     private void storetoDB(Story story, HashMap<Question, String> answers, Long currentTS) {
         db.persist(story);
-    //    Log.d(this.toString(), "Created story: " + String.valueOf(story.getId()));
-      //  Log.d(this.toString(), answers.entrySet().toString());
+        //    Log.d(this.toString(), "Created story: " + String.valueOf(story.getId()));
+        //  Log.d(this.toString(), answers.entrySet().toString());
 
         for (Map.Entry<Question, String> answer : answers.entrySet()) {
             Question q = answer.getKey();
@@ -397,7 +655,7 @@ public class QuestionFragment extends Fragment {
             new_answer.setCreatedAt(currentTS);
             db.persist(new_answer);
             //  StoreImageToFile();
-          //  Log.d(this.toString(), "Created answer: " + String.valueOf(new_answer.getId()) + " : " + new_answer.getText());
+            //  Log.d(this.toString(), "Created answer: " + String.valueOf(new_answer.getId()) + " : " + new_answer.getText());
         }
         if (AppStatus.isConnected(getActivity())) {
             Intent intent1 = new Intent(getActivity(), SyncIntentService.class);
@@ -407,7 +665,7 @@ public class QuestionFragment extends Fragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
         String buttonName = getResources().getString(R.string.response_positive);
-        if (isImageRequired == true) {
+        if (isRespondentlistRequired == true) {
             builder.setMessage(getString(R.string.allSurvey)).setTitle(getResources().getString(R.string.responseSaved));
             buttonName = getResources().getString(R.string.Ok);
         } else {
@@ -416,7 +674,7 @@ public class QuestionFragment extends Fragment {
         }
         builder.setPositiveButton(buttonName, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if (isImageRequired == true) {
+                if (isRespondentlistRequired == true) {
                     getActivity().finish();
                 } else {
                     Intent intent = new Intent(getActivity(), QuestionActivity.class);
@@ -432,7 +690,7 @@ public class QuestionFragment extends Fragment {
             }
         });
 
-        if (isImageRequired == false) {
+        if (isRespondentlistRequired == false) {
 
 
             builder.setNegativeButton(getResources().getString(R.string.response_negative), new DialogInterface.OnClickListener() {
@@ -448,7 +706,6 @@ public class QuestionFragment extends Fragment {
                         }
                     });
                     builderMes.show();
-
 
 
                 }
@@ -489,7 +746,6 @@ public class QuestionFragment extends Fragment {
         });
         builder.show();
     }
-
 
 
     @Override
@@ -816,4 +1072,13 @@ public class QuestionFragment extends Fragment {
         }
     }
 
+    @Override
+    public void selectedIndices(List<Integer> indices) {
+
+    }
+
+    @Override
+    public void selectedStrings(List<String> strings) {
+
+    }
 }

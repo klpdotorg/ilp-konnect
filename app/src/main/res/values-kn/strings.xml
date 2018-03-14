@@ -291,14 +291,17 @@
     <string name="selectgrade">Select grade</string>
     <string name="FAQ">FAQ</string>
     <string name="pleaseLoginandcontue">Please login and continue</string>
+    <string name="pleaseENterComment">Required comment</string>
+    <string name="PleaseSelectGrade">Please select grade</string>
 
     <string-array name="grade_array">
-        <item>-- Select grade --</item>
-        <item>grade - 1</item>
-        <item>grade - 2</item>
-        <item>grade - 3</item>
-        <item>grade - 4</item>
-        <item>grade - 5</item>
+
+        <item>Grade 1</item>
+        <item>Grade 2</item>
+        <item>Grade 3</item>
+        <item>Grade 4</item>
+        <item>Grade 5</item>
+
 
     </string-array>
 

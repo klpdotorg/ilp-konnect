@@ -1,54 +1,53 @@
 package in.org.klp.ilpkonnect.SurveyAndQuestionGPojoPsck;
-
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SurveyAndQuestionGrPojo {
 
-@SerializedName("next")
-@Expose
-private Object next;
-@SerializedName("results")
-@Expose
-private List<Result> results = null;
-@SerializedName("previous")
-@Expose
-private Object previous;
-@SerializedName("count")
-@Expose
-private Integer count;
+    @SerializedName("next")
+    @Expose
+    private Object next;
+    @SerializedName("previous")
+    @Expose
+    private Object previous;
+    @SerializedName("count")
+    @Expose
+    private Integer count;
+    @SerializedName("results")
+    @Expose
+    private List<Result> results = null;
 
-public Object getNext() {
-return next;
-}
+    public Object getNext() {
+        return next;
+    }
 
-public void setNext(Object next) {
-this.next = next;
-}
+    public void setNext(Object next) {
+        this.next = next;
+    }
 
-public List<Result> getResults() {
-return results;
-}
+    public Object getPrevious() {
+        return previous;
+    }
 
-public void setResults(List<Result> results) {
-this.results = results;
-}
+    public void setPrevious(Object previous) {
+        this.previous = previous;
+    }
 
-public Object getPrevious() {
-return previous;
-}
+    public Integer getCount() {
+        return count;
+    }
 
-public void setPrevious(Object previous) {
-this.previous = previous;
-}
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
-public Integer getCount() {
-return count;
-}
+    public List<Result> getResults() {
+        return results;
+    }
 
-public void setCount(Integer count) {
-this.count = count;
-}
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
 
 }

@@ -39,7 +39,7 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         this._context = context;
         this.questions = questions;
         this.answers = new HashMap<Question, String>();
-        sessionManager=new SessionManager(this._context);
+        sessionManager = new SessionManager(this._context);
 
         // can't rely on the radio button text as
         // we're using kannada strings, so using button text ID
@@ -83,7 +83,7 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         LayoutInflater inflater = LayoutInflater.from(_context);
         convertView = inflater.inflate(R.layout.list_item_question, parent, false);
         questionHolder.qText = convertView.findViewById(R.id.textViewQuestion);
-        if (sessionManager.getLanguagePosition()<=1) {
+        if (sessionManager.getLanguagePosition() <= 1) {
             //english
             questionHolder.qText.setText(question.getText() != null ? question.getText() : question.getTextKn());
 

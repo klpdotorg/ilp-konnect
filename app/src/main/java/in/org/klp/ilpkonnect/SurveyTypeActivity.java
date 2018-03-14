@@ -28,6 +28,7 @@ import in.org.klp.ilpkonnect.data.StringWithTags;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.Question;
+import in.org.klp.ilpkonnect.db.QuestionGroup;
 import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.Respondent;
 import in.org.klp.ilpkonnect.db.School;
@@ -35,6 +36,7 @@ import in.org.klp.ilpkonnect.db.State;
 import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
+import in.org.klp.ilpkonnect.db.Surveyuser;
 import in.org.klp.ilpkonnect.utils.AppSettings;
 import in.org.klp.ilpkonnect.utils.SessionManager;
 
@@ -109,15 +111,29 @@ public class SurveyTypeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Query listSurveyQuery = Query.select().from(Survey.TABLE);
-        SquidCursor<Survey> surveyCursor = db.query(Survey.class, listSurveyQuery);
 
-        if (surveyCursor.getCount() > 0) {
-            // we have surveys in DB, get them
-            try {
-                surveysList = new ArrayList<>();
-                while (surveyCursor.moveToNext()) {
-                    Survey survey = new Survey(surveyCursor);
+
+        SquidCursor<Surveyuser> surveyUser = null;
+        Query surveyuserquery = Query.select().from(Surveyuser.TABLE)
+                .where(Surveyuser.NAME.eqCaseInsensitive(sessionManager.getUserType()).or(Surveyuser.NAME.eqCaseInsensitive("XYZ")));
+
+        surveyUser = db.query(Surveyuser.class, surveyuserquery);
+        if(surveyUser!=null&&surveyUser.getCount()>0)
+        { ArrayList<Long> surveyIds = new ArrayList<>();
+           while (surveyUser.moveToNext()) {
+               surveyIds.add(surveyUser.get(Surveyuser.SURVEYID));
+
+           }
+
+           if(surveyIds!=null&&surveyIds.size()>0) {
+               Query listSurveyQuery = Query.select().from(Survey.TABLE).where(Survey.ID.in(surveyIds));
+               SquidCursor<Survey> surveyCursor = db.query(Survey.class, listSurveyQuery);
+               if (surveyCursor.getCount() > 0) {
+                   // we have surveys in DB, get them
+                   try {
+                       surveysList = new ArrayList<>();
+                       while (surveyCursor.moveToNext()) {
+                           Survey survey = new Survey(surveyCursor);
                  /*   SurveyMain pojo = new SurveyMain();
                     pojo.setCommunity(survey.getName());
                     pojo.setImageRequired(survey.isImageRequired());
@@ -126,21 +142,29 @@ public class SurveyTypeActivity extends BaseActivity {
                     pojo.setId(survey.getId());
                     pojo.setStateKey(survey.getStateKey());
                     pojo.setPartener(survey.getPartner());*/
-                    surveysList.add(survey);
+                           surveysList.add(survey);
 
-                }
-                if (surveysList != null && surveysList.size() > 0) {
-                    surveyTypeAdapter = new SurveyTypeAdapter(SurveyTypeActivity.this, surveysList, sessionManager);
-                    surveylistGrid.setAdapter(surveyTypeAdapter);
-                    surveyTypeAdapter.notifyDataSetChanged();
+                       }
+                       if (surveysList != null && surveysList.size() > 0) {
+                           surveyTypeAdapter = new SurveyTypeAdapter(SurveyTypeActivity.this, surveysList, sessionManager);
+                           surveylistGrid.setAdapter(surveyTypeAdapter);
+                           surveyTypeAdapter.notifyDataSetChanged();
 
-                }
-            } finally {
-                if (surveyCursor != null) {
-                    surveyCursor.close();
-                }
-            }
+                       }
+                   } finally {
+                       if (surveyCursor != null) {
+                           surveyCursor.close();
+                       }
+                   }
+               }
+
+           }
+
         }
+
+
+
+
     }
 
     @Override
