@@ -763,12 +763,14 @@ public class ProNetworkSettup {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponseBody> api = null;
-        if (TextUtils.isEmpty(email)) {
+
+        api = apiInterface.setUpdateProfile(firstName, lastName, usertype, dob, email, headertoken, stateKey);
+        /*if (TextUtils.isEmpty(email)) {
             api = apiInterface.setUpdateProfileWithoutEmail(firstName, lastName, usertype, dob, headertoken, stateKey);
 
         } else {
             api = apiInterface.setUpdateProfile(firstName, lastName, usertype, dob, email, headertoken, stateKey);
-        }
+        }*/
 
         api.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -1426,13 +1428,28 @@ public class ProNetworkSettup {
                     otherLang = body.getResults().get(i).getQuestionText();
 
                 }
+                String options=null;
+                if(body.getResults().get(i).getOptions()!=null&&body.getResults().get(i).getOptions().size()>0) {
+                     options = body.getResults().get(i).getOptions().toString();
+                     options="";
+                     for(int m=0;m<body.getResults().get(i).getOptions().size();m++)
+                     {
+                         if(!options.equalsIgnoreCase("")){
+                             options=options+","+body.getResults().get(i).getOptions().get(m);
+                         }else {
+                             options=options+body.getResults().get(i).getOptions().get(m);
+                         }
+
+
+                     }
+                }
                 Question question = new Question()
                         .setId(questionId)
                         .setText(engQue)
                         .setTextKn(otherLang)
                         .setDisplayText(engQue)
                         .setKey(key)
-                        .setOptions(null)
+                        .setOptions(options)
                         .setType(questiontype)
                         .setSchoolType("primaryschool");
                 //  Log.d("test","qeustion");

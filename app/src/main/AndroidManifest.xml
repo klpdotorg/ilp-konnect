@@ -61,7 +61,7 @@
         <activity
             android:name=".QuestionActivity"
             android:label="@string/title_activity_question"
-
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"
             android:theme="@style/KLPTheme">
 

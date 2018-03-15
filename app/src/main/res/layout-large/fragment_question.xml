@@ -1,36 +1,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:weightSum="1">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/commonGreenLeaf"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_marginBottom="5dp"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/textViewSchool"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorWhite"
             android:textIsSelectable="true"
-            android:textSize="24sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textViewSchoolId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorWhite"
             android:textIsSelectable="true"
-            android:textSize="24sp" />
+            android:textSize="16sp" />
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/respLin"
@@ -38,16 +38,44 @@
         android:layout_height="wrap_content"
         android:background="@color/colorGreyMist"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prompt_user_type"
-            android:textSize="22sp" />
+        android:layout_marginBottom="3dp"
+        android:paddingRight="10dp">
+
 
         <Spinner
             android:id="@+id/spinnerUserType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linlayGradeSelection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGreyMist"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="3dp"
+        android:paddingRight="10dp">
+
+        <!--
+                <Spinner
+                    android:id="@+id/spnGrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />-->
+
+        <in.org.klp.ilpkonnect.MultiSelectSpinner
+            android:id="@+id/spnGrade"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content" />
+
+
+        <Spinner
+            android:id="@+id/spnGradesingle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -57,6 +85,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"></ListView>
+
+
+    <LinearLayout
+        android:id="@+id/lincomment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_rect"
+            android:hint="@string/comment"
+            android:maxLength="300"
+            android:maxLines="4"
+            android:id="@+id/edtComment"
+            android:minHeight="50dp"
+            android:padding="5dp" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linLayout"
@@ -72,8 +123,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8"
             android:gravity="center|left"
-            android:hint="@string/pleaseataachsurveyimage"
-            android:textSize="20sp" />
+            android:hint="@string/pleaseataachsurveyimage" />
 
         <ImageView
             android:id="@+id/imgPreview"
@@ -88,7 +138,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
-            android:minHeight="60dp"
             app:srcCompat="@drawable/camera_vector" />
     </LinearLayout>
 
@@ -99,8 +148,6 @@
         android:layout_margin="10dp"
         android:layout_weight="0"
         android:background="@drawable/buttonripple"
-        android:minHeight="70dp"
         android:text="@string/Submit"
-        android:textColor="@color/colorWhite"
-        android:textSize="25sp" />
+        android:textColor="@color/colorWhite" />
 </LinearLayout>

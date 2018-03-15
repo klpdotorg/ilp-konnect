@@ -132,7 +132,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         isRespondentlistRequired = survey.isRespondentRequired();
         isCommentRequired = survey.isCommentRequired();
         gradeType = survey.getGradeRequired();
-        if(gradeType==null&&gradeType.equalsIgnoreCase(""))
+        if(gradeType==null)
         {
             isgradeRequired=false;
         }else {
@@ -283,7 +283,9 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             }
         }
         ListView listViewQuestions = rootView.findViewById(R.id.listViewQuestions);
+        listViewQuestions.setItemsCanFocus(true);
         listViewQuestions.setAdapter(mQuestionsAdapter);
+
 
         Button btnSubmit = rootView.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -311,7 +313,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 //------------------------------------------
 
 
-                Log.d("tag",isImageRequired+":"+isgradeRequired+":"+isCommentRequired+":"+isRespondentlistRequired);
+              //  Log.d("tag",isImageRequired+":"+isgradeRequired+":"+isCommentRequired+":"+isRespondentlistRequired);
                 String message="";
                 if (isImageRequired || isgradeRequired || isCommentRequired||isRespondentlistRequired||mQuestionsAdapter.getQuestionSize() == 0||answers.size() != mQuestionsAdapter.getQuestionSize()) {
 
