@@ -27,6 +27,7 @@ import in.org.klp.ilpkonnect.Pojo.SurveyMain;
 import in.org.klp.ilpkonnect.data.StringWithTags;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
+import in.org.klp.ilpkonnect.db.MySummary;
 import in.org.klp.ilpkonnect.db.Question;
 import in.org.klp.ilpkonnect.db.QuestionGroup;
 import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
@@ -115,7 +116,8 @@ public class SurveyTypeActivity extends BaseActivity {
 
         SquidCursor<Surveyuser> surveyUser = null;
         Query surveyuserquery = Query.select().from(Surveyuser.TABLE)
-                .where(Surveyuser.NAME.eqCaseInsensitive(sessionManager.getUserType()).or(Surveyuser.NAME.eqCaseInsensitive("XYZ")));
+                .where(Surveyuser.NAME.eqCaseInsensitive(sessionManager.getUserType())
+                        .or(Surveyuser.NAME.eqCaseInsensitive("XYZ")));
 
         surveyUser = db.query(Surveyuser.class, surveyuserquery);
         if(surveyUser!=null&&surveyUser.getCount()>0)
@@ -214,15 +216,18 @@ public class SurveyTypeActivity extends BaseActivity {
         // KLPApplication.setLanguage(getApplicationContext(), "en");
         sessionManager.logoutUser();
         KLPApplication.setLanguage(getApplicationContext(), "en");
-        db.deleteAll(Survey.class);
+        db.deleteAll(Surveyuser.class);
         db.deleteAll(School.class);
-        db.deleteAll(Boundary.class);
+
         db.deleteAll(Respondent.class);
         db.deleteAll(State.class);
         db.deleteAll(Question.class);
         db.deleteAll(Summmary.class);
         db.deleteAll(SummaryInfo.class);
-        db.deleteAll(QuestionGroupQuestion.class);
+        db.deleteAll(MySummary.class);
+              db.deleteAll(QuestionGroupQuestion.class);
+        db.deleteAll(Boundary.class);
+        db.deleteAll(Survey.class);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         this.finish();
     }

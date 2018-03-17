@@ -124,8 +124,9 @@ public class ProNetworkSettup {
 
 
         if (body.getResults() != null && body.getResults().size() > 0) {
-            db.deleteAll(Survey.class);
+
             db.deleteAll(Surveyuser.class);
+            db.deleteAll(Survey.class);
             for (int i = 0; i < body.getResults().size(); i++) {
                 long surveyId = body.getResults().get(i).getId();
                 String surveyNameEng = body.getResults().get(i).getName();
@@ -226,7 +227,7 @@ public class ProNetworkSettup {
     }
 
 
-    public void getSurveyDetail(final StateInterface stateInterface) {
+   /* public void getSurveyDetail(final StateInterface stateInterface) {
 
         apiInterface.getSurveyDetailsFromNetwork().enqueue(new Callback<SurveyDeailPojo>() {
             @Override
@@ -253,7 +254,8 @@ public class ProNetworkSettup {
         });
 
 
-    }
+    }*/
+/*
 
     private void parseSurveyListData(Response<SurveyDeailPojo> response) {
 
@@ -286,6 +288,7 @@ public class ProNetworkSettup {
 
         //db.insertWithId(state);
     }
+*/
 
 
     public void getStateAndUserDeail(final StateInterface stateInterface) {
@@ -1172,7 +1175,12 @@ public class ProNetworkSettup {
                 if (response.isSuccessful() && response.code() == 200) {
 
                     parseReportData(response.body(), questionGroup, level, boundaryId, stateKey, stateInterface);
-                } else {
+                }
+                else if( response.code() == 400)
+                {
+                    stateInterface.failed(context.getResources().getString(R.string.reportsnotavailableforthissurveys));
+                }
+                else {
                     stateInterface.failed(context.getResources().getString(R.string.reportsLoadingFailed));
                 }
 
@@ -1417,8 +1425,10 @@ public class ProNetworkSettup {
                 String engQue = body.getResults().get(i).getQuestionText();
                 //     String otherLang = body.getResults().get(i).getDisplayText();
                 String key = body.getResults().get(i).getKey();
+               // Log.d("mmm",key+":"+groupid);
                 String questiontype = body.getResults().get(i).getQuestionType();
-                int sequence = body.getResults().get(i).getSequence();
+
+                int sequence = body.getResults().get(i).getSequence()!=null?body.getResults().get(i).getSequence():0;
                 long questionId = body.getResults().get(i).getId();
                 String otherLang = null;
                 if (body.getResults().get(i).getLangName() != null) {
@@ -1430,7 +1440,7 @@ public class ProNetworkSettup {
                 }
                 String options=null;
                 if(body.getResults().get(i).getOptions()!=null&&body.getResults().get(i).getOptions().size()>0) {
-                     options = body.getResults().get(i).getOptions().toString();
+                     //options = body.getResults().get(i).getOptions().toString();
                      options="";
                      for(int m=0;m<body.getResults().get(i).getOptions().size();m++)
                      {
@@ -1443,6 +1453,26 @@ public class ProNetworkSettup {
 
                      }
                 }
+
+
+               String lang_options=null;
+                if(body.getResults().get(i).getLangOptions()!=null&&body.getResults().get(i).getLangOptions().size()>0) {
+                   // lang_options = body.getResults().get(i).getLangOptions().toString();
+                    lang_options="";
+                    for(int m=0;m<body.getResults().get(i).getLangOptions().size();m++)
+                    {
+                        if(!lang_options.equalsIgnoreCase("")){
+                            lang_options=lang_options+","+body.getResults().get(i).getLangOptions().get(m);
+                        }else {
+                            lang_options=lang_options+body.getResults().get(i).getLangOptions().get(m);
+                        }
+
+
+                    }
+                }
+
+
+
                 Question question = new Question()
                         .setId(questionId)
                         .setText(engQue)
@@ -1450,6 +1480,7 @@ public class ProNetworkSettup {
                         .setDisplayText(engQue)
                         .setKey(key)
                         .setOptions(options)
+                        .setLangOptions(lang_options)
                         .setType(questiontype)
                         .setSchoolType("primaryschool");
                 //  Log.d("test","qeustion");

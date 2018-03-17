@@ -20,6 +20,9 @@ public class QuestionSpec {
 
     public String key;
     public String options;
+
+    @ColumnSpec(name="lang_options")
+    public String lang_options;
     public String type;
 
     @ColumnSpec(name="school_type")

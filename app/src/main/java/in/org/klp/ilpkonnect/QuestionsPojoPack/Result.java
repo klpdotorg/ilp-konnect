@@ -17,9 +17,31 @@ public class Result {
     @SerializedName("question_type")
     @Expose
     private String questionType;
+
     @SerializedName("options")
     @Expose
     private List<String> options = null;
+
+    public List<String> getLangOptions() {
+        return langOptions;
+    }
+
+    public void setLangOptions(List<String> langOptions) {
+        this.langOptions = langOptions;
+    }
+
+    public Boolean getFeatured() {
+        return isFeatured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        isFeatured = featured;
+    }
+
+    @SerializedName("lang_options")
+    @Expose
+    private List<String> langOptions = null;
+
     @SerializedName("is_featured")
     @Expose
     private Boolean isFeatured;

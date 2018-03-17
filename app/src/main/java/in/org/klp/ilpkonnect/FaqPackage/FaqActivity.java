@@ -32,12 +32,23 @@ public class FaqActivity extends BaseActivity {
 
 
         ArrayList<FaqPojo> faqList = new ArrayList<>();
-        faqList.add(new FaqPojo("Question -1 ", "Answer -1"));
-        faqList.add(new FaqPojo("Question -2 ", "Answer -2"));
-        faqList.add(new FaqPojo("Question -3 ", "Answer -3"));
-        faqList.add(new FaqPojo("Question -4 ", "Answer -4"));
-        faqList.add(new FaqPojo("Question -5 ", "Answer -5"));
-        faqList.add(new FaqPojo("Question -6 ", "Answer -6"));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question1), getResources().getString(R.string.answer1)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question2), getResources().getString(R.string.answer2)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question3), getResources().getString(R.string.answer3)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question4), getResources().getString(R.string.answer4)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question5), getResources().getString(R.string.answer5)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question6), getResources().getString(R.string.answer6)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question7), getResources().getString(R.string.answer7)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question8), getResources().getString(R.string.answer8)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question9), getResources().getString(R.string.answer9)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question10), getResources().getString(R.string.answer10)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question11), getResources().getString(R.string.answer11)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question12), getResources().getString(R.string.answer12)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question13), getResources().getString(R.string.answer13)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question14), getResources().getString(R.string.answer14)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question15), getResources().getString(R.string.answer15)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question16), getResources().getString(R.string.answer16)));
+
         FaqAdapter adapter = new FaqAdapter(FaqActivity.this, faqList);
         faqlistviw.setAdapter(adapter);
         adapter.notifyDataSetChanged();

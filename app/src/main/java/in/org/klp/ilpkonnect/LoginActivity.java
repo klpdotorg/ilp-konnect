@@ -298,7 +298,7 @@ public class LoginActivity extends BaseActivity {
         //parse the userInfo String
 
 
-        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC";
+        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC&per_page=0";
 
         new ProNetworkSettup(LoginActivity.this).getSurveyandQuestionGroup(URL, stateKey,token, new StateInterface() {
             @Override
@@ -312,7 +312,7 @@ public class LoginActivity extends BaseActivity {
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
 
-                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?" + mSession.getStateSelection();
+                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
                         new ProNetworkSettup(LoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(), token,new StateInterface() {
                             @Override
                             public void success(String message) {

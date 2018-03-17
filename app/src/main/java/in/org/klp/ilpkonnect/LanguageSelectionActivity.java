@@ -140,7 +140,7 @@ public class LanguageSelectionActivity extends BaseActivity {
                             @Override
                             public void success(String message) {*/
 
-                    String url = BuildConfig.HOST + "/api/v1/boundary/admin1s/?state=" + stateKeyString;
+                    String url = BuildConfig.HOST + "/api/v1/boundary/admin1s/?per_page=0&state=" + stateKeyString;
                     progressDialog.show();
 
                     new ProNetworkSettup(LanguageSelectionActivity.this).downloadStateData(url, stateKeyString, new StateInterface() {

@@ -4,15 +4,14 @@ import com.yahoo.squidb.annotations.ColumnSpec;
 import com.yahoo.squidb.annotations.PrimaryKey;
 import com.yahoo.squidb.annotations.TableModelSpec;
 
-/**
- * Created by Shridhar on 6/17/16.
- */
-@TableModelSpec(className = "Surveyuser", tableName = "surveyUser")
+
+@TableModelSpec(className = "Surveyuser", tableName = "surveyUser"
+        ,
+        tableConstraint = "FOREIGN KEY(surveyid) references survey(_id)")
 public class SurveyuserSpec {
     @PrimaryKey
     @ColumnSpec(name = "_id")
     long Id;
-
 
 
     @ColumnSpec(name = "surveyid")
@@ -20,7 +19,6 @@ public class SurveyuserSpec {
 
     @ColumnSpec(name = "name")
     public String name;
-
 
 
 }

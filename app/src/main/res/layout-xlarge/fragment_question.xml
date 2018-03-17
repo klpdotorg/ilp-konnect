@@ -84,6 +84,7 @@
         android:id="@+id/listViewQuestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
         android:layout_weight="1"></ListView>
 
 
@@ -100,7 +101,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_rect"
             android:hint="@string/comment"
-            android:maxLength="300"
+            android:maxLength="500"
             android:maxLines="4"
             android:id="@+id/edtComment"
             android:minHeight="50dp"

@@ -348,11 +348,11 @@ public class MainDashList extends BaseActivity {
                             return null;
                         } else {
 
-                            // Log.d("shri", "Req:" + data);
+                         // Log.d("shri", "Req:" + data);
                             // System.out.println(data);
                             JSONObject jsonData = SyncDataCall(data);
 
-                            //   Log.d("shri", "Res:" + jsonData.toString());
+                             //Log.d("shri", "Res:" + jsonData.toString());
                             ArrayList<Integer> countData = ut.processUploadResponse(jsonData);
                             String msg = getResources().getString(R.string.noInternetCon);
                             if (countData != null && countData.size() >= 2) {
@@ -1014,7 +1014,7 @@ public class MainDashList extends BaseActivity {
         initPorgresssDialog();
         progressDialog.setMessage(getResources().getString(R.string.survey) + " " + getResources().getString(R.string.loading));
         String stateKey = mSession.getStateSelection();
-        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC";
+        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC&per_page=0 ";
         new ProNetworkSettup(MainDashList.this).getSurveyandQuestionGroup(URL, stateKey,mSession.getToken(), new StateInterface() {
             @Override
             public void success(String message) {
@@ -1027,7 +1027,7 @@ public class MainDashList extends BaseActivity {
 
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
-                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?" + mSession.getStateSelection();
+                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
 
                         new ProNetworkSettup(MainDashList.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(),mSession.getToken(), new StateInterface() {
                             @Override

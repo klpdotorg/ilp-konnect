@@ -237,7 +237,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         mSelectedUserType = "PR";
 
         // this to remove all the invalid answers created by a bug in last release
-        db.deleteWhere(Answer.class, Answer.TEXT.notIn("Yes", "No", "Don't Know"));
+       // db.deleteWhere(Answer.class, Answer.TEXT.notIn("Yes", "No", "Don't Know"));
 
 
         SquidCursor<QuestionGroupQuestion> qgqCursor = null;

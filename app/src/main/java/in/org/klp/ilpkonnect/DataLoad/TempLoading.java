@@ -33,6 +33,7 @@ import in.org.klp.ilpkonnect.SurveyTypeActivity;
 import in.org.klp.ilpkonnect.data.StringWithTags;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
+import in.org.klp.ilpkonnect.db.MySummary;
 import in.org.klp.ilpkonnect.db.Question;
 import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.Respondent;
@@ -41,6 +42,7 @@ import in.org.klp.ilpkonnect.db.State;
 import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
+import in.org.klp.ilpkonnect.db.Surveyuser;
 import in.org.klp.ilpkonnect.utils.DailogUtill;
 import in.org.klp.ilpkonnect.utils.ILPService;
 import in.org.klp.ilpkonnect.utils.NoDefaultSpinner;
@@ -312,15 +314,19 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         // KLPApplication.setLanguage(getApplicationContext(), "en");
         mSession.logoutUser();
         KLPApplication.setLanguage(getApplicationContext(), "en");
-        db.deleteAll(Survey.class);
+
+        db.deleteAll(Surveyuser.class);
         db.deleteAll(School.class);
         db.deleteAll(Boundary.class);
         db.deleteAll(Respondent.class);
         db.deleteAll(State.class);
         db.deleteAll(Question.class);
         db.deleteAll(Summmary.class);
+        db.deleteAll(MySummary.class);
         db.deleteAll(SummaryInfo.class);
         db.deleteAll(QuestionGroupQuestion.class);
+        db.deleteAll(Survey.class);
+
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         this.finish();
     }
@@ -342,7 +348,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
 
         initPorgresssDialogForSchool();
         updateProgressMessage(select_state.getSelectedItem().toString() + " " + getResources().getString(R.string.loadingStateDistrict), 0);
-        String URL = BuildConfig.HOST + "/api/v1/boundary/admin1s/?state=" + stateKey;
+        String URL = BuildConfig.HOST + "/api/v1/boundary/admin1s/?per_page=0&state=" + stateKey;
 
         new ProNetworkSettup(TempLoading.this).downloadStateData(URL, stateKey, new StateInterface() {
             @Override
@@ -569,14 +575,14 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
 
         updateProgressMessage(select_district.getSelectedItem().toString() + " " + getResources().getString(R.string.districtblockloading), 0);
 
-        String url = BuildConfig.HOST + "/api/v1/boundary/admin1/" + id + "/admin2/";
+        String url = BuildConfig.HOST + "/api/v1/boundary/admin1/" + id + "/admin2/?per_page=0";
 
         new ProNetworkSettup((TempLoading.this)).DownloadBlocksData(url, stateKey, isDataAlreadyDownloaded, token,new SchoolStateInterface() {
             @Override
             public void success(String message) {
 
                 updateProgressMessage(select_district.getSelectedItem().toString() + " " + getResources().getString(R.string.districtClusterLoading), 0);
-                String url = BuildConfig.HOST + "/api/v1/boundary/admin1/" + id + "/admin3";
+                String url = BuildConfig.HOST + "/api/v1/boundary/admin1/" + id + "/admin3?per_page=0";
                 new ProNetworkSettup(TempLoading.this).DownloadClusterData(url, id, stateKey, isDataAlreadyDownloaded,token, new SchoolStateInterface() {
                     @Override
                     public void success(String message) {

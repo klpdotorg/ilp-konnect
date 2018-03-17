@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_height="wrap_content"
+
     android:layout_width="match_parent"
 
     android:paddingLeft="20dp"
     android:paddingRight="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +25,7 @@
         >
 
     </TextView>
-    <RadioGroup
+   <!-- <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -43,30 +51,43 @@
             android:text="@string/answer_unknown"
             android:layout_weight="1"/>
     </RadioGroup>
+-->
 
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
     <RadioGroup
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
 
         android:measureWithLargestChild="false"
         android:weightSum="3"
-        android:paddingLeft="20dp"
+
 
         android:id="@+id/rgQuestionnew"/>
+        </HorizontalScrollView>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edittext"
         android:textColor="#000000"
+        
+        android:visibility="gone"
+        android:minHeight="35dp"/>
 
-        android:minHeight="30dp"/>
-
+         <HorizontalScrollView
+        android:layout_width="match_parent" android:layout_height="fill_parent">
 <LinearLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:id="@+id/listcheckview"></LinearLayout>
+    android:id="@+id/listcheckview">
+
 
 </LinearLayout>
+         </HorizontalScrollView>
+    </LinearLayout>
+</ScrollView>

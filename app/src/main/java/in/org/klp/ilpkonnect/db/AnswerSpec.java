@@ -5,7 +5,7 @@ import com.yahoo.squidb.annotations.PrimaryKey;
 import com.yahoo.squidb.annotations.TableModelSpec;
 
 /**
- * Created by bibhas on 6/17/16.
+ * Created by Shridhar on 6/17/16.
  */
 @TableModelSpec(className = "Answer", tableName = "answer",
         tableConstraint = "FOREIGN KEY(story_id) references story(_id) ON DELETE CASCADE")

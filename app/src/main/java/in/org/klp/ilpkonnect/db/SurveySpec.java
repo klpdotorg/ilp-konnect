@@ -5,7 +5,7 @@ import com.yahoo.squidb.annotations.PrimaryKey;
 import com.yahoo.squidb.annotations.TableModelSpec;
 
 /**
- * Created by Shridhar on 6/17/16.
+ * Created by shridhars on 8/2/2017.
  */
 @TableModelSpec(className = "Survey", tableName = "survey")
 public class SurveySpec {
