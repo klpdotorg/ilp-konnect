@@ -339,6 +339,7 @@
     <string name="question16">Can Teachers use this app?</string>
     <string name="answer16">Not for GKA school visit monitoring.</string>
     <string name="selectoption">Select option</string>
+    <string name="surveynotavailable">Surveys not available</string>
 
     <string-array name="grade_array">
 

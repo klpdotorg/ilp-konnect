@@ -327,7 +327,8 @@
     <string name="answer15">NGO Staff (Akshara or any other), Volunteers, Education officers (CRP, BRP, DIET, BEO etc), HMs</string>
     <string name="question16">Can Teachers use this app?</string>
     <string name="answer16">Not for GKA school visit monitoring.</string>
-    <string name="selectoption">Select option</string>
+    <string name="selectoption">ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ</string>
+    <string name="surveynotavailable">Surveys not available</string>
 
     <string-array name="grade_array">
 

@@ -577,6 +577,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 return view;
             }
         };
+
         spnGradesingle.setAdapter(spinnerArrayAdapter);
         spnGrade.setItems(getResources().getStringArray(R.array.grade_array));
         spnGrade.setSelection(new int[]{-1});

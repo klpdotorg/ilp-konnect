@@ -85,7 +85,7 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
 //                setSelection(0);
 //            }
 //        });
-        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.Submit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 System.arraycopy(mSelection, 0, mSelectionAtStart, 0, mSelection.length);
@@ -93,7 +93,7 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
                 listener.selectedStrings(getSelectedStrings());
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 simple_adapter.clear();

@@ -12,6 +12,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yahoo.squidb.data.SquidCursor;
@@ -57,7 +59,7 @@ public class SurveyTypeActivity extends BaseActivity {
     SurveyTypeAdapter surveyTypeAdapter;
     SessionManager sessionManager;
 
-
+    TextView tvSurveyNot;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class SurveyTypeActivity extends BaseActivity {
         surveylistGrid.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         db = ((KLPApplication) getApplicationContext().getApplicationContext()).getDb();
         sessionManager = new SessionManager(getApplicationContext());
-
+        tvSurveyNot=(TextView)findViewById(R.id.tvSurveyNot);
 //Toast.makeText(getApplicationContext(),sessionManager.getStateSelection(),Toast.LENGTH_SHORT).show();
 
 
@@ -112,6 +114,11 @@ public class SurveyTypeActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        surveylistGrid.setVisibility(View.VISIBLE);
+        tvSurveyNot.setVisibility(View.GONE);
+        surveyTypeAdapter = new SurveyTypeAdapter(SurveyTypeActivity.this, new ArrayList<Survey>(), sessionManager);
+        surveylistGrid.setAdapter(surveyTypeAdapter);
+        surveyTypeAdapter.notifyDataSetChanged();
 
 
         SquidCursor<Surveyuser> surveyUser = null;
@@ -152,6 +159,10 @@ public class SurveyTypeActivity extends BaseActivity {
                            surveylistGrid.setAdapter(surveyTypeAdapter);
                            surveyTypeAdapter.notifyDataSetChanged();
 
+                       }else
+                       {
+                           surveylistGrid.setVisibility(View.GONE);
+                           tvSurveyNot.setVisibility(View.VISIBLE);
                        }
                    } finally {
                        if (surveyCursor != null) {
@@ -160,8 +171,14 @@ public class SurveyTypeActivity extends BaseActivity {
                    }
                }
 
+           }else {
+               surveylistGrid.setVisibility(View.GONE);
+               tvSurveyNot.setVisibility(View.VISIBLE);
            }
 
+        }else {
+            surveylistGrid.setVisibility(View.GONE);
+            tvSurveyNot.setVisibility(View.VISIBLE);
         }
 
 
