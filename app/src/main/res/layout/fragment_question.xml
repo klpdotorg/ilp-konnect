@@ -9,9 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:background="@color/commonGreenLeaf"
         android:orientation="vertical"
-        android:layout_marginBottom="5dp"
         android:padding="10dp">
 
         <TextView
@@ -36,36 +36,38 @@
         android:id="@+id/respLin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:background="@color/colorGreyMist"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
 
-        android:layout_marginBottom="3dp"
+        android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
 
         <Spinner
             android:id="@+id/spinnerUserType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
+            android:layout_height="wrap_content"
+             />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linlayGradeSelection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:background="@color/colorGreyMist"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:layout_marginBottom="3dp"
         android:paddingRight="10dp">
 
-<!--
-        <Spinner
-            android:id="@+id/spnGrade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />-->
+        <!--
+                <Spinner
+                    android:id="@+id/spnGrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />-->
 
         <in.org.klp.ilpkonnect.MultiSelectSpinner
             android:id="@+id/spnGrade"
@@ -74,46 +76,40 @@
             android:layout_height="wrap_content" />
 
 
-        <Spinner
-            android:id="@+id/spnGradesingle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/tvlableGrade"
+                android:text="@string/selectgrade"/>
+            <Spinner
+                android:id="@+id/spnGradesingle"
+                android:layout_width="match_parent"
+                android:minHeight="40dp"
+                android:gravity="center|left"
+                android:background="@drawable/rounded_rect"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
 
     <ListView
         android:id="@+id/listViewQuestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="beforeDescendants"
-        android:layout_weight="1"></ListView>
+        android:layout_weight="1"
+        android:descendantFocusability="beforeDescendants"></ListView>
 
-
-    <LinearLayout
-        android:id="@+id/lincomment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_rect"
-            android:hint="@string/comment"
-            android:maxLength="500"
-            android:maxLines="4"
-            android:id="@+id/edtComment"
-            android:minHeight="50dp"
-            android:padding="5dp" />
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
@@ -140,6 +136,34 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             app:srcCompat="@drawable/camera_vector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lincomment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <EditText
+            android:id="@+id/edtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_rect"
+            android:hint="@string/comment"
+            android:imeActionLabel="Done"
+            android:imeOptions="actionDone"
+
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="500"
+            android:maxLines="1"
+            android:minHeight="50dp"
+            android:minLines="1"
+            android:padding="5dp" />
+
+
     </LinearLayout>
 
     <Button

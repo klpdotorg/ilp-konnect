@@ -1,5 +1,6 @@
 package in.org.klp.ilpkonnect;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import android.text.util.Linkify;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -126,7 +129,13 @@ public class UserRegistrationActivity extends BaseActivity {
         spnRespondantType.setAdapter(userTypeAdapter);
         mSelectedUserType = "PR";
 
-
+        spnRespondantType.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hideKeyboard(UserRegistrationActivity.this);
+                return false;
+            }
+        });
         if (mEmailSignUpButton != null) {
             mEmailSignUpButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -300,6 +309,17 @@ public class UserRegistrationActivity extends BaseActivity {
         dpd.show();
     }
 
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     public boolean checkCalendarDate(String strDate) {
         boolean flag = false;
         try {

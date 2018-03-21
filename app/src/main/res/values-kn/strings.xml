@@ -129,7 +129,7 @@
     <string name="downloadingQuestionGroup"> ಪ್ರಶ್ನೆ ಗುಂಪನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
     <string name="survey"> ಸರ್ವೇ </string>
     <string name="updateSurvey">ಅಪಡೇಟ್ ಸರ್ವೇ</string>
-    <string name="settings">ರಾಜ್ಯ-ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="settings">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="surveySync">ಸರ್ವೇ ಸಿಂಕ್</string>
     <string name="next">ಮುಂದಿನ</string>
     <string name="surveyType">ಸರ್ವೇ ವಿಧ</string>
@@ -289,46 +289,58 @@
     <string name="blockandCLusterdownloaded">ಜಿಲ್ಲೆಯ: ಬ್ಲಾಕ್ಗಳು ​​ಮತ್ತು ಕ್ಲಸ್ಟರ್ಗಳು ಡೌನ್ಲೋಡ್ ಮಾಡಲ್ಪಟ್ಟವು</string>
     <string name="allSurvey">ಎಲ್ಲಾ ಸಮೀಕ್ಷೆಗಳು ಸಿಂಕ್ ಮಾಡುವ 24 ಗಂಟೆಗಳ ನಂತರ ರಿಪೋರ್ಟ್ ಉತ್ಪಾದನೆಗೆ ಲಭ್ಯವಿರುತ್ತವೆ</string>
     <string name="selectgrade">ಗ್ರೇಡ್ ಆಯ್ಕೆಮಾಡಿ</string>
-    <string name="FAQ">FAQ</string>
+    <string name="FAQ">ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು</string>
     <string name="comment">ನಿಮ್ಮ ಅಭಿಪ್ರಾಯ ತಿಳಿಸಿ</string>
     <string name="pleaseLoginandcontue">ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಮಾಡಿ ಮತ್ತು ಮುಂದುವರೆಯಿರಿ</string>
     <string name="pleaseENterComment">ಅಗತ್ಯವಾದ ಕಾಮೆಂಟ್</string>
     <string name="PleaseSelectGrade">ದಯವಿಟ್ಟು ಗ್ರೇಡ್ ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="reportsnotavailableforthissurveys">ಈ ಸರ್ವೇಗೆ ರಿಪೋರ್ಟ್ ಲಭ್ಯವಿಲ್ಲ</string>
-    <string name="question1">Can I monitor more than 1 classroom during my visit? If yes, how do I record that?</string>
-    <string name="answer1">Yes You can select more than one class during your visit. But you have to submit a single survey for each class you visit</string>
-    <string name="question2">What if there is a multi-grade class in session?</string>
-    <string name="answer2">You can select \'multi-grade\' option in the classroom field</string>
-    <string name="question3">What happens if the math teacher is not conducting the math class during my visit, but he/she uses the math kit as part of the classroom activity</string>
-    <string name="answer3">Please record the kit usage only if the teacher is found using the math kit during your school visit. Otherwise you can mention the fact that teacher uses the math kit in the comments section.</string>
-    <string name="question4">The math teacher was a guest teacher and was not part of the GKA teacher\'s training. How do we train them?</string>
-    <string name="answer4">You can demo the kit to the guest teacher and spend an hour explaining the various usage of the kit. Demo it to the teacher with the students as well</string>
-    <string name="question5">GKA kit is kept in a cupboard and was not in use. How do we report this?</string>
-    <string name="answer5">Answer NO to all the question regarding kit usage. Write a comment stating the state of the kit and upload a picture</string>
-    <string name="question6">There is no square ruled books in the school to practice the representational method of CRA. What can be done?</string>
-    <string name="answer6">Use the black board that is painted for the kids on the side walls and paint it with square ruled boxes (two 9 boxes one below the other)</string>
-    <string name="question7">Teacher has prepared a few TLMs him/herself. Can that be used to teach kids in the classroom?</string>
-    <string name="answer7">Yes. It is allowed for teachers to use her/his own TLMs</string>
-    <string name="question8">There are more than 40 students in the classroom and teacher feels one kit is not sufficient to teach kids mathematics.</string>
-    <string name="answer8">Encourage teachers to develop kits similar to provided as part of GKA. Teachers can replicate the math kit contents.</string>
-    <string name="question9">Teachers asked me a question on the math concepts and usage of the math kit TLMs. I did not have any answer what to do?</string>
-    <string name="answer9">If you do not know the answers, please direct the question to CRPs/Akshara staff or HMs</string>
-    <string name="question10">Unable to type comments in Kannada.</string>
-    <string name="answer10">Use the keyboard that allows kannada letters to be typed.</string>
-    <string name="question11">What is the limit on words/letters for the comments field?</string>
-    <string name="answer11">Not more than 500 words</string>
-    <string name="question12">Can I upload videos instead of photos?</string>
-    <string name="answer12">We currently do not have this facility. We will introduce it next academic year.</string>
-    <string name="question13">Do I have to sync the school visit survey everyday? What is the frequency of syncing survey?</string>
-    <string name="answer13">There is no need to sync survey if you are online. Syncing will happen automatically</string>
-    <string name="question14">How do I know about the monitoring surveys I have done so far?</string>
-    <string name="answer14">You can generate the report using the ILP Konnect</string>
-    <string name="question15">Who can use ILP Konnect app for GKA school visit?</string>
-    <string name="answer15">NGO Staff (Akshara or any other), Volunteers, Education officers (CRP, BRP, DIET, BEO etc), HMs</string>
-    <string name="question16">Can Teachers use this app?</string>
-    <string name="answer16">Not for GKA school visit monitoring.</string>
+    <string name="question1">ನನ್ನ ಶಾಲಾ ಭೇಟಿಯ ಸಮಯದಲ್ಲಿ 1 ಕ್ಕಿಂತ ಹೆಚ್ಚು ತರಗತಿಯನ್ನು ನಾನು ವೀಕ್ಷಿಸಬಹುದೇ?  ಹೌದಾದರೆ, ನಾನು ಅದನ್ನು ಹೇಗೆ ದಾಖಲಿಸುವುದು?</string>
+    <string name="answer1">ಹೌದು ನಿಮ್ಮ ಭೇಟಿಯ ಸಮಯದಲ್ಲಿ ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ವರ್ಗವನ್ನು ಆಯ್ಕೆ ಮಾಡಬಹುದು. ಆದರೆ ನೀವು ಭೇಟಿ ನೀಡುವ ಪ್ರತಿ ವರ್ಗಕ್ಕೆ ಪ್ರತ್ಯೇಕವಾಗಿ ಒಂದು ಸಮೀಕ್ಷೆಯನ್ನು ನೀವು ಸಲ್ಲಿಸಬೇಕು</string>
+
+    <string name="question2">ನಾವು ಶಾಲೆಗೆ ಭೇಟಿ ನೀಡಿರುವ ಸಮಯದಲ್ಲಿ ಬಹು-ದರ್ಜೆಯ ತರಗತಿಯಲ್ಲಿ ಶಿಕ್ಷಕರು ಗಣಿತ ಪಾಠಮಾಡುತ್ತಿದ್ದಲ್ಲಿ ಏನು ಮಾಡಬೇಕು?</string>
+    <string name="answer2">ನೀವು \'ಬಹು-ತರಗತಿ\' ಆಯ್ಕೆಯನ್ನು ಮಾಡಬಹುದು</string>
+
+    <string name="question3">ಗಣಿತ ಶಿಕ್ಷಕ ನನ್ನ ಶಾಲಾ ಭೇಟಿಯ ಸಂದರ್ಭದಲ್ಲಿ ಗಣಿತ ತರಗತಿಯನ್ನು ಶಿಕ್ಷಕರು ನಡೆಸುತ್ತಿಲ್ಲವಾದರೆ ಏನಾಗುತ್ತದೆ? ಆದರೆ ಅವರು ತರಗತಿ ಚಟುವಟಿಕೆಯ ಭಾಗವಾಗಿ ಗಣಿತ ಕಿಟ್ ಅನ್ನು ಯಾವಾಗಲು ಬಳಸುತ್ತಿರುತ್ತಾರೆ</string>
+    <string name="answer3">ಶಿಕ್ಷಕರು ನಿಮ್ಮ ಶಾಲಾ ಭೇಟಿಯ ಸಮಯದಲ್ಲಿ ಗಣಿತ ಕಿಟ್ ಅನ್ನು ಬಳಸಿರುವುದು ಕಂಡುಬಂದರೆ ಮಾತ್ರ ಕಿಟ್ ಬಳಕೆಯನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ. ಇಲ್ಲವಾದರೆ ನೀವು ಕಾಮೆಂಟ್ ವಿಭಾಗದಲ್ಲಿ ಶಿಕ್ಷಕರು ಗಣಿತ ಕಿಟ್ ಅನ್ನು ಬಳಸುತ್ತಾರೆ ಎಂಬ ಅಂಶವನ್ನು ನೀವು ನಮೂದಿಸಬಹುದು.</string>
+
+    <string name="question4">ಶಾಲೆಯ ಗಣಿತ ಶಿಕ್ಷಕರು ಅತಿಥಿ ಶಿಕ್ಷಕರಾಗಿದ್ದು ಮತ್ತು ಅವರು GKA ತರಬೇತಿಯ ಭಾಗವಾಗಿರಲಿಲ್ಲ. ನಾವು ಅವರಿಗೆ ಹೇಗೆ ತರಬೇತಿ ನೀಡಬಹುದು?</string>
+    <string name="answer4">ಅತಿಥಿ ಶಿಕ್ಷಕರಿಗೆ ನೀವು ಕಿಟ್ ಅನ್ನು ಡೆಮೊ ಮಾಡಬಹುದು ಮತ್ತು ಕಿಟ್ ಅನ್ನು ಹೇಗೆ ವಿವಿಧ ರೀತಿಯಲ್ಲಿ ಬಳಕೆ ಮಾಡಬಹುದೆಂದು ವಿವರಿಸಿ ಒಂದು ಗಂಟೆಯ ತರಬೇತಿಯನ್ನು ನೀಡಬಹುದು. ವಿದ್ಯಾರ್ಥಿಗಳೊಂದಿಗೆ ಸಹ ಶಿಕ್ಷಕರಿಗೆ ಈ ಕಿಟ್ಟಿನ  ಡೆಮೋ ನೀಡಿ.</string>
+
+    <string name="question5">GKA ಕಿಟ್ ಅನ್ನು ಒಂದು ಬೀರು ನಲ್ಲಿ ಇಡಲಾಗಿದೆ ಮತ್ತು ಕಿಟ್ ತರಗತಿಯಲ್ಲಿ ಬಳಕೆಯಲ್ಲಿಲ್ಲ. ನಾವು ಇದನ್ನು ಹೇಗೆ ವರದಿ ಮಾಡಬಹುದು?</string>
+    <string name="answer5">ಕಿಟ್ ಬಳಕೆಗೆ ಸಂಬಂಧಿಸಿದ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳಿಗೆ \'ಇಲ್ಲ\' ಎಂದು ಉತ್ತರಿಸಿ. ಕಿಟ್ ಸ್ಥಿತಿಯನ್ನು ಕಾಮೆಂಟ್ ಸೆಕ್ಷನ್ ನಲ್ಲಿ ತಿಳಿಸಿ ಮತ್ತು ಅದರ ಚಿತ್ರವನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
+
+    <string name="question6">CRA ವಿಧಾನದ ಪ್ರಾತಿನಿಧ್ಯಾತ್ಮಕ ಹಂತವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಲು ಶಾಲೆಯಲ್ಲಿ ವಿದ್ಯಾರ್ಥಿಗಳ ಬಳಿ ಚೌಕಳಿ ಪುಸ್ತಕಗಳಿಲ್ಲ. ಏನು ಮಾಡಬಹುದು?</string>
+    <string name="answer6">ಶಾಲಾ ತರಗತಿಯ ಕೊಠಡಿಯಲ್ಲಿ ಅಡ್ಡ ಗೋಡೆಯ ಮೇಲೆ ಇರುವ ಮಕ್ಕಳ ಕಪ್ಪು ಹಲಗೆಯನ್ನು ಬಳಸಿ ಅದರಲ್ಲಿ ಚೌಕಳಿ ಪೆಟ್ಟಿಗಳನ್ನು ಚಿತ್ರಿಸಿರಿ. (ಎರಡು 9 ಪಟ್ಟಿಗೆಗಳು ಒಂದರ ಕೆಳಗೆ ಇನ್ನೊಂದು ಚಿತ್ರಿಸಿ) </string>
+
+    <string name="question7">ಕೆಲವು ಶಿಕ್ಷಕರು ಕೆಲವೊಂದು ಕಲಿಕೋಪಕಾರಣಗಳನ್ನು ಅವರಾಗಿ ತಯಾರಿಸಿದ್ದಾನರೆ ಮತ್ತು ಅದನ್ನು ತರಗತಿಯಲ್ಲಿ ಮಕ್ಕಳಿಗೆ ಕಲಿಸಲು ಬಳಸುತ್ತಿದ್ದಾರೆ? ವರದಿಯಲ್ಲಿ ಏನು ಬರೆಯಬೇಕು?</string>
+    <string name="answer7">ಹೌದು. ಶಿಕ್ಷಕರಿಗೆ ಗಣಿತ ವಿಷಯವನ್ನು ಕಲಿಸಲು ಸುಲಭವಾದರೆ ಅವರು ತಮ್ಮ ಸ್ವಂತ ಕಲಿಕೋಪಕಾರಣಗಳನ್ನು ಬಳಸಲು ಅನುಮತಿ ಇದೆ. ನೀವು ಆ ವಿಷಯದ ಬಗ್ಗೆ ಕೆಲವು ಪ್ರಶ್ನೆಗಳನ್ನು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಕೇಳುವ ಮೂಲಕ ಅದನ್ನು ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ</string>
+
+    <string name="question8">ಒಂದು ತರಗತಿಯಲ್ಲಿ 40 ಕ್ಕಿಂತ ಹೆಚ್ಚು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಗಣಿತ ಪಾಠವನ್ನು ಕಲಿಸಲು ಒಂದು ಕಿಟ್ ಸಾಕಾಗುವುದಿಲ್ಲ ಎಂದು ಶಿಕ್ಷಕರು ಭಾವಿಸುತ್ತಾರೆ.</string>
+    <string name="answer8">GKAಯ ಕಾರ್ಯಕ್ರಮದ ಅಡಿಯಲ್ಲಿ ಒದಗಿಸಲಾದ ಕಿಟ್ ನ್ನು ತಾವಾಗಿ ಮರು ಉತ್ಪಾದನೆ (ರೆಪ್ಲಿಕೇಟ್) ಮಾಡಲು ಶಿಕ್ಷಕರನ್ನು ಪ್ರೋತ್ಸಾಹಿಸಿ.</string>
+
+    <string name="question9">ಶಿಕ್ಷಕರು ಗಣಿತ ಕಿಟ್ ಕಲಿಕೋಪಕಾರಣಗಳ ಹಾಗು ಗಣಿತ ಪರಿಕಲ್ಪನೆಗಳ ಬಳಕೆಯ ಬಗ್ಗೆ ಕೆಲವು ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿದರು. ನಮ್ಮ ಬಳಿ ಉತ್ತರವಿಲ್ಲದಿದ್ದರೆ ಏನು ಮಾಡುವುದು?</string>
+    <string name="answer9">ಈ ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಗಳು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲದಿದ್ದರೆ, ದಯವಿಟ್ಟು ಸಿ ರ್ ಪಿ  / ಅಕ್ಷರ ಸಿಬ್ಬಂದಿ ಯವರಿಗೆ ಪ್ರಶ್ನೆಯನ್ನು ನಿರ್ದೇಶಿಸಿ</string>
+    <string name="question10">ಕನ್ನಡದಲ್ಲಿ ಕಾಮೆಂಟ್ ಗಳನ್ನು ಟೈಪ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲಾ.</string>
+    <string name="answer10">ಕನ್ನಡ ಅಕ್ಷರಗಳನ್ನು ಟೈಪ್ ಮಾಡಲು ಅನುಮತಿಸುವ ಕೀಬೋರ್ಡ್ ನಿಮ್ಮ ಫೋನ್ ನಲ್ಲಿ ಬಳಸಿ</string>
+    <string name="question11">ಕಾಮೆಂಟ್ ಪದಗಳು / ಅಕ್ಷರಗಳ ಮಿತಿ ಏನು?</string>
+    <string name="answer11">500 ಕ್ಕೂ ಹೆಚ್ಚು ಪದಗಳಿಲ್ಲ</string>
+    <string name="question12">ಫೋಟೋಗಳ ಬದಲಾಗಿ ನಾನು ವೀಡಿಯೊಗಳನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಬಹುದೇ?</string>
+    <string name="answer12">ನಾವು ಪ್ರಸ್ತುತ ವರ್ಷದಲ್ಲಿ ಈ ಸೌಲಭ್ಯವನ್ನು ತಯಾರಿಸಿಲ್ಲ. ಮುಂದಿನ ಶೈಕ್ಷಣಿಕ ವರ್ಷದಿಂದ ನಾವು ಈ ಸೌಲಭ್ಯವನ್ನು ಪರಿಚಯಿಸುತ್ತೇವೆ.</string>
+    <string name="question13">ನಾನು ಪ್ರತಿದಿನ ಶಾಲಾ ಭೇಟಿ ಸಮೀಕ್ಷೆಯನ್ನು ಸಿಂಕ್ ಮಾಡಬೇಕೇ? ಸಿಂಕ್ ಮಾಡುವ ಸಮೀಕ್ಷೆಯ ಆವರ್ತನವೇನು?</string>
+    <string name="answer13">ನೀವು ಆನ್ ಲೈನ್ ಇಲ್ಲದಿದ್ದರೆ ಸಮೀಕ್ಷೆಯನ್ನು ಸಿಂಕ್ ಮಾಡುವ ಅಗತ್ಯವಿಲ್ಲ. ಸಿಂಕ್ ಮಾಡುವುದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಂಭವಿಸುತ್ತದೆ</string>
+    <string name="question14">ನಾನು ಇಲ್ಲಿಯವರೆಗೆ ಮಾಡಿದ ಶಾಲಾ ಭೇಟಿಯ ಸಮೀಕ್ಷೆಗಳ ಬಗ್ಗೆ ನನಗೆ ಹೇಗೆ ಗೊಟ್ಟಾಗುತ್ತದೆ?</string>
+    <string name="answer14">ನೀವು ಅದೇ ಆಪ್ ಅನ್ನು ಬಳಸಿಕೊಂಡು ವರದಿಯನ್ನು ರಚಿಸಬಹುದು</string>
+    <string name="question15">GKA ಶಾಲೆಯ ಭೇಟಿಗಾಗಿ ILP Konnect ಆಪ್ ಅನ್ನು ಯಾರು ಬಳಸಬಹುದು?</string>
+    <string name="answer15">ಸರ್ಕಾರೇತರ ಸಂಸ್ಥೆಯ ಸಿಬ್ಬಂದಿ (ಅಕ್ಷರ ಅಥವಾ ಯಾವುದೇ), ಸ್ವಯಂಸೇವಕರು, ಶಿಕ್ಷಣ ಅಧಿಕಾರಿಗಳು (CRP, BEO, DIET, SSA, DSERT, EO, BRP, HMs ಇತ್ಯಾದಿ)</string>
+    <string name="question16">ಈ \'ಜಿಕೆಎ ಶಾಲೆಯ ಭೇಟಿ\' ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಶಿಕ್ಷಕರು ಬಳಸಬಹುದೇ?</string>
+    <string name="answer16">ಶಿಕ್ಷಕರು GKA ಶಾಲಾ ಭೇಟಿಯ ಆಪ್ ನ್ನು ಬಳಸುವಂತಿಲ್ಲ. ಆದರೆ ಶಿಕ್ಷಕರು ತಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಸಲಹೆಗಳನ್ನು / ನಾವೀನ್ಯತೆಗಳನ್ನು ಒದಗಿಸಲು ಪ್ರತ್ಯೇಕ ಅಪ್ಲಿಕೇಶನ್ ಇದೆ. ನೀವು ಶಿಕ್ಷಕರಾಗಿ ದಾಖಲಾತು ಮಾಡಿದ್ದರೆ, ಈ ಆಪ್ ಉಪಯೋಗಿಸಬಹುದು </string>
     <string name="selectoption">ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ</string>
-    <string name="surveynotavailable">Surveys not available</string>
+    <string name="surveynotavailable">ಸರ್ವೇಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="question17">ಶಿಕ್ಷಕರು ಜಿಕೆಎ ಕಿಟ್ ನಲ್ಲಿ ಸಲಹೆಗಳನ್ನು ಅಥವಾ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡುತ್ತಿದ್ದಾರೆ. ನಾನು ಅದರ ಬಗ್ಗೆ ಏನು ಮಾಡಬೇಕು?</string>
+    <string name="answer17">ದಯವಿಟ್ಟು ಈ ಸಲಹೆಗಳನ್ನು ಕಾಮೆಂಟ್ ನಲ್ಲಿ ಬರೆಯಿರಿ ಮತ್ತು ಮೌಲ್ಯಯುತವಾದ ಸಲಹೆಗಳನ್ನು ನೀಡುವ ಶಿಕ್ಷಕನ/ಶಿಕ್ಷಕಿಯರ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ</string>
+    <string name="grade">-- ಗ್ರೇಡ್ --</string>
+    <string name="reportsNotgenerated">ರಿಪೋರ್ಟ್ಸ ಕಾರ್ಯಾಚರಣೆಯು ಪ್ರಸ್ತುತ ಲಭ್ಯವಿಲ್ಲ</string>
 
     <string-array name="grade_array">
 
@@ -337,7 +349,7 @@
         <item>Grade 3</item>
         <item>Grade 4</item>
         <item>Grade 5</item>
-
+        <item>Multigrade</item>
 
     </string-array>
 

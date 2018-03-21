@@ -16,6 +16,7 @@ import in.org.klp.ilpkonnect.R;
 import in.org.klp.ilpkonnect.SummaryDateScreen;
 import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.Constants;
+import in.org.klp.ilpkonnect.utils.DailogUtill;
 
 /**
  * Created by shridhars on 8/1/2017.
@@ -119,15 +120,21 @@ public class MainDashListAdapter extends RecyclerView.Adapter<MainDashListAdapte
                 break;
             case 3:
                 //create Report
-                Intent intent2 = new Intent(mainDashList, BoundarySelectionActivity.class);
-                intent2.putExtra("surveyId", surveyId);
-                intent2.putExtra("ILPQuestionGroupId", questionGroupId);
-                intent2.putExtra("surveyName", surveyName);
-                intent2.putExtra("type", "report");
-                intent2.putExtra("imageRequired",isImageRequired);
+                if(surveyId==13||surveyId==12){
 
-                mainDashList.startActivity(intent2);
-                mainDashList. overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    DailogUtill.showDialog(mainDashList.getResources().getString(R.string.reportsNotgenerated),mainDashList.getSupportFragmentManager(),mainDashList);
+
+                }else {
+                    Intent intent2 = new Intent(mainDashList, BoundarySelectionActivity.class);
+                    intent2.putExtra("surveyId", surveyId);
+                    intent2.putExtra("ILPQuestionGroupId", questionGroupId);
+                    intent2.putExtra("surveyName", surveyName);
+                    intent2.putExtra("type", "report");
+                    intent2.putExtra("imageRequired", isImageRequired);
+
+                    mainDashList.startActivity(intent2);
+                    mainDashList.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                }
                 break;
             case 4:
                 if (AppStatus.isConnected(mainDashList)) {

@@ -1,5 +1,6 @@
 package in.org.klp.ilpkonnect;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -88,16 +91,25 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
         token = getIntent().getStringExtra("token");
       //  token = "9a5817a691d1e6d1b6fabc5b0400650e505e8b36";
         String email = getIntent().getStringExtra("email");
-
+        if(email!=null&&email.equalsIgnoreCase("null"))
+        {
+            edtEmail.setText(email);
+        }
         edtFirstName.setText(firstName);
         edtLastName.setText(lastName);
-        edtEmail.setText(email);
+
         // edtDob.setText(getDDMMYYdate(sessionManager.getDOB()));
         cyear = 1988;
         cdate = 1;
         cmonth = 0;
 
-
+        spnRespondantType.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hideKeyboard(UpdateProfileBeforeLoginActivity.this);
+                return false;
+            }
+        });
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +163,16 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
 
     }
-
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     private boolean isEmailValid(String email) {
         if (TextUtils.isEmpty(email)) {
             emailValue = "";

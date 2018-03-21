@@ -440,9 +440,14 @@ public class LoginActivity extends BaseActivity {
 
     private void subscribetoTopicsForNotification(String state, String stateUserType) {
 
-        FirebaseMessaging.getInstance().subscribeToTopic(state);
-        FirebaseMessaging.getInstance().subscribeToTopic(state + "-" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType));
-        //   Toast.makeText(getApplicationContext(),state+"-"+state + ":" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType),Toast.LENGTH_SHORT).show();
+        try {
+            FirebaseMessaging.getInstance().subscribeToTopic(state);
+            FirebaseMessaging.getInstance().subscribeToTopic(state + "-" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType));
+            //   Toast.makeText(getApplicationContext(),state+"-"+state + ":" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType),Toast.LENGTH_SHORT).show();
+        }catch (Exception e)
+        {
+            //may be topic contains some special symbols
+        }
     }
 
 

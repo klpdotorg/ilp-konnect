@@ -128,7 +128,7 @@
     <string name="downloadingQuestionGroup"> Downloading question group </string>
     <string name="survey"> Survey </string>
     <string name="updateSurvey">Update Survey</string>
-    <string name="settings">Select state-language</string>
+    <string name="settings">Select language</string>
     <string name="surveySync">Survey Sync</string>
     <string name="next">Next</string>
     <string name="surveyType">Survey Type</string>
@@ -340,6 +340,10 @@
     <string name="answer16">Not for GKA school visit monitoring.</string>
     <string name="selectoption">Select option</string>
     <string name="surveynotavailable">Surveys not available</string>
+    <string name="question17">Teachers are providing comments, suggestions or feedback on the GKA kit. What should I do about it?</string>
+    <string name="answer17">Please add them as comments and take the picture of the teacher who is providing valuable suggestions</string>
+    <string name="grade">-- Grade --</string>
+    <string name="reportsNotgenerated">Report generation functionality currently not available</string>
 
     <string-array name="grade_array">
 
@@ -348,6 +352,7 @@
         <item>Grade 3</item>
         <item>Grade 4</item>
         <item>Grade 5</item>
+        <item>Multigrade</item>
 
 
     </string-array>

@@ -61,9 +61,9 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
     private static class QuestionHolder {
         TextView qText;
         //RadioGroup rgQuestion;
-        // RadioGroup rgQuestionnew;
+        RadioGroup rgQuestionnew;
         EditText edittext;
-        //     LinearLayout listcheckview;
+        LinearLayout listcheckview;
         MultiSelectSpinnerForQuestion multiSpinner;
         Spinner spnSingleSelection;
 
@@ -128,74 +128,211 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         convertView = inflater.inflate(R.layout.list_item_question, parent, false);
         questionHolder.qText = convertView.findViewById(R.id.textViewQuestion);
         questionHolder.edittext = convertView.findViewById(R.id.edittext);
-        //   questionHolder.rgQuestionnew = convertView.findViewById(R.id.rgQuestionnew);
+        questionHolder.rgQuestionnew = convertView.findViewById(R.id.rgQuestionnew);
         questionHolder.spnSingleSelection = convertView.findViewById(R.id.spnSingleSelection);
-        //  questionHolder.listcheckview = convertView.findViewById(R.id.listcheckview);
+        questionHolder.listcheckview = convertView.findViewById(R.id.listcheckview);
         questionHolder.multiSpinner = convertView.findViewById(R.id.multiSpinner);
         questionHolder.edittext.setVisibility(View.GONE);
-//        questionHolder.rgQuestionnew.setVisibility(View.GONE);
+        questionHolder.rgQuestionnew.setVisibility(View.GONE);
         questionHolder.multiSpinner.setVisibility(View.GONE);
         questionHolder.spnSingleSelection.setVisibility(View.GONE);
+        questionHolder.listcheckview.setVisibility(View.GONE);
         final View result = convertView;
 
 
         String type = question.getType();
         //type="radio";
         if (type.equalsIgnoreCase("checkbox")) {
-            questionHolder.multiSpinner.setVisibility(View.VISIBLE);
             String option = question.getOptions();
             String nativeoption = question.getLangOptions() != null ? question.getLangOptions() : question.getOptions();
             String[] options = option.split(",");
             String[] nativeoptions = nativeoption.split(",");
-            if (options.length != nativeoptions.length) {
-                nativeoptions = options;
-            }
 
-            if (sessionManager.getLanguagePosition() <= 1) {
-                questionHolder.multiSpinner.setItems(options, options);
+            if (options.length > 4) {
+                questionHolder.multiSpinner.setVisibility(View.VISIBLE);
+
+                if (options.length != nativeoptions.length) {
+                    nativeoptions = options;
+                }
+
+                if (sessionManager.getLanguagePosition() <= 1) {
+                    questionHolder.multiSpinner.setItems(options, options);
+                } else {
+                    questionHolder.multiSpinner.setItems(nativeoptions, options);
+                }
+
+                if (hashMapSelected != null && hashMapSelected.size() > 0 && hashMapSelected.get(question.getId()) != null) {
+                    int[] list = new int[hashMapSelected.get(question.getId()).size()];
+                    for (int i = 0; i < hashMapSelected.get(question.getId()).size(); i++) {
+                        list[i] = hashMapSelected.get(question.getId()).get(i);
+                        //    Log.d("shri",list[i]+":"+i);
+
+                    }
+
+                    if (list.length > 0) {
+                        questionHolder.multiSpinner.setSelection(list);
+                    }else {
+                        questionHolder.multiSpinner.setSelection(new int[]{-1});
+                    }
+
+
+                } else {
+                    questionHolder.multiSpinner.setSelection(new int[]{-1});
+                }
+                questionHolder.multiSpinner.setListener(new MultiSelectSpinnerForQuestion.OnMultipleItemsSelectedListener() {
+                    @Override
+                    public void selectedIndices(List<Integer> indices) {
+                        //hashMapSelected.clear();
+                        hashMapSelected.put(question.getId(), indices);
+                        // Toast.makeText(_context,indices+"",Toast.LENGTH_SHORT).show();
+                        answers.put(question, questionHolder.multiSpinner.getSelectedItemsAsString());
+                    }
+
+                    @Override
+                    public void selectedStrings(List<String> strings) {
+
+                    }
+                });
             } else {
-                questionHolder.multiSpinner.setItems(nativeoptions, options);
+
+
+                questionHolder.listcheckview.setVisibility(View.VISIBLE);
+                List<Quesionviewspojo> myList = new ArrayList<>();
+                if (options.length == nativeoptions.length) {
+                    for (int i = 0; i < options.length; i++) {
+                        String name = options[i];
+                        String locname = nativeoptions[i];
+                        Quesionviewspojo pojo = new Quesionviewspojo(name, locname, 0);
+                        myList.add(pojo);
+
+
+                    }
+
+                } else {
+                    for (int i = 0; i < options.length; i++) {
+                        String name = options[i];
+                        String locname = options[i];
+                        Quesionviewspojo pojo = new Quesionviewspojo(name, locname, 0);
+                        myList.add(pojo);
+
+
+                    }
+                }
+
+
+                for (int i = 0; i < myList.size(); i++) {
+
+                    CheckBox checkBox = new CheckBox(_context);
+                    checkBox.setPadding(0, 0, 40, 0);
+                    if (sessionManager.getLanguagePosition() <= 1) {
+                        //english
+
+                        checkBox.setText(myList.get(i).getOption());
+                    } else {
+                        //local
+                        checkBox.setText(myList.get(i).getNativeOption());
+                    }
+
+                    checkBox.setTag(myList.get(i).getOption());
+
+                    checkBox.setId(i);
+                    String message = "";
+
+                    for (int j = 0; j < tempCheckboxList.size(); j++) {
+                    /*if (checkBox.getId() == tempCheckboxList.get(j).getId() &&
+                            tempCheckboxList.get(j).getQuestion().getId() == question.getId() &&
+                            tempCheckboxList.get(j).getViewtype().equalsIgnoreCase("checkbox")) {
+                        checkBox.setChecked(tempCheckboxList.get(j).isFlag());
+
+
+
+                    }*/
+
+
+                        //question id check
+                        if (question.getId() == tempCheckboxList.get(j).getId() &&
+                                tempCheckboxList.get(j).getViewtype().equalsIgnoreCase("checkbox")) {
+
+                            if (tempCheckboxList.get(j).getHaspmaplist() != null && tempCheckboxList.get(j).getHaspmaplist().size() > 0)
+                                for (int k = 0; k < tempCheckboxList.get(j).getHaspmaplist().size(); k++) {
+                                    if (tempCheckboxList.get(j).getHaspmaplist().get(k) != null
+                                            && tempCheckboxList.get(j).getHaspmaplist().containsKey(k) && k == checkBox.getId())
+
+                                    {
+
+                                        checkBox.setChecked(tempCheckboxList.get(j).getHaspmaplist().get(k));
+                                    }
+
+                                }
+//                           questionHolder.checkboxtemp.setSelection( select.toArray(new String[select.size()]));
+
+
+                        }
+
+                    }
+
+//
+
+                    checkBox.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String message = "";
+                            QuestionTempForCheck temp = new QuestionTempForCheck();
+                            HashMap<Integer, Boolean> hashMap = new HashMap<>();
+                            for (int i = 0; i < questionHolder.listcheckview.getChildCount(); i++) {
+                                View nextChild = questionHolder.listcheckview.getChildAt(i);
+
+                                if (nextChild instanceof CheckBox) {
+                                    CheckBox check = (CheckBox) nextChild;
+                                    if (check.isChecked()) {
+                                        if (message.equalsIgnoreCase("")) {
+                                            message = message + check.getTag().toString();
+                                        } else {
+                                            message = message + "," + check.getTag().toString();
+                                        }
+
+
+                                    }
+
+                                    temp.setId(question.getId());
+                                    temp.setViewtype("checkbox");
+                                    temp.setQuestion(question);
+                                    hashMap.put(check.getId(), check.isChecked());
+                                    temp.setHaspmaplist(hashMap);
+                                    tempCheckboxList.add(temp);
+
+                                }
+
+                            }
+
+                            // Toast.makeText(_context,message,Toast.LENGTH_SHORT).show();
+
+                            answers.put(question, message);
+
+
+                            //    Log.d("sss",question.getId()+":");
+
+                        }
+                    });
+
+                    //   TableRow tbrow = new TableRow(_context);
+               /* if(tbrow.getChildCount()==2)
+                {
+                    tbrow = new TableRow(_context);
+                }*/
+                    //  tbrow.addView(checkBox);
+                    questionHolder.listcheckview.addView(checkBox);
+                }
             }
-
-            if (hashMapSelected != null && hashMapSelected.size() > 0 && hashMapSelected.get(question.getId()) != null) {
-                int[] list = new int[hashMapSelected.get(question.getId()).size()];
-                for (int i = 0; i < hashMapSelected.get(question.getId()).size(); i++) {
-                    list[i] = hashMapSelected.get(question.getId()).get(i);
-                    //    Log.d("shri",list[i]+":"+i);
-
-                }
-
-                if (list.length > 0) {
-                    questionHolder.multiSpinner.setSelection(list);
-                }
-
-
-            } else {
-                questionHolder.multiSpinner.setSelection(new int[]{-1});
-            }
-            questionHolder.multiSpinner.setListener(new MultiSelectSpinnerForQuestion.OnMultipleItemsSelectedListener() {
-                @Override
-                public void selectedIndices(List<Integer> indices) {
-                    //hashMapSelected.clear();
-                    hashMapSelected.put(question.getId(), indices);
-                    // Toast.makeText(_context,indices+"",Toast.LENGTH_SHORT).show();
-                    answers.put(question, questionHolder.multiSpinner.getSelectedItemsAsString());
-                }
-
-                @Override
-                public void selectedStrings(List<String> strings) {
-
-                }
-            });
-
 
         } else if (type.equalsIgnoreCase("radio")) {
 
-            questionHolder.spnSingleSelection.setVisibility(View.VISIBLE);
+            //questionHolder.spnSingleSelection.setVisibility(View.VISIBLE);
             String option = question.getOptions();
             String nativeoption = question.getLangOptions() != null ? question.getLangOptions() : question.getOptions();
             String[] options = option.split(",");
             String[] nativeoptions = nativeoption.split(",");
+
             List<Quesionviewspojo> myList = new ArrayList<>();
             if (options.length == nativeoptions.length) {
                 for (int i = 0; i < options.length; i++) {
@@ -219,62 +356,98 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
 
             }
 
+            if (options.length > 4) {
+                questionHolder.spnSingleSelection.setVisibility(View.VISIBLE);
+                Quesionviewspojo pojo = new Quesionviewspojo(_context.getResources().getString(R.string.selectoption), _context.getResources().getString(R.string.selectoption), -50);
+                myList.add(0, pojo);
+                final ArrayAdapter<Quesionviewspojo> adapter = new ArrayAdapter<Quesionviewspojo>(
+                        _context, R.layout.selectoptionspinner, myList) {
+                    @Override
+                    public boolean isEnabled(int position) {
+                        if (position == 0) {
+                            // Disable the first item from Spinner
+                            // First item will be use for hint
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }
 
-            Quesionviewspojo pojo = new Quesionviewspojo(_context.getResources().getString(R.string.selectoption), _context.getResources().getString(R.string.selectoption), -50);
-            myList.add(0, pojo);
-            final ArrayAdapter<Quesionviewspojo> adapter = new ArrayAdapter<Quesionviewspojo>(
-                    _context, R.layout.selectoptionspinner, myList) {
-                @Override
-                public boolean isEnabled(int position) {
-                    if (position == 0) {
-                        // Disable the first item from Spinner
-                        // First item will be use for hint
-                        return false;
+                    @Override
+                    public View getDropDownView(int position, View convertView,
+                                                ViewGroup parent) {
+                        View view = super.getDropDownView(position, convertView, parent);
+                        TextView tv = (TextView) view;
+                        if (position == 0) {
+                            // Set the hint text color gray
+                            tv.setTextColor(Color.GRAY);
+                        } else {
+                            tv.setTextColor(Color.BLACK);
+                        }
+                        return view;
+                    }
+                };
+                adapter.setDropDownViewResource(R.layout.selectoption);
+                questionHolder.spnSingleSelection.setAdapter(adapter);
+                questionHolder.spnSingleSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        Quesionviewspojo quesionviewspojo = (Quesionviewspojo) questionHolder.spnSingleSelection.getSelectedItem();
+                        if (quesionviewspojo.getPosition() != -50) {
+                            singleSelTempList.put(question.getId(), i);
+                            answers.put(question, quesionviewspojo.getOption());
+
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+                if (singleSelTempList != null && singleSelTempList.size() > 0) {
+                    if (singleSelTempList.get(question.getId()) != null) {
+                        questionHolder.spnSingleSelection.setSelection(singleSelTempList.get(question.getId()));
+                    }
+                }
+            } else {
+
+
+                questionHolder.rgQuestionnew.setVisibility(View.VISIBLE);
+                for (int i = 0; i < myList.size(); i++) {
+
+                    RadioButton radioButton = new RadioButton(_context);
+                    //  radioButton.setText(myList.get(i));
+                    if (sessionManager.getLanguagePosition() <= 1) {
+                        //english
+
+                        radioButton.setText(myList.get(i).getOption());
                     } else {
-                        return true;
+                        //local
+                        radioButton.setText(myList.get(i).getNativeOption());
                     }
-                }
 
-                @Override
-                public View getDropDownView(int position, View convertView,
-                                            ViewGroup parent) {
-                    View view = super.getDropDownView(position, convertView, parent);
-                    TextView tv = (TextView) view;
-                    if (position == 0) {
-                        // Set the hint text color gray
-                        tv.setTextColor(Color.GRAY);
-                    } else {
-                        tv.setTextColor(Color.BLACK);
+                    radioButton.setTag(myList.get(i).getOption());
+                    radioButton.setPadding(0, 0, 40, 0);
+                    radioButton.setId(i);
+                    questionHolder.rgQuestionnew.addView(radioButton);
+
+
+                    for (int j = 0; j < answertemp.size(); j++) {
+                        if (answertemp.get(question) != null && answertemp.get(question).getViewtype().equalsIgnoreCase("radio")) {
+                            if (question.getId() == answertemp.get(question).getQuestion().getId() && radioButton.getId() == answertemp.get(question).getId() && answertemp.get(question).getViewtype().equalsIgnoreCase("radio")) {
+                                radioButton.setChecked(true);
+                            }
+                        }
                     }
-                    return view;
-                }
-            };
-            adapter.setDropDownViewResource(R.layout.selectoption);
-            questionHolder.spnSingleSelection.setAdapter(adapter);
-            questionHolder.spnSingleSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    Quesionviewspojo quesionviewspojo = (Quesionviewspojo) questionHolder.spnSingleSelection.getSelectedItem();
-                    if (quesionviewspojo.getPosition() != -50) {
-                        singleSelTempList.put(question.getId(), i);
-                        answers.put(question, quesionviewspojo.getOption());
-
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
 
                 }
-            });
+                questionHolder.rgQuestionnew.setVisibility(View.VISIBLE);
 
-            if (singleSelTempList != null && singleSelTempList.size() > 0) {
-                if (singleSelTempList.get(question.getId()) != null) {
-                    questionHolder.spnSingleSelection.setSelection(singleSelTempList.get(question.getId()));
-                }
+
             }
-
 
         } else if (type.equalsIgnoreCase("NumericBox")) {
 
@@ -387,7 +560,31 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         questionHolder.qText.setTypeface(questionHolder.qText.getTypeface(), Typeface.BOLD);
 
 
+
+
+
+
+
+
+        questionHolder.rgQuestionnew.setTag(question.getId());
+        questionHolder.rgQuestionnew.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton rb = (RadioButton) result.findViewById(radioGroup.getCheckedRadioButtonId());
+                Questiontemp questiontemp = new Questiontemp();
+                questiontemp.setFlag(true);
+                questiontemp.setId(rb.getId());
+                questiontemp.setViewtype("radio");
+                questiontemp.setQuestion(question);
+                answertemp.put(question, questiontemp);
+                answers.put(question, rb.getTag().toString());
+
+                //  Toast.makeText(_context,  radioGroup.getCheckedRadioButtonId()+"",Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return convertView;
     }
+
 
 }

@@ -1,5 +1,6 @@
 package in.org.klp.ilpkonnect;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -7,7 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -77,6 +81,14 @@ public class UpdateProfileActivity extends BaseActivity {
         cmonth = 0;
 
 
+
+       spnRespondantType.setOnTouchListener(new View.OnTouchListener() {
+           @Override
+           public boolean onTouch(View view, MotionEvent motionEvent) {
+               hideKeyboard(UpdateProfileActivity.this);
+               return false;
+           }
+       });
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,7 +175,16 @@ public class UpdateProfileActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 
     @Override
@@ -257,6 +278,8 @@ public class UpdateProfileActivity extends BaseActivity {
                     });
         }
     }
+
+
 
     public String getRevDate(String strDate) {
         String newstring = "1980-01-01";

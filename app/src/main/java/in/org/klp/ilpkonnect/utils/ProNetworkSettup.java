@@ -171,10 +171,12 @@ public class ProNetworkSettup {
                             survey.setIsImageRequired(imageRequired);
                             survey.setIsCommentRequired(commentRequired);
                             boolean respondentSelection=false;
-                            if(body.getResults().get(i).getUserTypes()!=null&&body.getResults().get(i).getUserTypes().size()>0)
-                                respondentSelection=false;
-                            else
-                                respondentSelection=true;
+                            if(body.getResults().get(i).getUserTypes()!=null&&body.getResults().get(i).getUserTypes().size()>0) {
+                                respondentSelection = false;
+                            }
+                            else {
+                                respondentSelection = true;
+                            }
                             survey.setIsRespondentRequired(respondentSelection);
                             boolean b = db.insertforQuestionGroup(survey);
 

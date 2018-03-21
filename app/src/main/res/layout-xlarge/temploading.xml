@@ -17,12 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:src="@drawable/ilp_logo" />
 
 
@@ -33,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:minHeight="40dp"
+            android:minHeight="80dp"
             app:cardBackgroundColor="@color/colorBrandTurquoise"
             app:cardCornerRadius="5dp">
 
@@ -43,13 +42,13 @@
                 android:gravity="center"
 
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="2dp"
 
                     android:text="@string/selectStateForLanguage"
                     android:textColor="#FFFFFF"
@@ -59,7 +58,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   android:layout_marginBottom="20dp"
+                    android:layout_margin="5dp"
                     android:background="@drawable/rounded_rect">
 
 
@@ -81,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:minHeight="40dp"
+            android:minHeight="80dp"
             app:cardBackgroundColor="@color/colorBrandTurquoise"
             app:cardCornerRadius="5dp">
 
@@ -90,12 +89,12 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/prompt_district"
                     android:textColor="#FFFFFF"
@@ -105,8 +104,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginBottom="20dp"
+                    android:layout_margin="5dp"
                     android:background="@drawable/rounded_rect">
 
 
@@ -114,7 +112,51 @@
                         android:id="@+id/select_district"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="80dp"
 
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:minHeight="80dp"
+            app:cardBackgroundColor="@color/colorBrandTurquoise"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/prompt_block"
+                    android:textColor="#FFFFFF"
+                    android:textSize="26sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rounded_rect">
+
+
+                    <in.org.klp.ilpkonnect.utils.NoDefaultSpinner
+                        android:id="@+id/select_block"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:minHeight="80dp"
 
                         />
@@ -125,13 +167,31 @@
 
 
         </android.support.v7.widget.CardView>
-
-
         <TextView
             android:id="@+id/tvNoteText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="20sp" />
+            android:textSize="13sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0"
+                android:minWidth="250dp"
+                android:minHeight="100dp"
+                android:textSize="25sp"
+                android:background="@drawable/buttonripple"
+                android:text="@string/next"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

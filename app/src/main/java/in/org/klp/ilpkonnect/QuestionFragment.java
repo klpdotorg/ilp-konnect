@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -105,6 +106,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     MultiSelectSpinner spnGrade;
     Spinner spnGradesingle;
     boolean isgradeRequired;
+    TextView tvlableGrade;
     public QuestionFragment() {
     }
 
@@ -130,6 +132,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         School school = db.fetch(School.class, schoolId);
         Survey survey = db.fetch(Survey.class, surveyId);
         isRespondentlistRequired = survey.isRespondentRequired();
+//Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
         isCommentRequired = survey.isCommentRequired();
         gradeType = survey.getGradeRequired();
         if(gradeType==null)
@@ -141,6 +144,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
         TextView textViewSchool = rootView.findViewById(R.id.textViewSchool);
         TextView textViewSchoolId = rootView.findViewById(R.id.textViewSchoolId);
+        tvlableGrade=rootView.findViewById(R.id.tvlableGrade);
+        tvlableGrade.setVisibility(View.GONE);
         textViewSchool.setText(school.getName());
         if (school.getDise() != null && !school.getDise().trim().equalsIgnoreCase("") && !school.getDise().trim().equalsIgnoreCase("null")) {
             textViewSchoolId.setText("DISE Code: " + String.valueOf(school.getDise()));
@@ -159,15 +164,17 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
         spnGrade.setListener(this);
         lincomment = rootView.findViewById(R.id.lincomment);
-        linlayGradeSelection = rootView.findViewById(R.id.linlayGradeSelection);
+         linlayGradeSelection = rootView.findViewById(R.id.linlayGradeSelection);
         edtComment = rootView.findViewById(R.id.edtComment);
+        edtComment.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        edtComment.setLines(1);
         respLin = rootView.findViewById(R.id.respLin);
         tvImageName = rootView.findViewById(R.id.tvImageName);
         questionActivity = (QuestionActivity) getActivity();
         imgPreview = rootView.findViewById(R.id.imgPreview);
         userType = new LinkedHashMap<String, String>();
 
-
+        respLin.setVisibility(View.GONE);
         checkVisiblity(stateKey);
 
 
@@ -234,7 +241,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         //    ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.question_spinner, userTypeNames);
         spinnerUserType.setAdapter(userTypeAdapter);
         // spinnerUserType.setSelection(8);//PR
-        mSelectedUserType = "PR";
+        mSelectedUserType = session.getUserType();
 
         // this to remove all the invalid answers created by a bug in last release
        // db.deleteWhere(Answer.class, Answer.TEXT.notIn("Yes", "No", "Don't Know"));
@@ -339,6 +346,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                              message = message + "* " + getResources().getString(R.string.pleaseSelectrespondanttypequestion);
                              flag=false;
                          }
+                     }else {
+                      //  Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
                      }
                      if(isImageRequired)
                      {
@@ -545,7 +554,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     private void requiredMultilevelgrade(String level) {
 
         List<String> gradeList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.grade_array)));
-        gradeList.add(0,getResources().getString(R.string.selectgrade));
+       gradeList.add(0,getResources().getString(R.string.grade));
         //    ArrayAdapter<String> gradeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.textviewmultispinner, getResources().getStringArray(R.array.grade_array));
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 getActivity(),R.layout.textviewmultispinner,gradeList){
@@ -608,15 +617,10 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
         if (isImageRequired == false) {
             linLayout.setVisibility(View.GONE);
-            respLin.setVisibility(View.VISIBLE);
-            userType = new LinkedHashMap<String, String>();
-            userType.put(getResources().getString(R.string.pleaseSelectrespondanttype), "No");
-            userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
+
         } else {
             linLayout.setVisibility(View.VISIBLE);
-            respLin.setVisibility(View.GONE);
-            userType = new LinkedHashMap<String, String>();
-            userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
+
         }
         if (isCommentRequired) {
             lincomment.setVisibility(View.VISIBLE);
@@ -629,6 +633,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
            spnGrade.setVisibility(View.GONE);
             if(gradeType.equalsIgnoreCase("grade")) {
                 spnGradesingle.setVisibility(View.VISIBLE);
+                tvlableGrade.setVisibility(View.VISIBLE);
             }
             if(gradeType.equalsIgnoreCase("multigrade"))
             {
@@ -636,6 +641,21 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             }
         } else {
             linlayGradeSelection.setVisibility(View.GONE);
+        }
+
+        if(isRespondentlistRequired)
+        {
+            respLin.setVisibility(View.VISIBLE);
+
+            userType = new LinkedHashMap<String, String>();
+            userType.put(getResources().getString(R.string.pleaseSelectrespondanttype), "No");
+            userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
+        }else {
+            respLin.setVisibility(View.GONE);
+
+            userType = new LinkedHashMap<String, String>();
+            userType.put(getResources().getString(R.string.pleaseSelectrespondanttype), "No");
+            userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
         }
 
 

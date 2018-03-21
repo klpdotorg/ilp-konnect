@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
     TextView tvNoteText;
     boolean flagForState, flagForDistrict, flagForblock;
     CardView linLayState;
-
+    Button btnNext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         select_state = findViewById(R.id.select_state);
         select_block = findViewById(R.id.select_block);
         linLayState = findViewById(R.id.linLayState);
-
+        btnNext=(Button)findViewById(R.id.btnNext);
 
         select_district = findViewById(R.id.select_district);
         Query listStateQuery = Query.select().from(State.TABLE).orderBy(State.STATE.asc());
@@ -87,7 +88,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         final String statePersonalKey = mSession.getStateSelection();
         SquidCursor<State> stateCursor = db.query(State.class, listStateQuery);
         stateList = new ArrayList<>();
-
+        btnNext.setVisibility(View.GONE);
         if (stateCursor.getCount() > 0) {
             // we have surveys in DB, get them
             try {
@@ -112,12 +113,14 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
                     tvNoteText.setText(getResources().getString(R.string.downloadDistrcitData));
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     select_state.setEnabled(false);
+                    btnNext.setVisibility(View.VISIBLE);
                     linLayState.setVisibility(View.GONE);
 
                 } else {
                     tvNoteText.setText(getResources().getString(R.string.downloadDistrcitDataNext));
                     select_state.setSelection(mSession.getStatePosition() - 1);
                     select_state.setEnabled(false);
+                    btnNext.setVisibility(View.GONE);
                     linLayState.setVisibility(View.VISIBLE);
                     linLayState.setVisibility(View.GONE);
 
@@ -132,6 +135,14 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         fill_dropdown(1, select_district.getId(), 1, ((StatePojo) select_state.getSelectedItem()).getStateKey());
         fill_dropdown(1, select_block.getId(), 0, ((StatePojo) select_state.getSelectedItem()).getStateKey());
 
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+            }
+        });
         //setPosition();
         select_state.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -478,7 +489,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         if (idview == R.id.select_district) {
             boundaryList.add(0, new StringWithTags(getResources().getString(R.string.selectDistrict), "0", "0", getResources().getString(R.string.selectDistrict), mSession, false, false));
         } else {
-            boundaryList.add(0, new StringWithTags(getResources().getString(R.string.selectblock), "0", "0", getResources().getString(R.string.selectDistrict), mSession, false, false));
+            boundaryList.add(0, new StringWithTags(getResources().getString(R.string.selectblock), "0", "0", getResources().getString(R.string.selectblock), mSession, false, false));
 
         }
         return boundaryList;
