@@ -174,7 +174,7 @@
     <string name="functioalityprogree">Functionality under progress..</string>
     <string name="loading">Loading...</string>
     <string name="dataAlreadynSyn">Data Already Auto-Synced</string>
-    <string name="doyouwant">"Do you want to download all stories?</string>
+    <string name="doyouwant">"Do you want to download reports?</string>
     <string name="nooserveyimage">No survey images found</string>
     <string name="failed">Failed</string>
     <string name="syncTitle">Sync</string>
@@ -342,8 +342,11 @@
     <string name="surveynotavailable">Surveys not available</string>
     <string name="question17">Teachers are providing comments, suggestions or feedback on the GKA kit. What should I do about it?</string>
     <string name="answer17">Please add them as comments and take the picture of the teacher who is providing valuable suggestions</string>
-    <string name="grade">-- Grade --</string>
+    <string name="grade">-- Select Grade --</string>
     <string name="reportsNotgenerated">Report generation functionality currently not available</string>
+    <string name="reportNotAvailable">Reports not available for selected date</string>
+    <string name="performinglogout">You have %1$d surveys pending to be synced. Performing logout will clear all surveys. </string>
+    //<string name="my_xml_string">My sister %1$s is %2$d years old.</string>
 
     <string-array name="grade_array">
 

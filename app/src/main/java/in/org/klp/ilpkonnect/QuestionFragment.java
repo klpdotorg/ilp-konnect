@@ -8,6 +8,7 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,18 +19,23 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,7 +90,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     private Long schoolId;
     private Long questionGroupId;
     private String mSelectedUserType;
-    private LinearLayout linLayout, respLin, lincomment;
+    private LinearLayout linLayout, respLin;
     private KontactDatabase db;
     SessionManager session;
     ImageView imgBtnImage;
@@ -95,7 +101,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     private ImageView ivImage;
     private String userChoosenTask;
     TextView tvImageName;
-    EditText edtComment;
+
     ImageView imgPreview;
     File GlobalImagePath = null;
     ByteArrayOutputStream GLOBALbytes = null;
@@ -106,12 +112,35 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     MultiSelectSpinner spnGrade;
     Spinner spnGradesingle;
     boolean isgradeRequired;
-    TextView tvlableGrade;
+
+
+    FloatingActionButton fab1 ;
+    FloatingActionButton fab2,fabEditIcon;
+    String userComment="";
     public QuestionFragment() {
     }
 
+
+/*    private void showFABMenu(){
+        isFABOpen=true;
+        fab2.setVisibility(View.GONE);
+        fab1.setVisibility(View.VISIBLE);
+        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        if(!tvImageName.getText().toString().equalsIgnoreCase("")) {
+            fab2.setVisibility(View.VISIBLE);
+            fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
+        }
+
+    }
+
+    private void closeFABMenu(){
+        isFABOpen=false;
+        fab1.animate().translationY(0);
+        fab2.animate().translationY(0);
+
+    }*/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         db = ((KLPApplication) getActivity().getApplicationContext()).getDb();
 
@@ -123,6 +152,10 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         surveyId = intent.getLongExtra("surveyId", 0);
         questionGroupId = intent.getLongExtra("ILPQuestionGroupId", 0);
         surveyName = intent.getStringExtra("surveyName");
+        if(surveyName!=null&&!surveyName.equalsIgnoreCase("")) {
+            getActivity().setTitle(surveyName);
+        }
+
         schoolId = intent.getLongExtra("schoolId", 0);
         isImageRequired = intent.getBooleanExtra("imageRequired", false);
 
@@ -142,11 +175,61 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             isgradeRequired=true;
         }
 
+
+
+      fab1 = (FloatingActionButton)rootView. findViewById(R.id.fab1);
+      fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
+        fabEditIcon = (FloatingActionButton) rootView.findViewById(R.id.fabEditIcon);
+        fab2.setVisibility(View.GONE);
+        fab1.setVisibility(View.GONE);
+
+        fabEditIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getActivity());
+                View mView = layoutInflaterAndroid.inflate(R.layout.comment_dailog, null);
+                AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(getActivity());
+                alertDialogBuilderUserInput.setView(mView);
+
+                 final EditText input = (EditText) mView.findViewById(R.id.userInputDialog);
+                input.setSingleLine(false);  //add this
+                input.setLines(4);
+                input.setMaxLines(5);
+                input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                input.setText(userComment);
+                input.setSelection(input.getText().toString().trim().length());
+                input.setGravity(Gravity.LEFT | Gravity.TOP);
+                input.setHorizontalScrollBarEnabled(false);
+                alertDialogBuilderUserInput
+                        .setCancelable(false)
+                        .setPositiveButton(getResources().getString(R.string.Ok), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                // ToDo get user input here
+                                userComment=input.getText().toString().trim();
+                            }
+                        })
+
+                        .setNegativeButton(getResources().getString(R.string.Cancel),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogBox, int id) {
+                                        dialogBox.cancel();
+                                    }
+                                });
+
+                AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                alertDialogAndroid.show();
+
+
+            }
+        });
+
+
+
+
         TextView textViewSchool = rootView.findViewById(R.id.textViewSchool);
         TextView textViewSchoolId = rootView.findViewById(R.id.textViewSchoolId);
-        tvlableGrade=rootView.findViewById(R.id.tvlableGrade);
-        tvlableGrade.setVisibility(View.GONE);
-        textViewSchool.setText(school.getName());
+          textViewSchool.setText(school.getName());
         if (school.getDise() != null && !school.getDise().trim().equalsIgnoreCase("") && !school.getDise().trim().equalsIgnoreCase("null")) {
             textViewSchoolId.setText("DISE Code: " + String.valueOf(school.getDise()));
         } else {
@@ -163,11 +246,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
 
         spnGrade.setListener(this);
-        lincomment = rootView.findViewById(R.id.lincomment);
-         linlayGradeSelection = rootView.findViewById(R.id.linlayGradeSelection);
-        edtComment = rootView.findViewById(R.id.edtComment);
-        edtComment.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        edtComment.setLines(1);
+        linlayGradeSelection = rootView.findViewById(R.id.linlayGradeSelection);
+
         respLin = rootView.findViewById(R.id.respLin);
         tvImageName = rootView.findViewById(R.id.tvImageName);
         questionActivity = (QuestionActivity) getActivity();
@@ -291,6 +371,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         }
         ListView listViewQuestions = rootView.findViewById(R.id.listViewQuestions);
         listViewQuestions.setItemsCanFocus(true);
+
         listViewQuestions.setAdapter(mQuestionsAdapter);
 
 
@@ -357,20 +438,24 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                                  message = message + "\n";
                              }
                              message = message + getResources().getString(R.string.pleaseuploadimage);
+                           /*  fab1. setBackgroundTintList(ColorStateList.valueOf(Color
+                                     .parseColor("#FFCDD2")));*/
+                             Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.blink);
+                             fab1.startAnimation(animationScaleUp);
                              flag=false;
                          }
                      }
 
                      if(isCommentRequired)
                     {
-                        if(TextUtils.isEmpty(edtComment.getText().toString().trim()))
+                        /*if(TextUtils.isEmpty(edtComment.getText().toString().trim()))
                         {
                             if (!message.trim().equalsIgnoreCase("")) {
                                 message = message + "\n";
                             }
                             message = message +"* "+ getResources().getString(R.string.pleaseENterComment);
                             flag=false;
-                        }
+                        }*/
                     }
                     if(isgradeRequired)
                     {
@@ -411,7 +496,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                     story.setRespondentType(mSelectedUserType);
                     if(isCommentRequired)
                     {
-                        story.setComments(edtComment.getText().toString().trim());
+                     story.setComments(userComment);
                     }
                     if(isgradeRequired)
                     {
@@ -537,6 +622,19 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         });
 
 
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showImage(BitmapFactory.decodeByteArray(getBitMapFile().toByteArray(), 0, getBitMapFile().toByteArray().length));
+
+            }
+        });
         imgPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -617,15 +715,18 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
         if (isImageRequired == false) {
             linLayout.setVisibility(View.GONE);
+            fab1.setVisibility(View.GONE);
 
         } else {
-            linLayout.setVisibility(View.VISIBLE);
-
+            linLayout.setVisibility(View.GONE);
+            fab1.setVisibility(View.VISIBLE);
         }
         if (isCommentRequired) {
-            lincomment.setVisibility(View.VISIBLE);
+            fabEditIcon.setVisibility(View.VISIBLE);
+
         } else {
-            lincomment.setVisibility(View.GONE);
+
+            fabEditIcon.setVisibility(View.GONE);
         }
 
        if (isgradeRequired) {
@@ -633,7 +734,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
            spnGrade.setVisibility(View.GONE);
             if(gradeType.equalsIgnoreCase("grade")) {
                 spnGradesingle.setVisibility(View.VISIBLE);
-                tvlableGrade.setVisibility(View.VISIBLE);
+
             }
             if(gradeType.equalsIgnoreCase("multigrade"))
             {
@@ -744,7 +845,11 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 getResources().getString(R.string.cancel)};
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
-        builder.setTitle(getResources().getString(R.string.app_name));
+       // builder.setTitle(getResources().getString(R.string.pleaseataachsurveyimage));
+       // builder.setCustomTitle(R.layout.custom_date_layout)
+        View view=LayoutInflater.from(getActivity()).inflate(R.layout.titlebar, null);
+        builder.setCustomTitle(view);
+        //builder.setMessage(getResources().getString(R.string.pleaseataachsurveyimage));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
@@ -889,8 +994,13 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         }*/
 
             tvImageName.setText(getFilePath().getName().toString());
-
-            imgPreview.setVisibility(View.VISIBLE);
+           // showFABMenu();
+            if(!tvImageName.getText().toString().trim().equalsIgnoreCase("")) {
+                fab2.setVisibility(View.VISIBLE);
+                fab1. setBackgroundTintList(ColorStateList.valueOf(Color
+                        .parseColor("#24b2b6")));
+            }
+           // imgPreview.setVisibility(View.VISIBLE);
 
         } catch (Exception e) {
             // Toast.makeText(getActivity(),"Please select appropriate image",Toast.LENGTH_SHORT).show();

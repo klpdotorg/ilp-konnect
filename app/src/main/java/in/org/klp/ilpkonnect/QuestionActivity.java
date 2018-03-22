@@ -17,7 +17,7 @@ public class QuestionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        this.setTitle(getResources().getString(R.string.title_activity_question));
+     //   this.setTitle(getResources().getString(R.string.title_activity_question));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

@@ -32,6 +32,7 @@ import in.org.klp.ilpkonnect.Pojo.StatePojo;
 import in.org.klp.ilpkonnect.R;
 import in.org.klp.ilpkonnect.SurveyTypeActivity;
 import in.org.klp.ilpkonnect.data.StringWithTags;
+import in.org.klp.ilpkonnect.db.Answer;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.MySummary;
@@ -40,6 +41,7 @@ import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.Respondent;
 import in.org.klp.ilpkonnect.db.School;
 import in.org.klp.ilpkonnect.db.State;
+import in.org.klp.ilpkonnect.db.Story;
 import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
@@ -67,6 +69,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
     boolean flagForState, flagForDistrict, flagForblock;
     CardView linLayState;
     Button btnNext;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +80,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         select_state = findViewById(R.id.select_state);
         select_block = findViewById(R.id.select_block);
         linLayState = findViewById(R.id.linLayState);
-        btnNext=(Button)findViewById(R.id.btnNext);
+        btnNext = (Button) findViewById(R.id.btnNext);
 
         select_district = findViewById(R.id.select_district);
         Query listStateQuery = Query.select().from(State.TABLE).orderBy(State.STATE.asc());
@@ -187,7 +190,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
-                                                loadData(Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), true,mSession.getToken());
+                                                loadData(Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), true, mSession.getToken());
 
                                             }
                                         });
@@ -203,7 +206,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
 
 
                             } else {
-                                loadData(Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), false,mSession.getToken());
+                                loadData(Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), false, mSession.getToken());
                             }
                         }
                     } else {
@@ -244,7 +247,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
-                                                loadSchooldataForBlock(Long.parseLong(((StringWithTags) select_block.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()),mSession.getToken());
+                                                loadSchooldataForBlock(Long.parseLong(((StringWithTags) select_block.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), mSession.getToken());
                                             }
                                         });
                                 noAnswerDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.response_negative),
@@ -259,7 +262,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
 
 
                             } else {
-                                loadSchooldataForBlock(Long.parseLong(((StringWithTags) select_block.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()),mSession.getToken());
+                                loadSchooldataForBlock(Long.parseLong(((StringWithTags) select_block.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey(), Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), mSession.getToken());
                                 //  loadData(Long.parseLong(((StringWithTags) select_district.getSelectedItem()).id.toString()), ((StatePojo) select_state.getSelectedItem()).getStateKey());
                             }
                         }
@@ -287,7 +290,10 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+        if (!mSession.isSetupDone())
+            getMenuInflater().inflate(R.menu.logout_menu, menu);
+
         return true;
     }
 
@@ -336,6 +342,8 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         db.deleteAll(MySummary.class);
         db.deleteAll(SummaryInfo.class);
         db.deleteAll(QuestionGroupQuestion.class);
+        db.deleteAll(Answer.class);
+        db.deleteAll(Story.class);
         db.deleteAll(Survey.class);
 
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
@@ -399,7 +407,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         finish();
     }
 
-    private void loadSchooldataForBlock(final long id, String stateKey, long distId,String token) {
+    private void loadSchooldataForBlock(final long id, String stateKey, long distId, String token) {
         initPorgresssDialogForSchool();
 
         updateProgressMessage(select_block.getSelectedItem().toString() + " "
@@ -409,7 +417,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         String URL = BuildConfig.HOST + ILPService.SCHOOLS + "&geometry=yes&admin2=" +
                 id + "&state=" + stateKey.toLowerCase();
 
-        new ProNetworkSettup(TempLoading.this).DownloadSchoolData(URL, id, distId,token, new SchoolStateInterface() {
+        new ProNetworkSettup(TempLoading.this).DownloadSchoolData(URL, id, distId, token, new SchoolStateInterface() {
             @Override
             public void success(String message) {
                 finishProgress();
@@ -588,13 +596,13 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
 
         String url = BuildConfig.HOST + "/api/v1/boundary/admin1/" + id + "/admin2/?per_page=0";
 
-        new ProNetworkSettup((TempLoading.this)).DownloadBlocksData(url, stateKey, isDataAlreadyDownloaded, token,new SchoolStateInterface() {
+        new ProNetworkSettup((TempLoading.this)).DownloadBlocksData(url, stateKey, isDataAlreadyDownloaded, token, new SchoolStateInterface() {
             @Override
             public void success(String message) {
 
                 updateProgressMessage(select_district.getSelectedItem().toString() + " " + getResources().getString(R.string.districtClusterLoading), 0);
                 String url = BuildConfig.HOST + "/api/v1/boundary/admin1/" + id + "/admin3?per_page=0";
-                new ProNetworkSettup(TempLoading.this).DownloadClusterData(url, id, stateKey, isDataAlreadyDownloaded,token, new SchoolStateInterface() {
+                new ProNetworkSettup(TempLoading.this).DownloadClusterData(url, id, stateKey, isDataAlreadyDownloaded, token, new SchoolStateInterface() {
                     @Override
                     public void success(String message) {
                         finishProgress();

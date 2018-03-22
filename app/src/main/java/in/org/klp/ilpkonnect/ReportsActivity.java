@@ -207,6 +207,12 @@ boolean isImageRequired;
             }
         });
 
+
+
+        if (AppStatus.isConnected(ReportsActivity.this)) {
+
+            syncBlock();
+        }
     }
 /*
     public void CustomDialog() {
@@ -253,6 +259,9 @@ boolean isImageRequired;
 
                 finish();
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                return true;
+            case R.id. action_sync_block  :
+                syncBlock();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -413,7 +422,7 @@ boolean isImageRequired;
         return true;
     }
 
-    public void syncBlock(MenuItem item) {
+    public void syncBlock() {
 
 
         final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
@@ -430,23 +439,58 @@ boolean isImageRequired;
             //
 
             if (sync.isSyncDataFound()) {
-                showProgress(true);
-                String jsondata = sync.doUpload();
-                // Log.d("jsonData", jsondata);
 
-                new ProNetworkSettup(getApplicationContext()).SyncData(jsondata, sessionManager.getToken(), new StateInterface() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
+                builder.setCancelable(false);
+
+
+                builder.setTitle(getResources().getString(R.string.syncTitle));
+
+
+                //  builder.setMessage(getResources().getString(R.string.dataAlreadynSyn) + "\n" + getResources().getString(R.string.doyouwant));
+                builder.setMessage(getResources().getString(R.string.doyouwant));
+
+
+                //Button One : Yes
+                builder.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
                     @Override
-                    public void success(String message) {
+                    public void onClick(DialogInterface dialog, int which) {
+                        showProgress(true);
+                        String jsondata = sync.doUpload();
+                        // Log.d("jsonData", jsondata);
 
-                        loadReportData(sync);
-                    }
+                        new ProNetworkSettup(getApplicationContext()).SyncData(jsondata, sessionManager.getToken(), new StateInterface() {
+                            @Override
+                            public void success(String message) {
 
-                    @Override
-                    public void failed(String message) {
-                        showProgress(false);
-                        DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                                loadReportData(sync);
+                            }
+
+                            @Override
+                            public void failed(String message) {
+                                showProgress(false);
+                                DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                            }
+                        });
+
                     }
                 });
+
+
+                //Button Two : No
+                builder.setNegativeButton(getResources().getString(R.string.answer_no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Toast.makeText(ReportsActivity.this, "No button Clicked!", Toast.LENGTH_LONG).show();
+
+                        dialog.cancel();
+                    }
+                });
+
+
+                AlertDialog diag = builder.create();
+                diag.show();
+
 
 
             } else {
@@ -523,7 +567,7 @@ boolean isImageRequired;
 
                 showSignupResultDialog(
                         getResources().getString(R.string.app_name),
-                        getResources().getString(R.string.dataAlreadynSyn) + ",\n" + getResources().getString(R.string.noInternetCon),
+                         getResources().getString(R.string.noInternetCon),
                         getResources().getString(R.string.Ok));
             }
 
@@ -551,7 +595,13 @@ boolean isImageRequired;
                 @Override
                 public void success(String message) {
                     showProgress(false);
-                    fetchQuestions();
+                    if(message.equalsIgnoreCase("success")) {
+                        fetchQuestions();
+                    }else {
+                        fetchQuestions();
+                        DailogUtill.showDialog(message,getSupportFragmentManager(),ReportsActivity.this);
+
+                    }
 
                 }
 
@@ -567,7 +617,13 @@ boolean isImageRequired;
                 @Override
                 public void success(String message) {
                     showProgress(false);
-                    fetchQuestions();
+                    if(message.equalsIgnoreCase("success")) {
+                        fetchQuestions();
+                    }else {
+                         fetchQuestions();
+                         DailogUtill.showDialog(message,getSupportFragmentManager(),ReportsActivity.this);
+
+                    }
 
                 }
 
@@ -600,6 +656,7 @@ boolean isImageRequired;
 
     public void alertDialog(final SyncManager syncManager) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
+        builder.setCancelable(false);
         final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
 
 

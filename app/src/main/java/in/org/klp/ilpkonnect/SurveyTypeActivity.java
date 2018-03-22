@@ -27,6 +27,7 @@ import in.org.klp.ilpkonnect.Pojo.StatePojo;
 import in.org.klp.ilpkonnect.Pojo.SurveyMain;
 
 import in.org.klp.ilpkonnect.data.StringWithTags;
+import in.org.klp.ilpkonnect.db.Answer;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.MySummary;
@@ -36,6 +37,7 @@ import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.Respondent;
 import in.org.klp.ilpkonnect.db.School;
 import in.org.klp.ilpkonnect.db.State;
+import in.org.klp.ilpkonnect.db.Story;
 import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
@@ -185,16 +187,33 @@ public class SurveyTypeActivity extends BaseActivity {
 
 
     }
+    public int getStoriesCount()
+    {
+        Query listStoryQuery = Query.select().from(Story.TABLE)
+                .where(Story.SYNCED.eq(0));
+        SquidCursor<Story> storiesCursor = db.query(Story.class, listStoryQuery);
 
+        return storiesCursor.getCount();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_logout) {
 
+            String message="";
+            if(getStoriesCount()>0)
+            {
+                message=String.format(getResources().getString(R.string.performinglogout),getStoriesCount())+"\n"+getResources().getString(R.string.doyouwantToLogout);
+
+            }else
+            {
+                message=getResources().getString(R.string.doyouwantToLogout);
+            }
             android.support.v7.app.AlertDialog alertDailog = new android.support.v7.app.AlertDialog.Builder(SurveyTypeActivity.this).create();
 
+
             alertDailog.setCancelable(false);
-            alertDailog.setMessage(getResources().getString(R.string.doyouwantToLogout));
+            alertDailog.setMessage(message);
             alertDailog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.response_positive),
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -242,8 +261,10 @@ public class SurveyTypeActivity extends BaseActivity {
         db.deleteAll(Summmary.class);
         db.deleteAll(SummaryInfo.class);
         db.deleteAll(MySummary.class);
-              db.deleteAll(QuestionGroupQuestion.class);
+        db.deleteAll(QuestionGroupQuestion.class);
         db.deleteAll(Boundary.class);
+        db.deleteAll(Answer.class);
+        db.deleteAll(Story.class);
         db.deleteAll(Survey.class);
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         this.finish();

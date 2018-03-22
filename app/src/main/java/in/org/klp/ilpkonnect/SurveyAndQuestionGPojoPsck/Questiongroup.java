@@ -62,6 +62,19 @@ public class Questiongroup {
     @Expose
     private Boolean commentsRequired;
 
+
+    public Boolean getRespondenttypeRequired() {
+        return respondenttypeRequired;
+    }
+
+    public void setRespondenttypeRequired(Boolean respondenttypeRequired) {
+        this.respondenttypeRequired = respondenttypeRequired;
+    }
+
+    @SerializedName("respondenttype_required")
+    @Expose
+    private Boolean respondenttypeRequired;
+
     public Integer getId() {
         return id;
     }

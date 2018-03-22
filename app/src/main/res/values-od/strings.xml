@@ -351,10 +351,13 @@
     <string name="answer16">GKA ସ୍କୁଲ ପର୍ଯ୍ୟବେକ୍ଷଣ ଲାଗି କରିପାରିବେ ନାହିଁ| </string>
     <string name="selectoption">ଚୟନ କରନ୍ତୁ </string>
     <string name="surveynotavailable">ଏହି ସର୍ବେକ୍ଷଣ ପାଇଁ ରିପୋର୍ଟ ଉପଲବ୍ଧ ନାହିଁ </string>
-    <string name="question17">Teachers are providing comments, suggestions or feedback on the GKA kit. What should I do about it?</string>
-    <string name="answer17">Please add them as comments and take the picture of the teacher who is providing valuable suggestions</string>
-    <string name="grade">-- ଶ୍ରେଣୀ  --</string>
+    <string name="question17">ଶିକ୍ଷକମାନେ GKA TLM ଉପରେ ନିଜର ମତାମତ ଓ ପ୍ରତିକ୍ରିୟା ଡେଉଛନ୍ତି | ମୁଁ ଏଠି କଣ କରି ପାରିବି? </string>
+    <string name="answer17">ଏହା ସବୁ ଆପଣ "ଅନ୍ୟ କୌଣସି ମତାମତ" ବିଭାଗରେ ଲେଖନ୍ତୁ ଏବଂ ଯେଉଁ ଶିକ୍ଷକ ମୂଲ୍ୟବାନ ମତାମତ ଦେଉଛନ୍ତି ତାଙ୍କର ପରିଚୟ ମଧ୍ୟ ଲେଖନ୍ତୁ|</string>
+    <string name="grade">-- ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ --</string>
     <string name="reportsNotgenerated">ରିପୋର୍ଟ କାର୍ଯ୍ୟକ୍ଷମତା ଏବେ ଉପଲବ୍ଧ ନାହିଁ </string>
+    <string name="reportNotAvailable">ଏହି ତାରିଖ ପାଇଁ ରିପୋର୍ଟ ଉପଲବ୍ଧ ନାହିଁ|</string>
+
+    <string name="performinglogout">ଆପଣଙ୍କ %1$d ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ | ଲଗ୍ ଆଉଟ୍ କରିବା ଦ୍ଵାରା ଡାଟା ହଜି ପାରେ | ଏହା ସତ୍ଵେ ଲଗ୍ ଆଉଟ୍ କରିବାକୁ ଚାହାନ୍ତି କି? </string>
 
 
     <string-array name="grade_array">

@@ -57,6 +57,9 @@ public class SummaryActiivity extends BaseActivity {
         //question group it is
         surveyId = getIntent().getLongExtra("surveyId", 0);
         questiongroup = getIntent().getLongExtra("ILPQuestionGroupId", 0);
+
+
+       // Toast.makeText(getApplicationContext(),surveyId+":"+questiongroup,Toast.LENGTH_SHORT).show();
         surveyName = getIntent().getStringExtra("surveyName");
         stateID = getIntent().getLongExtra("stateID", 0);
         from = getIntent().getStringExtra("from");
@@ -64,7 +67,7 @@ public class SummaryActiivity extends BaseActivity {
 
 
         tvdate = findViewById(R.id.tvdate);
-        fetchData(questiongroup, sessionManager.getStateSelection(), from, end);
+        fetchData(surveyId, sessionManager.getStateSelection(), from, end);
         Calendar c = Calendar.getInstance();
         cyear = c.get(Calendar.YEAR);
         cdate = c.get(Calendar.DAY_OF_MONTH);
@@ -191,11 +194,11 @@ public class SummaryActiivity extends BaseActivity {
         //  Toast.makeText(getApplicationContext(),fromd+":"+endd,Toast.LENGTH_SHORT).show();
 
         //  startActivity(new Intent(getApplicationContext(),TempLoading.class));
-        new ProNetworkSettup(getApplicationContext()).getMySummary(questiongroup, sessionManager.getStateSelection(), fromd, endd, sessionManager.getToken(), new StateInterface() {
+        new ProNetworkSettup(getApplicationContext()).getMySummary(questiongroup, sessionManager.getStateSelection(), fromd, endd, sessionManager.getToken(),surveyId, new StateInterface() {
             @Override
             public void success(String message) {
                 progressDialog.setMessage(message);
-                fetchData(questiongroup, sessionManager.getStateSelection(), from, end);
+                fetchData(surveyId, sessionManager.getStateSelection(), from, end);
                 closeProgress();
             }
 

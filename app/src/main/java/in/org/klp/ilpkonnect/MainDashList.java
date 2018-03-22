@@ -107,7 +107,9 @@ public class MainDashList extends BaseActivity {
         surveyName = getIntent().getStringExtra("surveyName");
         isImageRequired = getIntent().getBooleanExtra("imageRequired", false);
         //  Toast.makeText(this, surveyId+":"+surveyName, Toast.LENGTH_SHORT).show();
-
+        if(surveyName!=null&&!surveyName.equalsIgnoreCase("")) {
+            this.setTitle(surveyName);
+        }
 
         //    Toast.makeText(getApplicationContext(),surveyId+":"+surveyName,Toast.LENGTH_SHORT).show();
         if (surveyId == 0 || surveyName.isEmpty() || questionGroupId == 0) {

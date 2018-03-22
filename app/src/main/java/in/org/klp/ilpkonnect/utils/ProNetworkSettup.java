@@ -171,12 +171,10 @@ public class ProNetworkSettup {
                             survey.setIsImageRequired(imageRequired);
                             survey.setIsCommentRequired(commentRequired);
                             boolean respondentSelection=false;
-                            if(body.getResults().get(i).getUserTypes()!=null&&body.getResults().get(i).getUserTypes().size()>0) {
-                                respondentSelection = false;
+                            if(questionGroupList.get(j).getRespondenttypeRequired()!=null) {
+                                respondentSelection = questionGroupList.get(j).getRespondenttypeRequired();
                             }
-                            else {
-                                respondentSelection = true;
-                            }
+
                             survey.setIsRespondentRequired(respondentSelection);
                             boolean b = db.insertforQuestionGroup(survey);
 
@@ -478,7 +476,7 @@ public class ProNetworkSettup {
                         double temp = Double.parseDouble((resposeSingle / totalRecordsCount) + "");
                         double onepercent = Double.parseDouble(((100 * temp)) + "");
                         schoolCountp = schoolCountp + onepercent;
-                        Log.d("sssss", schoolCountp + "");
+
                         if (schoolCountp > 0 && schoolCountp <= 100) {
                             stateInterface.update((int) schoolCountp);
 
@@ -506,43 +504,53 @@ public class ProNetworkSettup {
 
     private void parseBlockDataToDb(Response<BlockDetailPojo> response, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded, String token) {
 
-        for (int i = 0; i < response.body().getResults().size(); i++) {
+if(response.body().getCount()!=null&&response.body().getCount()>0) {
+    if(response.body().getResults()!=null&&response.body().getResults().size()>0){
+    for (int i = 0; i < response.body().getResults().size(); i++) {
 
 
-            Boundary boundary = new Boundary();
-            if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
-                boundary.setId(response.body().getResults().get(i).getId());
-                boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
-                boundary.setName(response.body().getResults().get(i).getName());
-                boundary.setHierarchy("block");
-                boundary.setType("primaryschool");
-                if (isDataAlreadyDownloaded == false) {
-                    boundary.setIsFlag(false);
-                    boundary.setIsFlagCB(false);
-                }
-                boundary.setStateKey(stateKey);
-                String locName = response.body().getResults().get(i).getLangName();
-                if (locName == null)
-                    boundary.setLocName(response.body().getResults().get(i).getName());
-                else
-                    boundary.setLocName(locName);
-                try {
-                    db.insertNew(boundary);
-                } catch (Exception e) {
-
-                    db.persist(boundary);
-                }
+        Boundary boundary = new Boundary();
+        if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
+            boundary.setId(response.body().getResults().get(i).getId());
+            boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
+            boundary.setName(response.body().getResults().get(i).getName());
+            boundary.setHierarchy("block");
+            boundary.setType("primaryschool");
+            if (isDataAlreadyDownloaded == false) {
+                boundary.setIsFlag(false);
+                boundary.setIsFlagCB(false);
             }
+            boundary.setStateKey(stateKey);
+            String locName = response.body().getResults().get(i).getLangName();
+            if (locName == null)
+                boundary.setLocName(response.body().getResults().get(i).getName());
+            else
+                boundary.setLocName(locName);
+            try {
+                db.insertNew(boundary);
+            } catch (Exception e) {
 
-
+                db.persist(boundary);
+            }
         }
-        if (response.body().getNext() != null) {
-            DownloadBlocksData(response.body().getNext().toString(), stateKey, isDataAlreadyDownloaded, token, stateInterface);
-        } else {
-            stateInterface.success("success");
-        }
+    }
 
 
+
+    if (response.body().getNext() != null) {
+        DownloadBlocksData(response.body().getNext().toString(), stateKey, isDataAlreadyDownloaded, token, stateInterface);
+    } else {
+        stateInterface.success("success");
+    }
+    }else {
+        stateInterface.failed(context.getResources().getString(R.string.noblock));
+    }
+
+}
+else {
+    stateInterface.failed(context.getResources().getString(R.string.noblock));
+
+}
     }
 
     public void userLogin(String mobile, String password, String stateKey, final StateInterface stateInterface) {
@@ -689,7 +697,7 @@ public class ProNetworkSettup {
                         double temp = Double.parseDouble((resposeSingle / totalRecordsCount) + "");
                         double onepercent = Double.parseDouble(((100 * temp)) + "");
                         schoolCountp = schoolCountp + onepercent;
-                        Log.d("sssss", schoolCountp + "-");
+
                         if (schoolCountp > 0 && schoolCountp <= 100) {
                             stateInterface.update((int) schoolCountp);
                         }
@@ -720,33 +728,35 @@ public class ProNetworkSettup {
 
     private void parseClusterDataToDb(Response<ClusterDetailPojo> response, long distId, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded, String token) {
 
-        for (int i = 0; i < response.body().getResults().size(); i++) {
-            Boundary boundary = new Boundary();
-            if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
-                boundary.setId(response.body().getResults().get(i).getId());
-                boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
-                boundary.setName(response.body().getResults().get(i).getName());
-                boundary.setHierarchy("cluster");
-                if (isDataAlreadyDownloaded == false) {
-                    boundary.setIsFlag(false);
-                    boundary.setIsFlagCB(false);
-                }
-                boundary.setType("primaryschool");
-                boundary.setStateKey(stateKey);
-                String locName = response.body().getResults().get(i).getLangName();
-                if (locName == null)
-                    boundary.setLocName(response.body().getResults().get(i).getName());
-                else
-                    boundary.setLocName(locName);
 
-                try {
-                    db.insertNew(boundary);
-                } catch (Exception e) {
-                    db.persist(boundary);
+            for (int i = 0; i < response.body().getResults().size(); i++) {
+                Boundary boundary = new Boundary();
+                if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
+                    boundary.setId(response.body().getResults().get(i).getId());
+                    boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
+                    boundary.setName(response.body().getResults().get(i).getName());
+                    boundary.setHierarchy("cluster");
+                    if (isDataAlreadyDownloaded == false) {
+                        boundary.setIsFlag(false);
+                        boundary.setIsFlagCB(false);
+                    }
+                    boundary.setType("primaryschool");
+                    boundary.setStateKey(stateKey);
+                    String locName = response.body().getResults().get(i).getLangName();
+                    if (locName == null)
+                        boundary.setLocName(response.body().getResults().get(i).getName());
+                    else
+                        boundary.setLocName(locName);
+
+                    try {
+                        db.insertNew(boundary);
+                    } catch (Exception e) {
+                        db.persist(boundary);
+                    }
                 }
+                // Log.d("w", i + "");
             }
-            // Log.d("w", i + "");
-        }
+
         if (response.body().getNext() != null) {
             DownloadClusterData(response.body().getNext(), distId, stateKey, isDataAlreadyDownloaded, token, stateInterface);
             //Toast.makeText(getApplicationContext(), "next", Toast.LENGTH_SHORT).show();
@@ -943,17 +953,17 @@ public class ProNetworkSettup {
     }
 
 
-    public void getMySummary(final long id, final String statekey, final String fromD, final String endD, String token, final StateInterface stateInterface) {
+    public void getMySummary(final long id, final String statekey, final String fromD, final String endD, String token, final long surveyId, final StateInterface stateInterface) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         //  Log.d("test",id+":"+fromD+":"+endD+":"+token);
-        apiInterface.getMySummary(id, fromD, endD, token, statekey).enqueue(new Callback<ResponseBody>() {
+        apiInterface.getMySummary(id, fromD, endD, token, statekey,surveyId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 200) {
 
                     try {
-                        parseMySummaryData(response.body().string(), id, statekey, stateInterface, fromD, endD);
+                        parseMySummaryData(response.body().string(), id, statekey, stateInterface, fromD, endD,surveyId);
                     } catch (Exception e) {
                         e.printStackTrace();
                         stateInterface.failed(e.getMessage());
@@ -973,7 +983,7 @@ public class ProNetworkSettup {
         });
     }
 
-    private void parseMySummaryData(String s, long id, String stateKey, StateInterface stateInterface, String fromD, String endD) {
+    private void parseMySummaryData(String s, long id, String stateKey, StateInterface stateInterface, String fromD, String endD,long surveyId) {
         String surveyName = "";
         Query mySurveyQuery = Query.select().from(Survey.TABLE)
                 .where(Survey.QUESTION_GROUP_ID.eq(id));
@@ -992,13 +1002,13 @@ public class ProNetworkSettup {
             String schools_impacted = !jsonObject.getString("schools_covered").equalsIgnoreCase("null") ? jsonObject.getString("schools_covered") : "0";
 
             Query mySummaryQuery = Query.select().from(MySummary.TABLE)
-                    .where(MySummary.SURVEYID.eq(id).and(MySummary.STATE_KEY.eq(stateKey)));
+                    .where(MySummary.SURVEYID.eq(surveyId).and(MySummary.STATE_KEY.eq(stateKey)));
 
             //  Toast.makeText(context,jsonObject.getString("assessments"),Toast.LENGTH_SHORT).show();
             SquidCursor<MySummary> summaryCursor = db.query(MySummary.class, mySummaryQuery);
             //  Toast.makeText((ReportsActivity) context, summaryCursor.getCount() + "count", Toast.LENGTH_SHORT).show();
             MySummary mySummary = new MySummary();
-            mySummary.setSurveyid(id);
+            mySummary.setSurveyid(surveyId);
             mySummary.setSurveyname(surveyName);
             mySummary.setStateKey(stateKey);
             mySummary.setFromdate(milliseconds(fromD));
@@ -1008,7 +1018,7 @@ public class ProNetworkSettup {
             mySummary.setPendingsync(0l);
 
             if (summaryCursor != null && summaryCursor.getCount() > 0) {
-                Update update = Update.table(MySummary.TABLE).where(MySummary.STATE_KEY.eq(stateKey).and(MySummary.SURVEYID.eq(id)));
+                Update update = Update.table(MySummary.TABLE).where(MySummary.STATE_KEY.eq(stateKey).and(MySummary.SURVEYID.eq(surveyId)));
                 Update summryUpdate = update.fromTemplate(mySummary);
                 db.update(summryUpdate);
                 stateInterface.success("success");
@@ -1024,7 +1034,7 @@ public class ProNetworkSettup {
 
 
         } catch (JSONException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
             stateInterface.success(context.getResources().getString(R.string.summaryLoadingFailed));
         }
 
@@ -1356,7 +1366,23 @@ public class ProNetworkSettup {
 
                 stateInterface.success("success");
             } else {
-                stateInterface.success("No detail found");
+                Update summryUpdate = Update.table(SummaryInfo.TABLE)
+                        .set(SummaryInfo.YES, 0)
+                        .set(SummaryInfo.NO, 0)
+                        .set(SummaryInfo.DONTKNOW, 0)
+                        .set(SummaryInfo.STATE_KEY, stateKey)
+                                /*    .set(SummaryInfo.TOTAL_SCHOOL, totalschools)
+                                    .set(SummaryInfo.TOTAL_RESPONSE, num_assessments)
+                                    .set(SummaryInfo.TOTAL_SCHOOL_WITH_RESPONSE, schoolImapcted)*/
+
+                        .where(SummaryInfo.BID.eqCaseInsensitive(boundaryId + "")
+                                .and(SummaryInfo.HIERARCHY.eqCaseInsensitive(level))
+                                .and(SummaryInfo.GROUPID.eqCaseInsensitive(group + ""))
+                                .and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey)));
+
+                int updated = db.update(summryUpdate);
+                stateInterface.success(context.getResources().getString(R.string.reportNotAvailable));
+
             }
 
 

@@ -5,6 +5,7 @@
         android:id="@+id/action_sync_block"
         android:title="@string/update"
         android:orderInCategory="100"
+
         app:showAsAction="always"
         android:onClick="mySync" />
 </menu>

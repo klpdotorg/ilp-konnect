@@ -339,8 +339,10 @@
     <string name="surveynotavailable">ಸರ್ವೇಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
     <string name="question17">ಶಿಕ್ಷಕರು ಜಿಕೆಎ ಕಿಟ್ ನಲ್ಲಿ ಸಲಹೆಗಳನ್ನು ಅಥವಾ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡುತ್ತಿದ್ದಾರೆ. ನಾನು ಅದರ ಬಗ್ಗೆ ಏನು ಮಾಡಬೇಕು?</string>
     <string name="answer17">ದಯವಿಟ್ಟು ಈ ಸಲಹೆಗಳನ್ನು ಕಾಮೆಂಟ್ ನಲ್ಲಿ ಬರೆಯಿರಿ ಮತ್ತು ಮೌಲ್ಯಯುತವಾದ ಸಲಹೆಗಳನ್ನು ನೀಡುವ ಶಿಕ್ಷಕನ/ಶಿಕ್ಷಕಿಯರ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ</string>
-    <string name="grade">-- ಗ್ರೇಡ್ --</string>
+    <string name="grade">-- ಗ್ರೇಡ್ ಆಯ್ಕೆಮಾಡಿ --</string>
     <string name="reportsNotgenerated">ರಿಪೋರ್ಟ್ಸ ಕಾರ್ಯಾಚರಣೆಯು ಪ್ರಸ್ತುತ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="reportNotAvailable">ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ದಿನಾಂಕದಂದು ರಿಪೋರ್ಟ್ ಉಪಲಬ್ಧವಿಲ್ಲಾ</string>
+    <string name="performinglogout">ನಿಮ್ಮ ಫೋನ್ ನಲ್ಲಿ %1$d ಸಮೀಕ್ಷೆಗಳು ಸಿಂಕ್ ಮಾಡಲು ಬಾಕಿ ಉಳಿದಿದೆ. ನೀವು ಲಾಗ್ಔಟ್ ಮಾಡಿದರೆ ಎಲ್ಲ ಸಮೀಕ್ಷೆಗಳು ಫೋನ್ ನಿಂದ ಖಾಲಿ ಆಗುತ್ತದೆ.</string>
 
     <string-array name="grade_array">
 
