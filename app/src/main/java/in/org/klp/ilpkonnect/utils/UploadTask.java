@@ -40,6 +40,8 @@ public class UploadTask {
                                 .set(Story.SYSID, sysid)
                                 .where(Story.ID.eq(Long.valueOf(key)));
                         db.update(storyUpdate);
+                        db.deleteWhere(Story.class, Story.ID.eq(key));
+                        db.deleteWhere(Answer.class, Answer.STORY_ID.eq(key));
                         successCount++;
                     }
 

@@ -16,13 +16,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -59,9 +62,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import in.org.klp.ilpkonnect.adapters.QuestionAdapter;
@@ -907,10 +912,12 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     }
 
     private void cameraIntent() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+       Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
 
         startActivityForResult(intent, REQUEST_CAMERA);
+
+
     }
 
     @Override
@@ -922,6 +929,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 onSelectFromGalleryResult(data);
 
             else if (requestCode == REQUEST_CAMERA)
+
+
                 onCaptureImageResult(data, null);
 
         }
@@ -952,6 +961,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             //from camera
 
             thumbnail = (Bitmap) data.getExtras().get("data");
+
+
 
         }
 
@@ -1218,4 +1229,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     public void selectedStrings(List<String> strings) {
 
     }
+
+
+
+
 }

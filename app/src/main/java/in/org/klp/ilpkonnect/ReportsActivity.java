@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
@@ -43,6 +44,7 @@ import in.org.klp.ilpkonnect.ReportPojo.ReportIndiPojo;
 import in.org.klp.ilpkonnect.Retro.ApiClient;
 import in.org.klp.ilpkonnect.Retro.ApiInterface;
 import in.org.klp.ilpkonnect.adapters.NewPagerAdapter;
+import in.org.klp.ilpkonnect.db.Answer;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.Question;
@@ -95,7 +97,7 @@ public class ReportsActivity extends BaseActivity {
     private Long surveyId, questionGroupId, bid, sdate, edate, surveyTypeId;
     private KontactDatabase db;
     private SmartFragmentStatePagerAdapter adapterViewPager;
-boolean isImageRequired;
+    boolean isImageRequired;
 
     public static String getDate(long milliSeconds, String dateFormat) {
         // Create a DateFormatter object for displaying date in specified format.
@@ -153,7 +155,7 @@ boolean isImageRequired;
         //  Toast.makeText(getApplicationContext(),boundry_text.length+"",Toast.LENGTH_SHORT).show();
         surveyId = intent.getLongExtra("surveyId", 0);
         questionGroupId = intent.getLongExtra("questionGroupId", 0);
-        isImageRequired=getIntent().getBooleanExtra("imageRequired",false);
+        isImageRequired = getIntent().getBooleanExtra("imageRequired", false);
 
 
         // Long l=db.fetch(QuestionGroup.class,surveyTypeId).getSurveyType();
@@ -175,7 +177,7 @@ boolean isImageRequired;
         clusterId = intent.getLongExtra("clusterId", 0);
         schoolId = intent.getStringExtra("schoolId");
 //Toast.makeText(getApplicationContext(),schoolId+"",Toast.LENGTH_SHORT).show();
-        if (isImageRequired== true) {
+        if (isImageRequired == true) {
             tvLoadImage.setVisibility(View.VISIBLE);
         } else {
             tvLoadImage.setVisibility(View.GONE);
@@ -195,7 +197,30 @@ boolean isImageRequired;
 
      /*   NewPagerAdapter adapter1 = new NewPagerAdapter(getApplicationContext(), reportIndiPojos);
         viewPager.setAdapter(adapter1);*/
-        fetchQuestions();
+
+
+        Query listStoryQquery = Query.select().from(Story.TABLE)
+                .where(Story.SYNCED.eq(0).and(Story.GROUP_ID.eq(qgId)));
+        SquidCursor<Story> storySquidCursor = db.query(Story.class, listStoryQquery);
+
+        if (storySquidCursor.getCount() < 1) {
+
+            fetchQuestions();
+        } else {
+
+            if(checkSchool()==true)
+            {
+                offLineData(storySquidCursor);
+            }else
+            {
+                fetchQuestions();
+            }
+
+
+
+
+
+        }
 
 
         tvLoadImage.setOnClickListener(new View.OnClickListener() {
@@ -208,29 +233,105 @@ boolean isImageRequired;
         });
 
 
-
         if (AppStatus.isConnected(ReportsActivity.this)) {
 
             syncBlock();
         }
     }
-/*
-    public void CustomDialog() {
-        Dialog dialog = new Dialog(ReportsActivity.this);
-        // it remove the dialog title<br />
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // set the laytout in the dialog<br />
-        dialog.setContentView(R.layout.fabdialog);
-        // set the background partial transparent<br />
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        Window window = dialog.getWindow();
-        WindowManager.LayoutParams param = window.getAttributes();
-        // set the layout at right bottom<br />
-        param.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-        // it dismiss the dialog when click outside the dialog frame<br />
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
-    }*/
+
+
+    public void offLineData(SquidCursor<Story> storySquidCursor) {
+        ArrayList<ReportIndiPojo> reportIndiPojos = new ArrayList<>();
+
+        totalYes = 0;
+        totalNo = 0;
+        totaldontknow = 0;
+        // SquidCursor<QuestionGroup> qgCursor = null;
+        SquidCursor<QuestionGroupQuestion> qgqCursor = null;
+        try {
+
+            Query listQGQquery = Query.select().from(QuestionGroupQuestion.TABLE)
+                    .where(QuestionGroupQuestion.QUESTIONGROUP_ID.eq(qgId))
+                    .orderBy(QuestionGroupQuestion.SEQUENCE.asc());
+            qgqCursor = db.query(QuestionGroupQuestion.class, listQGQquery);
+            ArrayList<Question> resultQuestions = new ArrayList<Question>();
+
+            int count = 0;
+            while (qgqCursor.moveToNext()) {
+
+                Long qID = qgqCursor.get(QuestionGroupQuestion.QUESTION_ID);
+                Question question = db.fetch(Question.class, qID);
+                resultQuestions.add(question);
+                count++;
+            }
+            qcount = count;
+            ArrayList<Long> listStory = new ArrayList<>();
+            HashMap<Long, Long> hasmapschoolwithResponses = new HashMap<>();
+            try {
+
+
+                while (storySquidCursor.moveToNext()) {
+                    listStory.add(new Story(storySquidCursor).getId());
+                    hasmapschoolwithResponses.put(new Story(storySquidCursor).getSchoolId(), new Story(storySquidCursor).getSchoolId());
+
+                }
+            } catch (Exception e) {
+
+            }
+
+            for (Question question : resultQuestions) {
+                if (question == null) {
+                    continue;
+                }
+
+
+                Query QueryYes = Query.select().from(Answer.TABLE).where(Answer.TEXT.eqCaseInsensitive("Yes"))
+                        .where(Answer.STORY_ID.in(listStory).and(Answer.QUESTION_ID.eq(question.getId())));
+                SquidCursor<Answer> squidYes = db.query(Answer.class, QueryYes);
+
+                Query NotYes = Query.select().from(Answer.TABLE).where(Answer.TEXT.eqCaseInsensitive("No"))
+                        .where(Answer.STORY_ID.in(listStory).and(Answer.QUESTION_ID.eq(question.getId())));
+                SquidCursor<Answer> squidNo = db.query(Answer.class, NotYes);
+
+                Query dontknow = Query.select().from(Answer.TABLE).where(Answer.TEXT.neq("No").and(Answer.TEXT.neq("Yes")))
+                        .where(Answer.STORY_ID.in(listStory).and(Answer.QUESTION_ID.eq(question.getId())));
+                SquidCursor<Answer> squidother = db.query(Answer.class, dontknow);
+
+
+                ReportIndiPojo reporIndi = new ReportIndiPojo();
+                reporIndi.setTextKan(question.getTextKn() != null ? question.getTextKn() : question.getText());
+                reporIndi.setTextEng(question.getText() != null ? question.getText() : question.getTextKn());
+
+                totalYes = totalYes + squidYes.getCount();
+                totalNo = totalNo + squidNo.getCount();
+                totaldontknow = totaldontknow + squidother.getCount();
+
+                reporIndi.setTotal_responses(listStory.size());
+                reporIndi.setToal_schools_with_res(hasmapschoolwithResponses.size());
+                reporIndi.setTotal_school(Constants.scoolCount);
+
+
+                reporIndi.setYes(squidYes.getCount() + "");
+                reporIndi.setNo(squidNo.getCount() + "");
+                reporIndi.setDont(squidother.getCount() + "");
+                reportIndiPojos.add(reporIndi);
+
+                tvPYes.setText(getScorePercent(totalYes, (totalYes + totalNo + totaldontknow)) + "%");
+                tvPNo.setText(getScorePercent(totalNo, (totalYes + totalNo + totaldontknow)) + "%");
+                tvPDN.setText(getScorePercent(totaldontknow, (totalYes + totalNo + totaldontknow)) + "%");
+
+
+                NewPagerAdapter adapter1 = new NewPagerAdapter(getApplicationContext(), reportIndiPojos, ReportsActivity.this);
+                viewPager.setAdapter(adapter1);
+
+
+            }
+        } catch (Exception e) {
+
+        }
+
+
+    }
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
         Bundle signUpResult = new Bundle();
@@ -260,7 +361,7 @@ boolean isImageRequired;
                 finish();
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;
-            case R.id. action_sync_block  :
+            case R.id.action_sync_block:
                 syncBlock();
                 return true;
         }
@@ -273,7 +374,7 @@ boolean isImageRequired;
         totalYes = 0;
         totalNo = 0;
         totaldontknow = 0;
-       // SquidCursor<QuestionGroup> qgCursor = null;
+        // SquidCursor<QuestionGroup> qgCursor = null;
         SquidCursor<QuestionGroupQuestion> qgqCursor = null;
         //  Log.d("test", 1 + "");
        /* Query listQGquery = Query.select().from(QuestionGroup.TABLE)
@@ -281,103 +382,100 @@ boolean isImageRequired;
         qgCursor = db.query(QuestionGroup.class, listQGquery);
 */
         try {
-          //  if (qgCursor.moveToFirst()) {
+            //  if (qgCursor.moveToFirst()) {
 
-             //   questionGroupId = qgCursor.get(QuestionGroup.ID);
-                Query listQGQquery = Query.select().from(QuestionGroupQuestion.TABLE)
-                        .where(QuestionGroupQuestion.QUESTIONGROUP_ID.eq(questionGroupId))
-                        .orderBy(QuestionGroupQuestion.SEQUENCE.asc());
-                qgqCursor = db.query(QuestionGroupQuestion.class, listQGQquery);
-                ArrayList<Question> resultQuestions = new ArrayList<Question>();
+            //   questionGroupId = qgCursor.get(QuestionGroup.ID);
+            Query listQGQquery = Query.select().from(QuestionGroupQuestion.TABLE)
+                    .where(QuestionGroupQuestion.QUESTIONGROUP_ID.eq(questionGroupId))
+                    .orderBy(QuestionGroupQuestion.SEQUENCE.asc());
+            qgqCursor = db.query(QuestionGroupQuestion.class, listQGQquery);
+            ArrayList<Question> resultQuestions = new ArrayList<Question>();
 
-                int count = 0;
-                while (qgqCursor.moveToNext()) {
+            int count = 0;
+            while (qgqCursor.moveToNext()) {
 
-                    Long qID = qgqCursor.get(QuestionGroupQuestion.QUESTION_ID);
-                    Question question = db.fetch(Question.class, qID);
-                    resultQuestions.add(question);
-                    count++;
+                Long qID = qgqCursor.get(QuestionGroupQuestion.QUESTION_ID);
+                Question question = db.fetch(Question.class, qID);
+                resultQuestions.add(question);
+                count++;
+            }
+            qcount = count;
+            ArrayList<ReportIndiPojo> reportIndiPojos = new ArrayList<>();
+            for (Question question : resultQuestions) {
+                if (question == null) {
+                    continue;
                 }
-                qcount = count;
-                ArrayList<ReportIndiPojo> reportIndiPojos = new ArrayList<>();
-                for (Question question : resultQuestions) {
-                    if (question == null) {
-                        continue;
+
+                // Log.d("test", 4 + ":" + qgId + ":" + question.getId());
+                Query summryQuery = Query.select().from(SummaryInfo.TABLE)
+                        .where(SummaryInfo.BID.eq(globalid).and(SummaryInfo.GROUPID.eqCaseInsensitive(qgId + "")
+                                .and(SummaryInfo.QID.eq(new Long(question.getId())).and(SummaryInfo.STATE_KEY.eqCaseInsensitive(sessionManager.getStateSelection())))
+                        ));
+                SquidCursor<SummaryInfo> summaryCursor = db.query(SummaryInfo.class, summryQuery);
+
+
+                ReportIndiPojo reporIndi = new ReportIndiPojo();
+                reporIndi.setTextKan(question.getTextKn() != null ? question.getTextKn() : question.getText());
+                reporIndi.setTextEng(question.getText() != null ? question.getText() : question.getTextKn());
+
+                Query ReportSummary = Query.select().from(Summmary.TABLE)
+                        .where(Summmary.BID.eq(globalid).and(Summmary.GROUPID.eqCaseInsensitive(qgId + "")
+                                .and(Summmary.STATE_KEY.eqCaseInsensitive(sessionManager.getStateSelection()))));
+                SquidCursor<Summmary> reportSummaryCursor = db.query(Summmary.class, ReportSummary);
+                if (reportSummaryCursor != null && reportSummaryCursor.getCount() > 0) {
+
+                    while (reportSummaryCursor.moveToNext()) {
+                        Summmary summaryInfo = new Summmary(reportSummaryCursor);
+                        reporIndi.setTotal_school(summaryInfo.getTotalSchool());
+                        reporIndi.setTotal_responses(summaryInfo.getTotalResponse());
+                        reporIndi.setToal_schools_with_res(summaryInfo.getTotalSchoolWithResponse());
                     }
-
-                    // Log.d("test", 4 + ":" + qgId + ":" + question.getId());
-                    Query summryQuery = Query.select().from(SummaryInfo.TABLE)
-                            .where(SummaryInfo.BID.eq(globalid).and(SummaryInfo.GROUPID.eqCaseInsensitive(qgId + "")
-                                    .and(SummaryInfo.QID.eq(new Long(question.getId())).and(SummaryInfo.STATE_KEY.eqCaseInsensitive(sessionManager.getStateSelection())))
-                            ));
-                    SquidCursor<SummaryInfo> summaryCursor = db.query(SummaryInfo.class, summryQuery);
+                }
 
 
-                    ReportIndiPojo reporIndi = new ReportIndiPojo();
-                    reporIndi.setTextKan(question.getTextKn() != null ? question.getTextKn() : question.getText());
-                    reporIndi.setTextEng(question.getText() != null ? question.getText() : question.getTextKn());
+                if (summaryCursor != null && summaryCursor.getCount() > 0) {
 
-                    Query ReportSummary = Query.select().from(Summmary.TABLE)
-                            .where(Summmary.BID.eq(globalid).and(Summmary.GROUPID.eqCaseInsensitive(qgId + "")
-                                    .and(Summmary.STATE_KEY.eqCaseInsensitive(sessionManager.getStateSelection()))));
-                    SquidCursor<Summmary> reportSummaryCursor = db.query(Summmary.class, ReportSummary);
-                    if (reportSummaryCursor != null && reportSummaryCursor.getCount() > 0) {
+                    while (summaryCursor.moveToNext()) {
+                        SummaryInfo summaryInfo = new SummaryInfo(summaryCursor);
+                        int yes = Integer.parseInt(summaryInfo.getYes() + "");
+                        int no = Integer.parseInt(summaryInfo.getNo() + "");
+                        int dn = Integer.parseInt(summaryInfo.getDontknow() + "");
+                        totalYes = totalYes + yes;
+                        totalNo = totalNo + no;
+                        totaldontknow = totaldontknow + dn;
 
-                        while (reportSummaryCursor.moveToNext()) {
-                            Summmary summaryInfo = new Summmary(reportSummaryCursor);
-                            reporIndi.setTotal_school(summaryInfo.getTotalSchool());
-                            reporIndi.setTotal_responses(summaryInfo.getTotalResponse());
-                            reporIndi.setToal_schools_with_res(summaryInfo.getTotalSchoolWithResponse());
-                        }
-                    }
-
-
-                    if (summaryCursor != null && summaryCursor.getCount() > 0) {
-
-                        while (summaryCursor.moveToNext()) {
-                            SummaryInfo summaryInfo = new SummaryInfo(summaryCursor);
-                            int yes = Integer.parseInt(summaryInfo.getYes() + "");
-                            int no = Integer.parseInt(summaryInfo.getNo() + "");
-                            int dn = Integer.parseInt(summaryInfo.getDontknow() + "");
-                            totalYes = totalYes + yes;
-                            totalNo = totalNo + no;
-                            totaldontknow = totaldontknow + dn;
-
-                            reporIndi.setYes(yes + "");
-                            reporIndi.setNo(no + "");
-                            reporIndi.setDont(dn + "");
-                            reportIndiPojos.add(reporIndi);
+                        reporIndi.setYes(yes + "");
+                        reporIndi.setNo(no + "");
+                        reporIndi.setDont(dn + "");
+                        reportIndiPojos.add(reporIndi);
                                /* reporIndi.setTotal_school(reportSummaryCursor.getTotalSchool());
                             reporIndi.setTotal_responses(summaryInfo.getTotalResponse());
                             reporIndi.setToal_schools_with_res(summaryInfo.getTotalSchoolWithResponse());
 */
 
-                        }
-                    } else {
-                        reporIndi.setYes(0 + "");
-                        reporIndi.setNo(0 + "");
-                        reporIndi.setDont(0 + "");
-                        reportIndiPojos.add(reporIndi);
-
-
                     }
-                    tvYes.setText(totalYes + "");
-                    tvNo.setText(totalNo + "");
-                    tvDontKn.setText(totaldontknow + "");
-
-                    tvPYes.setText(getScorePercent(totalYes, (totalYes + totalNo + totaldontknow)) + "%");
-                    tvPNo.setText(getScorePercent(totalNo, (totalYes + totalNo + totaldontknow)) + "%");
-                    tvPDN.setText(getScorePercent(totaldontknow, (totalYes + totalNo + totaldontknow)) + "%");
-
-
-
-
-
-                    NewPagerAdapter adapter1 = new NewPagerAdapter(getApplicationContext(), reportIndiPojos, ReportsActivity.this);
-                    viewPager.setAdapter(adapter1);
+                } else {
+                    reporIndi.setYes(0 + "");
+                    reporIndi.setNo(0 + "");
+                    reporIndi.setDont(0 + "");
+                    reportIndiPojos.add(reporIndi);
 
 
                 }
+                tvYes.setText(totalYes + "");
+                tvNo.setText(totalNo + "");
+                tvDontKn.setText(totaldontknow + "");
+
+                tvPYes.setText(getScorePercent(totalYes, (totalYes + totalNo + totaldontknow)) + "%");
+                tvPNo.setText(getScorePercent(totalNo, (totalYes + totalNo + totaldontknow)) + "%");
+                tvPDN.setText(getScorePercent(totaldontknow, (totalYes + totalNo + totaldontknow)) + "%");
+
+
+                NewPagerAdapter adapter1 = new NewPagerAdapter(getApplicationContext(), reportIndiPojos, ReportsActivity.this);
+                viewPager.setAdapter(adapter1);
+
+
+            }
 
 
             //}
@@ -492,7 +590,6 @@ boolean isImageRequired;
                 diag.show();
 
 
-
             } else {
                 alertDialog(sync);
             }
@@ -567,7 +664,7 @@ boolean isImageRequired;
 
                 showSignupResultDialog(
                         getResources().getString(R.string.app_name),
-                         getResources().getString(R.string.noInternetCon),
+                        getResources().getString(R.string.noInternetCon),
                         getResources().getString(R.string.Ok));
             }
 
@@ -587,21 +684,21 @@ boolean isImageRequired;
         final String sdate = getDate(Long.parseLong(dataFound[2]), "yyyy-MM-dd");
         final String endate = getDate((Long.parseLong(dataFound[3])) + oneday, "yyyy-MM-dd");
 
-       // Log.d("date",sdate+":"+endate);
+        // Log.d("date",sdate+":"+endate);
         if (!level.equalsIgnoreCase("school")) {
 
-          //  new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId, sessionManager.getStateSelection(), level,sdate,endate,sessionManager.getToken(), new StateInterface() {
+            //  new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId, sessionManager.getStateSelection(), level,sdate,endate,sessionManager.getToken(), new StateInterface() {
 
-                // getYear(CalSdate)
-            new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId,surveyId, sessionManager.getStateSelection(), level,sdate,endate,sessionManager.getToken(),"gka", new StateInterface() {
+            // getYear(CalSdate)
+            new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId, surveyId, sessionManager.getStateSelection(), level, sdate, endate, sessionManager.getToken(), "gka", new StateInterface() {
                 @Override
                 public void success(String message) {
                     showProgress(false);
-                    if(message.equalsIgnoreCase("success")) {
+                    if (message.equalsIgnoreCase("success")) {
                         fetchQuestions();
-                    }else {
+                    } else {
                         fetchQuestions();
-                        DailogUtill.showDialog(message,getSupportFragmentManager(),ReportsActivity.this);
+                        DailogUtill.showDialog(message, getSupportFragmentManager(), ReportsActivity.this);
 
                     }
 
@@ -615,15 +712,15 @@ boolean isImageRequired;
             });
         } else {
             //showProgress(true);
-            new ProNetworkSettup(getApplicationContext()).getReoportDataSchool(id, qgId,surveyId, sessionManager.getStateSelection(), level, sdate,endate,sessionManager.getToken(),"gka", new StateInterface() {
+            new ProNetworkSettup(getApplicationContext()).getReoportDataSchool(id, qgId, surveyId, sessionManager.getStateSelection(), level, sdate, endate, sessionManager.getToken(), "gka", new StateInterface() {
                 @Override
                 public void success(String message) {
                     showProgress(false);
-                    if(message.equalsIgnoreCase("success")) {
+                    if (message.equalsIgnoreCase("success")) {
                         fetchQuestions();
-                    }else {
-                         fetchQuestions();
-                         DailogUtill.showDialog(message,getSupportFragmentManager(),ReportsActivity.this);
+                    } else {
+                        fetchQuestions();
+                        DailogUtill.showDialog(message, getSupportFragmentManager(), ReportsActivity.this);
 
                     }
 
@@ -665,7 +762,7 @@ boolean isImageRequired;
         builder.setTitle(getResources().getString(R.string.syncTitle));
 
 
-      //  builder.setMessage(getResources().getString(R.string.dataAlreadynSyn) + "\n" + getResources().getString(R.string.doyouwant));
+        //  builder.setMessage(getResources().getString(R.string.dataAlreadynSyn) + "\n" + getResources().getString(R.string.doyouwant));
         builder.setMessage(getResources().getString(R.string.doyouwant));
 
 
@@ -793,20 +890,23 @@ boolean isImageRequired;
     }
 
     public void getSchoolCount() {
+        Constants.schoolIds=new ArrayList<>();
         if (Constants.cluster_ids != null && Constants.cluster_ids.size() > 0) {
             //  for (Long id : Constants.cluster_ids) {
-            ICursor cursor_sc = db.rawQuery("select count(_id) as count from school where boundary_id in (" + TextUtils.join(",", Constants.cluster_ids) + ")", null);
-            try {
-                int schoolcount = 0;
-                while (cursor_sc.moveToNext()) {
-                    schoolcount = schoolcount + Integer.parseInt(cursor_sc.getString(0));
-                    //  Log.d("shri", schoolcount + "");
-                }
-                Constants.scoolCount = schoolcount;
-            } finally {
-                if (cursor_sc != null)
-                    cursor_sc.close();
+
+
+
+            Query schoolsQuery = Query.select().from(School.TABLE)
+                    .where(School.BOUNDARY_ID.in(Constants.cluster_ids));
+            SquidCursor<School> scholcursor = db.query(School.class, schoolsQuery);
+            Constants.scoolCount = scholcursor.getCount();
+
+            while (scholcursor.moveToNext()) {
+                Constants.schoolIds.add(new School(scholcursor).getId());
             }
+
+
+
         }
     }
 
@@ -988,6 +1088,33 @@ boolean isImageRequired;
     }
 
 
+    public boolean checkSchool()
+    {
+
+        if(createReportLevel==3)
+        {
+            Query schoolIds = Query.select().from(Story.TABLE)
+                    .where(Story.SCHOOL_ID.eq(globalid));
+            SquidCursor<Story> SchoolsCursor = db.query(Story.class, schoolIds);
+            if(SchoolsCursor.getCount()>0)
+            {
+                return true;
+            }else {
+                return false;
+            }
+
+        }else {
+            Query schoolIds = Query.select().from(Story.TABLE)
+                    .where(Story.SCHOOL_ID.in( Constants.schoolIds));
+            SquidCursor<Story> SchoolsCursor = db.query(Story.class, schoolIds);
+            if (SchoolsCursor.getCount() > 0) {
+                return true;
+            }
+            return false;
+        }
+
+    }
+
     public void showAlertDialog() {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ReportsActivity.this);
         builder.setCancelable(false);
@@ -1029,11 +1156,11 @@ boolean isImageRequired;
             //all images
             //Toast.makeText(getApplicationContext(),"all",Toast.LENGTH_SHORT).show();
 
-            imagesPOJOCallback = apiInterface.getImages(schoolId,sessionManager.getStateSelection(),sessionManager.getToken());
+            imagesPOJOCallback = apiInterface.getImages(schoolId, sessionManager.getStateSelection(), sessionManager.getToken());
         } else {
             // Toast.makeText(getApplicationContext(),CalSdate+":"+CalEndate,Toast.LENGTH_SHORT).show();
 
-            imagesPOJOCallback = apiInterface.getImagesbyDate(schoolId, CalSdate, CalEndate,sessionManager.getStateSelection(),sessionManager.getToken());
+            imagesPOJOCallback = apiInterface.getImagesbyDate(schoolId, CalSdate, CalEndate, sessionManager.getStateSelection(), sessionManager.getToken());
         }
         imagesPOJOCallback.enqueue(new Callback<ImagesPOJO>() {
             @Override
