@@ -167,6 +167,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         isRespondentlistRequired = survey.isRespondentRequired();
 //Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
         isCommentRequired = survey.isCommentRequired();
+        isImageRequired=  survey.isImageRequired();
         gradeType = survey.getGradeRequired();
         if(gradeType==null)
         {
@@ -440,7 +441,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                              message = message + getResources().getString(R.string.pleaseuploadimage);
                            /*  fab1. setBackgroundTintList(ColorStateList.valueOf(Color
                                      .parseColor("#FFCDD2")));*/
-                             Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.blink);
+                             Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.growshrink);
+                             animationScaleUp.setRepeatCount(Animation.INFINITE);
                              fab1.startAnimation(animationScaleUp);
                              flag=false;
                          }
@@ -807,6 +809,8 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                     intent.putExtra("surveyId", surveyId);
                     intent.putExtra("ILPQuestionGroupId", questionGroupId);
                     intent.putExtra("surveyName", surveyName);
+                    intent.putExtra("imageRequired", isImageRequired);
+
                     intent.putExtra("schoolId", schoolId);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.fadein, R.anim.fadeout);

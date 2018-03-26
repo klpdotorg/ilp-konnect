@@ -1176,17 +1176,17 @@ else {
     }
 
 
-    public void getReoportData(final long boundaryId, final long questionGroup, final String stateKey, final String level, final String sdate, String eDate, String token, final StateInterface stateInterface) {
+    public void getReoportData(final long boundaryId, final long questionGroup,final long surveyid, final String stateKey, final String level, final String sdate, String eDate, String token,String tag, final StateInterface stateInterface) {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchReportData(questionGroup, boundaryId, sdate, eDate, stateKey, token).enqueue(new Callback<ResponseBody>() {
+        apiInterface.fetchReportData(questionGroup, boundaryId, sdate, eDate, stateKey, token,surveyid,tag).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.isSuccessful() && response.code() == 200) {
 
-                    parseReportData(response.body(), questionGroup, level, boundaryId, stateKey, stateInterface);
+                    parseReportData(response.body(), questionGroup, level, boundaryId, stateKey, stateInterface,surveyid);
                 }
                 else if( response.code() == 400)
                 {
@@ -1208,17 +1208,17 @@ else {
     }
 
 
-    public void getReoportDataSchool(final long school, final long questionGroup, final String stateKey, final String level, final String sdate, String endDate, String token, final StateInterface stateInterface) {
+    public void getReoportDataSchool(final long school, final long questionGroup, final long surveyid,final String stateKey, final String level, final String sdate, String endDate, String token, String tag,final StateInterface stateInterface) {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchReportDataSchool(questionGroup, school, sdate, endDate, stateKey, token).enqueue(new Callback<ResponseBody>() {
+        apiInterface.fetchReportDataSchool(questionGroup, school, sdate, endDate, stateKey, token,surveyid,tag).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.isSuccessful() && response.code() == 200) {
 
-                    parseReportData(response.body(), questionGroup, level, school, stateKey, stateInterface);
+                    parseReportData(response.body(), questionGroup, level, school, stateKey, stateInterface,surveyid);
                 } else {
                     stateInterface.failed(context.getResources().getString(R.string.reportsLoadingFailed));
                 }
@@ -1234,7 +1234,7 @@ else {
 
     }
 
-    private void parseReportData(ResponseBody body, long group, String level, long boundaryId, String stateKey, StateInterface stateInterface) {
+    private void parseReportData(ResponseBody body, long group, String level, long boundaryId, String stateKey, StateInterface stateInterface,long surveydid) {
 
         try {
             String data = body.string();
@@ -1252,6 +1252,7 @@ else {
             Summmary summary = new Summmary();
             summary.setBid(boundaryId);
             summary.setHierarchy(level);
+            summary.setSurveyid(surveydid);
             summary.setGroupid(group);
             summary.setStateKey(stateKey);
             summary.setTotalResponse(num_assessments);
@@ -1264,6 +1265,7 @@ else {
                         .where(Summmary.BID.eqCaseInsensitive(boundaryId + "").
                                 and(Summmary.HIERARCHY.eqCaseInsensitive(level)
                                         .and(Summmary.GROUPID.eqCaseInsensitive(group + ""))
+                                        .and(Summmary.SURVEYID.eq(surveydid))
                                         .and(Summmary.STATE_KEY.eqCaseInsensitive(stateKey))
                                 ));
                 SquidCursor<Summmary> reportSummaryCursor = db.query(Summmary.class, reportSummary);
@@ -1274,6 +1276,7 @@ else {
                     Update update = Update.table(Summmary.TABLE).where(Summmary.BID.eq(boundaryId + "")
                             .and(Summmary.HIERARCHY.eqCaseInsensitive(level))
                             .and(Summmary.GROUPID.eqCaseInsensitive(group + ""))
+                            .and(Summmary.SURVEYID.eq(surveydid))
                             .and(Summmary.STATE_KEY.eqCaseInsensitive(stateKey)));
                     Update summryUpdate = update.fromTemplate(summary);
                     db.update(summryUpdate);
@@ -1289,13 +1292,15 @@ else {
             if (jsonSurvey.length() != 0) {
                 JSONArray surveyIdArray = jsonSurvey.names();
 
-
+                  //  Log.d("json",surveyIdArray.toString()+"");
                 for (int i = 0; i < surveyIdArray.length(); i++) {
 
 
                     String Surveyname = surveyIdArray.getString(i);
                     JSONObject jsonObjectForQue = jsonSurvey.getJSONObject(Surveyname);
                     JSONObject jsonQuestionGroup = jsonObjectForQue.getJSONObject("questiongroups");
+                 //   JSONArray surveyNameList=jsonQuestionGroup.names();
+                   // Log.d("json",surveyNameList.length()+"");
                     JSONObject jsonQuestion = jsonQuestionGroup.getJSONObject(jsonQuestionGroup.names().getString(0));
                     JSONObject jsongetQuestion = jsonQuestion.getJSONObject("questions");
                     JSONArray jsonQuestionName = jsongetQuestion.names();
@@ -1314,8 +1319,11 @@ else {
 
 
                         Query summryQuery = Query.select().from(SummaryInfo.TABLE)
-                                .where(SummaryInfo.BID.eq(boundaryId + "").and(SummaryInfo.GROUPID.eqCaseInsensitive(group + "")
-                                        .and(SummaryInfo.QID.eqCaseInsensitive(questionId + "")).and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey))));
+                                .where(SummaryInfo.BID.eq(boundaryId + "").
+                                        and(SummaryInfo.GROUPID.eqCaseInsensitive(group + "").
+                                        and(SummaryInfo.SURVEYID.eq(surveydid))
+                                        .and(SummaryInfo.QID.eqCaseInsensitive(questionId + "")).
+                                                        and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey))));
                         SquidCursor<SummaryInfo> summaryCursor = db.query(SummaryInfo.class, summryQuery);
                         //  Toast.makeText((ReportsActivity) context, summaryCursor.getCount() + "count", Toast.LENGTH_SHORT).show();
                         if (summaryCursor != null && summaryCursor.getCount() > 0) {
@@ -1325,14 +1333,13 @@ else {
                                     .set(SummaryInfo.NO, actualData.optLong("No"))
                                     .set(SummaryInfo.DONTKNOW, actualData.optLong("Don't Know"))
                                     .set(SummaryInfo.STATE_KEY, stateKey)
-                                /*    .set(SummaryInfo.TOTAL_SCHOOL, totalschools)
-                                    .set(SummaryInfo.TOTAL_RESPONSE, num_assessments)
-                                    .set(SummaryInfo.TOTAL_SCHOOL_WITH_RESPONSE, schoolImapcted)*/
+
 
                                     .where(SummaryInfo.QID.eq(questionId).
                                             and(SummaryInfo.BID.eqCaseInsensitive(boundaryId + ""))
                                             .and(SummaryInfo.HIERARCHY.eqCaseInsensitive(level))
                                             .and(SummaryInfo.GROUPID.eqCaseInsensitive(group + ""))
+                                            .and(SummaryInfo.SURVEYID.eq(surveydid ))
                                             .and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey)));
 
                             int updated = db.update(summryUpdate);
@@ -1346,6 +1353,7 @@ else {
                             summaryInfo.setQid(Long.parseLong(questionId + ""));
                             summaryInfo.setDontknow(dnt);
                             summaryInfo.setGroupid(Long.parseLong(group + ""));
+                            summaryInfo.setSurveyid(surveydid);
                             summaryInfo.setHierarchy(level);
                             summaryInfo.setBid(boundaryId);
                         /*    summaryInfo.setTotalSchool(totalschools);
@@ -1378,6 +1386,7 @@ else {
                         .where(SummaryInfo.BID.eqCaseInsensitive(boundaryId + "")
                                 .and(SummaryInfo.HIERARCHY.eqCaseInsensitive(level))
                                 .and(SummaryInfo.GROUPID.eqCaseInsensitive(group + ""))
+                                .and(SummaryInfo.SURVEYID.eq(surveydid))
                                 .and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey)));
 
                 int updated = db.update(summryUpdate);

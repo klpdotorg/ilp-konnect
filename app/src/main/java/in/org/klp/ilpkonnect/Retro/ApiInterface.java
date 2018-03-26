@@ -132,12 +132,12 @@ public interface ApiInterface {
 
 
   @GET("/api/v1/surveys/questiongroupdetails/?survey_tag=gka")
-    Call<ResponseBody>fetchReportData(@Query("questiongroup_id") long questiongroup_id,@Query("boundary_id") long boundary_id,@Query("from") String from,@Query("to") String to,@Query("state") String stateKey,@Header("Authorization") String authHeader);
+    Call<ResponseBody>fetchReportData(@Query("questiongroup_id") long questiongroup_id,@Query("boundary_id") long boundary_id,@Query("from") String from,@Query("to") String to,@Query("state") String stateKey,@Header("Authorization") String authHeader,@Query("survey_id") long surveyid,@Query("survey_tag") String survey_tag);
 
 
 
     @GET("/api/v1/surveys/questiongroupdetails/?survey_tag=gka")
-    Call<ResponseBody>fetchReportDataSchool(@Query("questiongroup_id") long questiongroup_id,@Query("institution_id") long institution_id,@Query("from") String from,@Query("to") String to,@Query("state") String stateKey,@Header("Authorization") String authHeader);
+    Call<ResponseBody>fetchReportDataSchool(@Query("questiongroup_id") long questiongroup_id,@Query("institution_id") long institution_id,@Query("from") String from,@Query("to") String to,@Query("state") String stateKey,@Header("Authorization") String authHeader,@Query("survey_id") long surveyid,@Query("survey_tag") String survey_tag);
 
 
 

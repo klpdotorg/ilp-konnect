@@ -28,6 +28,10 @@ public class SummaryInfoSpe {
     @ColumnSpec(name="groupid")
     public long groupid;
 
+
+    @ColumnSpec(name="survey_id")
+    public long surveyid;
+
     @ColumnSpec(name="bid")
     public long bid;
 

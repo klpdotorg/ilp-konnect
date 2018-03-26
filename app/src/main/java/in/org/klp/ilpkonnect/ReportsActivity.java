@@ -587,11 +587,13 @@ boolean isImageRequired;
         final String sdate = getDate(Long.parseLong(dataFound[2]), "yyyy-MM-dd");
         final String endate = getDate((Long.parseLong(dataFound[3])) + oneday, "yyyy-MM-dd");
 
-        Log.d("date",sdate+":"+endate);
+       // Log.d("date",sdate+":"+endate);
         if (!level.equalsIgnoreCase("school")) {
 
-           // getYear(CalSdate)
-            new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId, sessionManager.getStateSelection(), level,sdate,endate,sessionManager.getToken(), new StateInterface() {
+          //  new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId, sessionManager.getStateSelection(), level,sdate,endate,sessionManager.getToken(), new StateInterface() {
+
+                // getYear(CalSdate)
+            new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId,surveyId, sessionManager.getStateSelection(), level,sdate,endate,sessionManager.getToken(),"gka", new StateInterface() {
                 @Override
                 public void success(String message) {
                     showProgress(false);
@@ -613,7 +615,7 @@ boolean isImageRequired;
             });
         } else {
             //showProgress(true);
-            new ProNetworkSettup(getApplicationContext()).getReoportDataSchool(id, qgId, sessionManager.getStateSelection(), level, sdate,endate,sessionManager.getToken(), new StateInterface() {
+            new ProNetworkSettup(getApplicationContext()).getReoportDataSchool(id, qgId,surveyId, sessionManager.getStateSelection(), level, sdate,endate,sessionManager.getToken(),"gka", new StateInterface() {
                 @Override
                 public void success(String message) {
                     showProgress(false);
