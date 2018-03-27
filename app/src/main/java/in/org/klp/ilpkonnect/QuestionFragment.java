@@ -3,6 +3,7 @@ package in.org.klp.ilpkonnect;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -13,9 +14,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,7 +59,10 @@ import com.yahoo.squidb.sql.Query;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,10 +91,12 @@ import in.org.klp.ilpkonnect.utils.DailogUtill;
 import in.org.klp.ilpkonnect.utils.RolesUtils;
 import in.org.klp.ilpkonnect.utils.SessionManager;
 
+import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage;
+
 public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnMultipleItemsSelectedListener {
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
-   /* https://android--code.blogspot.in/2015/08/android-spinner-hint.html*/
+    /* https://android--code.blogspot.in/2015/08/android-spinner-hint.html*/
     private QuestionAdapter mQuestionsAdapter;
     private Long surveyId;
     private String surveyName;
@@ -107,6 +115,10 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     private String userChoosenTask;
     TextView tvImageName;
 
+
+    String imageFilePath;
+
+
     ImageView imgPreview;
     File GlobalImagePath = null;
     ByteArrayOutputStream GLOBALbytes = null;
@@ -119,31 +131,32 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     boolean isgradeRequired;
 
 
-    FloatingActionButton fab1 ;
-    FloatingActionButton fab2,fabEditIcon;
-    String userComment="";
+    FloatingActionButton fab1;
+    FloatingActionButton fab2, fabEditIcon;
+    String userComment = "";
+
     public QuestionFragment() {
     }
 
 
-/*    private void showFABMenu(){
-        isFABOpen=true;
-        fab2.setVisibility(View.GONE);
-        fab1.setVisibility(View.VISIBLE);
-        fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-        if(!tvImageName.getText().toString().equalsIgnoreCase("")) {
-            fab2.setVisibility(View.VISIBLE);
-            fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
+    /*    private void showFABMenu(){
+            isFABOpen=true;
+            fab2.setVisibility(View.GONE);
+            fab1.setVisibility(View.VISIBLE);
+            fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+            if(!tvImageName.getText().toString().equalsIgnoreCase("")) {
+                fab2.setVisibility(View.VISIBLE);
+                fab2.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
+            }
+
         }
 
-    }
+        private void closeFABMenu(){
+            isFABOpen=false;
+            fab1.animate().translationY(0);
+            fab2.animate().translationY(0);
 
-    private void closeFABMenu(){
-        isFABOpen=false;
-        fab1.animate().translationY(0);
-        fab2.animate().translationY(0);
-
-    }*/
+        }*/
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -157,7 +170,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         surveyId = intent.getLongExtra("surveyId", 0);
         questionGroupId = intent.getLongExtra("ILPQuestionGroupId", 0);
         surveyName = intent.getStringExtra("surveyName");
-        if(surveyName!=null&&!surveyName.equalsIgnoreCase("")) {
+        if (surveyName != null && !surveyName.equalsIgnoreCase("")) {
             getActivity().setTitle(surveyName);
         }
 
@@ -172,19 +185,17 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         isRespondentlistRequired = survey.isRespondentRequired();
 //Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
         isCommentRequired = survey.isCommentRequired();
-        isImageRequired=  survey.isImageRequired();
+        isImageRequired = survey.isImageRequired();
         gradeType = survey.getGradeRequired();
-        if(gradeType==null)
-        {
-            isgradeRequired=false;
-        }else {
-            isgradeRequired=true;
+        if (gradeType == null) {
+            isgradeRequired = false;
+        } else {
+            isgradeRequired = true;
         }
 
 
-
-      fab1 = (FloatingActionButton)rootView. findViewById(R.id.fab1);
-      fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
+        fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) rootView.findViewById(R.id.fab2);
         fabEditIcon = (FloatingActionButton) rootView.findViewById(R.id.fabEditIcon);
         fab2.setVisibility(View.GONE);
         fab1.setVisibility(View.GONE);
@@ -198,7 +209,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(getActivity());
                 alertDialogBuilderUserInput.setView(mView);
 
-                 final EditText input = (EditText) mView.findViewById(R.id.userInputDialog);
+                final EditText input = (EditText) mView.findViewById(R.id.userInputDialog);
                 input.setSingleLine(false);  //add this
                 input.setLines(4);
                 input.setMaxLines(5);
@@ -212,7 +223,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                         .setPositiveButton(getResources().getString(R.string.Ok), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
                                 // ToDo get user input here
-                                userComment=input.getText().toString().trim();
+                                userComment = input.getText().toString().trim();
                             }
                         })
 
@@ -231,11 +242,9 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         });
 
 
-
-
         TextView textViewSchool = rootView.findViewById(R.id.textViewSchool);
         TextView textViewSchoolId = rootView.findViewById(R.id.textViewSchoolId);
-          textViewSchool.setText(school.getName());
+        textViewSchool.setText(school.getName());
         if (school.getDise() != null && !school.getDise().trim().equalsIgnoreCase("") && !school.getDise().trim().equalsIgnoreCase("null")) {
             textViewSchoolId.setText("DISE Code: " + String.valueOf(school.getDise()));
         } else {
@@ -246,9 +255,6 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         spnGradesingle = rootView.findViewById(R.id.spnGradesingle);
 
         requiredMultilevelgrade(gradeType);
-
-
-
 
 
         spnGrade.setListener(this);
@@ -285,43 +291,33 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         userTypeNames.addAll(userType.keySet());
 
 
-
-
         final ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(
-                getActivity(),R.layout.question_spinner,userTypeNames){
+                getActivity(), R.layout.question_spinner, userTypeNames) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
             }
         };
-
-
-
-
-
 
 
         //    ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.question_spinner, userTypeNames);
@@ -330,7 +326,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         mSelectedUserType = session.getUserType();
 
         // this to remove all the invalid answers created by a bug in last release
-       // db.deleteWhere(Answer.class, Answer.TEXT.notIn("Yes", "No", "Don't Know"));
+        // db.deleteWhere(Answer.class, Answer.TEXT.notIn("Yes", "No", "Don't Know"));
 
 
         SquidCursor<QuestionGroupQuestion> qgqCursor = null;
@@ -391,6 +387,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
                 if (isRespondentlistRequired) {
                     mSelectedUserType = userType.get(spinnerUserType.getSelectedItem().toString());
+                    // Toast.makeText(getActivity(),mSelectedUserType,Toast.LENGTH_SHORT).show();
 
                 } else {
                     mSelectedUserType = session.getUserType().toUpperCase();
@@ -407,54 +404,48 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 //------------------------------------------
 
 
-              //  Log.d("tag",isImageRequired+":"+isgradeRequired+":"+isCommentRequired+":"+isRespondentlistRequired);
-                String message="";
-                if (isImageRequired || isgradeRequired || isCommentRequired||isRespondentlistRequired||mQuestionsAdapter.getQuestionSize() == 0||answers.size() != mQuestionsAdapter.getQuestionSize()) {
+                //  Log.d("tag",isImageRequired+":"+isgradeRequired+":"+isCommentRequired+":"+isRespondentlistRequired);
+                String message = "";
+                if (isImageRequired || isgradeRequired || isCommentRequired || isRespondentlistRequired || mQuestionsAdapter.getQuestionSize() == 0 || answers.size() != mQuestionsAdapter.getQuestionSize()) {
 
-                    if (mQuestionsAdapter.getQuestionSize() == 0||answers.size() != mQuestionsAdapter.getQuestionSize())
-                    {
-                        if(mQuestionsAdapter.getQuestionSize() == 0)
-                        {
+                    if (mQuestionsAdapter.getQuestionSize() == 0 || answers.size() != mQuestionsAdapter.getQuestionSize()) {
+                        if (mQuestionsAdapter.getQuestionSize() == 0) {
                             message = getString(R.string.surveyQuestionNotFound);
-                            flag=false;
+                            flag = false;
 
-                        }else {
+                        } else {
                             message = getString(R.string.survey_empty_response_body);
-                            flag=false;
+                            flag = false;
                         }
 
-                     }
-                     if(isRespondentlistRequired)
-                     {
-                         if (spinnerUserType.getSelectedItemPosition() == 0) {
-                             if (!message.trim().equalsIgnoreCase("")) {
-                                 message = message + "\n";
-                             }
-                             message = message + "* " + getResources().getString(R.string.pleaseSelectrespondanttypequestion);
-                             flag=false;
-                         }
-                     }else {
-                      //  Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
-                     }
-                     if(isImageRequired)
-                     {
-                         if(getFilePath() == null || getBitMapFile() == null)
-                         {
-                             if (!message.trim().equalsIgnoreCase("")) {
-                                 message = message + "\n";
-                             }
-                             message = message + getResources().getString(R.string.pleaseuploadimage);
+                    }
+                    if (isRespondentlistRequired) {
+                        if (spinnerUserType.getSelectedItemPosition() == 0) {
+                            if (!message.trim().equalsIgnoreCase("")) {
+                                message = message + "\n";
+                            }
+                            message = message + "* " + getResources().getString(R.string.pleaseSelectrespondanttypequestion);
+                            flag = false;
+                        }
+                    } else {
+                        //  Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
+                    }
+                    if (isImageRequired) {
+                        if (getFilePath() == null || getBitMapFile() == null) {
+                            if (!message.trim().equalsIgnoreCase("")) {
+                                message = message + "\n";
+                            }
+                            message = message + getResources().getString(R.string.pleaseuploadimage);
                            /*  fab1. setBackgroundTintList(ColorStateList.valueOf(Color
                                      .parseColor("#FFCDD2")));*/
-                             Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.growshrink);
-                             animationScaleUp.setRepeatCount(Animation.INFINITE);
-                             fab1.startAnimation(animationScaleUp);
-                             flag=false;
-                         }
-                     }
+                            Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.growshrink);
+                            animationScaleUp.setRepeatCount(Animation.INFINITE);
+                            fab1.startAnimation(animationScaleUp);
+                            flag = false;
+                        }
+                    }
 
-                     if(isCommentRequired)
-                    {
+                    if (isCommentRequired) {
                         /*if(TextUtils.isEmpty(edtComment.getText().toString().trim()))
                         {
                             if (!message.trim().equalsIgnoreCase("")) {
@@ -464,36 +455,34 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                             flag=false;
                         }*/
                     }
-                    if(isgradeRequired)
-                    {
-                        if(gradeType.equalsIgnoreCase("grade")) {
+                    if (isgradeRequired) {
+                        if (gradeType.equalsIgnoreCase("grade")) {
                             if (spnGradesingle.getSelectedItemPosition() == 0) {
                                 if (!message.trim().equalsIgnoreCase("")) {
                                     message = message + "\n";
                                 }
-                                message = message + "* "+getResources().getString(R.string.PleaseSelectGrade);
+                                message = message + "* " + getResources().getString(R.string.PleaseSelectGrade);
                                 flag = false;
                             }
-                        }if(gradeType.equalsIgnoreCase("multigrade")) {
+                        }
+                        if (gradeType.equalsIgnoreCase("multigrade")) {
 
-                                if (spnGrade.getSelectedItem().toString().equalsIgnoreCase("") ){
-                                    if (!message.trim().equalsIgnoreCase("")) {
-                                        message = message + "\n";
-                                    }
-                                    message = message + "* "+getResources().getString(R.string.PleaseSelectGrade);
-                                    flag = false;
+                            if (spnGrade.getSelectedItem().toString().equalsIgnoreCase("")) {
+                                if (!message.trim().equalsIgnoreCase("")) {
+                                    message = message + "\n";
                                 }
+                                message = message + "* " + getResources().getString(R.string.PleaseSelectGrade);
+                                flag = false;
+                            }
 
                         }
                     }
 
 
-
-
                 }
 
 
-                if(flag){
+                if (flag) {
 
                     final Story story = new Story();
                     story.setSchoolId(schoolId);
@@ -501,19 +490,15 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                     story.setGroupId(questionGroupId);
                     story.setStateKey(session.getStateSelection());
                     story.setRespondentType(mSelectedUserType);
-                    if(isCommentRequired)
-                    {
-                     story.setComments(userComment);
+                    if (isCommentRequired) {
+                        story.setComments(userComment);
                     }
-                    if(isgradeRequired)
-                    {
-                        if(gradeType.equalsIgnoreCase("grade"))
-                        {
-                        story.setGroupValue(    spnGradesingle.getSelectedItem().toString().trim());
+                    if (isgradeRequired) {
+                        if (gradeType.equalsIgnoreCase("grade")) {
+                            story.setGroupValue(spnGradesingle.getSelectedItem().toString().trim());
                         }
-                        if(gradeType.equalsIgnoreCase("multigrade"))
-                        {
-                            story.setGroupValue(     spnGrade.getSelectedItem().toString().trim());
+                        if (gradeType.equalsIgnoreCase("multigrade")) {
+                            story.setGroupValue(spnGrade.getSelectedItem().toString().trim());
                         }
                     }
 
@@ -526,9 +511,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                     storetoDB(story, answers, currentTS);
 
 
-
-
-                }else {
+                } else {
 
                     noAnswerDialog.setMessage(message);
                     noAnswerDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
@@ -659,33 +642,30 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     private void requiredMultilevelgrade(String level) {
 
         List<String> gradeList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.grade_array)));
-       gradeList.add(0,getResources().getString(R.string.grade));
+        gradeList.add(0, getResources().getString(R.string.grade));
         //    ArrayAdapter<String> gradeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.textviewmultispinner, getResources().getStringArray(R.array.grade_array));
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                getActivity(),R.layout.textviewmultispinner,gradeList){
+                getActivity(), R.layout.textviewmultispinner, gradeList) {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
+            public boolean isEnabled(int position) {
+                if (position == 0) {
                     // Disable the first item from Spinner
                     // First item will be use for hint
                     return false;
-                }
-                else
-                {
+                } else {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-                if(position == 0){
+                if (position == 0) {
                     // Set the hint text color gray
                     tv.setTextColor(Color.GRAY);
-                }
-                else {
+                } else {
                     tv.setTextColor(Color.BLACK);
                 }
                 return view;
@@ -710,11 +690,6 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         }*/
 
 
-
-
-
-
-
     }
 
     private void checkVisiblity(String stateKey) {
@@ -736,29 +711,27 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             fabEditIcon.setVisibility(View.GONE);
         }
 
-       if (isgradeRequired) {
-           spnGradesingle.setVisibility(View.GONE);
-           spnGrade.setVisibility(View.GONE);
-            if(gradeType.equalsIgnoreCase("grade")) {
+        if (isgradeRequired) {
+            spnGradesingle.setVisibility(View.GONE);
+            spnGrade.setVisibility(View.GONE);
+            if (gradeType.equalsIgnoreCase("grade")) {
                 spnGradesingle.setVisibility(View.VISIBLE);
 
             }
-            if(gradeType.equalsIgnoreCase("multigrade"))
-            {
+            if (gradeType.equalsIgnoreCase("multigrade")) {
                 spnGrade.setVisibility(View.VISIBLE);
             }
         } else {
             linlayGradeSelection.setVisibility(View.GONE);
         }
 
-        if(isRespondentlistRequired)
-        {
+        if (isRespondentlistRequired) {
             respLin.setVisibility(View.VISIBLE);
 
             userType = new LinkedHashMap<String, String>();
             userType.put(getResources().getString(R.string.pleaseSelectrespondanttype), "No");
             userType.putAll(RolesUtils.getUserRoles(getActivity(), db, stateKey));
-        }else {
+        } else {
             respLin.setVisibility(View.GONE);
 
             userType = new LinkedHashMap<String, String>();
@@ -854,9 +827,9 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 getResources().getString(R.string.cancel)};
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
-       // builder.setTitle(getResources().getString(R.string.pleaseataachsurveyimage));
-       // builder.setCustomTitle(R.layout.custom_date_layout)
-        View view=LayoutInflater.from(getActivity()).inflate(R.layout.titlebar, null);
+        // builder.setTitle(getResources().getString(R.string.pleaseataachsurveyimage));
+        // builder.setCustomTitle(R.layout.custom_date_layout)
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.titlebar, null);
         builder.setCustomTitle(view);
         //builder.setMessage(getResources().getString(R.string.pleaseataachsurveyimage));
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -912,10 +885,30 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
     }
 
     private void cameraIntent() {
-       Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    startActivityForResult(intent, REQUEST_CAMERA);*/
+        Intent pictureIntent = new Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            //Create a file to store the image
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
 
+            }
+            if (photoFile != null) {
+                Uri photoUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 
-        startActivityForResult(intent, REQUEST_CAMERA);
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+                   pictureIntent.setClipData(ClipData.newRawUri("", photoUri));
+                    pictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+                startActivityForResult(pictureIntent, REQUEST_CAMERA);
+            }
+        }
 
 
     }
@@ -931,7 +924,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             else if (requestCode == REQUEST_CAMERA)
 
 
-                onCaptureImageResult(data, null);
+                onCaptureImageResult(data, null, true);
 
         }
 
@@ -950,52 +943,108 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         return BitmapFactory.decodeStream(bis);
 
     }
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
+    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage)  {
 
+        ExifInterface ei = null;
+        try {
+            ei = new ExifInterface(selectedImage.getPath());
 
-    private void onCaptureImageResult(Intent data, Bitmap bitmap) {
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+
+        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img;
+    }
+    private void onCaptureImageResult(Intent data, Bitmap bitmap, boolean fromCamera) {
         Bitmap thumbnail = null;
-        if (data == null) {
+
+        if (fromCamera) {
+
+            try {
+
+
+                thumbnail = BitmapFactory.decodeFile(imageFilePath);
+
+                thumbnail=rotateImageIfRequired(thumbnail, Uri.parse(imageFilePath));
+
+
+
+
+
+
+
+
+
+
+
+            } catch (Exception e) {
+
+            }
+
+        } else {
+            thumbnail = bitmap;
+
+        }
+       /* if (data == null) {
             //from gellry
             thumbnail = bitmap;
         } else {
             //from camera
-
             thumbnail = (Bitmap) data.getExtras().get("data");
 
+        }*/
 
 
-        }
-
-        thumbnail = ShrinkBitmap(thumbnail);
-        Bitmap dest = Bitmap.createBitmap(thumbnail.getWidth(), thumbnail.getHeight(), Bitmap.Config.ARGB_8888);
-
-
-        Canvas cs = new Canvas(dest);
-        Paint tPaint = new Paint();
-        tPaint.setTextSize(20);
-        tPaint.setColor(Color.BLUE);
-        tPaint.setStyle(Paint.Style.FILL);
-        float height = tPaint.measureText("yY");
-        cs.drawBitmap(thumbnail, 0, 0, tPaint);
-        cs.drawText(getDate(System.currentTimeMillis()), 20f, height + 15f, tPaint);
+        if (thumbnail != null) {
+            thumbnail = ShrinkBitmap(thumbnail);
+            Bitmap dest = Bitmap.createBitmap(thumbnail.getWidth(), thumbnail.getHeight(), Bitmap.Config.ARGB_8888);
 
 
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try {
-            dest.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            //   thumbnail.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
-            // Toast.makeText(getActivity(),bytes.size()+"",Toast.LENGTH_SHORT).show();
-            ContextWrapper cw = new ContextWrapper(getActivity());
-            File directory = cw.getDir(Constants.GKA_IMAGE_STORAGE_PATH, Context.MODE_PRIVATE);
-            // Create imageDir
-            File mypath = new File(directory, System.currentTimeMillis() + ".jpg");
-            // Log.d("ss",mypath.toString());
-            // File mypath1 = new File(compressImage(mypath.getAbsolutePath()));
+            Canvas cs = new Canvas(dest);
+            Paint tPaint = new Paint();
+            tPaint.setTextSize(20);
+            tPaint.setColor(Color.BLUE);
+            tPaint.setStyle(Paint.Style.FILL);
+            float height = tPaint.measureText("yY");
+            cs.drawBitmap(thumbnail, 0, 0, tPaint);
+            cs.drawText(getDate(System.currentTimeMillis()), 20f, height + 15f, tPaint);
 
-            setImagePath(mypath, bytes);
-            //getBase64(bytes);
 
-            //  Log.d("mm",getPath(data.getData()));
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            try {
+                dest.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                //   thumbnail.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                // Toast.makeText(getActivity(),bytes.size()+"",Toast.LENGTH_SHORT).show();
+                ContextWrapper cw = new ContextWrapper(getActivity());
+                File directory = cw.getDir(Constants.GKA_IMAGE_STORAGE_PATH, Context.MODE_PRIVATE);
+                // Create imageDir
+                File mypath = new File(directory, System.currentTimeMillis() + ".jpg");
+                // Log.d("ss",mypath.toString());
+                // File mypath1 = new File(compressImage(mypath.getAbsolutePath()));
+
+                setImagePath(mypath, bytes);
+                //getBase64(bytes);
+
+                //  Log.d("mm",getPath(data.getData()));
      /*  FileOutputStream fo;
         try {
             mypath.createNewFile();
@@ -1008,29 +1057,32 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             e.printStackTrace();
         }*/
 
-            tvImageName.setText(getFilePath().getName().toString());
-           // showFABMenu();
-            if(!tvImageName.getText().toString().trim().equalsIgnoreCase("")) {
-                fab2.setVisibility(View.VISIBLE);
-                fab1. setBackgroundTintList(ColorStateList.valueOf(Color
-                        .parseColor("#24b2b6")));
-            }
-           // imgPreview.setVisibility(View.VISIBLE);
+                tvImageName.setText(getFilePath().getName().toString());
+                // showFABMenu();
+                if (!tvImageName.getText().toString().trim().equalsIgnoreCase("")) {
+                    fab2.setVisibility(View.VISIBLE);
+                    fab1.setBackgroundTintList(ColorStateList.valueOf(Color
+                            .parseColor("#24b2b6")));
+                }
+                // imgPreview.setVisibility(View.VISIBLE);
 
-        } catch (Exception e) {
-            // Toast.makeText(getActivity(),"Please select appropriate image",Toast.LENGTH_SHORT).show();
-            showSignupResultDialog(
-                    getResources().getString(R.string.app_name),
-                    getResources().getString(R.string.pleaseSelectAppropriateImage),
-                    getResources().getString(R.string.Ok));
+            } catch (Exception e) {
+                // Toast.makeText(getActivity(),"Please select appropriate image",Toast.LENGTH_SHORT).show();
+                showSignupResultDialog(
+                        getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.pleaseSelectAppropriateImage),
+                        getResources().getString(R.string.Ok));
 
 
         /*File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 */
 
+            }
+            // ivImage.setImageBitmap(thumbnail);
+        } else {
+            Toast.makeText(getActivity(), "Image uploading Error", Toast.LENGTH_SHORT).show();
         }
-        // ivImage.setImageBitmap(thumbnail);
     }
 
 
@@ -1116,7 +1168,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                onCaptureImageResult(null, bm);
+                onCaptureImageResult(null, bm, false);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1230,7 +1282,21 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
     }
 
+    private File createImageFile() throws IOException {
+        String timeStamp =
+                new SimpleDateFormat("yyyyMMdd_HHmmss",
+                        Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
+        imageFilePath = image.getAbsolutePath();
+        return image;
+    }
 
 
 }

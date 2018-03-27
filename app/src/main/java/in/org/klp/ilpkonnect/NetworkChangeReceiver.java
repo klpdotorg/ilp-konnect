@@ -13,12 +13,12 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context,  Intent intent) {
 
         if (AppStatus.isConnected(context)) {
-              //  Toast.makeText(context, "connected", Toast.LENGTH_LONG).show();
+     // Toast.makeText(context, "connected", Toast.LENGTH_LONG).show();
 
             Intent intent1 = new Intent(context, SyncIntentService.class);
             context.startService(intent1);
         } else {
-            //  Toast.makeText(context, "disconnected", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(context, "disconnected", Toast.LENGTH_LONG).show();
         }
 
 

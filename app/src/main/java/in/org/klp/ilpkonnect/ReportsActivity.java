@@ -201,16 +201,42 @@ public class ReportsActivity extends BaseActivity {
 
         Query listStoryQquery = Query.select().from(Story.TABLE)
                 .where(Story.SYNCED.eq(0).and(Story.GROUP_ID.eq(qgId)));
-        SquidCursor<Story> storySquidCursor = db.query(Story.class, listStoryQquery);
-
+        final SquidCursor<Story> storySquidCursor = db.query(Story.class, listStoryQquery);
+        fetchQuestions();
         if (storySquidCursor.getCount() < 1) {
 
-            fetchQuestions();
+            if (AppStatus.isConnected(ReportsActivity.this)) {
+
+            syncBlock();
+        }
+
         } else {
 
             if(checkSchool()==true)
             {
-                offLineData(storySquidCursor);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
+                builder.setCancelable(false);
+                builder.setMessage("Un synced surveys found do you want to check report for it.");
+                builder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        offLineData(storySquidCursor);
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                     //   fetchQuestions();
+                    }
+                });
+
+                builder.show();
+
+
+
+
+
             }else
             {
                 fetchQuestions();
@@ -233,10 +259,7 @@ public class ReportsActivity extends BaseActivity {
         });
 
 
-        if (AppStatus.isConnected(ReportsActivity.this)) {
 
-            syncBlock();
-        }
     }
 
 
@@ -561,7 +584,7 @@ public class ReportsActivity extends BaseActivity {
                             @Override
                             public void success(String message) {
 
-                                loadReportData(sync);
+                                loadReportData(sync,true);
                             }
 
                             @Override
@@ -594,63 +617,7 @@ public class ReportsActivity extends BaseActivity {
                 alertDialog(sync);
             }
 
-       /*     if(!level.equalsIgnoreCase("school")) {
-                showProgress(true);
-                new ProNetworkSettup(getApplicationContext()).getReoportData(id, qgId, 1l,getYear(CalSdate), level, new StateInterface() {
-                    @Override
-                    public void success(String message) {
-                        showProgress(false);
-                        fetchQuestions();
 
-                    }
-
-                    @Override
-                    public void failed(String message) {
-                        showProgress(false);
-                        DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
-                    }
-                });
-            }else
-            {
-                showProgress(true);
-                new ProNetworkSettup(getApplicationContext()).getReoportDataSchool(id, qgId, 1l, level,getYear(CalSdate), new StateInterface() {
-                    @Override
-                    public void success(String message) {
-                        showProgress(false);
-                        fetchQuestions();
-
-                    }
-
-                    @Override
-                    public void failed(String message) {
-                        showProgress(false);
-                        DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
-                    }
-                });
-
-            }
-*/
-
-
-            //   sync.uploadStories();
-        /*    if (item.getTitle().toString().equalsIgnoreCase(getResources().getString(R.string.syncTitle))) {
-
-
-                *//*if (sync.isSyncDataFound()) {
-                    //Data found for sync
-
-
-                   // sync.uploadStories();
-                    sync.downloadStories(getIdof(createReportLevel), false, qgId + "");
-                } else {
-                    if (dialogConstants != null) {
-                        dialogConstants.dismiss();
-                    }
-                    alertDialog();
-
-
-                }*//*
-            }*/
         } else {
 
             if (sync.getStoriesCount() > 0) {
@@ -674,7 +641,7 @@ public class ReportsActivity extends BaseActivity {
     }
 
 
-    public void loadReportData(SyncManager sync) {
+    public void loadReportData(SyncManager sync,final boolean flag) {
 
         String data = getIdof(createReportLevel);
         long oneday = 86400000L;
@@ -698,7 +665,12 @@ public class ReportsActivity extends BaseActivity {
                         fetchQuestions();
                     } else {
                         fetchQuestions();
-                        DailogUtill.showDialog(message, getSupportFragmentManager(), ReportsActivity.this);
+                        String msg=message;
+                     /*   if(flag==true)
+                        {
+                            msg= message+"\n"+getResources().getString(R.string.allSurvey);
+                        }*/
+                        DailogUtill.showDialog(msg, getSupportFragmentManager(), ReportsActivity.this);
 
                     }
 
@@ -776,7 +748,7 @@ public class ReportsActivity extends BaseActivity {
                 //    sync.downloadStories(bid, true);
                 // sync.downloadStories(getIdof(createReportLevel), true, qgId + "");
                 showProgress(true);
-                loadReportData(syncManager);
+                loadReportData(syncManager,false);
             }
         });
 

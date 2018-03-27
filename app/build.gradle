@@ -40,8 +40,8 @@ android {
             applicationId "in.org.ilp.konnect.development"
             resValue "string", "app_name", "ILP Konnect Dev"
 
-            // buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
-           buildConfigField 'String', 'HOST', '"https://staging.ilp.org.in"'
+          buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
+        // buildConfigField 'String', 'HOST', '"https://staging.ilp.org.in"'
         }
         prod {
             applicationId "in.org.klp.ilpkonnect"

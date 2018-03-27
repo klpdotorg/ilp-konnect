@@ -223,6 +223,7 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
                 for (int i = 0; i < myList.size(); i++) {
 
                     CheckBox checkBox = new CheckBox(_context);
+
                     checkBox.setPadding(0, 0, 40, 0);
                     if (sessionManager.getLanguagePosition() <= 1) {
                         //english

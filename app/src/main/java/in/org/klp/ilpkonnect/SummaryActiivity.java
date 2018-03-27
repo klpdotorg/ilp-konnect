@@ -28,6 +28,7 @@ import in.org.klp.ilpkonnect.db.MySummary;
 
 import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.Story;
+import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.DailogUtill;
 import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
 import in.org.klp.ilpkonnect.utils.SessionManager;
@@ -76,6 +77,12 @@ public class SummaryActiivity extends BaseActivity {
         cminute = c.get(Calendar.MINUTE);
 
 
+        if (AppStatus.isConnected(SummaryActiivity.this)) {
+
+            mySync();
+        }
+
+
     }
 
     public String getOneDayExstra(String date) {
@@ -105,17 +112,7 @@ public class SummaryActiivity extends BaseActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                startActivity();
 
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void fetchData(long id, String statekey, String fromData, String endDate) {
         Query mySummaryQuery = Query.select().from(MySummary.TABLE)
@@ -177,6 +174,10 @@ public class SummaryActiivity extends BaseActivity {
         return formatter.format(calendar.getTime());
     }
 
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -186,7 +187,27 @@ public class SummaryActiivity extends BaseActivity {
     }
 
 
-    public void mySync(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                startActivity();
+
+                return true;
+
+                case R.id.action_sync_block:
+                    mySync();
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+    public void mySync() {
         progressDialog.show();
         final String fromd = getRevDate(from);
         final String endd = getRevDate(getOneDayExstra(end));

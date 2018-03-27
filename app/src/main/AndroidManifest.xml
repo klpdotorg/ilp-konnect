@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="in.org.klp.ilpkonnect">
 
-
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -70,6 +70,7 @@
         <activity
             android:name=".QuestionActivity"
             android:label="@string/title_activity_question"
+
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"
             android:theme="@style/KLPTheme">
@@ -224,6 +225,19 @@
             android:name=".UpdateProfileBeforeLoginActivity"
             android:label="@string/updateProfile"
             android:screenOrientation="portrait" />
+
+
+        <provider
+            android:authorities="${applicationId}.provider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+
 
     </application>
 
