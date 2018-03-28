@@ -208,7 +208,7 @@ public class ReportsActivity extends BaseActivity {
 
             if (AppStatus.isConnected(ReportsActivity.this)) {
 
-            syncBlock();
+                syncdataOnCreate();
         }
 
         } else {
@@ -217,7 +217,7 @@ public class ReportsActivity extends BaseActivity {
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
                 builder.setCancelable(false);
-                builder.setMessage("Un synced surveys found do you want to check report for it.");
+                builder.setMessage("Unsynced surveys found. Do you want to create report for it.");
                 builder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -568,39 +568,67 @@ public class ReportsActivity extends BaseActivity {
         return true;
     }
 
+
+
+    public void syncdataOnCreate()
+    {
+        if (AppStatus.isConnected(ReportsActivity.this)) {
+            final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
+
+            if (sync.isSyncDataFound()) {
+
+
+                showProgress(true);
+                String jsondata = sync.doUpload();
+                new ProNetworkSettup(getApplicationContext()).SyncData(jsondata, sessionManager.getToken(), new StateInterface() {
+                    @Override
+                    public void success(String message) {
+
+                        loadReportData(sync,true);
+                    }
+
+                    @Override
+                    public void failed(String message) {
+                        showProgress(false);
+                        DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                    }
+                });
+
+
+
+
+
+
+
+            } else {
+                alertDialog(sync);
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void syncBlock() {
 
 
         final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
 
         if (AppStatus.isConnected(ReportsActivity.this)) {
-
-            //   String data= getIdof(createReportLevel);
-/*            long oneday= 86400000L;
-            String dataFound[] = data.split("\\|");
-            final long id = Long.parseLong(dataFound[0]);
-            final String level = dataFound[1];
-            final String sdate=getDate(Long.parseLong(dataFound[2]),"yyyy-MM-dd");
-            final String endate=getDate((Long.parseLong(dataFound[3]))+oneday,"yyyy-MM-dd");*/
-            //
-
-            if (sync.isSyncDataFound()) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
-                builder.setCancelable(false);
+  if (sync.isSyncDataFound()) {
 
 
-                builder.setTitle(getResources().getString(R.string.syncTitle));
-
-
-                //  builder.setMessage(getResources().getString(R.string.dataAlreadynSyn) + "\n" + getResources().getString(R.string.doyouwant));
-                builder.setMessage(getResources().getString(R.string.doyouwant));
-
-
-                //Button One : Yes
-                builder.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
                         showProgress(true);
                         String jsondata = sync.doUpload();
                         // Log.d("jsonData", jsondata);
@@ -619,23 +647,10 @@ public class ReportsActivity extends BaseActivity {
                             }
                         });
 
-                    }
-                });
 
 
-                //Button Two : No
-                builder.setNegativeButton(getResources().getString(R.string.answer_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Toast.makeText(ReportsActivity.this, "No button Clicked!", Toast.LENGTH_LONG).show();
-
-                        dialog.cancel();
-                    }
-                });
 
 
-                AlertDialog diag = builder.create();
-                diag.show();
 
 
             } else {
@@ -751,46 +766,14 @@ public class ReportsActivity extends BaseActivity {
     }
 
     public void alertDialog(final SyncManager syncManager) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
-        builder.setCancelable(false);
-        final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
 
 
-        builder.setTitle(getResources().getString(R.string.syncTitle));
-
-
-        //  builder.setMessage(getResources().getString(R.string.dataAlreadynSyn) + "\n" + getResources().getString(R.string.doyouwant));
-        builder.setMessage(getResources().getString(R.string.doyouwant));
-
-
-        //Button One : Yes
-        builder.setPositiveButton(getResources().getString(R.string.answer_yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(ReportsActivity.this, "Yes button Clicked!", Toast.LENGTH_LONG).show();
-
-                // Toast.makeText(getApplicationContext(),bid+":shri",Toast.LENGTH_SHORT).show();
-                //    sync.downloadStories(bid, true);
-                // sync.downloadStories(getIdof(createReportLevel), true, qgId + "");
                 showProgress(true);
                 loadReportData(syncManager,false);
-            }
-        });
 
 
-        //Button Two : No
-        builder.setNegativeButton(getResources().getString(R.string.answer_no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Toast.makeText(ReportsActivity.this, "No button Clicked!", Toast.LENGTH_LONG).show();
-
-                dialog.cancel();
-            }
-        });
 
 
-        AlertDialog diag = builder.create();
-        diag.show();
     }
 
     public void getBids(int createReportLevel) {
