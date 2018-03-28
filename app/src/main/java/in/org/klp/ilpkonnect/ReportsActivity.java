@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.Pojo.ImagesPOJO;
@@ -327,17 +328,41 @@ public class ReportsActivity extends BaseActivity {
 
                 totalYes = totalYes + squidYes.getCount();
                 totalNo = totalNo + squidNo.getCount();
-                totaldontknow = totaldontknow + squidother.getCount();
+                if(squidother.getCount()>0) {
+                    while (squidother.moveToNext()) {
+                        Answer answer = new Answer(squidother);
+                        StringTokenizer st = new StringTokenizer(answer.getText(), ",");
+                        while (st.hasMoreTokens()) {
+                            String value = st.nextToken().trim();
+                            if (value.equalsIgnoreCase("Yes")) {
+                                totalYes = totalYes + 1;
+                                Log.d("valueg",totalYes+"YEs");
+                            } else if (value.equalsIgnoreCase("No")) {
+                                totalNo = totalNo + 1;
+                                Log.d("valueg",totalNo+"No");
+                            } else {
+                                totaldontknow = totaldontknow + 1;
+                                Log.d("valueg",totaldontknow+"DNo");
+                            }
+
+                        }
+                    }
+                }
+                //totaldontknow = totaldontknow + squidother.getCount();
 
                 reporIndi.setTotal_responses(listStory.size());
                 reporIndi.setToal_schools_with_res(hasmapschoolwithResponses.size());
                 reporIndi.setTotal_school(Constants.scoolCount);
 
 
-                reporIndi.setYes(squidYes.getCount() + "");
-                reporIndi.setNo(squidNo.getCount() + "");
-                reporIndi.setDont(squidother.getCount() + "");
+                reporIndi.setYes(totalYes + "");
+                reporIndi.setNo(totalNo + "");
+                reporIndi.setDont(totaldontknow + "");
                 reportIndiPojos.add(reporIndi);
+
+                tvYes.setText(totalYes + "");
+                tvNo.setText(totalNo + "");
+                tvDontKn.setText(totaldontknow + "");
 
                 tvPYes.setText(getScorePercent(totalYes, (totalYes + totalNo + totaldontknow)) + "%");
                 tvPNo.setText(getScorePercent(totalNo, (totalYes + totalNo + totaldontknow)) + "%");
