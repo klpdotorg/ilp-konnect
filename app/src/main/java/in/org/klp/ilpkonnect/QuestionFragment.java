@@ -382,7 +382,6 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             @Override
             public void onClick(View view) {
                 HashMap<String, String> user = session.getUserDetails();
-                final Long currentTS = System.currentTimeMillis();
                 //  Toast.makeText(getActivity(),currentTS+"(((((",Toast.LENGTH_SHORT).show();
 
                 if (isRespondentlistRequired) {
@@ -406,7 +405,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
 
                 //  Log.d("tag",isImageRequired+":"+isgradeRequired+":"+isCommentRequired+":"+isRespondentlistRequired);
                 String message = "";
-                if (isImageRequired || isgradeRequired || isCommentRequired || isRespondentlistRequired || mQuestionsAdapter.getQuestionSize() == 0 || answers.size() != mQuestionsAdapter.getQuestionSize()) {
+                if (isgradeRequired || isCommentRequired || isRespondentlistRequired || mQuestionsAdapter.getQuestionSize() == 0 || answers.size() != mQuestionsAdapter.getQuestionSize()) {
 
                     if (mQuestionsAdapter.getQuestionSize() == 0 || answers.size() != mQuestionsAdapter.getQuestionSize()) {
                         if (mQuestionsAdapter.getQuestionSize() == 0) {
@@ -430,20 +429,20 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                     } else {
                         //  Toast.makeText(getActivity(),isRespondentlistRequired+"",Toast.LENGTH_SHORT).show();
                     }
-                    if (isImageRequired) {
+                   /* if (isImageRequired) {
                         if (getFilePath() == null || getBitMapFile() == null) {
                             if (!message.trim().equalsIgnoreCase("")) {
                                 message = message + "\n";
                             }
                             message = message + getResources().getString(R.string.pleaseuploadimage);
-                           /*  fab1. setBackgroundTintList(ColorStateList.valueOf(Color
-                                     .parseColor("#FFCDD2")));*/
+                           *//*  fab1. setBackgroundTintList(ColorStateList.valueOf(Color
+                                     .parseColor("#FFCDD2")));*//*
                             Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.growshrink);
                             animationScaleUp.setRepeatCount(Animation.INFINITE);
                             fab1.startAnimation(animationScaleUp);
                             flag = false;
                         }
-                    }
+                    }*/
 
                     if (isCommentRequired) {
                         /*if(TextUtils.isEmpty(edtComment.getText().toString().trim()))
@@ -502,13 +501,59 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                         }
                     }
 
-                    //    Toast.makeText(getActivity(),currentTS+"",Toast.LENGTH_LONG).show();
-                    if (isImageRequired == true) {
-                        story.setImage(StoreImageToFile());
 
+
+                    if(isImageRequired)
+                    {
+                        if(getFilePath() == null || getBitMapFile() == null) {
+                            Animation animationScaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.growshrink);
+
+                            fab1.startAnimation(animationScaleUp);
+                            AlertDialog.Builder imageALert = new AlertDialog.Builder(getActivity());
+                            imageALert.setCancelable(false);
+                            imageALert.setMessage(getResources().getString(R.string.doyouwantuploadPhoto));
+                            imageALert.setPositiveButton(getResources().getString(R.string.response_positive), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    selectImage();
+
+                                }
+                            });
+                            imageALert.setNegativeButton(getResources().getString(R.string.response_negative), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    Long currentTS = System.currentTimeMillis();
+                                    story.setCreatedAt(currentTS);
+                                    storetoDB(story, answers, currentTS);
+
+                                }
+                            });
+                            imageALert.show();
+                        }else {
+
+                            if (isImageRequired == true) {
+                                story.setImage(StoreImageToFile());
+
+                            }
+                            Long currentTS = System.currentTimeMillis();
+                            story.setCreatedAt(currentTS);
+                            storetoDB(story, answers, currentTS);
+
+                        }
+
+                    }else {
+
+                        if (isImageRequired == true) {
+                            story.setImage(StoreImageToFile());
+
+                        }
+                        Long currentTS = System.currentTimeMillis();
+                        story.setCreatedAt(currentTS);
+                        storetoDB(story, answers, currentTS);
                     }
-                    story.setCreatedAt(currentTS);
-                    storetoDB(story, answers, currentTS);
+
+
 
 
                 } else {
@@ -525,89 +570,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
                 }
 
 
-                //----------------------------------------
 
-/*                if (isImageRequired == false) {
-                    if (answers.size() != mQuestionsAdapter.getQuestionSize() || spinnerUserType.getSelectedItemPosition() == 0) {
-                        flag = false;
-                        String msg = "";
-                        if (answers.size() != mQuestionsAdapter.getQuestionSize()) {
-                            msg = getString(R.string.survey_empty_response_body);
-                        }
-                        if (spinnerUserType.getSelectedItemPosition() == 0) {
-                            if (!msg.trim().equalsIgnoreCase("")) {
-                                msg = msg + "\n";
-                            }
-                            msg = msg + "* " + getResources().getString(R.string.pleaseSelectrespondanttypequestion);
-                        }
-                        noAnswerDialog.setMessage(msg);
-                    } else {
-                        flag = true;
-                    }
-
-                    //community SurveyType
-                } else {
-                    //GK Monitoring
-                    if (answers.size() != mQuestionsAdapter.getQuestionSize() || getFilePath() == null || getBitMapFile() == null) {
-                        flag = false;
-                        String msg = "";
-                        if (answers.size() != mQuestionsAdapter.getQuestionSize()) {
-                            msg = getString(R.string.survey_empty_response_body);
-                        }
-                        if (getFilePath() == null || getBitMapFile() == null) {
-                            if (!msg.trim().equalsIgnoreCase("")) {
-                                msg = msg + "\n";
-                            }
-                            msg = msg + getResources().getString(R.string.pleaseuploadimage);
-                        }
-                        noAnswerDialog.setMessage(msg);
-
-                    } else {
-
-                        flag = true;
-
-                    }
-
-                }
-
-
-                if (flag == false) {
-
-                    noAnswerDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    noAnswerDialog.show();
-                } else {
-
-                    if (mQuestionsAdapter.getQuestionSize() == 0) {
-
-                        DailogUtill.showDialog(getResources().getString(R.string.surveyQuestionNotFound), getFragmentManager(), getActivity());
-
-                    } else {
-                        final Story story = new Story();
-                        story.setSchoolId(schoolId);
-                        story.setUserId(Long.parseLong(user.get(SessionManager.KEY_ID)));
-                        story.setGroupId(questionGroupId);
-                        story.setStateKey(session.getStateSelection());
-                        story.setRespondentType(mSelectedUserType);
-                        story.setCreatedAt(currentTS);
-                        //    Toast.makeText(getActivity(),currentTS+"",Toast.LENGTH_LONG).show();
-                        if (isImageRequired == true) {
-                            story.setImage(StoreImageToFile());
-
-
-                            storetoDB(story, answers, currentTS);
-                        } else {
-
-                            storetoDB(story, answers, currentTS);
-                        }
-
-                    }
-                }*/
             }
         });
 

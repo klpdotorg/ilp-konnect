@@ -85,8 +85,7 @@
 
     <string name="prompt_new_rsponse">Do you want to record another response?</string>
 
-    <!--empty response-->
-    <string name="survey_empty_response_title">No Question Answered!</string>
+
     <string name="survey_empty_response_body">* You must answer all questions to submit a story.</string>
 
 
@@ -113,7 +112,7 @@
 
     <string name="noInternetCon">No Internet Connection</string>
     <string name="emailorPasswordWrong">Email or password wrong</string>
-    <string name="pleaseEnterValidEmailorPhone">Please enter valid email or mobile number</string>
+
     <string name="authenticating">Authenticating...</string>
     <string name="resetPassword">Reset Password</string>
     <string name="numberOfSchools">Number of schools</string>
@@ -149,15 +148,12 @@
     <string name="longitude_label">Longitude</string>
     <string name="last_update_time_label">Last location update time</string>
 
-    <string name="start_updates">Start updates</string>
-    <string name="stop_updates">Stop updates</string>
-
-    <string name="location_settings_inadequate_warning">The location settings on the device are not
-        adequate to run this sample. Fix in Settings.</string>
 
 
-    <string name="permission_denied_explanation">Permission was denied, but is needed for core
-        functionality.</string>
+
+
+
+
     <string name="responseSaved">Survey saved successfully</string>
     <string name="selectSummaryLevel">Select Summary Level</string>
     <string name="selectReportLevel">Select Report Level</string>
@@ -217,6 +213,7 @@
     <string name="govtofficial">Govt Official</string>
     <string name="educationofficial">CRP</string>
     <string name="electedRepre">Elected Representative</string>
+
     <string name="distancemsg"><![CDATA[This survey seems to be not taken within school premises Distance between school location & your location :]]></string>
     <string name="distance">Distance</string>
     <string name="meters">Meters</string>
@@ -346,7 +343,9 @@
     <string name="reportsNotgenerated">Report generation functionality currently not available</string>
     <string name="reportNotAvailable">Reports not available for selected date</string>
     <string name="performinglogout">You have %1$d surveys pending to be synced. Performing logout will clear all surveys. </string>
-    //<string name="my_xml_string">My sister %1$s is %2$d years old.</string>
+
+    <string name="unsyncedSurveysFound">Do you want to create report for unsynced data?</string>
+    <string name="doyouwantuploadPhoto">Do you want to upload an image  ?</string>
 
     <string-array name="grade_array">
 

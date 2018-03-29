@@ -2,11 +2,16 @@ package in.org.klp.ilpkonnect;
 
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -21,7 +26,7 @@ import java.util.Random;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "MyFirebaseMsgService";
+    private static final String TAG = "MyFirebaseIIDService";
 
     String t1 = "";
 
@@ -35,7 +40,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         //  String imageUri = remoteMessage.getData().get("image");
         //Calling method to generate notification
-        sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), getApplicationContext());
+        Log.d(TAG, "Refreshed message: " + "messgae");
+
+
+
+        if (remoteMessage.getData().size() > 0) {
+            if(remoteMessage.getData().get("key")!=null) {
+                showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
+            }
+
+
+        }
+
+        // Check if message contains a notification payload.
+        if (remoteMessage.getNotification() != null) {
+            showNotification(getApplicationContext(),remoteMessage.getNotification().getBody(),new Intent());
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -50,8 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-    //This method is only generating push notification
-    //It is same as we did in earlier posts 
+
     private void sendNotification(String Title, String messageBody, Context appContext) {
 
 
@@ -62,9 +94,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         builder.setSmallIcon(R.drawable.ilp_logo);
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageBody));
         builder.setContentText(messageBody);
-       builder.setContentIntent(PendingIntent.getActivity(this, 0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
+       // builder.setOngoing(true);
 
-        builder.setAutoCancel(true);
+        builder.setContentIntent(PendingIntent.getActivity(this,
+                0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
+
+      //  builder.setAutoCancel(true);
         builder.setDefaults(Notification.DEFAULT_LIGHTS);
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
@@ -76,10 +111,41 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
+    public void showNotification(Context context, String body, Intent intent)
+    {
+
+
+
+        String channelId = "ILP";
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.ilp_logo)
+                   .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
+                     .setContentText(body)
+                        .setAutoCancel(false)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(PendingIntent.getActivity(this,
+                                0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    "ILP Konnect",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    }
+
    public int getNumber()
    {
-       Random rand = new Random();
-       return  rand.nextInt(9999);
+       Random random = new Random();
+       return  random.nextInt(9999);
    }
 
 

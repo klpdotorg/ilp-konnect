@@ -343,6 +343,8 @@
     <string name="reportsNotgenerated">ರಿಪೋರ್ಟ್ಸ ಕಾರ್ಯಾಚರಣೆಯು ಪ್ರಸ್ತುತ ಲಭ್ಯವಿಲ್ಲ</string>
     <string name="reportNotAvailable">ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ದಿನಾಂಕದಂದು ರಿಪೋರ್ಟ್ ಉಪಲಬ್ಧವಿಲ್ಲಾ</string>
     <string name="performinglogout">ನಿಮ್ಮ ಫೋನ್ ನಲ್ಲಿ %1$d ಸಮೀಕ್ಷೆಗಳು ಸಿಂಕ್ ಮಾಡಲು ಬಾಕಿ ಉಳಿದಿದೆ. ನೀವು ಲಾಗ್ಔಟ್ ಮಾಡಿದರೆ ಎಲ್ಲ ಸಮೀಕ್ಷೆಗಳು ಫೋನ್ ನಿಂದ ಖಾಲಿ ಆಗುತ್ತದೆ.</string>
+    <string name="unsyncedSurveysFound">ನಿಮಗೆ ಸಿಂಕ್ ಮಾಡದೆ ಇರುವ ಸಮೀಕ್ಷೆಯ ವರದಿ ತಯಾರಿಸಬೇಕೇ?</string>
+    <string name="doyouwantuploadPhoto">ನಿಮಗೆ ಫೋಟೋವನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಬೇಕೆ?</string>
 
     <string-array name="grade_array">
 

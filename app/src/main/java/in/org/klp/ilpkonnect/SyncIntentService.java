@@ -62,8 +62,8 @@ public class SyncIntentService extends IntentService {
             if (getStoryCount() > 0) {
                 JSONObject object = doUploadForSyncSurvey();
                // Log.d("myTest",object.toString());
-           JSONObject resp = SyncDataCall(object.toString());
-             processUploadResponse(resp);
+          JSONObject resp = SyncDataCall(object.toString());
+           processUploadResponse(resp);
             }
         }
 

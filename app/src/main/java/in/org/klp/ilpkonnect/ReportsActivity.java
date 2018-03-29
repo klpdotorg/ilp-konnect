@@ -217,7 +217,7 @@ public class ReportsActivity extends BaseActivity {
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ReportsActivity.this);
                 builder.setCancelable(false);
-                builder.setMessage("Unsynced surveys found. Do you want to create report for it.");
+                builder.setMessage(getResources().getString(R.string.unsyncedSurveysFound));
                 builder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

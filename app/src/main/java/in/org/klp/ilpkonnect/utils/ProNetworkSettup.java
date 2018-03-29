@@ -148,14 +148,24 @@ public class ProNetworkSettup {
                             String partnerName = body.getResults().get(i).getPartner();
                             boolean imageRequired;
                             try {
-                                imageRequired = questionGroupList.get(j).getImageRequired();
+                                if(questionGroupList.get(j).getImageRequired()==null)
+                                {
+                                    imageRequired = false;
+                                }else {
+                                    imageRequired = questionGroupList.get(j).getImageRequired();
+                                }
                             } catch (Exception e) {
                                 imageRequired = false;
                             }
 
                             boolean commentRequired;
                             try {
-                                commentRequired = questionGroupList.get(j).getCommentsRequired();
+                                if( questionGroupList.get(j).getCommentsRequired()==null)
+                                {
+                                    commentRequired = false;
+                                }else {
+                                    commentRequired = questionGroupList.get(j).getCommentsRequired();
+                                }
                             } catch (Exception e) {
                                 commentRequired = false;
                             }
