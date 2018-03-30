@@ -1029,7 +1029,7 @@ public class MainDashList extends BaseActivity {
 
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
-                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
+                        String url =  BuildConfig.HOST +"/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
 
                         new ProNetworkSettup(MainDashList.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(),mSession.getToken(), new StateInterface() {
                             @Override

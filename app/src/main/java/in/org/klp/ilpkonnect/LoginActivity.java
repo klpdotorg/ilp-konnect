@@ -201,7 +201,9 @@ public class LoginActivity extends BaseActivity {
                         if (userLoginInfo.has("token")) {
                             // create session
 
-                            if (userLoginInfo.getString("user_type") != null && !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")) {
+                            if (userLoginInfo.getString("user_type") != null &&
+                                    !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")
+                                    &&!userLoginInfo.getString("user_type").trim().equalsIgnoreCase("")) {
 
                                 finishLogin(message, mSession.getStateSelection(),"Token "+userLoginInfo.getString("token"));
 
@@ -312,7 +314,7 @@ public class LoginActivity extends BaseActivity {
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
 
-                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
+                        String url =  BuildConfig.HOST+"/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
                         new ProNetworkSettup(LoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(), token,new StateInterface() {
                             @Override
                             public void success(String message) {
@@ -417,26 +419,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    public static String getUserRoleValueForFcmGroup(Context context, KontactDatabase db, String key) {
-        String ressponse = "PARENTS";
-        String userKey = key.trim().toUpperCase();
 
-        Query listQGQquery = Query.select().from(Respondent.TABLE)
-                .orderBy(Respondent.NAME.asc());
-        SquidCursor<Respondent> respondentCursor = db.query(Respondent.class, listQGQquery);
-
-        if (respondentCursor != null) {
-
-            while (respondentCursor.moveToNext()) {
-                if (respondentCursor.get(Respondent.KEY).toUpperCase().equalsIgnoreCase(userKey)) {
-                    ressponse = respondentCursor.get(Respondent.NAME).toUpperCase().replaceAll("\\s+", "");
-                    return ressponse;
-                }
-
-            }
-        }
-        return ressponse;
-    }
 
     private void subscribetoTopicsForNotification(String state, String stateUserType) {
 

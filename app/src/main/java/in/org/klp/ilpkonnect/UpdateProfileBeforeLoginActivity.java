@@ -127,18 +127,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
         });
 
         db = ((KLPApplication) getApplicationContext()).getDb();
-      /*  Query listQGQquery = Query.select().from(Respondent.TABLE)
-                .orderBy(Respondent.NAME.asc());
-        respondentCursor = db.query(Respondent.class, listQGQquery);
-        if (respondentCursor != null) {
-            userType = new LinkedHashMap<String, String>();
-           *//* userType.put(getResources().getString(R.string.pleaseSelectrespondanttype), "No");*//*
-            while (respondentCursor.moveToNext()) {
-                userType.put(respondentCursor.get(Respondent.NAME).toUpperCase(), respondentCursor.get(Respondent.KEY).toUpperCase());
 
-            }
-
-        }*/
         userType = new LinkedHashMap<String, String>();
         userType.put(getString(R.string.pleaseSelectrespondanttype), getString(R.string.pleaseSelectrespondanttype));
         userType.putAll(RolesUtils.getUserRoles(getApplicationContext(), db, stateKey));
@@ -150,14 +139,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
             ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<String>(UpdateProfileBeforeLoginActivity.this, R.layout.regspinner, userTypeNames);
             spnRespondantType.setAdapter(userTypeAdapter);
 
-         /*   for (Map.Entry<String, String> mapData : userType.entrySet()) {
-                if (mapData.getValue().toUpperCase().equalsIgnoreCase(sessionManager.getUserType().toUpperCase())) {
-                    String key = mapData.getKey();
-                    int position = userTypeNames.indexOf(key);
-                    spnRespondantType.setSelection(position);
-                }
 
-            }*/
 
         }
 
@@ -332,7 +314,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
     private void downloadSurveyInfo(final String userInfo, String stateKey, final String tokenlo) {
 
 
-        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC";
+        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC&per_page=0";
 
         new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).getSurveyandQuestionGroup(URL, stateKey,tokenlo, new StateInterface() {
             @Override
@@ -346,7 +328,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
 
-                        String url = "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?" + sessionManager.getStateSelection();
+                        String url = BuildConfig.HOST +"/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + sessionManager.getStateSelection()+"&per_page=0";
                         new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(),tokenlo, new StateInterface() {
                             @Override
                             public void success(String message) {

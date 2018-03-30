@@ -184,24 +184,7 @@ public class LanguageSelectionActivity extends BaseActivity {
 
 
 
-/*
-                            }
 
-                            @Override
-                            public void failed(String message) {
-                                progressDialog.dismiss();
-                                showSignupResultDialog(getResources().getString(R.string.app_name), message, "OK");
-                            }
-
-                        });*/
-
-
-                /*    } else {
-                        showSignupResultDialog(
-                                getResources().getString(R.string.app_name),
-                                getResources().getString(R.string.functioalityprogree),
-                                getResources().getString(R.string.Ok_));
-                    }*/
                 } else {
 
 
@@ -221,10 +204,7 @@ public class LanguageSelectionActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
 
-       /* this.finish();
-        System.exit(0);*/
         if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
             try {
 

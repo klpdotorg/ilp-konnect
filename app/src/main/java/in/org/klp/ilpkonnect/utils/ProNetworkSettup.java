@@ -1418,20 +1418,6 @@ else {
 
     public void getCommunitySurveyQuestions(String url, final long groupid, final int count, final int size, String token, final StateInterface stateInterface) {
 
- /*       try {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Response<QuestionsPojos> response = apiInterface.fetchCummunitySurveyQuestions(url).execute();
-            if (response.isSuccessful() && response.code() == 200) {
-
-                parseStoringQuestion(response.body(), groupid);
-
-            } else {
-                stateInterface.failed(context.getResources().getString(R.string.questionLoadingFailed));
-            }
-
-        } catch (Exception e) {
-            stateInterface.failed(getFailureMessage(e));
-        }*/
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
