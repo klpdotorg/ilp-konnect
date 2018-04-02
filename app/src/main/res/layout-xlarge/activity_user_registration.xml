@@ -102,6 +102,7 @@
                 android:minHeight="80dp"
                 android:textSize="24sp"
                 android:inputType="date"
+                android:digits="0123456789-"
                 android:layout_height="wrap_content"
                 android:hint="@string/dob"
               />

@@ -106,6 +106,13 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 
 
+
+        if(TextUtils.isEmpty(otp.trim()))
+        {
+            edtOTPNumber.setError(getResources().getString(R.string.error_field_required));
+            return false;
+        }
+
         if(TextUtils.isEmpty(PAssword.trim()))
         {
             new_password.setError(getResources().getString(R.string.error_field_required));
@@ -113,11 +120,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         }
 
 
-        if(TextUtils.isEmpty(otp.trim()))
-        {
-            edtOTPNumber.setError(getResources().getString(R.string.error_field_required));
-            return false;
-        }
+
         return true;
 
     }

@@ -71,6 +71,7 @@ public class LoginActivity extends BaseActivity {
         DatabaseCopyHelper dbCopyHelper = new DatabaseCopyHelper(this);
         SQLiteDatabase dbCopy = dbCopyHelper.getReadableDatabase();
         db = ((KLPApplication) getApplicationContext()).getDb();
+
         this.setTitle(getResources().getString(R.string.app_name));
         Button username_sign_up_button = findViewById(R.id.username_sign_up_button);
         if (mSession.isLoggedIn() && mSession.isSetupDone()) {

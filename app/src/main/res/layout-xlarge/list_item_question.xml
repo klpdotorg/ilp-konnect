@@ -24,7 +24,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:gravity="center_vertical"
-            android:textSize="16sp">
+            android:textSize="20sp">
 
         </TextView>
         <!-- <RadioGroup
@@ -59,8 +59,9 @@
             android:id="@+id/multiSpinner"
             android:layout_width="match_parent"
             android:background="#B2DFDB"
+            android:minHeight="45dp"
             android:layout_marginTop="10dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
 
         <HorizontalScrollView
@@ -98,7 +99,9 @@
             android:id="@+id/spnSingleSelection"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"></Spinner>
+            android:background="#B2DFDB"
+            android:minHeight="45dp"
+            android:layout_height="match_parent"></Spinner>
 
         <EditText
             android:id="@+id/edittext"

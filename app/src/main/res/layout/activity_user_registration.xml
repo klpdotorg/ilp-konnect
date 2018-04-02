@@ -91,6 +91,7 @@
                 android:layout_weight="0.84"
                 android:singleLine="true"
                 android:inputType="date"
+                android:digits="0123456789-"
                 android:layout_height="wrap_content"
                 android:hint="@string/dob"
               />

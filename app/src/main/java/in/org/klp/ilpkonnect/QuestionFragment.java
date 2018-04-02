@@ -732,7 +732,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(false);
         String buttonName = getResources().getString(R.string.response_positive);
-        if (isRespondentlistRequired == true) {
+        if (isRespondentlistRequired == false) {
             builder.setMessage(getString(R.string.allSurvey)).setTitle(getResources().getString(R.string.responseSaved));
             buttonName = getResources().getString(R.string.Ok);
         } else {
@@ -741,7 +741,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         }
         builder.setPositiveButton(buttonName, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                if (isRespondentlistRequired == true) {
+                if (isRespondentlistRequired == false) {
                     getActivity().finish();
                 } else {
                     Intent intent = new Intent(getActivity(), QuestionActivity.class);
@@ -759,7 +759,7 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
             }
         });
 
-        if (isRespondentlistRequired == false) {
+        if (isRespondentlistRequired == true) {
 
 
             builder.setNegativeButton(getResources().getString(R.string.response_negative), new DialogInterface.OnClickListener() {

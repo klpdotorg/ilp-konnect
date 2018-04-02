@@ -89,6 +89,7 @@ public class ProNetworkSettup {
         progressDialog.setCancelable(false);
         db = ((KLPApplication) context.getApplicationContext()).getDb();
         foruserlist = false;
+         schoolCountp = 0;
     }
 
 
