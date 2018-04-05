@@ -28,23 +28,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseIIDService";
 
-    String t1 = "";
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        //Displaying data in log
-        //It is optional 
-    //    Log.d(TAG, "From: " + remoteMessage.getFrom());
-      //  Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
 
-        //  String imageUri = remoteMessage.getData().get("image");
-        //Calling method to generate notification
-        Log.d(TAG, "Refreshed message: " + "messgae");
-
-
-
-        if (remoteMessage.getData().size() > 0) {
+        if (remoteMessage.getData()!=null&&remoteMessage.getData().size() > 0) {
             if(remoteMessage.getData().get("key")!=null) {
                 showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
             }
@@ -53,7 +43,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
+        if (remoteMessage.getNotification() != null&&remoteMessage.getNotification().getBody() != null) {
             showNotification(getApplicationContext(),remoteMessage.getNotification().getBody(),new Intent());
         }
 
@@ -84,32 +74,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-    private void sendNotification(String Title, String messageBody, Context appContext) {
-
-
-
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext); //(icon, msg, when);
-
-        builder.setContentTitle(getResources().getString(R.string.app_name));
-        builder.setSmallIcon(R.drawable.ilp_logo);
-        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(messageBody));
-        builder.setContentText(messageBody);
-       // builder.setOngoing(true);
-
-        builder.setContentIntent(PendingIntent.getActivity(this,
-                0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
-
-      //  builder.setAutoCancel(true);
-        builder.setDefaults(Notification.DEFAULT_LIGHTS);
-        builder.setDefaults(Notification.DEFAULT_SOUND);
-
-        NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification=builder.build();
-    //    builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-        notificationManager.notify(getNumber(), notification);
-
-
-    }
 
     public void showNotification(Context context, String body, Intent intent)
     {
@@ -139,7 +103,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        try {
+            notificationManager.notify(getNumber(), notificationBuilder.build());
+        }catch (Exception e)
+        {
+
+        }
     }
 
    public int getNumber()

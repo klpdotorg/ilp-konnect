@@ -321,8 +321,8 @@
     <string name="answer8">Encourage teachers to develop kits similar to provided as part of GKA. Teachers can replicate the math kit contents.</string>
     <string name="question9">Teachers asked me a question on the math concepts and usage of the math kit TLMs. I did not have any answer what to do?</string>
     <string name="answer9">If you do not know the answers, please direct the question to CRPs/Akshara staff or HMs</string>
-    <string name="question10">Unable to type comments in Kannada.</string>
-    <string name="answer10">Use the keyboard that allows kannada letters to be typed.</string>
+    <string name="question10">Unable to type comments in Kannada/Odia.</string>
+    <string name="answer10">Use the keyboard that allows kannada/Odia letters to be typed.</string>
     <string name="question11">What is the limit on words/letters for the comments field?</string>
     <string name="answer11">Not more than 500 words</string>
     <string name="question12">Can I upload videos instead of photos?</string>

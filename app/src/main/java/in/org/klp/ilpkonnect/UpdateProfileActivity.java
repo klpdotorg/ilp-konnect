@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
 
@@ -265,6 +266,12 @@ public class UpdateProfileActivity extends BaseActivity {
                             //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
 
                             DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully), getSupportFragmentManager(), getApplicationContext());
+
+                            try {
+                                subscribetoTopicsForNotification(sessionManager.getState(), sessionManager.getUserType());
+                            } catch (Exception e) {
+
+                            }
                         }
 
                         @Override
@@ -280,6 +287,18 @@ public class UpdateProfileActivity extends BaseActivity {
     }
 
 
+
+    private void subscribetoTopicsForNotification(String state, String stateUserType) {
+
+        try {
+            FirebaseMessaging.getInstance().subscribeToTopic(state);
+            FirebaseMessaging.getInstance().subscribeToTopic(state + "-" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType));
+            //   Toast.makeText(getApplicationContext(),state+"-"+state + ":" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType),Toast.LENGTH_SHORT).show();
+        }catch (Exception e)
+        {
+            //may be topic contains some special symbols
+        }
+    }
 
     public String getRevDate(String strDate) {
         String newstring = "1980-01-01";

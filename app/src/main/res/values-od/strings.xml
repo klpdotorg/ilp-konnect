@@ -136,10 +136,10 @@
     <string name="surveySync">Survey Sync</string>
     <string name="next">ପରବର୍ତ୍ତୀ</string>
     <string name="surveyType">ସର୍ବେକ୍ଷଣ ବାଛନ୍ତୁ</string>
-    <string name="dataAlreadynSync">ଡାଟା ଅଲରାଡି ଆଉଟ-ସ୍ୱୟଂସଡ଼ </string>
+    <string name="dataAlreadynSync">ଡାଟା ସ୍ବତଃ - ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ସାରିଛି |</string>
     <string name="summary">ସାରାଂଶ</string>
     <string name="download_survey">ସର୍ବେକ୍ଷଣ ପ୍ରଶ୍ନ ସମୂହ ଡାଉନ୍‌ଲୋଡ୍ କରନ୍ତୁ</string>
-    <string name="syncSurvey">ଡାଟା ସ୍ବତଃ - ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ସାରିଛି |</string>
+    <string name="syncSurvey">ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
 
     <string name="communitySurvey">Community\nSurvey</string>
     <string name="gkaMonitoring">Ganitha Kalika\nAndolana</string>

@@ -18,12 +18,17 @@ android {
         applicationId "in.org.klp.ilpkonnect"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 6
-        versionName "1.6"
+        versionCode 7
+        versionName "1.7"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
+
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
