@@ -235,8 +235,8 @@
     <string name="fromData">ಪ್ರಾರಂಭ ದಿನಾಂಕ (DD-MM-YYYY)</string>
     <string name="endDate">ಅಂತಿಮ ದಿನಾಂಕ (DD-MM-YYYY)</string>
     <string name="invalidOTP">ಅಮಾನ್ಯ OTP</string>
-    <string name="otpSentonNumber">ನಿಮ್ಮ ಮೊಬೈಲ್ ಫೋನ್ನಲ್ಲಿ OTP ನಿಮಗೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
     <string name="enterOTPCode">OTP ಕೋಡ್ ನಮೂದಿಸಿ</string>
+    <string name="otpSentonNumber">ನಿಮ್ಮ ಮೊಬೈಲ್ ಫೋನ್ನಲ್ಲಿ OTP ನಿಮಗೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
     <string name="passwordChanged">ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ</string>
 
 

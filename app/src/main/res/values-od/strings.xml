@@ -30,8 +30,7 @@
     <string name="changePassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ବଦଳ</string>
     <string name="forgotPassword">ପାସୱାର୍ଡ୍ ଭୁଲି ଗଲେ କି?</string>
     <string name="confirmPassword">ପାସୱାର୍ଡ୍ ସୁନିଶ୍ଚିତ କରନ୍ତୁ</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">ଲଗ୍ ଇନ୍</string>
+     <string name="action_sign_in_short">ଲଗ୍ ଇନ୍</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
