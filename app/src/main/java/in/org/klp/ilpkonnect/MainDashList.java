@@ -129,9 +129,12 @@ public class MainDashList extends BaseActivity {
         // Log user details to be used for crashlytics
 
 
-        menues = new String[]{getResources().getString(R.string.new_response), getResources().getString(R.string.download_survey), getResources().getString(R.string.generate_report), getResources().getString(R.string.syncSurvey), getResources().getString(R.string.summary)};
+      /*  menues = new String[]{getResources().getString(R.string.new_response), getResources().getString(R.string.download_survey), getResources().getString(R.string.generate_report), getResources().getString(R.string.syncSurvey), getResources().getString(R.string.summary)};
         icons = new int[]{R.drawable.ic_button_new_response, R.drawable.downloadicon, R.drawable.ic_button_report, R.drawable.ic_button_sync, R.drawable.ic_button_report};
-        ids = new int[]{1, 2, 3, 4, 5};
+        ids = new int[]{1, 2, 3, 4, 5};*/
+        menues = new String[]{getResources().getString(R.string.new_response), getResources().getString(R.string.download_survey), getResources().getString(R.string.syncSurvey), getResources().getString(R.string.summary)};
+        icons = new int[]{R.drawable.ic_button_new_response, R.drawable.downloadicon, R.drawable.ic_button_sync, R.drawable.ic_button_report};
+        ids = new int[]{1, 2, 4, 5};
 
 
     /*   menues = new String[]{getResources().getString(R.string.new_response), getResources().getString(R.string.download_survey), getResources().getString(R.string.generate_report), getResources().getString(R.string.syncSurvey), getResources().getString(R.string.summary),getResources().getString(R.string.mySummary)};

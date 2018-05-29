@@ -83,7 +83,7 @@ private Object numGirls;
 private Object lastVerifiedYear;
 @SerializedName("institution_languages")
 @Expose
-private List<Integer> institutionLanguages = null;
+private List<String> institutionLanguages = null;
 
 public Integer getId() {
 return id;
@@ -285,11 +285,11 @@ public void setLastVerifiedYear(Object lastVerifiedYear) {
 this.lastVerifiedYear = lastVerifiedYear;
 }
 
-public List<Integer> getInstitutionLanguages() {
+public List<String> getInstitutionLanguages() {
 return institutionLanguages;
 }
 
-public void setInstitutionLanguages(List<Integer> institutionLanguages) {
+public void setInstitutionLanguages(List<String> institutionLanguages) {
 this.institutionLanguages = institutionLanguages;
 }
 

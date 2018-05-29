@@ -174,7 +174,7 @@ public class MainDashListAdapter extends RecyclerView.Adapter<MainDashListAdapte
                 mySummaryIntent.putExtra("surveyId", surveyId);
                 mySummaryIntent.putExtra("ILPQuestionGroupId", questionGroupId);
                 mySummaryIntent.putExtra("surveyName", surveyName);
-                mySummaryIntent.putExtra("stateID", "1");
+                mySummaryIntent.putExtra("stateID", 1l);
                 mainDashList.startActivity(mySummaryIntent);
                 mainDashList. overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 

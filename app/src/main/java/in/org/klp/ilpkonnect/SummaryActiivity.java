@@ -62,7 +62,7 @@ public class SummaryActiivity extends BaseActivity {
 
        // Toast.makeText(getApplicationContext(),surveyId+":"+questiongroup,Toast.LENGTH_SHORT).show();
         surveyName = getIntent().getStringExtra("surveyName");
-        stateID = getIntent().getLongExtra("stateID", 0);
+        stateID = getIntent().getLongExtra("stateID", 0l);
         from = getIntent().getStringExtra("from");
         end = getIntent().getStringExtra("end");
 

@@ -1,16 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
     <string name="response_neutral">OK</string>
     <string name="response_positive">Yes</string>
     <string name="response_negative">No</string>
-
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
     <string name="action_refresh">Refresh</string>
-    <string name="title_activity_survey">Surveys</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="questions">Take me to the questions!</string>
-    <string name="reports">Take me to the reports!</string>
-
+     <string name="reports">Take me to the reports!</string>
     <!-- Strings related to Boundary selection -->
     <string name="district">District</string>
     <string name="block">Block</string>
@@ -21,22 +17,15 @@
     <string name="prompt_cluster">Select Cluster</string>
     <string name="prompt_school">Select School</string>
     <string name="prompt_user_type">Select Respondent Type</string>
-
     <!-- Strings related to login -->
-    <string name="prompt_register">Not a user yet?</string>
-    <string name="prompt_login">Already a user?</string>
     <string name="register">REGISTER</string>
     <string name="login">LOGIN</string>
     <string name="changePassword">Change password</string>
     <string name="forgotPassword">Forgot password?</string>
     <string name="confirmPassword">CONFIRM PASSWORD</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">LOGIN</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+     <string name="action_sign_in_short">LOGIN</string>
+
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">Location permissions are needed</string>
 
     <string name="title_activity_question">Questions</string>
 
@@ -47,23 +36,17 @@
     <string name="Ok_">OK</string>
 
     <!-- Strings for sign up activity -->
-    <string name="title_activity_user_registration">UserRegistrationActivity</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
-    <string name="prompt_enter_email">E-MAIL/MOBILE NUMBER</string>
-    <string name="prompt_enter_email1">E-MAIL</string>
     <string name="prompt_enter_email1_">E-MAIL (OPTIONAL)</string>
     <string name="prompt_enter_password">PASSWORD</string>
-    <string name="prompt_verify_password">RE-ENTER PASSWORD</string>
     <string name="first_name"> FIRST NAME</string>
     <string name="last_name">LAST NAME</string>
     <string name="mobile_number">MOBILE NUMBER</string>
     <string name="action_register">REGISTER</string>
-    <string name="title_activity_boundary_selection">Choose your Boundary</string>
     <!-- survey activity strings -->
     <string name="new_response">New Survey+</string>
     <string name="generate_report">Create Survey Report</string>
-    <string name="list_stories">All Stories</string>
-    <!--Story list activity-->
+     <!--Story list activity-->
     <string name="meta_medium">Total Answers: %1$s</string>
     <!--<string name="meta_small">Created by %1$s on %2$s</string>-->
     <string name="meta_small">%1$s  %2$s</string>
@@ -75,10 +58,7 @@
     <string name="meta_total_by_user_nsy">Your Stories Not Synced: %1$d</string>
     <string name="meta_total_by_user_nsy_">Your Stories Not Synced:0</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="backtologin">BACK TO <u>LOGIN</u></string>
-    <string name="prompt_start_date">Start Date</string>
-    <string name="prompt_end_date">End Date</string>
+
     <string name="answer_yes">Yes</string>
     <string name="answer_no">No</string>
     <string name="answer_unknown">Don\'t Know</string>
@@ -111,7 +91,6 @@
 
 
     <string name="noInternetCon">No Internet Connection</string>
-    <string name="emailorPasswordWrong">Email or password wrong</string>
 
     <string name="authenticating">Authenticating...</string>
     <string name="resetPassword">Reset Password</string>
@@ -119,8 +98,7 @@
     <string name="numberOfSchoolsWithRespo">Number of schools with surveys</string>
     <string name="numberOfRespo">Total number of surveys</string>
     <string name="updateSurveys">Update Surveys</string>
-    <string name="community">Community</string>
-    <string name="sync">Sync</string>
+     <string name="sync">Sync</string>
     <string name="uploadingStories">Uploading Stories</string>
     <string name="downloadingSurvey"> Downloading survey </string>
     <string name="downloadingQuestion"> Downloading question </string>
@@ -128,25 +106,14 @@
     <string name="survey"> Survey </string>
     <string name="updateSurvey">Update Survey</string>
     <string name="settings">Select language</string>
-    <string name="surveySync">Survey Sync</string>
     <string name="next">Next</string>
-    <string name="surveyType">Survey Type</string>
+    <string name="surveyType">Choose your survey</string>
     <string name="dataAlreadynSync">Data already auto-synced</string>
     <string name="summary">User Summary</string>
     <string name="download_survey">Download survey questions</string>
     <string name="syncSurvey">Sync survey</string>
 
-    <string name="communitySurvey">Community\nSurvey</string>
-    <string name="gkaMonitoring">Ganitha Kalika\nAndolana</string>
 
-
-    <string name="communitySurvey1">Community Survey</string>
-    <string name="gkaMonitoring1">Ganitha Kalika Andolana</string>
-
-
-    <string name="latitude_label">Latitude</string>
-    <string name="longitude_label">Longitude</string>
-    <string name="last_update_time_label">Last location update time</string>
 
 
 
@@ -167,10 +134,9 @@
     <string name="signupsuccess">You have been successfully signed up. Please Login.</string>
     <string name="signupfail">Failed</string>
     <string name="pleaseSelectsurveyLanguage">Please select your state and language</string>
-    <string name="functioalityprogree">Functionality under progress..</string>
     <string name="loading">Loading...</string>
     <string name="dataAlreadynSyn">Data Already Auto-Synced</string>
-    <string name="doyouwant">"Do you want to download reports?</string>
+    <string name="doyouwant">Do you want to download reports?</string>
     <string name="nooserveyimage">No survey images found</string>
     <string name="failed">Failed</string>
     <string name="syncTitle">Sync</string>
@@ -184,11 +150,8 @@
     <string name="upload">upload</string>
     <string name="downloading"> Downloading </string>
     <string name="datasync">Data Sync..</string>
-    <string name="syncneeded">Sync Needed</string>
-    <string name="oksyncnow">Ok, Sync Now</string>
-    <string name="youshouldsync">You should \"Sync\" data to get updates from ILP Konnect.</string>
-    <string name="surveysyncsucc">Survey synced success:</string>
-    <string name="surveysyncfail">Survey synced failed:</string>
+       <string name="surveysyncsucc">Survey synced success:</string>
+    <string name="surveysyncfail">Survey sync failed:</string>
     <string name="question"> question </string>
     <string name="questiongroup"> question group </string>
     <string name="resettingpassword">Resetting your password...</string>
@@ -201,23 +164,9 @@
     <string name="externalstorage">External storage permission is necessary</string>
     <string name="pleaseuploadimage">* Please upload image</string>
     <string name="pleaseSelectAppropriateImage">Please select appropriate image</string>
-    <string name="parents">Parents</string>
-    <string name="teachers">Teachers</string>
-    <string name="educationVol">Education Volunteers</string>
-    <string name="cbomember">CBO Member</string>
-    <string name="headermaster">Headmaster</string>
-    <string name="sdmcmember">SDMC Member</string>
-    <string name="localleaders">Local Leaders</string>
-    <string name="aksharastaff">Akshara Staff</string>
-    <string name="educatedyouth">Educated Youth</string>
-    <string name="govtofficial">Govt Official</string>
-    <string name="educationofficial">CRP</string>
-    <string name="electedRepre">Elected Representative</string>
 
-    <string name="distancemsg"><![CDATA[This survey seems to be not taken within school premises Distance between school location & your location :]]></string>
-    <string name="distance">Distance</string>
-    <string name="meters">Meters</string>
-    <string name="km">km</string>
+
+
     <string name="bydate">By Date</string>
     <string name="all">All</string>
     <string name="searchSurveyimage">Search survey images by?</string>
@@ -244,7 +193,7 @@
     <string name="total_number_of_survey_synced">Total number of survey synced : </string>
     <string name="total_number_of_school_surveyd">Total no of school surveyed : </string>
     <string name="total_number_of_survey_pending">Total no of surveys pending for sync : </string>
-    <string name="mySummary">My Summary</string>
+
     <string name="fromData">From Date (DD-MM-YYYY)</string>
     <string name="endDate">End Date (DD-MM-YYYY)</string>
     <string name="invalidOTP">Invalid OTP</string>
@@ -262,9 +211,8 @@
     <string name="enterMobileNumber">Enter your mobile number</string>
     <string name="update">Update</string>
     <string name="loadingStateDistrict">state districts loading..</string>
-    <string name="districtblockloading">district: blocks loading...</string>
-    <string name="districtClusterLoading">district: clusters loading...</string>
-    <string name="districtsSchoolLoading">district schools loading. It will take few minutes for download to complete. Thanks for your patience !!!</string>
+    <string name="districtblockloading">district blocks loading...</string>
+    <string name="districtClusterLoading">district clusters loading...</string>
     <string name="districtLeveldataLoadedSchussfully">District level data loaded successfully</string>
     <string name="pleaseLoadDataforSelectedState">Please load district data for selected state</string>
     <string name="downloadDistrcitData">Note : Download required district data</string>
@@ -290,19 +238,20 @@
     <string name="districtDataAlreadyFound">district: blocks and clusters already downloaded. Do you want to re-download?</string>
     <string name="surveyQuestionNotFound">Survey questions not found,Please download survey questions and take survey</string>
     <string name="doyouwantToLogout">Are you sure you want to log out?</string>
-    <string name="blockDataAlreadyFound">block data already downloaded. Do you want to re-download?</string>
+    <string name="blockDataAlreadyFound">block : data already downloaded. Do you want to re-download?</string>
     <string name="blockSchoolLoading">block: schools loading. It will take few minutes for download to complete. Thanks for your patience !!!</string>
     <string name="blockLeveldataLoadedSchussfully">block level data loaded successfully</string>
     <string name="selectblock">--Select Block--</string>
-    <string name="blockandCLusterdownloaded">district: blocks and clusters  downloaded</string>
+    <string name="blockandCLusterdownloaded">district: blocks and clusters downloaded</string>
     <string name="allSurvey">All the surveys submitted will be available for report generation after 24 hours of syncing</string>
     <string name="selectgrade">Select grade</string>
     <string name="comment">Add your comment</string>
     <string name="FAQ">FAQ</string>
     <string name="pleaseLoginandcontue">Please login and continue</string>
-    <string name="pleaseENterComment">Required comment</string>
-    <string name="PleaseSelectGrade">Please select grade</string>
+     <string name="PleaseSelectGrade">Please select grade</string>
     <string name="reportsnotavailableforthissurveys">Report not available for this survey</string>
+
+
     <string name="question1">Can I monitor more than 1 classroom during my visit? If yes, how do I record that?</string>
     <string name="answer1">Yes You can select more than one class during your visit. But you have to submit a single survey for each class you visit</string>
     <string name="question2">What if there is a multi-grade class in session?</string>
@@ -339,6 +288,8 @@
     <string name="surveynotavailable">Surveys not available</string>
     <string name="question17">Teachers are providing comments, suggestions or feedback on the GKA kit. What should I do about it?</string>
     <string name="answer17">Please add them as comments and take the picture of the teacher who is providing valuable suggestions</string>
+
+
     <string name="grade">-- Select Grade --</string>
     <string name="reportsNotgenerated">Report generation functionality currently not available</string>
     <string name="reportNotAvailable">Reports not available for selected date</string>
@@ -346,6 +297,8 @@
 
     <string name="unsyncedSurveysFound">Do you want to create report for unsynced data?</string>
     <string name="doyouwantuploadPhoto">Do you want to upload an image  ?</string>
+    <string name="diseCode">DISE Code: </string>
+    <string name="DiseCodeNo">DISE Code:NA</string>
 
     <string-array name="grade_array">
 

@@ -1408,7 +1408,7 @@ else {
 
         } catch (Exception e) {
             //  e.printStackTrace();
-            stateInterface.failed(e.getMessage());
+            stateInterface.failed(context.getResources().getString(R.string.reportNotAvailable));
             //   Toast.makeText(context, "failr" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }

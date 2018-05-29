@@ -246,9 +246,9 @@ public class QuestionFragment extends Fragment implements MultiSelectSpinner.OnM
         TextView textViewSchoolId = rootView.findViewById(R.id.textViewSchoolId);
         textViewSchool.setText(school.getName());
         if (school.getDise() != null && !school.getDise().trim().equalsIgnoreCase("") && !school.getDise().trim().equalsIgnoreCase("null")) {
-            textViewSchoolId.setText("DISE Code: " + String.valueOf(school.getDise()));
+            textViewSchoolId.setText(getResources().getString(R.string.diseCode) + String.valueOf(school.getDise()));
         } else {
-            textViewSchoolId.setText("DISE Code: NA");
+            textViewSchoolId.setText(getResources().getString(R.string.DiseCodeNo));
         }
         linLayout = rootView.findViewById(R.id.linLayout);
         spnGrade = rootView.findViewById(R.id.spnGrade);

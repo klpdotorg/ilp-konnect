@@ -49,7 +49,7 @@ public class SummaryDateScreen extends BaseActivity {
         surveyId = getIntent().getLongExtra("surveyId", 0);
         questiongroup = getIntent().getLongExtra("ILPQuestionGroupId", 0);
         surveyName = getIntent().getStringExtra("surveyName");
-        stateID = getIntent().getLongExtra("stateID", 0);
+        stateID = getIntent().getLongExtra("stateID", 0l);
 
         edtFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +109,7 @@ public class SummaryDateScreen extends BaseActivity {
                 mySummaryIntent.putExtra("surveyId", surveyId);
                 mySummaryIntent.putExtra("ILPQuestionGroupId", questiongroup);
                 mySummaryIntent.putExtra("surveyName", surveyName);
-                mySummaryIntent.putExtra("stateID", "1");
+                mySummaryIntent.putExtra("stateID", 1l);
                 mySummaryIntent.putExtra("from", edtFromDate.getText().toString().trim());
                 mySummaryIntent.putExtra("end", edtEndDate.getText().toString().trim());
                 startActivity(mySummaryIntent);

@@ -81,7 +81,7 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
         select_block = findViewById(R.id.select_block);
         linLayState = findViewById(R.id.linLayState);
         btnNext = (Button) findViewById(R.id.btnNext);
-
+        this.setTitle(getResources().getString(R.string.setup));
         select_district = findViewById(R.id.select_district);
         Query listStateQuery = Query.select().from(State.TABLE).orderBy(State.STATE.asc());
         select_state.setOnItemSelectedListener(this);
