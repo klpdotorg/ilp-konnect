@@ -155,15 +155,18 @@ public class SplashScreen extends BaseActivity {
 
 
     public int getStateCount() {
-        Query listStateQuery = Query.select().from(State.TABLE);
-        SquidCursor<State> stateCursor = db.query(State.class, listStateQuery);
+        try {
+            Query listStateQuery = Query.select().from(State.TABLE);
+            SquidCursor<State> stateCursor = db.query(State.class, listStateQuery);
 
-        if (stateCursor != null && stateCursor.getCount() > 0)
-
-            return stateCursor.getCount();
-        else
+            if (stateCursor != null && stateCursor.getCount() > 0)
+                return stateCursor.getCount();
+            else
+                return 0;
+        }catch (Exception e)
+        {
             return 0;
-
+        }
 
     }
 }

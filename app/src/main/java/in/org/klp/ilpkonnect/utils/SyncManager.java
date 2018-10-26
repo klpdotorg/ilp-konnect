@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -82,14 +83,23 @@ public class SyncManager {
                 .build();
     }
 
-    public boolean isSyncDataFound() {
+    public int isSyncDataFound() {
 
-        String JSONDATA = doUpload();
-    //    Log.d("sh", JSONDATA.toString());
-        return !JSONDATA.toString().trim().equalsIgnoreCase("{\"stories\":[]}");
+        try {
+            Query listStoryQuery = Query.select().from(Story.TABLE)
+                    .where(Story.SYNCED.eq(0));
+            SquidCursor<Story> storiesCursor = db.query(Story.class, listStoryQuery);
+
+            if (storiesCursor != null) {
+                return storiesCursor.getCount();
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
 
-    public void uploadStories() {
+   /* public void uploadStories() {
 
 
         dialog.show();
@@ -126,7 +136,7 @@ public class SyncManager {
             }
         });
 
-    }
+    }*/
 
     /* public void downloadStories() {
         // downloadStories(null, false);
@@ -427,18 +437,23 @@ public class SyncManager {
         return resp;
     }
 
-    public String doUpload() {
+    public ArrayList<JSONObject> doUpload() {
+        ArrayList<JSONObject> jsonDataList = new ArrayList<>();
         Query listStoryQuery = Query.select().from(Story.TABLE)
                 .where(Story.SYNCED.eq(0));
         SquidCursor<Story> storiesCursor = db.query(Story.class, listStoryQuery);
         SquidCursor<Answer> answerCursor = null;
 
-        JSONObject requestJson = new JSONObject();
-        JSONObject respJson = new JSONObject();
         JSONArray storyArray = new JSONArray();
 
         try {
-            while (storiesCursor.moveToNext()) {
+            int size=0,i=0;
+            if (storiesCursor != null) {
+                size = storiesCursor.getCount();
+                // Log.d("shri", size + "{-------------------]");
+            }
+            while (storiesCursor != null && storiesCursor.moveToNext()) {
+                i++;
                 Story story = new Story(storiesCursor);
                 JSONObject storyJson = db.modelObjectToJson(story);
 
@@ -446,15 +461,28 @@ public class SyncManager {
                         Query.select().from(Answer.TABLE)
                                 .where(Answer.STORY_ID.eq(story.getId()))
                 );
-
                 JSONArray answerArray = new JSONArray();
                 while (answerCursor.moveToNext()) {
                     Answer answer = new Answer(answerCursor);
                     JSONObject answerJson = db.modelObjectToJson(answer);
                     answerArray.put(answerJson);
                 }
+
                 storyJson.put("answers", answerArray);
+               //  for(int k=0;k<4;k++) {
                 storyArray.put(storyJson);
+              //   }
+                if(storyArray.length()>= Constants.SYNC_MAX_COUNT_AT_SINGLE)
+                {
+                    jsonDataList.add( new JSONObject().put("stories", storyArray));
+                    storyArray=null;
+                    storyArray=new JSONArray();
+                }else if(i==size) {
+                    jsonDataList.add( new JSONObject().put("stories", storyArray));
+                    storyArray=null;
+                    storyArray=new JSONArray();
+                }
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -463,11 +491,18 @@ public class SyncManager {
             if (answerCursor != null) answerCursor.close();
         }
         try {
-            requestJson.put("stories", storyArray);
-        } catch (JSONException e) {
+            // requestJson.put("stories", storyArray);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return requestJson.toString();
+       /* Log.d("shri","----+++++"+jsonDataList.size());
+        for(JSONObject object:jsonDataList)
+        {
+            Log.d("shri","----+++++"+object.toString());
+        }*/
+        return jsonDataList;
+
     }
 
     public int getStoriesCount()

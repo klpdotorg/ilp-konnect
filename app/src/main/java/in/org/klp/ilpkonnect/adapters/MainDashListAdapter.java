@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import in.org.klp.ilpkonnect.BoundarySelectionActivity;
+import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.MainDashList;
 import in.org.klp.ilpkonnect.R;
 import in.org.klp.ilpkonnect.SummaryDateScreen;
 import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.Constants;
 import in.org.klp.ilpkonnect.utils.DailogUtill;
+import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
 
 /**
  * Created by shridhars on 8/1/2017.
@@ -138,7 +140,18 @@ public class MainDashListAdapter extends RecyclerView.Adapter<MainDashListAdapte
                 break;
             case 4:
                 if (AppStatus.isConnected(mainDashList)) {
-                    mainDashList.sync1(true);
+                //    mainDashList.sync1(true);
+                   mainDashList.newSync();
+
+
+
+
+
+
+
+
+
+
 
                 } else {
                    int storyCount= mainDashList.getStoryCount();

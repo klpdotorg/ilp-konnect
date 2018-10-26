@@ -423,15 +423,20 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
     }
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
-        Bundle signUpResult = new Bundle();
-        signUpResult.putString("title", title);
-        signUpResult.putString("result", message);
-        signUpResult.putString("buttonText", buttonText);
+       try {
+           Bundle signUpResult = new Bundle();
+           signUpResult.putString("title", title);
+           signUpResult.putString("result", message);
+           signUpResult.putString("buttonText", buttonText);
 
-        SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
-        resultDialog.setArguments(signUpResult);
-        resultDialog.setCancelable(false);
-        resultDialog.show(getSupportFragmentManager(), "Registration result");
+           SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
+           resultDialog.setArguments(signUpResult);
+           resultDialog.setCancelable(false);
+           resultDialog.show(getSupportFragmentManager(), "Registration result");
+       }catch (Exception e)
+       {
+
+       }
     }
 
 

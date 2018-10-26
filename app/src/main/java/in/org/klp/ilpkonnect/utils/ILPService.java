@@ -15,6 +15,8 @@ public class ILPService {
 
     public static final String SCHOOLS="/api/v1/institutions/?&s_type=primaryschools";
     public static final String FORGOTPASSWORD ="/api/v1/konnect-password-change/";
+    public static final String SYNC ="/api/v1/surveys/assessments/sync/";
+    public static final String USER_SUMMERY ="/api/v1/surveys/usersummary?";
 
 
     public static final String TOTALSUMMARYDISTRICT="/api/v1/stories/konnect_summary";

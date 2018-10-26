@@ -13,6 +13,8 @@ import in.org.klp.ilpkonnect.MainDashList;
 
 public class Constants {
 
+    public static final int SYNC_MAX_COUNT_AT_SINGLE = 1;
+    public static  boolean APP_UPDATE_FLAG =false ;
     public static Query listStoryQuery;
     public static List<Long> cluster_ids;
 

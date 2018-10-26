@@ -1,10 +1,17 @@
 package in.org.klp.ilpkonnect;
 
 import android.app.ProgressDialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.pm.ComponentInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +36,9 @@ public class OTP_VarifyActivity extends BaseActivity {
     EditText edtOTPNumber;
     private ProgressDialog progressDialog = null;
     SessionManager sessionManager;
+    TextView tvResentOTP,tvResentOTPTimer,tvHint;
+    CountDownTimer cTimer = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +47,12 @@ public class OTP_VarifyActivity extends BaseActivity {
         edtOTPNumber = findViewById(R.id.edtOTPNumber);
         mobile = getIntent().getStringExtra("mobile");
         tvMobileNumber.setText(mobile);
+
+
+        tvResentOTP= findViewById(R.id.tvResentOTP);
+        tvResentOTPTimer= findViewById(R.id.tvResentOTPTimer);
+        tvResentOTP .setText(Html.fromHtml(getString(R.string.ResendOTP)));
+        startTimer();
         sessionManager=new SessionManager(getApplicationContext());
         Button btnOK = findViewById(R.id.btnOK);
 
@@ -68,12 +84,60 @@ public class OTP_VarifyActivity extends BaseActivity {
             }
         });
 
+        tvResentOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                showProgress(true);
+                progressDialog.setMessage(getString(R.string.resendingOtp));
+                 new ProNetworkSettup(getApplicationContext()).forgotPasswordGenerateOtp(mobile,sessionManager.getStateSelection(),false, new StateInterface() {
+                    @Override
+                    public void success(String message) {
+                       // closeProgress();
+                        showProgress(false);
+                        startTimer();
+                        Toast.makeText(getApplicationContext(),"OTP Sent",Toast.LENGTH_SHORT).show();
+
+
+
+                    }
+
+                    @Override
+                    public void failed(String message) {
+                       // closeProgress();
+                        showProgress(false);
+                        DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
+                    }
+                });
+            }
+        });
+    }
+
+    //cancel timer
+    void cancelTimer() {
+        if(cTimer!=null)
+            cTimer.cancel();
+    }
+    void startTimer() {
+        tvResentOTP.setEnabled(false);
+        cTimer = new CountDownTimer(120000, 1000) {
+            public void onTick(long millisUntilFinished) {
+
+                tvResentOTPTimer.setText(String.format(" %02d", (millisUntilFinished / 60000))+":"+String.format(" %02d", (millisUntilFinished % 60000 / 1000)));
+            }
+            public void onFinish() {
+                cancelTimer();
+                tvResentOTPTimer.setText("");
+                tvResentOTP.setEnabled(true);
+
+            }
+        };
+        cTimer.start();
     }
 
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
-
+        try {
 
         Bundle signUpResult = new Bundle();
         signUpResult.putString("title", title);
@@ -83,7 +147,7 @@ public class OTP_VarifyActivity extends BaseActivity {
         SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
         resultDialog.setArguments(signUpResult);
         resultDialog.setCancelable(false);
-        try {
+
             resultDialog.show(getSupportFragmentManager(), "Registration result");
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

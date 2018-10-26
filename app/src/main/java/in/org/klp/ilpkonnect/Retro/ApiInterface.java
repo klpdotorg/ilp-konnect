@@ -28,6 +28,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -156,7 +157,7 @@ public interface ApiInterface {
 
 */
 
-    @GET("/api/v1/surveys/usersummary?")
+    @GET(ILPService.USER_SUMMERY)
     Call<ResponseBody> getMySummary(@Query("questiongroup_id") long questiongroup,@Query("from") String from,@Query("to") String to,@Header("Authorization") String authHeader,@Query("state") String statekey,@Query("survey_id") long surveyid);
 
 
@@ -195,6 +196,10 @@ public interface ApiInterface {
     Call<ForgotPassswordOtpPojo>generateOtpForForgotPassword(@Field("mobile_no") String mobile_no,@Field("state") String statekey);
 
 
+    @POST(ILPService.FORGOTPASSWORD_GENERATE_OTP)
+    @FormUrlEncoded
+    Call<ForgotPassswordOtpPojo>generateOtpForForgotPasswordResend(@Field("mobile_no") String mobile_no,@Field("state") String statekey,@Field("option") String option);
+
 
     @POST(ILPService.FORGOTPASSWORD_RESETWITH_OTP)
     @FormUrlEncoded
@@ -204,7 +209,8 @@ public interface ApiInterface {
     Call<QuestionsPojos> fetchCummunitySurveyQuestions(@Url String url,@Header("Authorization") String authHeader);
 
 
-    @POST("/api/v1/surveys/assessments/sync/")
+   // @Headers({"CONNECT_TIMEOUT:10000", "READ_TIMEOUT:10000", "WRITE_TIMEOUT:10000"})
+    @POST(ILPService.SYNC)
     Call<ResponseBody> syncDataforServerWithRetro(@Body RequestBody requestBody,@Header("Authorization") String authHeader);
 
 

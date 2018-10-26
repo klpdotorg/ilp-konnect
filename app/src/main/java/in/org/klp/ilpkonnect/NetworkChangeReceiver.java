@@ -12,13 +12,23 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context,  Intent intent) {
 
-        if (AppStatus.isConnected(context)) {
-     // Toast.makeText(context, "connected", Toast.LENGTH_LONG).show();
+        try {
+            if (AppStatus.isConnected(context)) {
+                // Toast.makeText(context, "connected", Toast.LENGTH_LONG).show();
 
-            Intent intent1 = new Intent(context, SyncIntentService.class);
-            context.startService(intent1);
-        } else {
-          //  Toast.makeText(context, "disconnected", Toast.LENGTH_LONG).show();
+                try {
+                   // Intent intent1 = new Intent(context, SyncIntentService.class);
+               // context.startService(intent1);
+            }catch (IllegalStateException exception)
+                {
+                    //It not allowed in latest 7.0 on wards
+                }
+            } else {
+                //  Toast.makeText(context, "disconnected", Toast.LENGTH_LONG).show();
+            }
+        }catch (Exception e)
+        {
+            //not works in latest version
         }
 
 

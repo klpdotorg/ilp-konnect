@@ -108,5 +108,58 @@
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingRight="10dp"
+
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvResentOTPTimer"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center|left"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:minWidth="160dp"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+            <TextView
+                android:id="@+id/tvResentOTP"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center|right"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:minWidth="160dp"
+                android:text="Resnd OTP"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+        </LinearLayout>
+        <!-- Link to Login Screen -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:id="@+id/tvHint"
+                android:layout_height="wrap_content"
+                android:minHeight="45dp"
+                android:minWidth="160dp"
+                android:text="@string/ResendOTPMessage"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

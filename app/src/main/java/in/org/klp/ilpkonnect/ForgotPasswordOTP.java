@@ -43,7 +43,7 @@ ProgressDialog progressDialog;
               if(validationmob(edtOTPNumber.getText().toString().trim()))
                 {
                 progressDialog.show();
-                    new ProNetworkSettup(getApplicationContext()).forgotPasswordGenerateOtp(edtOTPNumber.getText().toString().trim(),sessionManager.getStateSelection(), new StateInterface() {
+                    new ProNetworkSettup(getApplicationContext()).forgotPasswordGenerateOtp(edtOTPNumber.getText().toString().trim(),sessionManager.getStateSelection(), true,new StateInterface() {
                         @Override
                         public void success(String message) {
                             closeProgress();

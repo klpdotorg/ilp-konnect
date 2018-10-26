@@ -233,8 +233,22 @@ public class SummaryActiivity extends BaseActivity {
     }
 
     public void closeProgress() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+        try {
+            try {
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            }catch (Exception e)
+            {
+                if(progressDialog!=null)
+                {
+                    progressDialog.dismiss();
+                }
+            }
+
+        }catch (Exception e)
+        {
+
         }
     }
 

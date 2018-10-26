@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
@@ -204,37 +205,32 @@ public class LoginActivity extends BaseActivity {
 
                             if (userLoginInfo.getString("user_type") != null &&
                                     !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")
-                                    &&!userLoginInfo.getString("user_type").trim().equalsIgnoreCase("")) {
+                                    && !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("")) {
 
-                                finishLogin(message, mSession.getStateSelection(),"Token "+userLoginInfo.getString("token"));
+                                finishLogin(message, mSession.getStateSelection(), "Token " + userLoginInfo.getString("token"));
 
 
-                            }else {
-                              //update profile
+                            } else {
+                                //update profile
                                 showProgress(false);
-                               Intent intent=new Intent(getApplicationContext(), UpdateProfileBeforeLoginActivity.class);
-                               intent.putExtra("firstName",userLoginInfo.getString("first_name"));
-                               intent.putExtra("lastName",   userLoginInfo.getString("last_name"));
-                               intent.putExtra("mobile", userLoginInfo.getString("mobile_no"));
-                               intent.putExtra("email",userLoginInfo.getString("email"));
-                               intent.putExtra("token", userLoginInfo.getString("token"));
-                               startActivity(intent);
-
-
-
-
+                                Intent intent = new Intent(getApplicationContext(), UpdateProfileBeforeLoginActivity.class);
+                                intent.putExtra("firstName", userLoginInfo.getString("first_name"));
+                                intent.putExtra("lastName", userLoginInfo.getString("last_name"));
+                                intent.putExtra("mobile", userLoginInfo.getString("mobile_no"));
+                                intent.putExtra("email", userLoginInfo.getString("email"));
+                                intent.putExtra("token", userLoginInfo.getString("token"));
+                                startActivity(intent);
 
 
                             }
-                        }else
+                        } else
                             showProgress(false);
 
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         showProgress(false);
                     }
 
-                   // finishLogin(message, mSession.getStateSelection());
+                    // finishLogin(message, mSession.getStateSelection());
 
                 }
 
@@ -288,10 +284,22 @@ public class LoginActivity extends BaseActivity {
             progressDialog.setMessage(getResources().getString(R.string.authenticating));
             progressDialog.show();
         } else {
-            if (progressDialog != null) {
-                if (!LoginActivity.this.isFinishing()) {
-                    progressDialog.cancel();
+            try {
+
+
+                if (progressDialog != null) {
+                    if (!LoginActivity.this.isFinishing()) {
+                        try {
+
+
+                            progressDialog.cancel();
+                        } catch (Exception e) {
+                            progressDialog.dismiss();
+                        }
+                    }
                 }
+            } catch (Exception e) {
+
             }
         }
     }
@@ -301,9 +309,9 @@ public class LoginActivity extends BaseActivity {
         //parse the userInfo String
 
 
-        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC&per_page=0";
+        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey + "&status=AC&per_page=0";
 
-        new ProNetworkSettup(LoginActivity.this).getSurveyandQuestionGroup(URL, stateKey,token, new StateInterface() {
+        new ProNetworkSettup(LoginActivity.this).getSurveyandQuestionGroup(URL, stateKey, token, new StateInterface() {
             @Override
             public void success(String message) {
 
@@ -315,8 +323,8 @@ public class LoginActivity extends BaseActivity {
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
 
-                        String url =  BuildConfig.HOST+"/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection()+"&per_page=0";
-                        new ProNetworkSettup(LoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(), token,new StateInterface() {
+                        String url = BuildConfig.HOST + "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + mSession.getStateSelection() + "&per_page=0";
+                        new ProNetworkSettup(LoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(), token, new StateInterface() {
                             @Override
                             public void success(String message) {
 
@@ -328,7 +336,7 @@ public class LoginActivity extends BaseActivity {
                                         String users = "PR";
                                         if (userLoginInfo.getString("user_type") != null && !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")) {
                                             users = userLoginInfo.getString("user_type").toUpperCase();
-                                          }
+                                        }
 
                                         mSession.createLoginSession(
                                                 userLoginInfo.getString("first_name"),
@@ -352,7 +360,6 @@ public class LoginActivity extends BaseActivity {
                                         startActivity(intent);
                                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                                         finish();
-
 
 
                                     } else {
@@ -420,16 +427,13 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-
-
     private void subscribetoTopicsForNotification(String state, String stateUserType) {
 
         try {
             FirebaseMessaging.getInstance().subscribeToTopic(state);
             FirebaseMessaging.getInstance().subscribeToTopic(state + "-" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType));
             //   Toast.makeText(getApplicationContext(),state+"-"+state + ":" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType),Toast.LENGTH_SHORT).show();
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             //may be topic contains some special symbols
         }
     }
@@ -445,15 +449,20 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
-        Bundle signUpResult = new Bundle();
-        signUpResult.putString("title", title);
-        signUpResult.putString("result", message);
-        signUpResult.putString("buttonText", buttonText);
+     try {
+         Bundle signUpResult = new Bundle();
+         signUpResult.putString("title", title);
+         signUpResult.putString("result", message);
+         signUpResult.putString("buttonText", buttonText);
 
-        SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
-        resultDialog.setArguments(signUpResult);
-        resultDialog.setCancelable(false);
-        resultDialog.show(getSupportFragmentManager(), "Registration result");
+         SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
+         resultDialog.setArguments(signUpResult);
+         resultDialog.setCancelable(false);
+         resultDialog.show(getSupportFragmentManager(), "Registration result");
+     }catch (Exception e)
+     {
+
+     }
     }
 
 

@@ -4,9 +4,11 @@ package in.org.klp.ilpkonnect;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
 
@@ -26,6 +32,7 @@ import in.org.klp.ilpkonnect.FaqPackage.FaqActivity;
 import in.org.klp.ilpkonnect.Pojo.StatePojo;
 import in.org.klp.ilpkonnect.Pojo.SurveyMain;
 
+import in.org.klp.ilpkonnect.Pojo.VersionControlPojo;
 import in.org.klp.ilpkonnect.data.StringWithTags;
 import in.org.klp.ilpkonnect.db.Answer;
 import in.org.klp.ilpkonnect.db.Boundary;
@@ -43,6 +50,7 @@ import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.db.Surveyuser;
 import in.org.klp.ilpkonnect.utils.AppSettings;
+import in.org.klp.ilpkonnect.utils.Constants;
 import in.org.klp.ilpkonnect.utils.SessionManager;
 
 /**
@@ -74,7 +82,50 @@ public class SurveyTypeActivity extends BaseActivity {
         sessionManager = new SessionManager(getApplicationContext());
         tvSurveyNot=(TextView)findViewById(R.id.tvSurveyNot);
 //Toast.makeText(getApplicationContext(),sessionManager.getStateSelection(),Toast.LENGTH_SHORT).show();
+        try {
+            FirebaseDatabase.getInstance().getReference("VersionControl").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    VersionControlPojo pojo = dataSnapshot.getValue(VersionControlPojo.class);
+                    //  Toast.makeText(getApplicationContext(),pojo.version_code+"",Toast.LENGTH_SHORT).show();
+                    if (BuildConfig.VERSION_CODE < pojo.version_code) {
+                        if (Constants.APP_UPDATE_FLAG == false) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(SurveyTypeActivity.this);
+                            builder.setMessage(getResources().getString(R.string.update_app_message))
+                                    .setTitle(getResources().getString(R.string.update_title));
+                            builder.setCancelable(false);
+                            builder.setPositiveButton(getResources().getString(R.string.update_app_btn), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked OK button
+                                    Constants.APP_UPDATE_FLAG = true;
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=in.org.klp.ilpkonnect"));
+                                    startActivity(intent);
+                                }
+                            });
 
+                            builder.setNegativeButton(getResources().getString(R.string.update_app_btn_neg), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked OK button
+                                    Constants.APP_UPDATE_FLAG = true;
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Toast.makeText(getApplicationContext(),""+databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }catch (Exception e)
+        {
+            //issue in firebase db
+        }
 
 /*        Query listSurveyQuery = Query.select().from(Survey.TABLE);
         SquidCursor<Survey> surveyCursor = db.query(Survey.class, listSurveyQuery);

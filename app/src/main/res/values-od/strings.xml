@@ -309,6 +309,12 @@
     <string name="doyouwantuploadPhoto">ଆପଣ ଫଟୋ ଅପଲୋଡ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
     <string name="diseCode">DISE କୋଡ୍: </string>
     <string name="DiseCodeNo">DISE କୋଡ୍ : ଉପଲବ୍ଧ ନାହିଁ</string>
+    <string name="ResendOTP"><![CDATA[<u>Resend OTP</u>]]></string>
+    <string name="ResendOTPMessage">If you have not received the SMS, Please press Resend OTP after the time elapses</string>
+    <string name="resendingOtp">Resending OTP...</string>
+    <string name="update_app_message">Please, update app to new version to continue</string>
+    <string name="update_app_btn">Update</string>
+    <string name="update_app_btn_neg">No,Thanks</string>
 
 
     <string-array name="grade_array">

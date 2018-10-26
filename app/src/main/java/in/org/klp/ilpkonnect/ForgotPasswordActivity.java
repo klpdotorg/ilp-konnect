@@ -1,14 +1,18 @@
 package in.org.klp.ilpkonnect;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.dialogs.SignUpResultDialogFragment;
@@ -27,6 +31,9 @@ public class ForgotPasswordActivity extends BaseActivity {
     TextView tvMobileNumber;
     SessionManager sessionManager;
     String mobile="";
+    TextView tvResentOTP,tvResentOTPTimer,tvHint;
+    CountDownTimer cTimer = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +42,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         sessionManager=new SessionManager(getApplicationContext());
         mobile=getIntent().getStringExtra("mobile");
         tvMobileNumber.setText(mobile);
+        startTimer();
         btnOK.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +79,32 @@ public class ForgotPasswordActivity extends BaseActivity {
         });
 
 
+        tvResentOTP.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    progressDialog.show();
+                  progressDialog.setMessage(getString(R.string.resendingOtp));
+
+                new ProNetworkSettup(getApplicationContext()).forgotPasswordGenerateOtp(mobile,sessionManager.getStateSelection(),false, new StateInterface() {
+                        @Override
+                        public void success(String message) {
+                            closeProgress();
+                            startTimer();
+                            Toast.makeText(getApplicationContext(),"OTP Sent",Toast.LENGTH_SHORT).show();
+
+
+
+                        }
+
+                        @Override
+                        public void failed(String message) {
+                            closeProgress();
+                            DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
+                        }
+                    });
+            }
+        });
 
 
 
@@ -79,11 +113,41 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 
     }
+    //cancel timer
+    void cancelTimer() {
+        if(cTimer!=null)
+            cTimer.cancel();
+    }
+    void startTimer() {
+        tvResentOTP.setEnabled(false);
+        cTimer = new CountDownTimer(120000, 1000) {
+            public void onTick(long millisUntilFinished) {
+
+                tvResentOTPTimer.setText(String.format(" %02d", (millisUntilFinished / 60000))+":"+String.format(" %02d", (millisUntilFinished % 60000 / 1000)));
+            }
+            public void onFinish() {
+                 cancelTimer();
+                tvResentOTPTimer.setText("");
+                 tvResentOTP.setEnabled(true);
+
+            }
+        };
+        cTimer.start();
+    }
+    public void closeProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
     private void initlization() {
 
         tvMobileNumber= findViewById(R.id.tvMobileNumber);
         new_password= findViewById(R.id.new_password);
+        tvHint= findViewById(R.id.tvHint);
         edtOTPNumber= findViewById(R.id.edtOTPNumber);
+        tvResentOTP= findViewById(R.id.tvResentOTP);
+        tvResentOTPTimer= findViewById(R.id.tvResentOTPTimer);
+        tvResentOTP .setText(Html.fromHtml(getString(R.string.ResendOTP)));
         btnOK= findViewById(R.id.btnOK);
        progressDialog= ProgressUtil.showProgress(ForgotPasswordActivity.this,getResources().getString(R.string.resettingpassword));
 
@@ -128,6 +192,8 @@ public class ForgotPasswordActivity extends BaseActivity {
 
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
+      try {
+
         Bundle signUpResult = new Bundle();
         signUpResult.putString("title", title);
         signUpResult.putString("result", message);
@@ -137,6 +203,11 @@ public class ForgotPasswordActivity extends BaseActivity {
         resultDialog.setArguments(signUpResult);
         resultDialog.setCancelable(false);
         resultDialog.show(getSupportFragmentManager(), "Forgot password result");
+      }
+        catch (Exception e)
+        {
+
+        }
     }
 
 

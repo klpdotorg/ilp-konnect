@@ -1,6 +1,9 @@
 package in.org.klp.ilpkonnect;
 
 import android.app.Application;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.IntentFilter;
@@ -11,7 +14,7 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-
+import android.util.Log;
 
 
 import java.util.Locale;
@@ -34,6 +37,7 @@ public class KLPApplication extends Application {
 
         initSingletons();
         updateLanguage(this);
+        jobInfoSetup();
 
     }
 
@@ -45,7 +49,19 @@ public class KLPApplication extends Application {
         return db;
     }
 
+    public void jobInfoSetup()
+    {
+        ComponentName componentInfo=new ComponentName(this,SyncJobService.class);
+        JobInfo info=new JobInfo.Builder(123,componentInfo)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPeriodic(15*60*1000).build();
 
+        JobScheduler jobScheduler=(JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
+        int result=     jobScheduler.schedule(info);
+
+
+
+    }
 
 
     public static Context setLanguage(Context ctx,String language)

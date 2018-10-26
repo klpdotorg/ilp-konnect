@@ -28,6 +28,8 @@ import com.yahoo.squidb.data.ICursor;
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -40,6 +42,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.InterfacesPack.StateInterfaceSync;
 import in.org.klp.ilpkonnect.Pojo.ImagesPOJO;
 import in.org.klp.ilpkonnect.ReportPojo.ReportIndiPojo;
 import in.org.klp.ilpkonnect.Retro.ApiClient;
@@ -410,6 +413,7 @@ public class ReportsActivity extends BaseActivity {
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
                 return true;
             case R.id.action_sync_block:
+               // Toast.makeText(getApplicationContext(),"click",Toast.LENGTH_SHORT).show();
                 syncBlock();
                 return true;
         }
@@ -575,12 +579,17 @@ public class ReportsActivity extends BaseActivity {
         if (AppStatus.isConnected(ReportsActivity.this)) {
             final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
 
-            if (sync.isSyncDataFound()) {
+
+            if (sync.isSyncDataFound()>0) {
+
+//                sync2(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
+
 
 
                 showProgress(true);
-                String jsondata = sync.doUpload();
-                new ProNetworkSettup(getApplicationContext()).SyncData(jsondata, sessionManager.getToken(), new StateInterface() {
+                ArrayList<JSONObject> jsondata = sync.doUpload();
+                Log.d("shri",jsondata.toString());
+                new ProNetworkSettup(getApplicationContext()).SyncData(jsondata.get(0).toString(), sessionManager.getToken(), 0, jsondata.size(), jsondata, new StateInterfaceSync() {
                     @Override
                     public void success(String message) {
 
@@ -591,6 +600,11 @@ public class ReportsActivity extends BaseActivity {
                     public void failed(String message) {
                         showProgress(false);
                         DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                    }
+
+                    @Override
+                    public void update(int count, String message) {
+                        Log.d("shri","report 1"+count);
                     }
                 });
 
@@ -626,15 +640,14 @@ public class ReportsActivity extends BaseActivity {
         final SyncManager sync = new SyncManager(ReportsActivity.this, db, false, false, true);
 
         if (AppStatus.isConnected(ReportsActivity.this)) {
-  if (sync.isSyncDataFound()) {
+       //     Toast.makeText(getApplicationContext(),"true"+sync.isSyncDataFound(),Toast.LENGTH_SHORT).show();
 
+            if (sync.isSyncDataFound()>0) {
 
                         showProgress(true);
-                        String jsondata = sync.doUpload();
-                        // Log.d("jsonData", jsondata);
-
-                        new ProNetworkSettup(getApplicationContext()).SyncData(jsondata, sessionManager.getToken(), new StateInterface() {
-                            @Override
+                    ArrayList<JSONObject> jsondata = sync.doUpload();
+                    new ProNetworkSettup(getApplicationContext()).SyncData(jsondata.get(0).toString(), sessionManager.getToken(), 0, jsondata.size(), jsondata, new StateInterfaceSync() {
+                        @Override
                             public void success(String message) {
 
                                 loadReportData(sync,true);
@@ -645,7 +658,12 @@ public class ReportsActivity extends BaseActivity {
                                 showProgress(false);
                                 DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
                             }
-                        });
+
+                        @Override
+                        public void update(int count, String message) {
+                      //  Log.d("shri","report "+count);
+                        }
+                    });
 
 
 

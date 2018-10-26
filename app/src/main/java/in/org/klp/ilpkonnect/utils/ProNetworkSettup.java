@@ -21,9 +21,11 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import in.org.klp.ilpkonnect.BlocksPojo.BlockDetailPojo;
 import in.org.klp.ilpkonnect.ClusterPojos.ClusterDetailPojo;
@@ -32,6 +34,7 @@ import in.org.klp.ilpkonnect.Errorpack.ForgotOTPError;
 import in.org.klp.ilpkonnect.Errorpack.InvalidOTp;
 import in.org.klp.ilpkonnect.InterfacesPack.SchoolStateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.InterfacesPack.StateInterfaceSync;
 import in.org.klp.ilpkonnect.InterfacesPack.UserRolesInterface;
 import in.org.klp.ilpkonnect.KLPApplication;
 import in.org.klp.ilpkonnect.Pojo.ForgotPassswordOtpPojo;
@@ -61,7 +64,9 @@ import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.db.Surveyuser;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -81,6 +86,9 @@ public class ProNetworkSettup {
     boolean foruserlist;
     long oneDay = 86400000;
     double schoolCountp = 0;
+    public static final String CONNECT_TIMEOUT = "CONNECT_TIMEOUT";
+    public static final String READ_TIMEOUT = "READ_TIMEOUT";
+    public static final String WRITE_TIMEOUT = "WRITE_TIMEOUT";
 
     public ProNetworkSettup(Context context) {
         this.context = context;
@@ -89,9 +97,52 @@ public class ProNetworkSettup {
         progressDialog.setCancelable(false);
         db = ((KLPApplication) context.getApplicationContext()).getDb();
         foruserlist = false;
-         schoolCountp = 0;
+        schoolCountp = 0;
     }
 
+
+    public void SyncDataatReport(String data, String header, final StateInterface stateInterface) {
+
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), data);
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        apiInterface.syncDataforServerWithRetro(requestBody, header).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful()) {
+                    JSONObject respJson = new JSONObject();
+                    String data;
+                    try {
+
+                        respJson = new JSONObject(response.body().string());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    parseSyncData(respJson);
+                    stateInterface.success("success");
+
+//Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    stateInterface.failed(context.getResources().getString(R.string.syncFailed));
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                stateInterface.failed(getFailureMessage(t));
+
+            }
+        });
+
+    }
 
     public void getSurveyandQuestionGroup(String url, final String stateKey, final String token, final StateInterface stateInterface) {
         apiInterface.getSurveyAndQuestionGFromNetworn(url, token).enqueue(new Callback<SurveyAndQuestionGrPojo>() {
@@ -121,6 +172,7 @@ public class ProNetworkSettup {
 
     }
 
+
     private void parseSurveyandQuestionGroup(SurveyAndQuestionGrPojo body, StateInterface stateInterface, String stateKey, String token) {
 
 
@@ -149,10 +201,9 @@ public class ProNetworkSettup {
                             String partnerName = body.getResults().get(i).getPartner();
                             boolean imageRequired;
                             try {
-                                if(questionGroupList.get(j).getImageRequired()==null)
-                                {
+                                if (questionGroupList.get(j).getImageRequired() == null) {
                                     imageRequired = false;
-                                }else {
+                                } else {
                                     imageRequired = questionGroupList.get(j).getImageRequired();
                                 }
                             } catch (Exception e) {
@@ -161,10 +212,9 @@ public class ProNetworkSettup {
 
                             boolean commentRequired;
                             try {
-                                if( questionGroupList.get(j).getCommentsRequired()==null)
-                                {
+                                if (questionGroupList.get(j).getCommentsRequired() == null) {
                                     commentRequired = false;
-                                }else {
+                                } else {
                                     commentRequired = questionGroupList.get(j).getCommentsRequired();
                                 }
                             } catch (Exception e) {
@@ -181,8 +231,8 @@ public class ProNetworkSettup {
                             survey.setStateKey(stateKey);
                             survey.setIsImageRequired(imageRequired);
                             survey.setIsCommentRequired(commentRequired);
-                            boolean respondentSelection=false;
-                            if(questionGroupList.get(j).getRespondenttypeRequired()!=null) {
+                            boolean respondentSelection = false;
+                            if (questionGroupList.get(j).getRespondenttypeRequired() != null) {
                                 respondentSelection = questionGroupList.get(j).getRespondenttypeRequired();
                             }
 
@@ -515,53 +565,51 @@ public class ProNetworkSettup {
 
     private void parseBlockDataToDb(Response<BlockDetailPojo> response, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded, String token) {
 
-if(response.body().getCount()!=null&&response.body().getCount()>0) {
-    if(response.body().getResults()!=null&&response.body().getResults().size()>0){
-    for (int i = 0; i < response.body().getResults().size(); i++) {
+        if (response.body().getCount() != null && response.body().getCount() > 0) {
+            if (response.body().getResults() != null && response.body().getResults().size() > 0) {
+                for (int i = 0; i < response.body().getResults().size(); i++) {
 
 
-        Boundary boundary = new Boundary();
-        if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
-            boundary.setId(response.body().getResults().get(i).getId());
-            boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
-            boundary.setName(response.body().getResults().get(i).getName());
-            boundary.setHierarchy("block");
-            boundary.setType("primaryschool");
-            if (isDataAlreadyDownloaded == false) {
-                boundary.setIsFlag(false);
-                boundary.setIsFlagCB(false);
+                    Boundary boundary = new Boundary();
+                    if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
+                        boundary.setId(response.body().getResults().get(i).getId());
+                        boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
+                        boundary.setName(response.body().getResults().get(i).getName());
+                        boundary.setHierarchy("block");
+                        boundary.setType("primaryschool");
+                        if (isDataAlreadyDownloaded == false) {
+                            boundary.setIsFlag(false);
+                            boundary.setIsFlagCB(false);
+                        }
+                        boundary.setStateKey(stateKey);
+                        String locName = response.body().getResults().get(i).getLangName();
+                        if (locName == null)
+                            boundary.setLocName(response.body().getResults().get(i).getName());
+                        else
+                            boundary.setLocName(locName);
+                        try {
+                            db.insertNew(boundary);
+                        } catch (Exception e) {
+
+                            db.persist(boundary);
+                        }
+                    }
+                }
+
+
+                if (response.body().getNext() != null) {
+                    DownloadBlocksData(response.body().getNext().toString(), stateKey, isDataAlreadyDownloaded, token, stateInterface);
+                } else {
+                    stateInterface.success("success");
+                }
+            } else {
+                stateInterface.failed(context.getResources().getString(R.string.noblock));
             }
-            boundary.setStateKey(stateKey);
-            String locName = response.body().getResults().get(i).getLangName();
-            if (locName == null)
-                boundary.setLocName(response.body().getResults().get(i).getName());
-            else
-                boundary.setLocName(locName);
-            try {
-                db.insertNew(boundary);
-            } catch (Exception e) {
 
-                db.persist(boundary);
-            }
+        } else {
+            stateInterface.failed(context.getResources().getString(R.string.noblock));
+
         }
-    }
-
-
-
-    if (response.body().getNext() != null) {
-        DownloadBlocksData(response.body().getNext().toString(), stateKey, isDataAlreadyDownloaded, token, stateInterface);
-    } else {
-        stateInterface.success("success");
-    }
-    }else {
-        stateInterface.failed(context.getResources().getString(R.string.noblock));
-    }
-
-}
-else {
-    stateInterface.failed(context.getResources().getString(R.string.noblock));
-
-}
     }
 
     public void userLogin(String mobile, String password, String stateKey, final StateInterface stateInterface) {
@@ -740,33 +788,33 @@ else {
     private void parseClusterDataToDb(Response<ClusterDetailPojo> response, long distId, SchoolStateInterface stateInterface, String stateKey, boolean isDataAlreadyDownloaded, String token) {
 
 
-            for (int i = 0; i < response.body().getResults().size(); i++) {
-                Boundary boundary = new Boundary();
-                if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
-                    boundary.setId(response.body().getResults().get(i).getId());
-                    boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
-                    boundary.setName(response.body().getResults().get(i).getName());
-                    boundary.setHierarchy("cluster");
-                    if (isDataAlreadyDownloaded == false) {
-                        boundary.setIsFlag(false);
-                        boundary.setIsFlagCB(false);
-                    }
-                    boundary.setType("primaryschool");
-                    boundary.setStateKey(stateKey);
-                    String locName = response.body().getResults().get(i).getLangName();
-                    if (locName == null)
-                        boundary.setLocName(response.body().getResults().get(i).getName());
-                    else
-                        boundary.setLocName(locName);
-
-                    try {
-                        db.insertNew(boundary);
-                    } catch (Exception e) {
-                        db.persist(boundary);
-                    }
+        for (int i = 0; i < response.body().getResults().size(); i++) {
+            Boundary boundary = new Boundary();
+            if (response.body().getResults().get(i).getType().equalsIgnoreCase("primary")) {
+                boundary.setId(response.body().getResults().get(i).getId());
+                boundary.setParentId(response.body().getResults().get(i).getParentBoundary().getId());
+                boundary.setName(response.body().getResults().get(i).getName());
+                boundary.setHierarchy("cluster");
+                if (isDataAlreadyDownloaded == false) {
+                    boundary.setIsFlag(false);
+                    boundary.setIsFlagCB(false);
                 }
-                // Log.d("w", i + "");
+                boundary.setType("primaryschool");
+                boundary.setStateKey(stateKey);
+                String locName = response.body().getResults().get(i).getLangName();
+                if (locName == null)
+                    boundary.setLocName(response.body().getResults().get(i).getName());
+                else
+                    boundary.setLocName(locName);
+
+                try {
+                    db.insertNew(boundary);
+                } catch (Exception e) {
+                    db.persist(boundary);
+                }
             }
+            // Log.d("w", i + "");
+        }
 
         if (response.body().getNext() != null) {
             DownloadClusterData(response.body().getNext(), distId, stateKey, isDataAlreadyDownloaded, token, stateInterface);
@@ -789,7 +837,7 @@ else {
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponseBody> api = null;
-
+//Log.d("shri",usertype+":"+dob+":"+email);
         api = apiInterface.setUpdateProfile(firstName, lastName, usertype, dob, email, headertoken, stateKey);
         /*if (TextUtils.isEmpty(email)) {
             api = apiInterface.setUpdateProfileWithoutEmail(firstName, lastName, usertype, dob, headertoken, stateKey);
@@ -813,12 +861,12 @@ else {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed));
+                        stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed) + "00" + e.getMessage());
                     }
 
                 } else {
 
-                    stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed));
+                    stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed) + response.code());
 
                 }
 
@@ -967,14 +1015,14 @@ else {
     public void getMySummary(final long id, final String statekey, final String fromD, final String endD, String token, final long surveyId, final StateInterface stateInterface) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         //  Log.d("test",id+":"+fromD+":"+endD+":"+token);
-        apiInterface.getMySummary(id, fromD, endD, token, statekey,surveyId).enqueue(new Callback<ResponseBody>() {
+        apiInterface.getMySummary(id, fromD, endD, token, statekey, surveyId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.code() == 200) {
 
                     try {
-                        parseMySummaryData(response.body().string(), id, statekey, stateInterface, fromD, endD,surveyId);
+                        parseMySummaryData(response.body().string(), id, statekey, stateInterface, fromD, endD, surveyId);
                     } catch (Exception e) {
                         e.printStackTrace();
                         stateInterface.failed(e.getMessage());
@@ -994,7 +1042,7 @@ else {
         });
     }
 
-    private void parseMySummaryData(String s, long id, String stateKey, StateInterface stateInterface, String fromD, String endD,long surveyId) {
+    private void parseMySummaryData(String s, long id, String stateKey, StateInterface stateInterface, String fromD, String endD, long surveyId) {
         String surveyName = "";
         Query mySurveyQuery = Query.select().from(Survey.TABLE)
                 .where(Survey.QUESTION_GROUP_ID.eq(id));
@@ -1045,7 +1093,7 @@ else {
 
 
         } catch (JSONException e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
             stateInterface.success(context.getResources().getString(R.string.summaryLoadingFailed));
         }
 
@@ -1088,9 +1136,16 @@ else {
     }
 
 
-    public void forgotPasswordGenerateOtp(String mobilenumber, String stateKey, final StateInterface stateInterface) {
+    public void forgotPasswordGenerateOtp(String mobilenumber, String stateKey, boolean fromFlag,final StateInterface stateInterface) {
+        //if fromFlag=false then resend
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.generateOtpForForgotPassword(mobilenumber, stateKey).enqueue(new Callback<ForgotPassswordOtpPojo>() {
+        Call<ForgotPassswordOtpPojo> call=null;
+        if(fromFlag) {
+            call = apiInterface.generateOtpForForgotPassword(mobilenumber, stateKey);
+        }else {
+            call = apiInterface.generateOtpForForgotPasswordResend(mobilenumber, stateKey,"resend");
+        }
+        call.enqueue(new Callback<ForgotPassswordOtpPojo>() {
             @Override
             public void onResponse(Call<ForgotPassswordOtpPojo> call, Response<ForgotPassswordOtpPojo> response) {
                 if (response.isSuccessful()) {
@@ -1187,49 +1242,19 @@ else {
     }
 
 
-    public void getReoportData(final long boundaryId, final long questionGroup,final long surveyid, final String stateKey, final String level, final String sdate, String eDate, String token,String tag, final StateInterface stateInterface) {
+    public void getReoportData(final long boundaryId, final long questionGroup, final long surveyid, final String stateKey, final String level, final String sdate, String eDate, String token, String tag, final StateInterface stateInterface) {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchReportData(questionGroup, boundaryId, sdate, eDate, stateKey, token,surveyid,tag).enqueue(new Callback<ResponseBody>() {
+        apiInterface.fetchReportData(questionGroup, boundaryId, sdate, eDate, stateKey, token, surveyid, tag).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.isSuccessful() && response.code() == 200) {
 
-                    parseReportData(response.body(), questionGroup, level, boundaryId, stateKey, stateInterface,surveyid);
-                }
-                else if( response.code() == 400)
-                {
+                    parseReportData(response.body(), questionGroup, level, boundaryId, stateKey, stateInterface, surveyid);
+                } else if (response.code() == 400) {
                     stateInterface.failed(context.getResources().getString(R.string.reportsnotavailableforthissurveys));
-                }
-                else {
-                    stateInterface.failed(context.getResources().getString(R.string.reportsLoadingFailed));
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                stateInterface.failed(getFailureMessage(t));
-            }
-        });
-
-
-    }
-
-
-    public void getReoportDataSchool(final long school, final long questionGroup, final long surveyid,final String stateKey, final String level, final String sdate, String endDate, String token, String tag,final StateInterface stateInterface) {
-
-
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.fetchReportDataSchool(questionGroup, school, sdate, endDate, stateKey, token,surveyid,tag).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                if (response.isSuccessful() && response.code() == 200) {
-
-                    parseReportData(response.body(), questionGroup, level, school, stateKey, stateInterface,surveyid);
                 } else {
                     stateInterface.failed(context.getResources().getString(R.string.reportsLoadingFailed));
                 }
@@ -1245,7 +1270,34 @@ else {
 
     }
 
-    private void parseReportData(ResponseBody body, long group, String level, long boundaryId, String stateKey, StateInterface stateInterface,long surveydid) {
+
+    public void getReoportDataSchool(final long school, final long questionGroup, final long surveyid, final String stateKey, final String level, final String sdate, String endDate, String token, String tag, final StateInterface stateInterface) {
+
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        apiInterface.fetchReportDataSchool(questionGroup, school, sdate, endDate, stateKey, token, surveyid, tag).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful() && response.code() == 200) {
+
+                    parseReportData(response.body(), questionGroup, level, school, stateKey, stateInterface, surveyid);
+                } else {
+                    stateInterface.failed(context.getResources().getString(R.string.reportsLoadingFailed));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                stateInterface.failed(getFailureMessage(t));
+            }
+        });
+
+
+    }
+
+    private void parseReportData(ResponseBody body, long group, String level, long boundaryId, String stateKey, StateInterface stateInterface, long surveydid) {
 
         try {
             String data = body.string();
@@ -1303,15 +1355,15 @@ else {
             if (jsonSurvey.length() != 0) {
                 JSONArray surveyIdArray = jsonSurvey.names();
 
-                  //  Log.d("json",surveyIdArray.toString()+"");
+                //  Log.d("json",surveyIdArray.toString()+"");
                 for (int i = 0; i < surveyIdArray.length(); i++) {
 
 
                     String Surveyname = surveyIdArray.getString(i);
                     JSONObject jsonObjectForQue = jsonSurvey.getJSONObject(Surveyname);
                     JSONObject jsonQuestionGroup = jsonObjectForQue.getJSONObject("questiongroups");
-                 //   JSONArray surveyNameList=jsonQuestionGroup.names();
-                   // Log.d("json",surveyNameList.length()+"");
+                    //   JSONArray surveyNameList=jsonQuestionGroup.names();
+                    // Log.d("json",surveyNameList.length()+"");
                     JSONObject jsonQuestion = jsonQuestionGroup.getJSONObject(jsonQuestionGroup.names().getString(0));
                     JSONObject jsongetQuestion = jsonQuestion.getJSONObject("questions");
                     JSONArray jsonQuestionName = jsongetQuestion.names();
@@ -1332,8 +1384,8 @@ else {
                         Query summryQuery = Query.select().from(SummaryInfo.TABLE)
                                 .where(SummaryInfo.BID.eq(boundaryId + "").
                                         and(SummaryInfo.GROUPID.eqCaseInsensitive(group + "").
-                                        and(SummaryInfo.SURVEYID.eq(surveydid))
-                                        .and(SummaryInfo.QID.eqCaseInsensitive(questionId + "")).
+                                                and(SummaryInfo.SURVEYID.eq(surveydid))
+                                                .and(SummaryInfo.QID.eqCaseInsensitive(questionId + "")).
                                                         and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey))));
                         SquidCursor<SummaryInfo> summaryCursor = db.query(SummaryInfo.class, summryQuery);
                         //  Toast.makeText((ReportsActivity) context, summaryCursor.getCount() + "count", Toast.LENGTH_SHORT).show();
@@ -1350,7 +1402,7 @@ else {
                                             and(SummaryInfo.BID.eqCaseInsensitive(boundaryId + ""))
                                             .and(SummaryInfo.HIERARCHY.eqCaseInsensitive(level))
                                             .and(SummaryInfo.GROUPID.eqCaseInsensitive(group + ""))
-                                            .and(SummaryInfo.SURVEYID.eq(surveydid ))
+                                            .and(SummaryInfo.SURVEYID.eq(surveydid))
                                             .and(SummaryInfo.STATE_KEY.eqCaseInsensitive(stateKey)));
 
                             int updated = db.update(summryUpdate);
@@ -1390,9 +1442,9 @@ else {
                         .set(SummaryInfo.NO, 0)
                         .set(SummaryInfo.DONTKNOW, 0)
                         .set(SummaryInfo.STATE_KEY, stateKey)
-                                /*    .set(SummaryInfo.TOTAL_SCHOOL, totalschools)
-                                    .set(SummaryInfo.TOTAL_RESPONSE, num_assessments)
-                                    .set(SummaryInfo.TOTAL_SCHOOL_WITH_RESPONSE, schoolImapcted)*/
+                        /*    .set(SummaryInfo.TOTAL_SCHOOL, totalschools)
+                            .set(SummaryInfo.TOTAL_RESPONSE, num_assessments)
+                            .set(SummaryInfo.TOTAL_SCHOOL_WITH_RESPONSE, schoolImapcted)*/
 
                         .where(SummaryInfo.BID.eqCaseInsensitive(boundaryId + "")
                                 .and(SummaryInfo.HIERARCHY.eqCaseInsensitive(level))
@@ -1420,7 +1472,7 @@ else {
     public void getCommunitySurveyQuestions(String url, final long groupid, final int count, final int size, String token, final StateInterface stateInterface) {
 
 
-
+//Log.d("shri",url);
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         apiInterface.fetchCummunitySurveyQuestions(url, token).enqueue(new Callback<QuestionsPojos>() {
             @Override
@@ -1458,11 +1510,16 @@ else {
 
                 String engQue = body.getResults().get(i).getQuestionText();
                 //     String otherLang = body.getResults().get(i).getDisplayText();
-                String key = body.getResults().get(i).getKey();
-               // Log.d("mmm",key+":"+groupid);
+                String key = "";
+                try {
+                    key = body.getResults().get(i).getKey();
+                } catch (Exception e) {
+                    key = "";
+                }
+
                 String questiontype = body.getResults().get(i).getQuestionType();
 
-                int sequence = body.getResults().get(i).getSequence()!=null?body.getResults().get(i).getSequence():0;
+                int sequence = body.getResults().get(i).getSequence() != null ? body.getResults().get(i).getSequence() : 0;
                 long questionId = body.getResults().get(i).getId();
                 String otherLang = null;
                 if (body.getResults().get(i).getLangName() != null) {
@@ -1472,39 +1529,36 @@ else {
                     otherLang = body.getResults().get(i).getQuestionText();
 
                 }
-                String options=null;
-                if(body.getResults().get(i).getOptions()!=null&&body.getResults().get(i).getOptions().size()>0) {
-                     //options = body.getResults().get(i).getOptions().toString();
-                     options="";
-                     for(int m=0;m<body.getResults().get(i).getOptions().size();m++)
-                     {
-                         if(!options.equalsIgnoreCase("")){
-                             options=options+","+body.getResults().get(i).getOptions().get(m);
-                         }else {
-                             options=options+body.getResults().get(i).getOptions().get(m);
-                         }
-
-
-                     }
-                }
-
-
-               String lang_options=null;
-                if(body.getResults().get(i).getLangOptions()!=null&&body.getResults().get(i).getLangOptions().size()>0) {
-                   // lang_options = body.getResults().get(i).getLangOptions().toString();
-                    lang_options="";
-                    for(int m=0;m<body.getResults().get(i).getLangOptions().size();m++)
-                    {
-                        if(!lang_options.equalsIgnoreCase("")){
-                            lang_options=lang_options+","+body.getResults().get(i).getLangOptions().get(m);
-                        }else {
-                            lang_options=lang_options+body.getResults().get(i).getLangOptions().get(m);
+                String options = null;
+                if (body.getResults().get(i).getOptions() != null && body.getResults().get(i).getOptions().size() > 0) {
+                    //options = body.getResults().get(i).getOptions().toString();
+                    options = "";
+                    for (int m = 0; m < body.getResults().get(i).getOptions().size(); m++) {
+                        if (!options.equalsIgnoreCase("")) {
+                            options = options + "," + body.getResults().get(i).getOptions().get(m);
+                        } else {
+                            options = options + body.getResults().get(i).getOptions().get(m);
                         }
 
 
                     }
                 }
 
+
+                String lang_options = null;
+                if (body.getResults().get(i).getLangOptions() != null && body.getResults().get(i).getLangOptions().size() > 0) {
+                    // lang_options = body.getResults().get(i).getLangOptions().toString();
+                    lang_options = "";
+                    for (int m = 0; m < body.getResults().get(i).getLangOptions().size(); m++) {
+                        if (!lang_options.equalsIgnoreCase("")) {
+                            lang_options = lang_options + "," + body.getResults().get(i).getLangOptions().get(m);
+                        } else {
+                            lang_options = lang_options + body.getResults().get(i).getLangOptions().get(m);
+                        }
+
+
+                    }
+                }
 
 
                 Question question = new Question()
@@ -1535,7 +1589,7 @@ else {
     }
 
 
-    public void SyncData(String data, String header, final StateInterface stateInterface) {
+    public void SyncData(String data, final String header, final  int countloop, final int size, final ArrayList<JSONObject> jsondata, final StateInterfaceSync stateInterface) {
 
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), data);
@@ -1555,20 +1609,30 @@ else {
                         e.printStackTrace();
                     }
 
-                    parseSyncData(respJson);
-                    stateInterface.success("success");
+                   parseSyncData(respJson);
 
-//Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
+                        stateInterface.update(countloop+1,"");
+                        if(size>countloop&&size!=countloop+1) {
+
+                            SyncData(jsondata.get(countloop+1).toString(),header,countloop+1,size,jsondata ,stateInterface);
+                        }else {
+                            stateInterface.success(context.getString(R.string.dataAlreadynSync));
+                        }
+
+                  //Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
                 } else {
 
-                    stateInterface.failed(context.getResources().getString(R.string.syncFailed));
+                   // if(countloop==size) {
+                        stateInterface.failed(context.getResources().getString(R.string.syncFailed)+":"+response.code());
+                    //}
                 }
 
             }
 
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+              //  Log.d("Shri","failure---------------------------------");
                 stateInterface.failed(getFailureMessage(t));
 
             }

@@ -305,6 +305,12 @@
     <string name="doyouwantuploadPhoto">ನೀವು  ಚಿತ್ರವನ್ನು ಅಪ್ ಲೋಡ್  ಮಾಡಲು  ಬಯಸುತ್ತೀರಾ?</string>
     <string name="diseCode">DISE ಕೋಡ್: </string>
     <string name="DiseCodeNo">DISE ಕೋಡ್ ಅನ್ವಯಿಸುವುದಿಲ್ಲ</string>
+    <string name="ResendOTP"><![CDATA[<u>Resend OTP</u>]]></string>
+    <string name="ResendOTPMessage">If you have not received the SMS, Please press Resend OTP after the time elapses</string>
+    <string name="resendingOtp">Resending OTP...</string>
+    <string name="update_app_message">Please, update app to new version to continue</string>
+    <string name="update_app_btn">Update</string>
+    <string name="update_app_btn_neg">No,Thanks</string>
 
     <string-array name="grade_array">
 

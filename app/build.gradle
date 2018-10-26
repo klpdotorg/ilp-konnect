@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.github.triplet.play'
 
+apply plugin: 'io.fabric'
 
 android {
 
@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "in.org.klp.ilpkonnect"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 8
         versionName "1.8"
@@ -38,15 +38,15 @@ android {
         local {
             applicationId "in.org.ilp.konnect.local"
             resValue "string", "app_name", "ILP Konnect Local"
-          buildConfigField 'String', 'HOST', '"http://192.168.43.107"'
-         // buildConfigField 'String', 'HOST', '"http://192.168.1.2"'
+            buildConfigField 'String', 'HOST', '"http://192.168.43.107"'
+            // buildConfigField 'String', 'HOST', '"http://192.168.1.2"'
         }
         devel {
             applicationId "in.org.ilp.konnect.development"
-            resValue "string", "app_name", "ILP Konnect Dev"
+            resValue "string", "app_name", "ILP Konnect staging"
 
-  //   buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
- buildConfigField 'String', 'HOST', '"https://staging.ilp.org.in"'
+            buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
+            //   buildConfigField 'String', 'HOST', '"https://staging.ilp.org.in"'
         }
         prod {
             applicationId "in.org.klp.ilpkonnect"
@@ -66,10 +66,6 @@ repositories {
 
 apply plugin: 'com.neenbedankt.android-apt'
 
-play {
-    jsonFile = file('Google Play Android Developer-0b17472fdb08.json')
-    track = 'alpha'
-}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -89,12 +85,16 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.google.code.gson:gson:2.8.1'
+
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.android.support:cardview-v7:26.0.0'
     compile 'com.android.support:recyclerview-v7:26.0.0'
-
+    compile 'com.google.firebase:firebase-database:11.0.0'
+    compile 'com.google.firebase:firebase-core:11.0.0'
+    compile 'com.crashlytics.sdk.android:crashlytics:2.9.3'
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.google.firebase:firebase-messaging:11.0.0'
+    compile 'com.google.firebase:firebase-crash:11.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
@@ -104,24 +104,8 @@ dependencies {
 
 }
 
-Properties props = new Properties()
-def propFile = new File('release.properties')
-if (propFile.canRead()) {
-    props.load(new FileInputStream(propFile))
-
-    if (props != null && props.containsKey('KEYSTORE') && props.containsKey('KEYSTORE_PASSWORD') &&
-            props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
-        android.signingConfigs.release.storeFile = file(props['KEYSTORE'])
-        android.signingConfigs.release.storePassword = props['KEYSTORE_PASSWORD']
-        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
-        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
-    } else {
-        println 'release.properties found but some entries are missing'
-        android.buildTypes.release.signingConfig = null
-    }
-} else {
-    println 'release.properties not found'
-    android.buildTypes.release.signingConfig = null
-}
 
 apply plugin: 'com.google.gms.google-services'
+
+
+

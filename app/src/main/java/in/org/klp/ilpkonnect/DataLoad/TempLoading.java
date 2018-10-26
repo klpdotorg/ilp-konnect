@@ -674,8 +674,18 @@ public class TempLoading extends BaseActivity implements OnItemSelectedListener 
     }
 
     private void finishProgress() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+        try {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        } catch (Exception e) {
+            try {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+            } catch (Exception e2) {
+
+            }
         }
 
     }

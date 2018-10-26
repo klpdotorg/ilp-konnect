@@ -101,7 +101,8 @@ public class AppSettings extends BaseActivity {
 
                                 stateList.get(spnSelectStae.getSelectedItemPosition()).getLanguage(),
                                 stateList.get(spnSelectStae.getSelectedItemPosition()).getLangKey(),
-                                false);  }
+                                false);
+                    }
 
                 } else {
                     statelistAdp = new ArrayAdapter(AppSettings.this, R.layout.spinnertextview, new ArrayList());
@@ -134,7 +135,7 @@ public class AppSettings extends BaseActivity {
                         String state = stateList.get(spnSelectStae.getSelectedItemPosition()).getState();
                         final String stateKeyString = stateList.get(spnSelectStae.getSelectedItemPosition()).getStateKey();
 
-                  /*  if (!state.equalsIgnoreCase("odisha")) {*/
+                        /*  if (!state.equalsIgnoreCase("odisha")) {*/
                         //  subscribetoTopicsForNotification(state.toString().trim(), sessionManager.getUserType().trim().toUpperCase());
                         sessionManager.setLanguage(state, language, languagekey, stateKeyString);
                         sessionManager.setStateSelection(stateKeyString);
@@ -142,14 +143,13 @@ public class AppSettings extends BaseActivity {
                         KLPApplication.setLanguage(getApplicationContext(), languagekey);
                         sessionManager.setLanguagePosition(spnSelectLanguage.getSelectedItemPosition());
 
-                        Intent intent=new Intent(getApplicationContext(), SurveyTypeActivity.class);
-                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Intent intent = new Intent(getApplicationContext(), SurveyTypeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                             System.exit(0);
                             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                        }
-                        else {
+                        } else {
                             finish();
                             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         }
@@ -168,7 +168,7 @@ public class AppSettings extends BaseActivity {
                                 getResources().getString(R.string.Ok_));
 
                     }
-                } else{
+                } else {
 
 
                     showSignupResultDialog(
@@ -223,7 +223,7 @@ public class AppSettings extends BaseActivity {
             try {
                 while (stateCursor.moveToNext()) {
                     State survey = new State(stateCursor);
-                    StatePojo pojo = new StatePojo(survey.getState(), survey.getState(), survey.getStatekey(), survey.getLangKey(),survey.getLangName());
+                    StatePojo pojo = new StatePojo(survey.getState(), survey.getState(), survey.getStatekey(), survey.getLangKey(), survey.getLangName());
                     stateList.add(pojo);
                 }
                 // Toast.makeText(getApplicationContext(),stateList.size()+":"+b,Toast.LENGTH_SHORT).show();
@@ -232,7 +232,7 @@ public class AppSettings extends BaseActivity {
                     stateCursor.close();
                 }
             }
-            StatePojo pojo = new StatePojo(getString(R.string.selectYourState), getString(R.string.selectYourState), "0","","");
+            StatePojo pojo = new StatePojo(getString(R.string.selectYourState), getString(R.string.selectYourState), "0", "", "");
             stateList.add(0, pojo);
 
             if (stateList != null && stateList.size() > 1) {
@@ -242,14 +242,15 @@ public class AppSettings extends BaseActivity {
 
                 if (b) {
                     for (int i = 0; i < stateList.size(); i++) {
-                        if (sessionManager.getStateKey() .equalsIgnoreCase( stateList.get(i).getStateKey())) {
+                        if (sessionManager.getStateKey().equalsIgnoreCase(stateList.get(i).getStateKey())) {
                             spnSelectStae.setSelection(i);
                             getLanguage(stateList.get(spnSelectStae.getSelectedItemPosition()).getStateKey(),
                                     stateList.get(spnSelectStae.getSelectedItemPosition()).getLanguage(),
 
                                     stateList.get(spnSelectStae.getSelectedItemPosition()).getLanguage(),
                                     stateList.get(spnSelectStae.getSelectedItemPosition()).getLangKey(),
-                                    true);      flag = true;
+                                    true);
+                            flag = true;
 
                             //   Toast.makeText(getApplicationContext(),stateList.get(i).getState(),Toast.LENGTH_SHORT).show();
                             break;
@@ -384,16 +385,21 @@ public class AppSettings extends BaseActivity {
 
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
-        Bundle signUpResult = new Bundle();
-        signUpResult.putString("title", title);
-        signUpResult.putString("result", message);
-        signUpResult.putString("buttonText", buttonText);
+        try {
 
-        SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
-        resultDialog.setArguments(signUpResult);
-        resultDialog.setCancelable(false);
-        resultDialog.show(getSupportFragmentManager(), "Registration result");
+
+            Bundle signUpResult = new Bundle();
+            signUpResult.putString("title", title);
+            signUpResult.putString("result", message);
+            signUpResult.putString("buttonText", buttonText);
+
+            SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
+            resultDialog.setArguments(signUpResult);
+            resultDialog.setCancelable(false);
+            resultDialog.show(getSupportFragmentManager(), "Registration result");
+        } catch (Exception e) {
+
+        }
     }
 
-
-}
+    }

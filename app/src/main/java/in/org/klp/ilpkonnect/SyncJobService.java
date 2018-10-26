@@ -1,9 +1,12 @@
 package in.org.klp.ilpkonnect;
 
-import android.app.IntentService;
-import android.content.Context;
+import android.annotation.TargetApi;
+import android.app.job.JobParameters;
+import android.app.job.JobScheduler;
+import android.app.job.JobService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.yahoo.squidb.data.SquidCursor;
@@ -19,17 +22,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
 import in.org.klp.ilpkonnect.db.Answer;
-import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-import in.org.klp.ilpkonnect.db.Question;
-import in.org.klp.ilpkonnect.db.QuestionGroup;
-import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
-import in.org.klp.ilpkonnect.db.School;
 import in.org.klp.ilpkonnect.db.Story;
-import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.Constants;
 import in.org.klp.ilpkonnect.utils.ILPService;
@@ -38,38 +34,42 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
-/**
- * Created by shridhars on 1/3/2018.
- */
+public class SyncJobService extends JobService {
 
-public class SyncIntentService extends IntentService {
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
     private KontactDatabase db;
     private OkHttpClient okclient;
-
-    public SyncIntentService(String name) {
-        super(name);
-    }
-
-    public SyncIntentService() {
-        super("SyncIntentService");
-    }
-
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public boolean onStartJob(JobParameters jobParameters) {
+        Log.d("Shri", "onstartJob");
+        ShdeuleJob(jobParameters);
+        return true;
+    }
+
+    public void ShdeuleJob(final JobParameters jobParameters)
+    {
+
+
         try {
+           // Intent intent1 = new Intent(getApplicationContext(), SyncIntentService.class);
+           // startService(intent1);
+         //   startSyncData();
 
-          //  startSyncData();
 
-        } catch (Exception e) {
-            Log.d("Shri", "++++++++++++++++++++++++" + e.getMessage());
+           // new SyncIntentService().startSyncData();
+            Log.d("Shri", "starteddd");
+
+        }catch (IllegalStateException exception)
+        {
+            Log.d("Shri", "exce"+ exception.getMessage());
+
+            //It not allowed in latest 7.0 on wards
         }
+    }
+    @Override
+    public boolean onStopJob(JobParameters jobParameters) {
+        Log.d("Shri", "onstopJob");
 
-
+        return false;
     }
 
 
@@ -80,24 +80,18 @@ public class SyncIntentService extends IntentService {
                 db = ((KLPApplication) getApplicationContext()).getDb();
                 if (AppStatus.isConnected(getApplicationContext())) {
                     if (getStoryCount() > 0) {
-                       ArrayList< JSONObject> object = doUploadForSyncSurvey();
-                         for (JSONObject jsob : object) {
-                             Log.d("shri", "------First" + jsob.toString());
-                        JSONObject resp = SyncDataCall(jsob.toString());
-                             Log.d("shri", "------Responc" + resp.toString());
-                             processUploadResponse(resp);
+                        ArrayList< JSONObject> object = doUploadForSyncSurvey();
+                        for (JSONObject jsob : object) {
+                            Log.d("shri", "----7--First" + jsob.toString());
+                            JSONObject resp = SyncDataCall(jsob.toString());
+                            Log.d("shri", "---7---Responc" + resp.toString());
+                            processUploadResponse(resp);
 
                         }
                     }
                 }
             }
         }).start();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //    Log.d("service", "service destroyed");
     }
 
     public int getStoryCount() {
@@ -115,7 +109,6 @@ public class SyncIntentService extends IntentService {
         return 0;
     }
 
-
     private ArrayList<JSONObject> doUploadForSyncSurvey() {
 
         ArrayList<JSONObject> jsonDataList = new ArrayList<>();
@@ -124,12 +117,12 @@ public class SyncIntentService extends IntentService {
         SquidCursor<Story> storiesCursor = db.query(Story.class, listStoryQuery);
         SquidCursor<Answer> answerCursor = null;
 
-        JSONObject requestJson = new JSONObject();
+       // JSONObject requestJson = new JSONObject();
 
         JSONArray storyArray = new JSONArray();
 
         try {
-           int size=0,i=0;
+            int size=0,i=0;
             if (storiesCursor != null) {
                 size = storiesCursor.getCount();
                 // Log.d("shri", size + "{-------------------]");
@@ -156,9 +149,9 @@ public class SyncIntentService extends IntentService {
                // }
                 if(storyArray.length()>= Constants.SYNC_MAX_COUNT_AT_SINGLE)
                 {
-                   jsonDataList.add( new JSONObject().put("stories", storyArray));
-                   storyArray=null;
-                   storyArray=new JSONArray();
+                    jsonDataList.add( new JSONObject().put("stories", storyArray));
+                    storyArray=null;
+                    storyArray=new JSONArray();
                 }else if(i==size) {
                     jsonDataList.add( new JSONObject().put("stories", storyArray));
                     storyArray=null;
@@ -173,16 +166,12 @@ public class SyncIntentService extends IntentService {
             if (answerCursor != null) answerCursor.close();
         }
         try {
-           // requestJson.put("stories", storyArray);
+            // requestJson.put("stories", storyArray);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-       /* Log.d("shri","----+++++"+jsonDataList.size());
-        for(JSONObject object:jsonDataList)
-        {
-            Log.d("shri","----+++++"+object.toString());
-        }*/
+
         return jsonDataList;
 
 
@@ -277,5 +266,4 @@ public class SyncIntentService extends IntentService {
         // Log.d("shri","===="+respJson.toString());
         return respJson;
     }
-
 }

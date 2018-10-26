@@ -233,6 +233,7 @@ public class StoriesActivity extends BaseActivity {
                         dontknow += db.count(Answer.class, Answer.STORY_ID.eq(story.getId()).and(Answer.TEXT.eq("Don't Know").and(Answer.QUESTION_ID.in(al))));
 
 
+
                         //  Toast.makeText(getApplicationContext(),"YES:"+yescount+"NO:"+nocount+"Dont Know:"+dontknow,Toast.LENGTH_SHORT).show();
 
 
