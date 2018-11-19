@@ -17,9 +17,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 // Toast.makeText(context, "connected", Toast.LENGTH_LONG).show();
 
                 try {
-                   // Intent intent1 = new Intent(context, SyncIntentService.class);
-               // context.startService(intent1);
-            }catch (IllegalStateException exception)
+                    Intent intent1 = new Intent(context, SyncIntentService.class);
+                context.startService(intent1);
+            }catch (Exception exception)
                 {
                     //It not allowed in latest 7.0 on wards
                 }

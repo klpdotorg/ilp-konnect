@@ -38,36 +38,36 @@ public class SyncJobService extends JobService {
 
     private KontactDatabase db;
     private OkHttpClient okclient;
+
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        Log.d("Shri", "onstartJob");
+     //   Log.d("Shri", "onstartJob");
         ShdeuleJob(jobParameters);
         return true;
     }
 
-    public void ShdeuleJob(final JobParameters jobParameters)
-    {
+    public void ShdeuleJob(final JobParameters jobParameters) {
 
 
         try {
-           // Intent intent1 = new Intent(getApplicationContext(), SyncIntentService.class);
-           // startService(intent1);
-         //   startSyncData();
+            // Intent intent1 = new Intent(getApplicationContext(), SyncIntentService.class);
+            // startService(intent1);
+            //   startSyncData();
 
 
-           // new SyncIntentService().startSyncData();
-            Log.d("Shri", "starteddd");
+            startSyncData();
+           // Log.d("Shri", "starteddd");
 
-        }catch (IllegalStateException exception)
-        {
-            Log.d("Shri", "exce"+ exception.getMessage());
+        } catch (IllegalStateException exception) {
+            //Log.d("Shri", "exce" + exception.getMessage());
 
             //It not allowed in latest 7.0 on wards
         }
     }
+
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
-        Log.d("Shri", "onstopJob");
+      //  Log.d("Shri", "onstopJob");
 
         return false;
     }
@@ -80,11 +80,11 @@ public class SyncJobService extends JobService {
                 db = ((KLPApplication) getApplicationContext()).getDb();
                 if (AppStatus.isConnected(getApplicationContext())) {
                     if (getStoryCount() > 0) {
-                        ArrayList< JSONObject> object = doUploadForSyncSurvey();
+                        ArrayList<JSONObject> object = doUploadForSyncSurvey();
                         for (JSONObject jsob : object) {
-                            Log.d("shri", "----7--First" + jsob.toString());
+                           // Log.d("shri", "----7--First" + jsob.toString());
                             JSONObject resp = SyncDataCall(jsob.toString());
-                            Log.d("shri", "---7---Responc" + resp.toString());
+                         //   Log.d("shri", "---7---Responc" + resp.toString());
                             processUploadResponse(resp);
 
                         }
@@ -117,12 +117,12 @@ public class SyncJobService extends JobService {
         SquidCursor<Story> storiesCursor = db.query(Story.class, listStoryQuery);
         SquidCursor<Answer> answerCursor = null;
 
-       // JSONObject requestJson = new JSONObject();
+        // JSONObject requestJson = new JSONObject();
 
         JSONArray storyArray = new JSONArray();
 
         try {
-            int size=0,i=0;
+            int size = 0, i = 0;
             if (storiesCursor != null) {
                 size = storiesCursor.getCount();
                 // Log.d("shri", size + "{-------------------]");
@@ -144,18 +144,17 @@ public class SyncJobService extends JobService {
                 }
 
                 storyJson.put("answers", answerArray);
-               // for(int k=0;k<2;k++) {
-                    storyArray.put(storyJson);
-               // }
-                if(storyArray.length()>= Constants.SYNC_MAX_COUNT_AT_SINGLE)
-                {
-                    jsonDataList.add( new JSONObject().put("stories", storyArray));
-                    storyArray=null;
-                    storyArray=new JSONArray();
-                }else if(i==size) {
-                    jsonDataList.add( new JSONObject().put("stories", storyArray));
-                    storyArray=null;
-                    storyArray=new JSONArray();
+                // for(int k=0;k<2;k++) {
+                storyArray.put(storyJson);
+                // }
+                if (storyArray.length() >= Constants.SYNC_MAX_COUNT_AT_SINGLE) {
+                    jsonDataList.add(new JSONObject().put("stories", storyArray));
+                    storyArray = null;
+                    storyArray = new JSONArray();
+                } else if (i == size) {
+                    jsonDataList.add(new JSONObject().put("stories", storyArray));
+                    storyArray = null;
+                    storyArray = new JSONArray();
                 }
 
             }
@@ -188,7 +187,7 @@ public class SyncJobService extends JobService {
                 //    Toast.makeText(MainDashList.this, error, Toast.LENGTH_LONG).show();
             } else {
                 JSONObject success = response.getJSONObject("success");
-                Log.d("shri", success.toString());
+              //  Log.d("shri", success.toString());
                 Iterator<String> keys = success.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

@@ -18,8 +18,8 @@ android {
         applicationId "in.org.klp.ilpkonnect"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 8
-        versionName "1.8"
+        versionCode 9
+        versionName "1.9"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -43,10 +43,10 @@ android {
         }
         devel {
             applicationId "in.org.ilp.konnect.development"
-            resValue "string", "app_name", "ILP Konnect staging"
+            resValue "string", "app_name", "ILP Konnect stag"
 
-            buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
-            //   buildConfigField 'String', 'HOST', '"https://staging.ilp.org.in"'
+          //  buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
+               buildConfigField 'String', 'HOST', '"https://staging.ilp.org.in"'
         }
         prod {
             applicationId "in.org.klp.ilpkonnect"

@@ -54,7 +54,7 @@ public class KLPApplication extends Application {
         ComponentName componentInfo=new ComponentName(this,SyncJobService.class);
         JobInfo info=new JobInfo.Builder(123,componentInfo)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setPeriodic(15*60*1000).build();
+                .setPeriodic(60*60*1000).build();
 
         JobScheduler jobScheduler=(JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
         int result=     jobScheduler.schedule(info);

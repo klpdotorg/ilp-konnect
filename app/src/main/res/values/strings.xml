@@ -108,7 +108,7 @@
     <string name="settings">Select language</string>
     <string name="next">Next</string>
     <string name="surveyType">Choose your survey</string>
-    <string name="dataAlreadynSync">Data already auto-synced</string>
+    <string name="dataAlreadynSync">All surveys have been synced</string>
     <string name="summary">User Summary</string>
     <string name="download_survey">Download survey questions</string>
     <string name="syncSurvey">Sync survey</string>
@@ -135,7 +135,7 @@
     <string name="signupfail">Failed</string>
     <string name="pleaseSelectsurveyLanguage">Please select your state and language</string>
     <string name="loading">Loading...</string>
-    <string name="dataAlreadynSyn">Data Already Auto-Synced</string>
+    <string name="dataAlreadynSyn">All surveys have been synced</string>
     <string name="doyouwant">Do you want to download reports?</string>
     <string name="nooserveyimage">No survey images found</string>
     <string name="failed">Failed</string>

@@ -5,6 +5,8 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.pm.ComponentInfo;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -96,6 +98,7 @@ public class OTP_VarifyActivity extends BaseActivity {
                        // closeProgress();
                         showProgress(false);
                         startTimer();
+                        tvResentOTP.setTextColor(Color.BLACK);
                         Toast.makeText(getApplicationContext(),"OTP Sent",Toast.LENGTH_SHORT).show();
 
 
@@ -129,6 +132,7 @@ public class OTP_VarifyActivity extends BaseActivity {
                 cancelTimer();
                 tvResentOTPTimer.setText("");
                 tvResentOTP.setEnabled(true);
+                tvResentOTP.setTextColor(Color.BLUE);
 
             }
         };

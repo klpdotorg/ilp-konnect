@@ -202,25 +202,7 @@ public class MainDashList extends BaseActivity {
     }
 
 
-    public boolean isSyncNeeded() {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        int currentVersion = 0;
-        try {
-            currentVersion = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_CONFIGURATIONS).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-//            Log.d(this.toString(), "if you're here, you're in trouble");
-            return true;
-        }
 
-        final int lastVersion = prefs.getInt("lastVersion", -1);
-        if (currentVersion > lastVersion) {
-            // first time running the app or app just updated
-            prefs.edit().putInt("lastVersion", currentVersion).commit();
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 
     public void sync1(final boolean var) {
@@ -388,7 +370,7 @@ public class MainDashList extends BaseActivity {
 
             if (!okresponse.isSuccessful()) {
                 //     log("Upload Error", "There is something wrong with the Internet connection.");
-                Log.d("shri", "--" + okresponse.message());
+             //   Log.d("shri", "--" + okresponse.message());
                 return new JSONObject(okresponse.message());
             }
 
@@ -477,7 +459,7 @@ public class MainDashList extends BaseActivity {
             int size = 0, i = 0;
             if (storiesCursor != null) {
                 size = storiesCursor.getCount();
-                Log.d("shri", size + "{-------------------]");
+             //   Log.d("shri", size + "{-------------------]");
             }
             while (storiesCursor != null && storiesCursor.moveToNext()) {
                 i++;
@@ -497,9 +479,9 @@ public class MainDashList extends BaseActivity {
                 }
                 storyJson.put("answers", answerArray);
 
-           //     for (int k = 0; k < 10; k++) {
+              // for (int k = 0; k < 5; k++) {
                     storyArray.put(storyJson);
-              //  }
+               // }
 
                 if (storyArray.length() >= Constants.SYNC_MAX_COUNT_AT_SINGLE) {
                     jsonDataList.add(new JSONObject().put("stories", storyArray));
@@ -519,7 +501,7 @@ public class MainDashList extends BaseActivity {
 
         }
 
-        Log.d("shri", jsonDataList.size() + "---------");
+      //  Log.d("shri", jsonDataList.size() + "---------");
 //Log.d("shri",requestJson.toString().getBytes().length+"--------------------------");
         return jsonDataList;
 

@@ -107,7 +107,7 @@
     <string name="settings">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="next">ಮುಂದೆ ಹೋಗಿ</string>
     <string name="surveyType">ಸಮೀಕ್ಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
-    <string name="dataAlreadynSync">ಮಾಹಿತಿ ಈಗಾಗಲೇ ಸಿಂಕ್ ಆಗಿದೆ</string>
+    <string name="dataAlreadynSync">ಮಾಹಿತಿ ಸಿಂಕ್ ಆಗಿದೆ</string>
     <string name="summary">ಪ್ರತಿಕ್ರಿಯೆದಾರರ ಸಂಕ್ಷಿಪ್ತ ವರದಿ</string>
     <string name="download_survey">ಸಮೀಕ್ಷೆ ಪ್ರಶ್ನೆಗಳನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
     <string name="syncSurvey">ಸಮೀಕ್ಷೆಯನ್ನು ಸಿಂಕ್ ಮಾಡಿ</string>
@@ -134,7 +134,7 @@
     <string name="signupfail">ವಿಫಲವಾಗಿದೆ</string>
     <string name="pleaseSelectsurveyLanguage">ದಯವಿಟ್ಟು ನಿಮ್ಮ ರಾಜ್ಯ ಹಾಗು ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ</string>
-    <string name="dataAlreadynSyn">ಮಾಹಿತಿ ಈಗಾಗಲೇ ಸಿಂಕ್ ಆಗಿದೆ</string>
+    <string name="dataAlreadynSyn">ಮಾಹಿತಿ ಸಿಂಕ್ ಆಗಿದೆ</string>
     <string name="doyouwant">ನೀವು ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಲು ಇಚ್ಛಿಸುತ್ತೀರಾ?</string>
     <string name="nooserveyimage">ಸರ್ವೇ ಫೋಟೋ ಕಾಣಿಸಿಲ್ಲ</string>
     <string name="failed">ವಿಫಲವಾಗಿದೆ</string>
@@ -305,12 +305,13 @@
     <string name="doyouwantuploadPhoto">ನೀವು  ಚಿತ್ರವನ್ನು ಅಪ್ ಲೋಡ್  ಮಾಡಲು  ಬಯಸುತ್ತೀರಾ?</string>
     <string name="diseCode">DISE ಕೋಡ್: </string>
     <string name="DiseCodeNo">DISE ಕೋಡ್ ಅನ್ವಯಿಸುವುದಿಲ್ಲ</string>
-    <string name="ResendOTP"><![CDATA[<u>Resend OTP</u>]]></string>
-    <string name="ResendOTPMessage">If you have not received the SMS, Please press Resend OTP after the time elapses</string>
-    <string name="resendingOtp">Resending OTP...</string>
-    <string name="update_app_message">Please, update app to new version to continue</string>
-    <string name="update_app_btn">Update</string>
-    <string name="update_app_btn_neg">No,Thanks</string>
+    <string name="ResendOTP"><![CDATA[<u>ಒ ಟಿ ಪಿ  ಮರು ಕಳುಹಿಸಿ</u>]]></string>
+    <string name="ResendOTPMessage">ನೀವು SMS ಅನ್ನು ಸ್ವೀಕರಿಸದಿದ್ದರೆ, ದಯವಿಟ್ಟು ಸಮಯ ಕಳೆದುಹೋದ ನಂತರ ಒ ಟಿ ಪಿ ಮರು ಕಳುಹಿಸಿ ಅನ್ನು ಮತ್ತೆ ಒತ್ತಿರಿ</string>
+    <string name="resendingOtp">ಒ ಟಿ ಪಿ  ಅನ್ನು ಮರು ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ ...</string>
+    <string name="update_app_message">ದಯವಿಟ್ಟು, ಮುಂದುವರಿಯಲು ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಹೊಸ ವರ್ಷನ್ ನವೀಕರಿಸಿ</string>
+    <string name="update_app_btn">ಅಪ್ಡೇಟ್</string>
+    <string name="update_app_btn_neg">ಬೇಡ,ಧನ್ಯವಾದಗಳು</string>
+    <string name="update_title">ಹೊಸ ವರ್ಷನ್ ಲಭ್ಯವಿದೆ</string>
 
     <string-array name="grade_array">
 

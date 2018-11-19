@@ -63,10 +63,10 @@ public class SyncIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
 
-          //  startSyncData();
+           startSyncData();
 
         } catch (Exception e) {
-            Log.d("Shri", "++++++++++++++++++++++++" + e.getMessage());
+         //   Log.d("Shri", "++++++++++++++++++++++++" + e.getMessage());
         }
 
 
@@ -82,9 +82,9 @@ public class SyncIntentService extends IntentService {
                     if (getStoryCount() > 0) {
                        ArrayList< JSONObject> object = doUploadForSyncSurvey();
                          for (JSONObject jsob : object) {
-                             Log.d("shri", "------First" + jsob.toString());
+                           //  Log.d("shri", "------First" + jsob.toString());
                         JSONObject resp = SyncDataCall(jsob.toString());
-                             Log.d("shri", "------Responc" + resp.toString());
+                            // Log.d("shri", "------Responc" + resp.toString());
                              processUploadResponse(resp);
 
                         }
