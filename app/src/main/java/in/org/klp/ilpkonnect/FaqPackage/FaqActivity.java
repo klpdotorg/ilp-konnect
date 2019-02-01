@@ -49,6 +49,9 @@ public class FaqActivity extends BaseActivity {
         faqList.add(new FaqPojo(getResources().getString(R.string.question15), getResources().getString(R.string.answer15)));
         faqList.add(new FaqPojo(getResources().getString(R.string.question16), getResources().getString(R.string.answer16)));
         faqList.add(new FaqPojo(getResources().getString(R.string.question17), getResources().getString(R.string.answer17)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question18), getResources().getString(R.string.answer18)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question19), getResources().getString(R.string.answer19)));
+        faqList.add(new FaqPojo(getResources().getString(R.string.question20), getResources().getString(R.string.answer20)));
 
         FaqAdapter adapter = new FaqAdapter(FaqActivity.this, faqList);
         faqlistviw.setAdapter(adapter);

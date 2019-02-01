@@ -11,9 +11,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.yahoo.squidb.data.SquidCursor;
+import com.yahoo.squidb.sql.Query;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.db.KontactDatabase;
+import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.utils.DailogUtill;
 import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
+import in.org.klp.ilpkonnect.utils.RolesUtils;
 import in.org.klp.ilpkonnect.utils.SessionManager;
 
 /**
@@ -26,6 +39,7 @@ EditText edtOTPNumber;
 Button btnOK;
 SessionManager sessionManager;
 ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,4 +157,6 @@ ProgressDialog progressDialog;
             progressDialog.dismiss();
         }
     }
+
+
 }

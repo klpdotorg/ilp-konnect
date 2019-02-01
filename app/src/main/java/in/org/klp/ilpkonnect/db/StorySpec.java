@@ -10,39 +10,39 @@ import com.yahoo.squidb.annotations.TableModelSpec;
 @TableModelSpec(className = "Story", tableName = "story")
 public class StorySpec {
     @PrimaryKey
-    @ColumnSpec(name="_id")
+    @ColumnSpec(name = "_id")
     long Id;
 
-    @ColumnSpec(name="user_id", constraints = "NOT NULL")
+    @ColumnSpec(name = "user_id", constraints = "NOT NULL")
     public long user_id;
 
-    @ColumnSpec(name="school_id", constraints = "NOT NULL")
+    @ColumnSpec(name = "school_id", constraints = "NOT NULL")
     public long school_id;
 
-    @ColumnSpec(name="group_id", constraints = "NOT NULL")
+    @ColumnSpec(name = "group_id", constraints = "NOT NULL")
     public long group_id;
 
-    @ColumnSpec(name="respondent_type", constraints = "NOT NULL", defaultValue = "PR")
+    @ColumnSpec(name = "respondent_type", constraints = "NOT NULL", defaultValue = "PR")
     public String respondent_type;
 
-    @ColumnSpec(name="created_at", constraints = "NOT NULL")
+    @ColumnSpec(name = "created_at", constraints = "NOT NULL")
     public long created_at;
 
-    @ColumnSpec(defaultValue="0")
+    @ColumnSpec(defaultValue = "0")
     public int synced;
 
     public String sysid;
 
-    @ColumnSpec(name="image")
+    @ColumnSpec(name = "image")
     public String image;
 
-    @ColumnSpec(name="state")
+    @ColumnSpec(name = "state")
     public String state_key;
 
-    @ColumnSpec(name="group_value")
+    @ColumnSpec(name = "group_value")
     public String group_value;
 
-    @ColumnSpec(name="comments")
+    @ColumnSpec(name = "comments")
     public String comments;
 
 

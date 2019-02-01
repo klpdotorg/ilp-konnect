@@ -3,10 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="in.org.klp.ilpkonnect">
 
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".KLPApplication"
@@ -28,11 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-     <!--   <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/KLPTheme" />-->
+        <!--   <activity
+               android:name=".MainActivity"
+               android:label="@string/app_name"
+               android:screenOrientation="portrait"
+               android:theme="@style/KLPTheme" />-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -40,23 +44,23 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
         <activity
             android:name=".OTP_VarifyActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/KLPTheme" />
-   <!--     <activity
-            android:name=".SurveyActivity"
-            android:label="@string/title_activity_survey"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/KLPTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.org.klp.ilpkonnect.MainActivity" />
-        </activity>-->
+        <!--     <activity
+                 android:name=".SurveyActivity"
+                 android:label="@string/title_activity_survey"
+                 android:parentActivityName=".MainActivity"
+                 android:screenOrientation="portrait"
+                 android:theme="@style/KLPTheme">
+                 <meta-data
+                     android:name="android.support.PARENT_ACTIVITY"
+                     android:value="in.org.klp.ilpkonnect.MainActivity" />
+             </activity>-->
 
         <activity
             android:name=".LoginActivity"
@@ -68,7 +72,8 @@
 
         <service android:name=".SyncIntentService" />
 
-        <service android:name=".SyncJobService"
+        <service
+            android:name=".SyncJobService"
             android:permission="android.permission.BIND_JOB_SERVICE">
 
         </service>
@@ -77,9 +82,9 @@
             android:name=".QuestionActivity"
             android:label="@string/title_activity_question"
 
-            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"
-            android:theme="@style/KLPTheme">
+            android:theme="@style/KLPTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan">
 
         </activity>
 
@@ -151,6 +156,7 @@
         <activity
             android:name=".UpdateProfileActivity"
             android:label="@string/updateProfile"
+            android:screenOrientation="portrait"
             android:theme="@style/KLPTheme">
 
         </activity>
@@ -179,7 +185,6 @@
             android:screenOrientation="portrait">
 
         </activity>
-
 
 
         <activity
@@ -234,15 +239,14 @@
 
 
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-
 
 
     </application>

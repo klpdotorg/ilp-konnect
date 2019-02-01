@@ -90,12 +90,28 @@ public class KontactDatabase extends SquidDatabase {
         // nothing happens
         // to create tables, try like this -> tryCreateTable(School.TABLE)
         // https://github.com/yahoo/squidb/wiki/Implementing-database-upgrades
-//        switch(oldVersion) {
+        switch (oldVersion) {
+            case 1:
+                dbRecreate();
+                break;
+            case 2:
+                dbRecreate();
+                break;
+            case 3:
+                dbRecreate();
+                break;
+            case 4:
+                dbRecreate();
+                break;
+
+        }
 //            case 1:
 //                // These tables were added in v2
 //                tryCreateTable(Story.TABLE);
 //                tryCreateTable(Answer.TABLE);
 //        }
+
+
 
         /*
          * Commented everything because we're letting SQLite Asset Helper handle the migrations.
@@ -119,11 +135,10 @@ public class KontactDatabase extends SquidDatabase {
         boolean flag = false;
         try {
             flag = insertRow(item);
-           // Log.d("test","Inserted");
+            // Log.d("test","Inserted");
 
         } catch (Exception e) {
             flag = persistWithOnConflict(item, TableStatement.ConflictAlgorithm.REPLACE);
-        //    Log.d("test","persisted");
 
 
         }
@@ -146,6 +161,16 @@ public class KontactDatabase extends SquidDatabase {
     }
 
 
+    public void dbRecreate()
+
+    {
+        try {
+            recreate();
+        } catch (Exception e) {
+            //
+        }
+    }
+
     public JSONObject modelObjectToJson(TableModel obj) {
         JSONObject jobj = new JSONObject();
         try {
@@ -158,4 +183,15 @@ public class KontactDatabase extends SquidDatabase {
         }
         return jobj;
     }
+
+    @Override
+    protected void onMigrationFailed(MigrationFailedException failure) {
+        super.onMigrationFailed(failure);
+        try {
+            recreate();
+        } catch (Exception e) {
+
+        }
+    }
+
 }

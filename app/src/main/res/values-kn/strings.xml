@@ -2,15 +2,12 @@
     <string name="response_neutral">ಓಕೆ</string>
     <string name="response_positive">ಹೌದು</string>
     <string name="response_negative">ಇಲ್ಲ</string>
-    <string name="action_settings">ಸೆಟ್ಟಿಂಗ್ಸ್</string>
     <string name="action_logout">ಲಾಗ್ಔಟ್</string>
-    <string name="action_refresh">ರಿಫ್ರೆಶ್</string>
     <string name="reports">ರರಿಪೋರ್ಟ್ಸಗೆ ಕರೆದೊಯ್ಯಿರಿ</string>
     <!-- Strings related to Boundary selection -->
     <string name="district">ಜಿಲ್ಲೆ</string>
     <string name="block">ಬ್ಲಾಕ್</string>
     <string name="cluster">ಕ್ಲಸ್ಟರ್</string>
-    <string name="school">ಶಾಲೆ</string>
     <string name="prompt_district">ಜಿಲ್ಲೆ ಆಯ್ಕೆ  ಮಾಡಿ</string>
     <string name="prompt_block">ಬ್ಲಾಕ್ ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="prompt_cluster">ಕ್ಲಸ್ಟರ್ ಆಯ್ಕೆ ಮಾಡಿ</string>
@@ -19,7 +16,6 @@
     <!-- Strings related to login -->
     <string name="register">ರಿಜಿಸ್ಟರ್</string>
     <string name="login">ಲಾಗಿನ್</string>
-    <string name="changePassword">ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಿ</string>
     <string name="forgotPassword">ಪಾಸ್ವರ್ಡ್ ಮರೆತು ಹೋಯಿತೇ?</string>
     <string name="confirmPassword">ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ</string>
     <string name="action_sign_in_short">ಲಾಗಿನ್</string>
@@ -41,10 +37,8 @@
     <string name="first_name">ಹೆಸರು</string>
     <string name="last_name">ಕೊನೆಯ ಹೆಸರು</string>
     <string name="mobile_number">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ</string>
-    <string name="action_register">ರಿಜಿಸ್ಟರ್</string>
     <!-- survey activity strings -->
     <string name="new_response">ಹೊಸ ಸಮೀಕ್ಷೆ+</string>
-    <string name="generate_report">ಸಮೀಕ್ಷೆ ವರದಿ ತಯಾರಿಸಿ</string>
     <!--Story list activity-->
     <string name="meta_medium">ಒಟ್ಟು ಉತ್ತರಗಳು: %1$s</string>
     <!--<string name="meta_small">Created by %1$s on %2$s</string>-->
@@ -96,14 +90,8 @@
     <string name="numberOfSchools">ಶಾಲೆಗಳ ಸಂಖ್ಯೆ</string>
     <string name="numberOfSchoolsWithRespo">ಪ್ರತಿಕ್ರಿಯೆ ಇರುವ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ</string>
     <string name="numberOfRespo">ಒಟ್ಟೂ ಸಮೀಕ್ಷೆ</string>
-    <string name="updateSurveys">ಸಮೀಕ್ಷೆಯನ್ನು ನವೀಕರಿಸಿ</string>
-    <string name="sync">ಸಿಂಕ್ ಮಾಡಿ</string>
-    <string name="uploadingStories">ಕಥೆಯನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು</string>
     <string name="downloadingSurvey"> ಸರ್ವೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
-    <string name="downloadingQuestion"> ಪ್ರಶ್ನೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
-    <string name="downloadingQuestionGroup"> ಪ್ರಶ್ನೆ ಗುಂಪನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುತ್ತಿರುವುದು </string>
     <string name="survey"> ಸರ್ವೇ </string>
-    <string name="updateSurvey">ಸಮೀಕ್ಷೆಯನ್ನು ನವೀಕರಿಸಿ</string>
     <string name="settings">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="next">ಮುಂದೆ ಹೋಗಿ</string>
     <string name="surveyType">ಸಮೀಕ್ಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
@@ -125,25 +113,19 @@
     <string name="selectReportLevel">ವರದಿಯ ಹಂತವನ್ನು ಆರಿಸಿ</string>
     <string name="new_Password">ಹೊಸ ಪಾಸ್ವರ್ಡ್</string>
     <string name="loadSurveyImage"><u>ಸಮೀಕ್ಷೆ ಚಿತ್ರವನ್ನು ಲೋಡ್ ಮಾಡಿ</u></string>
-    <string name="loadSurveyImage_">ಸಮೀಕ್ಷೆ ಚಿತ್ರವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
     <string name="dob">ಜನುಮದಿನ (DD-MM-YYYY)</string>
     <string name="schools">ಶಾಲೆಗಳು</string>
     <string name="pleaseSelectrespondanttype">ಪ್ರತಿಕ್ರಿಯೆಗಾರ ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="doesnotmatcherwithpass">ಈ ಮಾಹಿತಿ ಪಾಸ್ವರ್ಡ್ ಕ್ಷೇತ್ರದಲ್ಲಿ ನಮೂದಿಸಿದ ಮೌಲ್ಯಕ್ಕೆ ಹೊಂದಾಣಿಕೆಯಾಗಬೇಕು</string>
     <string name="signupsuccess">ನೀವು ಯಶಸ್ವಿಯಾಗಿ ರೆಜಿಸ್ಟರ್ ಆಗಿರುವಿರಿ. ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಆಗಿ.</string>
-    <string name="signupfail">ವಿಫಲವಾಗಿದೆ</string>
     <string name="pleaseSelectsurveyLanguage">ದಯವಿಟ್ಟು ನಿಮ್ಮ ರಾಜ್ಯ ಹಾಗು ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ</string>
     <string name="dataAlreadynSyn">ಮಾಹಿತಿ ಸಿಂಕ್ ಆಗಿದೆ</string>
-    <string name="doyouwant">ನೀವು ವರದಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಲು ಇಚ್ಛಿಸುತ್ತೀರಾ?</string>
     <string name="nooserveyimage">ಸರ್ವೇ ಫೋಟೋ ಕಾಣಿಸಿಲ್ಲ</string>
     <string name="failed">ವಿಫಲವಾಗಿದೆ</string>
     <string name="syncTitle">ಸಿಂಕ್</string>
     <string name="downloadingsurveypleasewait">ಕಥೆಗಳು ಡೌನ್ಲೋಡ್ ಆಗುತ್ತಿವೆ. ದಯಮಾಡಿ ನಿರೀಕ್ಷಿಸಿ</string>
     <string name="syncing">ಸಿಂಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
-    <string name="uploaded">ಅಪ್ಲೋಡ್ ಮಾಡಲಾಗಿದೆ</string>
-    <string name="stories">ಕಥೆಗಳು...</string>
-    <string name="uploadingstroespleasewait">ಕಥೆಗಳು ಅಪ್ಲೋಡ್ ಆಗುತ್ತಿವೆ. ದಯಮಾಡಿ ನಿರೀಕ್ಷಿಸಿ</string>
     <string name="uploading"> ಅಪ್ಲೋಡ್ ಆಗುತ್ತಿವೆ </string>
     <string name="uploadingstorw">ಮಾಹಿತಿ ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ..</string>
     <string name="upload">ಅಪ್ಲೋಡ್</string>
@@ -151,8 +133,6 @@
     <string name="datasync">ಮಾಹಿತಿ ಸಿಂಕ್..</string>
     <string name="surveysyncsucc">ಸಮೀಕ್ಷೆ ಯಶಸ್ವಿಯಾಗಿ ಸಿಂಕ್ ಮಾಡಲಾಗಿದೆ:</string>
     <string name="surveysyncfail">ಸಮೀಕ್ಷೆ ಸಿಂಕ್ ವಿಫಲವಾಗಿದೆ:</string>
-    <string name="question"> ಪ್ರಶ್ನೆ </string>
-    <string name="questiongroup"> ಪ್ರಶ್ನೆ ಗುಂಪು </string>
     <string name="resettingpassword">ನಿಮ್ಮ ಪಾಸ್ವರ್ಡ್ ಅನ್ನು ಮರುಹೊಂದಿಸಲಾಗುತ್ತಿದೆ...</string>
     <string name="overallreport">ಸಾರಾಂಶ ವರದಿ</string>
     <string name="pleaseataachsurveyimage">ಶಿಕ್ಷಕ ಬೋಧಿಸುತ್ತಿರುವಾಗ ಅಥವಾ ವಿದ್ಯಾರ್ಥಿಗಳು ಗುಂಪು ಕಲಿಕೆ ಮಾಡುತ್ತಿರುವಾಗ ತರಗತಿಯ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ</string>
@@ -161,7 +141,6 @@
     <string name="cancel">ರದ್ದುಮಾಡಿ</string>
     <string name="permission">ಪರವಾನಿಗೆ ಬೇಕು</string>
     <string name="externalstorage">ಸ್ಟೋರೇಜ್ ಅನುಮತಿ ಅಗತ್ಯ</string>
-    <string name="pleaseuploadimage">* ದಯವಿಟ್ಟು ಚಿತ್ರವನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
     <string name="pleaseSelectAppropriateImage">ದಯವಿಟ್ಟು ಸರಿಯಾದ ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
 
 
@@ -171,10 +150,9 @@
     <string name="searchSurveyimage">ಸಮೀಕ್ಷೆ ಚಿತ್ರಗಳ ಹುಡುಕಾಟ</string>
     <string name="netWorkError">ನೆಟ್ವರ್ಕ್ ನಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ. ದಯವಿಟ್ಟು ಅಂತರ್ಜಾಲ ಕನೆಕ್ಷನ್ ಪರಿಶೀಲಿಸಿ.</string>
     <string name="nextbutton">ಮುಂದೆ ಹೋಗಿ</string>
-    <string name="profileUpdated">ಪ್ರೊಫೈಲ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಪ್ಡೇಟ್ ಮಾಡಲಾಗಿದೆ. ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಮಾಡಿ.</string>
     <string name="enterValidDate">ಮಾನ್ಯವಾದ ದಿನಾಂಕ ಸ್ವರೂಪವನ್ನು ನಮೂದಿಸಿ (DD/MM/YYYY)</string>
-    <string name="enteredDateinFuture">ಭವಿಷ್ಯದಲ್ಲಿ ನೀವು ದಿನಾಂಕವನ್ನು ನಮೂದಿಸಲಾಗುವುದಿಲ್ಲ</string>
-    <string name="survey_taken"> ಸಮೀಕ್ಷೆ ನೀವು ತೆಗೆದುಕೊಂಡಾಗಿದೆ. ನೀವು ಇಂಟರ್ನೆಟ್ ವಲಯದಲ್ಲಿರುವಾಗ ದಯವಿಟ್ಟು ಸಿಂಕ್ ಮಾಡಿ</string>
+
+    <string name="survey_taken">%1$d  ಸಮೀಕ್ಷೆ ನೀವು ತೆಗೆದುಕೊಂಡಾಗಿದೆ. ನೀವು ಇಂಟರ್ನೆಟ್ ವಲಯದಲ್ಲಿರುವಾಗ ದಯವಿಟ್ಟು ಸಿಂಕ್ ಮಾಡಿ</string>
     <string name="updateProfile">ಪ್ರೊಫೈಲ್ ಅಪ್ಡೇಟ್ ಮಾಡಿ</string>
     <string name="response_summary">ಪ್ರತಿಕ್ರಿಯೆ ಸಾರಾಂಶ</string>
     <string name="synced">ಸಿಂಕ್ ಮಾಡಲಾಗಿದೆ</string>
@@ -212,7 +190,6 @@
     <string name="loadingStateDistrict">ರಾಜ್ಯ ಜಿಲ್ಲೆಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ..</string>
     <string name="districtblockloading">ಜಿಲ್ಲಾ  ಬ್ಲಾಕ್ ಗಳು  ಲೋಡ್ ಆಗುತ್ತಿವೆ...</string>
     <string name="districtClusterLoading">ಜಿಲ್ಲಾ ಕ್ಲಸ್ಟರುಗಳು ಲೋಡ್ ಆಗುತ್ತಿವೆ...</string>
-    <string name="districtLeveldataLoadedSchussfully">ಜಿಲ್ಲಾ ಮಟ್ಟದ ಮಾಹಿತಿ ಯಶಸ್ವಿಯಾಗಿ ಸಂಗ್ರಹವಾಗಿದೆ</string>
     <string name="pleaseLoadDataforSelectedState">ಆಯ್ಕೆಮಾಡಿದ ರಾಜ್ಯಕ್ಕಾಗಿ ಜಿಲ್ಲಾ ಡೇಟಾವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
     <string name="downloadDistrcitData">ಗಮನಿಸಿ: ಅಗತ್ಯ ಜಿಲ್ಲೆಯ ಮಾಹಿತಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
     <string name="downloadDistrcitDataNext">ಗಮನಿಸಿ: ಮುಂದಿನ ಹಂತಕ್ಕೆ ಹೋಗಲು ಜಿಲ್ಲಾ ಮಟ್ಟದ ಮಾಹಿತಿಯನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
@@ -246,7 +223,6 @@
     <string name="selectgrade">ತರಗತಿಯನ್ನು ಆರಿಸಿ</string>
     <string name="comment">ನಿಮ್ಮ ಅನಿಸಿಕೆಯನ್ನು ಇಲ್ಲಿ ನೊಂದಾಯಿಸಿ</string>
     <string name="FAQ">ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು</string>
-    <string name="pleaseLoginandcontue">ಲಾಗಿನ್ ಮಾಡಿ ಮುಂದುವರೆಯಿರಿ</string>
     <string name="PleaseSelectGrade">ದಯವಿಟ್ಟು ತರಗತಿಯನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="reportsnotavailableforthissurveys">ರಿಪೋರ್ಟ್ ಈ ಸಮೀಕ್ಷೆಗೆ ಲಭ್ಯ ವಿರುವುದಿಲ್ಲ</string>
 
@@ -268,7 +244,7 @@
     <string name="answer5">ಕಿಟ್ ಬಳಕೆಗೆ ಸಂಬಂಧಿಸಿದ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳಿಗೆ \'ಇಲ್ಲ\' ಎಂದು ಉತ್ತರಿಸಿ. ಕಿಟ್ ಸ್ಥಿತಿಯನ್ನು ಕಾಮೆಂಟ್ ಸೆಕ್ಷನ್ ನಲ್ಲಿ ತಿಳಿಸಿ ಮತ್ತು ಅದರ ಚಿತ್ರವನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
 
     <string name="question6">CRA ವಿಧಾನದ ಪ್ರಾತಿನಿಧ್ಯಾತ್ಮಕ ಹಂತವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಲು ಶಾಲೆಯಲ್ಲಿ ವಿದ್ಯಾರ್ಥಿಗಳ ಬಳಿ ಚೌಕಳಿ ಪುಸ್ತಕಗಳಿಲ್ಲ. ಏನು ಮಾಡಬಹುದು?</string>
-    <string name="answer6">ಶಾಲಾ ತರಗತಿಯ ಕೊಠಡಿಯಲ್ಲಿ ಅಡ್ಡ ಗೋಡೆಯ ಮೇಲೆ ಇರುವ ಮಕ್ಕಳ ಕಪ್ಪು ಹಲಗೆಯನ್ನು ಬಳಸಿ ಅದರಲ್ಲಿ ಚೌಕಳಿ ಪೆಟ್ಟಿಗಳನ್ನು ಚಿತ್ರಿಸಿರಿ. (ಎರಡು 9 ಪಟ್ಟಿಗೆಗಳು ಒಂದರ ಕೆಳಗೆ ಇನ್ನೊಂದು ಚಿತ್ರಿಸಿ) </string>
+    <string name="answer6">ಶಾಲಾ ತರಗತಿಯ ಕೊಠಡಿಯಲ್ಲಿ ಅಡ್ಡ ಗೋಡೆಯ ಮೇಲೆ ಇರುವ ಮಕ್ಕಳ ಕಪ್ಪು ಹಲಗೆಯನ್ನು ಬಳಸಿ ಅದರಲ್ಲಿ ಚೌಕಳಿ ಪೆಟ್ಟಿಗಳನ್ನು ಚಿತ್ರಿಸಿರಿ. (ಎರಡು 9 ಪಟ್ಟಿಗೆಗಳು ಒಂದರ ಕೆಳಗೆ ಇನ್ನೊಂದು ಚಿತ್ರಿಸಿ)</string>
 
     <string name="question7">ಕೆಲವು ಶಿಕ್ಷಕರು ಕೆಲವೊಂದು ಕಲಿಕೋಪಕಾರಣಗಳನ್ನು ಅವರಾಗಿ ತಯಾರಿಸಿದ್ದಾನರೆ ಮತ್ತು ಅದನ್ನು ತರಗತಿಯಲ್ಲಿ ಮಕ್ಕಳಿಗೆ ಕಲಿಸಲು ಬಳಸುತ್ತಿದ್ದಾರೆ? ವರದಿಯಲ್ಲಿ ಏನು ಬರೆಯಬೇಕು?</string>
     <string name="answer7">ಹೌದು. ಶಿಕ್ಷಕರಿಗೆ ಗಣಿತ ವಿಷಯವನ್ನು ಕಲಿಸಲು ಸುಲಭವಾದರೆ ಅವರು ತಮ್ಮ ಸ್ವಂತ ಕಲಿಕೋಪಕಾರಣಗಳನ್ನು ಬಳಸಲು ಅನುಮತಿ ಇದೆ. ನೀವು ಆ ವಿಷಯದ ಬಗ್ಗೆ ಕೆಲವು ಪ್ರಶ್ನೆಗಳನ್ನು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಕೇಳುವ ಮೂಲಕ ಅದನ್ನು ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತದೆ</string>
@@ -280,22 +256,39 @@
     <string name="answer9">ಈ ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಗಳು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲದಿದ್ದರೆ, ದಯವಿಟ್ಟು ಸಿ ರ್ ಪಿ  / ಅಕ್ಷರ ಸಿಬ್ಬಂದಿ ಯವರಿಗೆ ಪ್ರಶ್ನೆಯನ್ನು ನಿರ್ದೇಶಿಸಿ</string>
     <string name="question10">ಕನ್ನಡದಲ್ಲಿ ಕಾಮೆಂಟ್ ಗಳನ್ನು ಟೈಪ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲಾ.</string>
     <string name="answer10">ಕನ್ನಡ ಅಕ್ಷರಗಳನ್ನು ಟೈಪ್ ಮಾಡಲು ಅನುಮತಿಸುವ ಕೀಬೋರ್ಡ್ ನಿಮ್ಮ ಫೋನ್ ನಲ್ಲಿ ಬಳಸಿ</string>
+
     <string name="question11">ಕಾಮೆಂಟ್ ಪದಗಳು / ಅಕ್ಷರಗಳ ಮಿತಿ ಏನು?</string>
     <string name="answer11">500 ಕ್ಕೂ ಹೆಚ್ಚು ಪದಗಳಿಲ್ಲ</string>
     <string name="question12">ಫೋಟೋಗಳ ಬದಲಾಗಿ ನಾನು ವೀಡಿಯೊಗಳನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಬಹುದೇ?</string>
     <string name="answer12">ನಾವು ಪ್ರಸ್ತುತ ವರ್ಷದಲ್ಲಿ ಈ ಸೌಲಭ್ಯವನ್ನು ತಯಾರಿಸಿಲ್ಲ. ಮುಂದಿನ ಶೈಕ್ಷಣಿಕ ವರ್ಷದಿಂದ ನಾವು ಈ ಸೌಲಭ್ಯವನ್ನು ಪರಿಚಯಿಸುತ್ತೇವೆ.</string>
     <string name="question13">ನಾನು ಪ್ರತಿದಿನ ಶಾಲಾ ಭೇಟಿ ಸಮೀಕ್ಷೆಯನ್ನು ಸಿಂಕ್ ಮಾಡಬೇಕೇ? ಸಿಂಕ್ ಮಾಡುವ ಸಮೀಕ್ಷೆಯ ಆವರ್ತನವೇನು?</string>
     <string name="answer13">ನೀವು ಆನ್ ಲೈನ್ ಇಲ್ಲದಿದ್ದರೆ ಸಮೀಕ್ಷೆಯನ್ನು ಸಿಂಕ್ ಮಾಡುವ ಅಗತ್ಯವಿಲ್ಲ. ಸಿಂಕ್ ಮಾಡುವುದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಂಭವಿಸುತ್ತದೆ</string>
-    <string name="question14">ನಾನು ಇಲ್ಲಿಯವರೆಗೆ ಮಾಡಿದ ಶಾಲಾ ಭೇಟಿಯ ಸಮೀಕ್ಷೆಗಳ ಬಗ್ಗೆ ನನಗೆ ಹೇಗೆ ಗೊಟ್ಟಾಗುತ್ತದೆ?</string>
+
+    <string name="question14">ನಾನು ಇಲ್ಲಿಯವರೆಗೆ ಮಾಡಿದ ತರಗತಿ ಭೇಟಿಯ ಸಮೀಕ್ಷೆಗಳ ಬಗ್ಗೆ ನನಗೆ ಹೇಗೆ ಗೊಟ್ಟಾಗುತ್ತದೆ?</string>
     <string name="answer14">ನೀವು ಅದೇ ಆಪ್ ಅನ್ನು ಬಳಸಿಕೊಂಡು ವರದಿಯನ್ನು ರಚಿಸಬಹುದು</string>
-    <string name="question15">GKA ಶಾಲೆಯ ಭೇಟಿಗಾಗಿ ILP Konnect ಆಪ್ ಅನ್ನು ಯಾರು ಬಳಸಬಹುದು?</string>
-    <string name="answer15">ಸರ್ಕಾರೇತರ ಸಂಸ್ಥೆಯ ಸಿಬ್ಬಂದಿ (ಅಕ್ಷರ ಅಥವಾ ಯಾವುದೇ), ಸ್ವಯಂಸೇವಕರು, ಶಿಕ್ಷಣ ಅಧಿಕಾರಿಗಳು (CRP, BEO, DIET, SSA, DSERT, EO, BRP, HMs ಇತ್ಯಾದಿ)</string>
-    <string name="question16">ಈ \'ಜಿಕೆಎ ಶಾಲೆಯ ಭೇಟಿ\' ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಶಿಕ್ಷಕರು ಬಳಸಬಹುದೇ?</string>
-    <string name="answer16">ಶಿಕ್ಷಕರು GKA ಶಾಲಾ ಭೇಟಿಯ ಆಪ್ ನ್ನು ಬಳಸುವಂತಿಲ್ಲ. ಆದರೆ ಶಿಕ್ಷಕರು ತಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಸಲಹೆಗಳನ್ನು / ನಾವೀನ್ಯತೆಗಳನ್ನು ಒದಗಿಸಲು ಪ್ರತ್ಯೇಕ ಅಪ್ಲಿಕೇಶನ್ ಇದೆ. ನೀವು ಶಿಕ್ಷಕರಾಗಿ ದಾಖಲಾತು ಮಾಡಿದ್ದರೆ, ಈ ಆಪ್ ಉಪಯೋಗಿಸಬಹುದು </string>
+    <string name="question15">GKA ತರಗತಿ ಭೇಟಿಗಾಗಿ ILP Konnect ಆಪ್ ಅನ್ನು ಯಾರು ಬಳಸಬಹುದು?</string>
+    <string name="answer15">ಸರ್ಕಾರೇತರ ಸಂಸ್ಥೆಯ ಸಿಬ್ಬಂದಿ (ಅಕ್ಷರ ಅಥವಾ ಯಾವುದೇ), ಸ್ವಯಂಸೇವಕರು, ಶಿಕ್ಷಣ ಅಧಿಕಾರಿಗಳು (CRP, BEO, DIET, SSA, DSERT, EO, BRP, HMs ಇತ್ಯಾದಿ</string>
+    <string name="question16">ಈ \'ಜಿಕೆಎ ತರಗತಿ ಭೇಟಿ\' ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಶಿಕ್ಷಕರು ಬಳಸಬಹುದೇ?</string>
+    <string name="answer16">ಶಿಕ್ಷಕರು GKA ತರಗತಿ ಭೇಟಿಯ ಆಪ್ ನ್ನು ಬಳಸುವಂತಿಲ್ಲ. ಆದರೆ ಶಿಕ್ಷಕರು ತಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಸಲಹೆಗಳನ್ನು / ನಾವೀನ್ಯತೆಗಳನ್ನು ಒದಗಿಸಲು ಪ್ರತ್ಯೇಕ ಅಪ್ಲಿಕೇಶನ್ ಇದೆ. ನೀವು ಶಿಕ್ಷಕರಾಗಿ ದಾಖಲಾತು ಮಾಡಿದ್ದರೆ, ಈ ಆಪ್ ಉಪಯೋಗಿಸಬಹುದು</string>
+
     <string name="selectoption">ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ</string>
     <string name="surveynotavailable">ಸಮೀಕ್ಷೆ ಲಭ್ಯವಿಲ್ಲ</string>
+
     <string name="question17">ಶಿಕ್ಷಕರು ಜಿಕೆಎ ಕಿಟ್ ನಲ್ಲಿ ಸಲಹೆಗಳನ್ನು ಅಥವಾ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡುತ್ತಿದ್ದಾರೆ. ನಾನು ಅದರ ಬಗ್ಗೆ ಏನು ಮಾಡಬೇಕು?</string>
     <string name="answer17">ದಯವಿಟ್ಟು ಈ ಸಲಹೆಗಳನ್ನು ಕಾಮೆಂಟ್ ನಲ್ಲಿ ಬರೆಯಿರಿ ಮತ್ತು ಮೌಲ್ಯಯುತವಾದ ಸಲಹೆಗಳನ್ನು ನೀಡುವ ಶಿಕ್ಷಕನ/ಶಿಕ್ಷಕಿಯರ ಚಿತ್ರವನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ</string>
+
+    <string name="question18">ಸಂಕ್ಷಿಪ್ತ ವರದಿಯ ಉಪಯೋಗವೇನು?</string>
+    <string name="answer18">ಸಂಕ್ಷಿಪ್ತ ವರದಿ ಆಯ್ಕೆ ಮಾಡಿದ ದಿನಾಂಕದ ಸಮೀಕ್ಷೆಯ ಲೆಕ್ಕಾಚಾರವನ್ನು ನೀಡುತ್ತದೆ. ಹಾಗೂ ಸಿಂಕ್ ಆಗದೆ ಇರುವ ಸಮೀಕ್ಷೆಯ ಎಣಿಕೆಯನ್ನೂ ನೀಡುತ್ತದೆ.</string>
+    <string name="question19">ನನಗೆ ಬ್ಲಾಕ್ ನ್ನು ಬದಲಿಸಬೇಕು</string>
+    <string name="answer19">ಸಮೀಕ್ಷೆ ಆಯ್ಕೆ ಮಾಡುವ ಸ್ಕ್ರೀನ್ ಗೆ ಹೋಗಿ ಬಲ ಬದಿಯ ಮೇಲುಗಡೆಯ ಕೋಣೆ ಯಲ್ಲಿರುವ : ಚಿನ್ನ್ಹೆಯನ್ನು ಒತ್ತಿರಿ. \'ಡೌನ್ಲೋಡ್ ಜಿಲ್ಲೆ - ಬ್ಲಾಕ್\' ಆಯ್ಕೆ ಮಾಡಿ</string>
+    <string name="question20">ನನಗೆ ಬ್ಲಾಕ್ ನ್ನು ಬದಲಿಸಬೇಕು</string>
+    <string name="answer20">ಸಮೀಕ್ಷೆ ಆಯ್ಕೆ ಮಾಡುವ ಸ್ಕ್ರೀನ್ ಗೆ ಹೋಗಿ ಬಲ ಬದಿಯ ಮೇಲುಗಡೆಯ ಕೋಣೆ ಯಲ್ಲಿರುವ : ಚಿನ್ನ್ಹೆಯನ್ನು ಒತ್ತಿರಿ. \'ಡೌನ್ಲೋಡ್ ಜಿಲ್ಲೆ - ಬ್ಲಾಕ್\' ಆಯ್ಕೆ ಮಾಡಿ</string>
+
+
+
+
+
+
     <string name="grade">-- ತರಗತಿಯನ್ನು ಆರಿಸಿ --</string>
     <string name="reportsNotgenerated">ವರದಿ ಉತ್ಪಾದನಾ  ಸೌಲಭ್ಯ ಪ್ರಸ್ತುತವಾಗಿ  ದೊರಕುವುದಿಲ್ಲ</string>
     <string name="reportNotAvailable">ಆಯ್ಕೆ ಮಾಡಿದ ದಿನಾಂಕಕ್ಕೆ ವರದಿಗಳು  ಲಭ್ಯವಿಲ್ಲ.</string>

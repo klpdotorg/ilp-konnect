@@ -32,6 +32,7 @@ import in.org.klp.ilpkonnect.ClusterPojos.ClusterDetailPojo;
 import in.org.klp.ilpkonnect.DistrictPojos.DistrictPojos;
 import in.org.klp.ilpkonnect.Errorpack.ForgotOTPError;
 import in.org.klp.ilpkonnect.Errorpack.InvalidOTp;
+import in.org.klp.ilpkonnect.InterfacesPack.RestPasswordStateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.SchoolStateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterfaceSync;
@@ -358,8 +359,6 @@ public class ProNetworkSettup {
             @Override
             public void onResponse(Call<UserRolesPojos> call, Response<UserRolesPojos> response) {
 
-                JSONObject jsonObject;
-                String stringJsonData;
                 if (response.code() == 200 && response.isSuccessful()) {
 
 
@@ -425,6 +424,17 @@ public class ProNetworkSettup {
                 state.setStatekey(stateCode);
                 state.setLangName(jsonObject.body().getResults().get(i).getLangName());
                 state.setLangKey(jsonObject.body().getResults().get(i).getLangKey());
+              /*  if(jsonObject.body().getResults().get(i).getLangKey().equals("ap"))
+                {
+                    state.setLangKey("te");
+                }
+               else if(jsonObject.body().getResults().get(i).getLangKey().equals("gj"))
+                {
+                    state.setLangKey("gu");
+                }
+                else {
+                    state.setLangKey(jsonObject.body().getResults().get(i).getLangKey());
+                }*/
                 db.insertNew(state);
 
                 //loading user roles
@@ -861,12 +871,12 @@ public class ProNetworkSettup {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed) + "00" + e.getMessage());
+                        stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed));
                     }
 
                 } else {
 
-                    stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed) + response.code());
+                    stateInterface.failed(context.getResources().getString(R.string.profileUpdationFailed) );
 
                 }
 
@@ -1107,8 +1117,14 @@ public class ProNetworkSettup {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 String message = context.getResources().getString(R.string.invalidOTP);
-                if (response.isSuccessful()) {
-                    stateInterface.success("success");
+                if (response.isSuccessful() && response.code() == 200) {
+                    try {
+                        stateInterface.success(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                    ;
                 } else if (response.code() == 404) {
                     //invalid otp
                     Gson gson = new Gson();
@@ -1136,14 +1152,14 @@ public class ProNetworkSettup {
     }
 
 
-    public void forgotPasswordGenerateOtp(String mobilenumber, String stateKey, boolean fromFlag,final StateInterface stateInterface) {
+    public void forgotPasswordGenerateOtp(String mobilenumber, String stateKey, boolean fromFlag, final StateInterface stateInterface) {
         //if fromFlag=false then resend
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ForgotPassswordOtpPojo> call=null;
-        if(fromFlag) {
+        Call<ForgotPassswordOtpPojo> call = null;
+        if (fromFlag) {
             call = apiInterface.generateOtpForForgotPassword(mobilenumber, stateKey);
-        }else {
-            call = apiInterface.generateOtpForForgotPasswordResend(mobilenumber, stateKey,"resend");
+        } else {
+            call = apiInterface.generateOtpForForgotPasswordResend(mobilenumber, stateKey, "resend");
         }
         call.enqueue(new Callback<ForgotPassswordOtpPojo>() {
             @Override
@@ -1180,14 +1196,14 @@ public class ProNetworkSettup {
     }
 
 
-    public void forgotPasswordResetWithOTP(String mobile, String otp, String newPassword, String stateKey, final StateInterface stateInterface) {
+    public void forgotPasswordResetWithOTP(String mobile, String otp, String newPassword, String stateKey, final RestPasswordStateInterface stateInterface) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         apiInterface.forgotPasswordResetWithOTP(mobile, otp, newPassword, stateKey).enqueue(new Callback<ResetPasswordPojo>() {
             @Override
             public void onResponse(Call<ResetPasswordPojo> call, Response<ResetPasswordPojo> response) {
 
                 if (response.isSuccessful() && response.code() == 200) {
-                    stateInterface.success(response.body().getSuccess());
+                    stateInterface.success(response.body());
 
                 } else if (response.code() == 404) {
                     Gson gson = new Gson();
@@ -1589,7 +1605,7 @@ public class ProNetworkSettup {
     }
 
 
-    public void SyncData(String data, final String header, final  int countloop, final int size, final ArrayList<JSONObject> jsondata, final StateInterfaceSync stateInterface) {
+    public void SyncData(String data, final String header, final int countloop, final int size, final ArrayList<JSONObject> jsondata, final StateInterfaceSync stateInterface) {
 
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), data);
@@ -1609,21 +1625,21 @@ public class ProNetworkSettup {
                         e.printStackTrace();
                     }
 
-                   parseSyncData(respJson);
+                    parseSyncData(respJson);
 
-                        stateInterface.update(countloop+1,"");
-                        if(size>countloop&&size!=countloop+1) {
+                    stateInterface.update(countloop + 1, "");
+                    if (size > countloop && size != countloop + 1) {
 
-                            SyncData(jsondata.get(countloop+1).toString(),header,countloop+1,size,jsondata ,stateInterface);
-                        }else {
-                            stateInterface.success(context.getString(R.string.dataAlreadynSync));
-                        }
+                        SyncData(jsondata.get(countloop + 1).toString(), header, countloop + 1, size, jsondata, stateInterface);
+                    } else {
+                        stateInterface.success(context.getString(R.string.dataAlreadynSync));
+                    }
 
-                  //Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
                 } else {
 
-                   // if(countloop==size) {
-                        stateInterface.failed(context.getResources().getString(R.string.syncFailed)+":"+response.code());
+                    // if(countloop==size) {
+                    stateInterface.failed(context.getResources().getString(R.string.syncFailed) );
                     //}
                 }
 
@@ -1632,7 +1648,7 @@ public class ProNetworkSettup {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-              //  Log.d("Shri","failure---------------------------------");
+                //  Log.d("Shri","failure---------------------------------");
                 stateInterface.failed(getFailureMessage(t));
 
             }

@@ -1,12 +1,19 @@
 package in.org.klp.ilpkonnect;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,7 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
@@ -58,6 +65,7 @@ public class LoginActivity extends BaseActivity {
     private ProgressDialog progressDialog = null;
     KontactDatabase db;
     int flag = 0;
+    final static int PERMISSION_REQUEST_CODE = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +80,11 @@ public class LoginActivity extends BaseActivity {
         DatabaseCopyHelper dbCopyHelper = new DatabaseCopyHelper(this);
         SQLiteDatabase dbCopy = dbCopyHelper.getReadableDatabase();
         db = ((KLPApplication) getApplicationContext()).getDb();
-
+      //  isStoragePermissionGranted(LoginActivity.this, null);
         this.setTitle(getResources().getString(R.string.app_name));
         Button username_sign_up_button = findViewById(R.id.username_sign_up_button);
+
+
         if (mSession.isLoggedIn() && mSession.isSetupDone()) {
             //  Toast.makeText(getApplicationContext(),"isLogin",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, SurveyTypeActivity.class);
@@ -152,6 +162,32 @@ public class LoginActivity extends BaseActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
+    //For fragments
+    public static boolean isStoragePermissionGranted(Activity activity, Fragment fragment) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.RECEIVE_SMS)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_SMS)
+                            == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                if (fragment == null) {
+                    ActivityCompat.requestPermissions(activity,
+                            new String[]{android.Manifest.permission.RECEIVE_SMS,
+                                    android.Manifest.permission.READ_SMS}, PERMISSION_REQUEST_CODE);
+                } else {
+                    fragment.requestPermissions(
+                            new String[]{android.Manifest.permission.RECEIVE_SMS,
+                                    Manifest.permission.READ_SMS}, PERMISSION_REQUEST_CODE);
+                }
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
     private void attemptLogin() {
 
         // Reset errors.
@@ -305,6 +341,23 @@ public class LoginActivity extends BaseActivity {
     }
 
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+
+                Intent intent = new Intent(getApplicationContext(), LanguageSelectionActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     protected void finishLogin(final String userInfo, String stateKey, final String token) {
         //parse the userInfo String
 
@@ -410,23 +463,6 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-
-                Intent intent = new Intent(getApplicationContext(), LanguageSelectionActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     private void subscribetoTopicsForNotification(String state, String stateUserType) {
 
         try {
@@ -449,20 +485,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
-     try {
-         Bundle signUpResult = new Bundle();
-         signUpResult.putString("title", title);
-         signUpResult.putString("result", message);
-         signUpResult.putString("buttonText", buttonText);
+        try {
+            Bundle signUpResult = new Bundle();
+            signUpResult.putString("title", title);
+            signUpResult.putString("result", message);
+            signUpResult.putString("buttonText", buttonText);
 
-         SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
-         resultDialog.setArguments(signUpResult);
-         resultDialog.setCancelable(false);
-         resultDialog.show(getSupportFragmentManager(), "Registration result");
-     }catch (Exception e)
-     {
+            SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
+            resultDialog.setArguments(signUpResult);
+            resultDialog.setCancelable(false);
+            resultDialog.show(getSupportFragmentManager(), "Registration result");
+        } catch (Exception e) {
 
-     }
+        }
     }
 
 

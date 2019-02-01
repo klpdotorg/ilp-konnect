@@ -4,16 +4,13 @@
     <string name="response_positive">ହଁ</string>
     <string name="response_negative">ନା</string>
 
-    <string name="action_settings">ସେଟିଙ୍ଗସ୍</string>
     <string name="action_logout">ଲଗ୍ ଆଉଟ୍</string>
-    <string name="action_refresh">ରିଫ୍ରେଶ</string>
     <string name="reports">ପ୍ରଶ୍ନ ଅନୁଭାଗ କୁ ନିଅ!</string>
 
     <!-- Strings related to Boundary selection -->
     <string name="district">ଜିଲା</string>
     <string name="block">ବ୍ଲକ</string>
     <string name="cluster">କ୍ଲଷ୍ଟର</string>
-    <string name="school">ସ୍କୁଲ</string>
     <string name="prompt_district">ଜିଲ୍ଲା ବାଛନ୍ତୁ</string>
     <string name="prompt_block">ବ୍ଲକ ବାଛନ୍ତୁ</string>
     <string name="prompt_cluster">କ୍ଲଷ୍ଟର ବାଛନ୍ତୁ</string>
@@ -24,7 +21,6 @@
 
     <string name="register">ରେଜିଷ୍ଟର</string>
     <string name="login">ଲଗ୍ ଇନ୍</string>
-    <string name="changePassword">ପାସୱାର୍ଡ୍ ବଦଳ</string>
     <string name="forgotPassword">ପାସୱାର୍ଡ୍ ଭୁଲି ଗଲେ କି?</string>
     <string name="confirmPassword">ପାସୱାର୍ଡ୍ ସୁନିଶ୍ଚିତ କରନ୍ତୁ</string>
     <string name="action_sign_in_short">ଲଗ୍ ଇନ୍</string>
@@ -46,10 +42,8 @@
     <string name="first_name"> ପ୍ରଥମ ନାମ</string>
     <string name="last_name">ଶେଷ ନାମ</string>
     <string name="mobile_number">ମୋବାଇଲ ନ.</string>
-    <string name="action_register">ରେଜିଷ୍ଟର</string>
     <!-- survey activity strings -->
     <string name="new_response">ନୂତନ ସର୍ବେକ୍ଷଣ+</string>
-    <string name="generate_report">ସର୍ବେକ୍ଷଣ ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ</string>
     <!--Story list activity-->
     <string name="meta_medium">ସର୍ବମୋଟ ଉତ୍ତର: %1$s</string>
     <!--<string name="meta_small">Created by %1$s on %2$s</string>-->
@@ -101,14 +95,8 @@
     <string name="numberOfSchools">ସ୍କୁଲ ସଂଖ୍ୟା</string>
     <string name="numberOfSchoolsWithRespo">ଅନୁକ୍ରିୟା ମିଳିଥିବା ସ୍କୁଲ ସଂଖ୍ୟା</string>
     <string name="numberOfRespo">ସର୍ବମୋଟ ସର୍ବେକ୍ଷଣମାନ</string>
-    <string name="updateSurveys">ସର୍ବେକ୍ଷଣ ଅଦ୍ୟତନ କରନ୍ତୁ</string>
-    <string name="sync">ସିଂକ୍ରୋନାଇଜ୍</string>
-    <string name="uploadingStories">ବୃତ୍ତାନ୍ତମାନ ଅପଲୋଡ୍ ଚାଲିଛି</string>
     <string name="downloadingSurvey"> ସର୍ବେକ୍ଷଣ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି </string>
-    <string name="downloadingQuestion"> ପ୍ରଶ୍ନ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି </string>
-    <string name="downloadingQuestionGroup"> ପ୍ରଶ୍ନ ସମୂହ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି </string>
     <string name="survey"> ସର୍ବେକ୍ଷଣ </string>
-    <string name="updateSurvey">ସର୍ବେକ୍ଷଣ ଅଦ୍ୟତନ କରନ୍ତୁ</string>
     <string name="settings">ଆପଣଙ୍କ ଭାଷା ବାଛନ୍ତୁ</string>
     <string name="next">ପରବର୍ତ୍ତୀ</string>
     <string name="surveyType">ସର୍ବେକ୍ଷଣର ପ୍ରକାର</string>
@@ -130,25 +118,19 @@
     <string name="selectReportLevel">ରିପୋର୍ଟ ଲେବେଲ ବାଛନ୍ତୁ</string>
     <string name="new_Password">ନୂଆ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
     <string name="loadSurveyImage"><u>ସର୍ବେକ୍ଷଣ ଫଟୋ ଲୋଡ କରନ୍ତୁ</u></string>
-    <string name="loadSurveyImage_">ସର୍ବେକ୍ଷଣ ଫଟୋ ଲୋଡ କରନ୍ତୁ</string>
     <string name="dob">ଜନ୍ମ ତାରିଖ (ଦିନ-ମାସ- ବର୍ଷ)</string>
     <string name="schools">ସ୍କୁଲ </string>
     <string name="pleaseSelectrespondanttype">ପ୍ରତିବାଦୀଙ୍କ ପ୍ରକାର ବାଛନ୍ତୁ</string>
     <string name="doesnotmatcherwithpass">ଏହି ଫିଲ୍ଡଟି ନିହାତି ଜ଼ରୁରୀ ଏବଂ ଏହା ପାସୱାର୍ଡ୍ ସହ ସମାନ ହେବା ଦରକାର </string>
     <string name="signupsuccess">ଆପଣ ସଫଳତାର ସହ ସାଇନ୍ଅପ୍ କରି ପାରିଛନ୍ତି | ଏବେ ଲଗ୍ ଇନ୍ କରନ୍ତୁ</string>
-    <string name="signupfail">ଅସଫଳ!!!</string>
     <string name="pleaseSelectsurveyLanguage">ରାଜ୍ୟ ଏବଂ ଭାଷା ବାଛନ୍ତୁ</string>
     <string name="loading">ଲୋଡ୍ ଚାଲିଛି...</string>
     <string name="dataAlreadynSyn">ଡାଟା ସ୍ବତଃ - ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ସାରିଛି |</string>
-    <string name="doyouwant">ରିପୋର୍ଟ ଡାଉନଲୋଡ଼ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
     <string name="nooserveyimage">ସର୍ବେକ୍ଷଣ ଫଟୋ ମିଳିଲା ନାହିଁ</string>
     <string name="failed">ଅସଫଳ!!!</string>
     <string name="syncTitle">ସିଂକ୍ରୋନାଇଜ୍</string>
     <string name="downloadingsurveypleasewait">ବୃତ୍ତାନ୍ତମାନ ଡାଉନ୍‌ଲୋଡ୍ ଚାଲିଛି | ଦୟା କରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
     <string name="syncing">ସିଂକ୍ରୋନାଇଜ୍ ଚାଲିଛି..</string>
-    <string name="uploaded">ଅପଲୋଡ୍ ସରିଲା</string>
-    <string name="stories">ବୃତ୍ତାନ୍ତମାନ..</string>
-    <string name="uploadingstroespleasewait">ବୃତ୍ତାନ୍ତମାନ ଅପଲୋଡ୍ ଚାଲିଛି | ଦୟା କରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
     <string name="uploading"> ଅପଲୋଡ୍ ଚାଲିଛି </string>
     <string name="uploadingstorw">ଡାଟା ଲୋଡ୍ ଚାଲିଛି...</string>
     <string name="upload">ଅପଲୋଡ୍</string>
@@ -156,8 +138,6 @@
     <string name="datasync">ଡାଟା ସିଂକ୍ରୋନାଇଜ୍..</string>
     <string name="surveysyncsucc">ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ ସଫଳ:</string>
     <string name="surveysyncfail">ସର୍ବେକ୍ଷଣ ସିଂକ୍ରୋନାଇଜ୍ ଅସଫଳ:</string>
-    <string name="question"> ପ୍ରଶ୍ନ </string>
-    <string name="questiongroup"> ପ୍ରଶ୍ନ ସମୂହ </string>
     <string name="resettingpassword">ପାସୱାର୍ଡ୍ ରିସେଟ୍ ଚାଲିଛି...</string>
     <string name="overallreport">ସାରାଂଶ ରିପୋର୍ଟ୍</string>
     <string name="pleaseataachsurveyimage">କ୍ଲାସ୍ ରେ ଶିକ୍ଷକ ପଢେଇଲା ବେଳେ କିମ୍ବା ଵିଦ୍ୟାର୍ଥୀମାନେ ଦଳଗତ କାମ କରିଲା ବେଳେ ଫଟୋ ଉଠାନ୍ତୁ</string>
@@ -166,7 +146,6 @@
     <string name="cancel">କ୍ୟାନସଲ</string>
     <string name="permission">ଅନୁମତି ଜ଼ରୁରୀ</string>
     <string name="externalstorage">ବାହ୍ୟ ଷ୍ଟୋରେଜ୍ ପାଇଁ ଅନୁମତି ଦରକାର</string>
-    <string name="pleaseuploadimage">* ଫଟୋ ଅପଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="pleaseSelectAppropriateImage">ଉପଯୁକ୍ତ ଫଟୋ ଅପଲୋଡ୍ ବାଛନ୍ତୁ</string>
 
 
@@ -176,10 +155,9 @@
     <string name="searchSurveyimage">ସର୍ବେକ୍ଷଣ ଫଟୋ ସନ୍ଧାନ Criteria</string>
     <string name="netWorkError">ନେଟ୍‌ୱାର୍କ୍ ତ୍ରୁଟି...ନିଜର ଇଣ୍ଟର୍ନେଟ୍ ସଂଯୋଗକୁ ଯାଞ୍ଚ କରି ପୁନଃବାର ଚେଷ୍ଟା କରନ୍ତୁ </string>
     <string name="nextbutton">ପରବର୍ତ୍ତୀ</string>
-    <string name="profileUpdated">ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ ସଫଳ ହେଲା | ଲଗ୍ ଇନ୍ କରନ୍ତୁ</string>
     <string name="enterValidDate">ବୈଧ ତାରିଖ ଫର୍ମାଟ୍(DD-MM-YYYY) Enter କରନ୍ତୁ</string>
-    <string name="enteredDateinFuture">ଭବିଷ୍ୟତ ତାରିଖ Enter  କରିପାରିବେ ନାହିଁ</string>
-    <string name="survey_taken"> ସର୍ବେକ୍ଷଣ ନେଇ ସାରିଛନ୍ତି | ଦୟା କରି ଇଣ୍ଟରନେଟ୍ ଜୋନ ରେ ଆସିଲେ ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
+
+    <string name="survey_taken">%1$d ସର୍ବେକ୍ଷଣ ନେଇ ସାରିଛନ୍ତି | ଦୟା କରି ଇଣ୍ଟରନେଟ୍ ଜୋନ ରେ ଆସିଲେ ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
     <string name="updateProfile">ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ</string>
     <string name="response_summary">ସାରାଂଶ ଅନୁକ୍ରିୟା</string>
     <string name="synced">ସିଂକ୍ରୋନାଇଜ୍ ହୋଇଗଲା</string>
@@ -217,7 +195,6 @@
     <string name="loadingStateDistrict">ଜିଲା ଲୋଡ୍ ଚାଲିଛି ...</string>
     <string name="districtblockloading">ଜିଲାର ବ୍ଲକ ଲୋଡ୍ ଚାଲିଛି...</string>
     <string name="districtClusterLoading"> ଜିଲାର କ୍ଲଷ୍ଟର ଲୋଡ୍ ଚାଲିଛି ...</string>
-    <string name="districtLeveldataLoadedSchussfully">ଜିଲା ଡାଟା ଲୋଡ୍ ସଫଳ</string>
     <string name="pleaseLoadDataforSelectedState">ଚୟନ କରାଯାଇଥିବା ରାଜ୍ୟ ପାଇଁ ଡାଟା ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="downloadDistrcitData">ନୋଟ: ଦରକାର ଥିବା ଜିଲାର ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="downloadDistrcitDataNext">ନୋଟ: ଜିଲା ଡାଟା ଡାଉନ୍‌ଲୋଡ୍ କରନ୍ତୁ ପରବର୍ତୀ ନେଭିଗେଟ୍ କରିବା ପାଇଁ </string>
@@ -251,7 +228,6 @@
     <string name="selectgrade">ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ</string>
     <string name="comment">ଆପଣଙ୍କ ମତାମତ ଦିଅନ୍ତୁ </string>
     <string name="FAQ">ଆପଣଙ୍କ ମନରେ ଥିବା ସାଧାରଣ ପ୍ରଶ୍ନ</string>
-    <string name="pleaseLoginandcontue">ଲଗ୍ ଇନ୍ କରି ଆଗକୁ ବଢନ୍ତୁ </string>
     <string name="PleaseSelectGrade">ଶ୍ରେଣୀ ବାଛନ୍ତୁ</string>
     <string name="reportsnotavailableforthissurveys">ଏହି ସର୍ବେକ୍ଷଣ ପାଇଁ ରିପୋର୍ଟ ଉପଲବ୍ଧ ନାହିଁ </string>
 
@@ -263,16 +239,16 @@
     <string name="answer2">ଶ୍ରେଣୀ ଚୟନ କଲାବେଳେ ମଲ୍ଟି- ଗ୍ରେଡ୍ ବାଛିବେ | </string>
 
     <string name="question3">ମୋର ସ୍କୁଲ ଭେଟ ସମୟରେ ଗଣିତ କ୍ଲାସ୍ ଚାଲୁ ନଥିଲା, କିନ୍ତୁ, ଶିକ୍ଷକ ଜଣାଇଲେ ଯେ ସେ GKA TLM  କ୍ଲାସ୍ ରେ ବ୍ୟବହାର କରନ୍ତି | </string>
-    <string name="answer3">ସର୍ବେକ୍ଷଣ ପୁରଣ କଲା ବେଳେ ଲେଖିବେ ଯେ ଆପଣ ଗଣିତ କ୍ଲାସ୍ ଚାଲୁଥିବାର ଦେଖି ନାହାନ୍ତି |ଅନ୍ୟ କୌଣସି ମତାମତ ଦେଲା ବେଳେ ଆପଣ ଲେଖି ପାରନ୍ତି ଯେ ଶିକ୍ଷକ TLM ବ୍ୟବହାର କରନ୍ତି | </string>
+    <string name="answer3">ସର୍ବେକ୍ଷଣ ପୁରଣ କଲା ବେଳେ ଲେଖିବେ ଯେ ଆପଣ ଗଣିତ କ୍ଲାସ୍ ଚାଲୁଥିବାର ଦେଖି ନାହାନ୍ତି | ଅନ୍ୟ କୌଣସି ମତାମତ ଦେଲା ବେଳେ ଆପଣ ଲେଖି ପାରନ୍ତି ଯେ ଶିକ୍ଷକ TLM ବ୍ୟବହାର କରନ୍ତି | </string>
 
     <string name="question4">ଗଣିତ ଶିକ୍ଷକ ଜଣକ ଗଣିତ କଳିକା  ଆନ୍ଦୋଳନ (GKA ) ପ୍ରଶିକ୍ଷଣ ପ୍ରାପ୍ତ କରି ନାହାନ୍ତି | ତାଙ୍କୁ କିପରି ପ୍ରଶିକ୍ଷଣ ଦିଆ  ଯାଇ ପାରିବ? </string>
-    <string name="answer4">ଆପଣ GKA TLM ର ବ୍ୟବହାର  ଉପରେ କ୍ଲାସ୍ ରେ ପ୍ରଦର୍ଶନ କରି ପାରିବେ| ଶିକ୍ଷକ ଓ ବିଦ୍ୟାର୍ଥୀମାନଙ୍କୁ  ଏକା  ସାଙ୍ଗରେ ବୁଝାଇ ପାରିବେ|  </string>
+    <string name="answer4">ଆପଣ GKA TLM ର ବ୍ୟବହାର  ଉପରେ କ୍ଲାସ୍ ରେ ପ୍ରଦର୍ଶନ କରି ପାରିବେ| ଶିକ୍ଷକ ଓ ବିଦ୍ୟାର୍ଥୀମାନଙ୍କୁ  ଏକା  ସାଙ୍ଗରେ ବୁଝାଇ ପାରିବେ| </string>
 
     <string name="question5">GKA ବାକ୍ସଟି ବନ୍ଦ କରି ରଖା ଯାଇଛି ଏବଂ ତାହାର ବ୍ୟବହାର ହେଉ ନାହିଁ | ଏହାକୁ କିପରି ଓ କାହାକୁ ରିପୋର୍ଟ କରିପାରିବି?</string>
     <string name="answer5">ସର୍ବେକ୍ଷଣର ପ୍ରତ୍ୟେକ ପ୍ରଶ୍ନର "ନାଁ" ବୋଲି ଉତ୍ତର ଦେବେ| GKA ବାକ୍ସର ସ୍ଥିତି ଉପରେ ଅନ୍ୟ କୌଣସି ମତାମତ ଦେବେ ଏବଂ ଫୋଟୋ  ଅପଲୋଡ କରିବେ |</string>
 
     <string name="question6">ପିଲାଙ୍କ ଅଭ୍ୟାସ ଲାଗି ସ୍କୁଲ ରେ square-line ଖାତା ନାହିଁ | କଣ କରା ଯାଇ ପାରିବ? </string>
-    <string name="answer6">ପ୍ରଧାନ ଶିକ୍ଷକଙ୍କୁ ପରାମର୍ଶ ଦେବେ ଯେ ପିଲାଙ୍କ ପାଇଁ କାନ୍ଥରେ ରଙ୍ଗ ଦିଆଯାଇଥିବା କଳା ପଟିରେ square-line ଘର ଆଙ୍କି ହେବ| </string>
+    <string name="answer6">ପ୍ରଧାନ ଶିକ୍ଷକଙ୍କୁ ପରାମର୍ଶ ଦେବେ ଯେ ପିଲାଙ୍କ ପାଇଁ କାନ୍ଥରେ ରଙ୍ଗ ଦିଆଯାଇଥିବା କଳା ପଟିରେ square-line ଘର ଆଙ୍କି ହେବ|</string>
     <string name="question7">ଶିକ୍ଷକ ନିଜେ କିଛି TLM ପ୍ରସ୍ତୁତ କରିଛନ୍ତି| ଏହା ପଢେଇଲା ବେଳେ ବ୍ୟବହାର କରା ଯାଇ ପାରିବ କି?</string>
     <string name="answer7">ହଁ| ବାସ୍ତବରେ ତାହା ହିଁ ଗଣିତ କଳିକା ଆନ୍ଦୋଳନର ଉଦ୍ଦେଶ୍ୟ ଯେ ଶିକ୍ଷକମାନେ ନିଜେ TLM ପ୍ରସ୍ତୁତ କରନ୍ତୁ | </string>
 
@@ -280,6 +256,7 @@
     <string name="answer8">GKA TLM ଆଧାର କରି ଅନ୍ୟାନ୍ୟ TLM ପ୍ରସ୍ତୁତ କରିବା ପାଇଁ ଶିକ୍ଷଙ୍କୁ ଉତ୍ସାହିତ କରିବେ |</string>
     <string name="question9">ଶିକ୍ଷକ ମୋତେ ଗଣିତ ଧାରଣା ଓ TLM Kit ର ବ୍ୟବହାର ଉପରେ ଏପରି ଏକ ପ୍ରଶ୍ନ ପଚାରିଲେ ଯାହା ମୁଁ ସଠିକ ଭାବରେ ସଂଶୋଧନ କରି  ପାରିଲି ନାହିଁ | ମୁଁ କିପରି ଶିକ୍ଷକଙ୍କୁ ସହାୟକ ହୋଇ ପାରିବି?</string>
     <string name="answer9">ଆପଣଙ୍କ ପାଖରେ ଯଦି ପୁର୍ଣ ଉତ୍ତର ନାହିଁ ତେବେ ଆପଣ ସେହି ପ୍ରଶ୍ନ ଗୁଡିକୁ ପ୍ରଧାନ ଶିକ୍ଷକ କିମ୍ବା ଅନ୍ୟ CRP କିମ୍ବା Akshara staff ଙ୍କୁ ପଚାରି ପାରିବେ| </string>
+
     <string name="question10">ଓଡ଼ିଆରେ ମତାମତ ଟାଇପ୍  କରି ପାରୁ ନାହିଁ </string>
     <string name="answer10">ଓଡ଼ିଆ ଲିପି ଟାଇପ୍ ହେଇ ପାରୁଥିବା କୀ-ବୋର୍ଡ଼ ବ୍ୟବହାର କରନ୍ତୁ |</string>
 
@@ -288,18 +265,35 @@
 
     <string name="question12">ଫୋଟୋ ପରିବର୍ତେ ମୁଁ ଭିଡିଓ ଅପଲୋଡ କରି ପାରିବି କି?</string>
     <string name="answer12">ଏବେ କେବଳ ଫୋଟୋ ଅପଲୋଡ କରନ୍ତୁ| ଭିଡିଓ ଅପଲୋଡ କରିବାର ସୁବିଧା ଆଗାମୀ ପର୍ସରୁ ଯୋଗାଇ ଦିଆ ଯାଇ ପାରିବ|</string>
+
     <string name="question13">ମୋତେ ସବୁଦିନ ସ୍କୁଲ ସର୍ବେକ୍ଷଣମାନ ସିଂକ୍ରୋନାଇଜ୍ କରିବା ଦରକାର କି? ଏହା କେତେ ଦିନରେ ଥରେ କରିବା ଦରକାର?</string>
-    <string name="answer13">ଯଦି ଆପଣଙ୍କ ଇଣ୍ଟେର୍ନେଟ ଚାଲିଛି ତେବେ ସ୍ବଚାଲିତ ସିଂକ୍ରୋନାଇଜ୍ ହେବ| </string>
+    <string name="answer13">ଯଦି ଆପଣଙ୍କ ଇଣ୍ଟେର୍ନେଟ ଚାଲିଛି ତେବେ ସ୍ବଚାଲିତ ସିଂକ୍ରୋନାଇଜ୍ ହେବ|</string>
+
     <string name="question14">ମୁଁ ରେକର୍ଡ କରିଥିବା ସମସ୍ତ ସର୍ବେକ୍ଷଣମାନ ILP Konnect App ରେ କୋଉଠି ଦେଖି ପାରିବି?</string>
-    <string name="answer14">ILP Konnect ର ରିପୋର୍ଟ ବିଭାଗରେ ଆପଣ ଦେଖି ପାରିବେ| </string>
+    <string name="answer14">ILP Konnect ର ରିପୋର୍ଟ ବିଭାଗରେ ଆପଣ ଦେଖି ପାରିବେ|</string>
+
     <string name="question15">କେଉଁ ମାନେ ILP Konnect app ଟିକୁ ସ୍କୁଲ ଭେଟ ରେକର୍ଡ କରିବା ପାଇଁ ବ୍ୟବହାର କରି ପାରିବେ?</string>
     <string name="answer15">NGO Staff (Akshara or any other), Volunteers, Education officers (CRP, BRP, DIET, BEO etc), HMs</string>
-    <string name="question16">ଶିକ୍ଷକମାନେ LP Konnect app ଟିକୁ ବ୍ୟବହାର କରିପାରିବେ କି? </string>
+    <string name="question16">ଶିକ୍ଷକମାନେ ILP Konnect app ଟିକୁ ବ୍ୟବହାର କରିପାରିବେ କି? </string>
     <string name="answer16">GKA ସ୍କୁଲ ପର୍ଯ୍ୟବେକ୍ଷଣ ଲାଗି କରିପାରିବେ ନାହିଁ| </string>
+
     <string name="selectoption">ଚୟନ କରନ୍ତୁ </string>
     <string name="surveynotavailable">ଏହି ସର୍ବେକ୍ଷଣ ପାଇଁ ରିପୋର୍ଟ ଉପଲବ୍ଧ ନାହିଁ </string>
+
     <string name="question17">ଶିକ୍ଷକମାନେ GKA TLM ଉପରେ ନିଜର ମତାମତ ଓ ପ୍ରତିକ୍ରିୟା ଡେଉଛନ୍ତି | ମୁଁ ଏଠି କଣ କରି ପାରିବି? </string>
-    <string name="answer17">ଏହା ସବୁ ଆପଣ "ଅନ୍ୟ କୌଣସି ମତାମତ" ବିଭାଗରେ ଲେଖନ୍ତୁ ଏବଂ ଯେଉଁ ଶିକ୍ଷକ ମୂଲ୍ୟବାନ ମତାମତ ଦେଉଛନ୍ତି ତାଙ୍କର ପରିଚୟ ମଧ୍ୟ ଲେଖନ୍ତୁ|</string>
+    <string name="answer17">ଏହା ସବୁ ଆପଣ "ଅନ୍ୟ କୌଣସି ମତାମତ" ବିଭାଗରେ ଲେଖନ୍ତୁ ଏବଂ ଯେଉଁ ଶିକ୍ଷକ ମୂଲ୍ୟବାନ ମତାମତ ଦେଉଛନ୍ତି ତାଙ୍କର ପରିଚୟ ମଧ୍ୟ ଲେଖନ୍ତୁ| </string>
+
+    <string name="question18">ୟୁଜର ସାରଣୀ ରିପୋର୍ଟଟି କଣ ସବୁ ସୂଚନା ପ୍ରଦାନ କରେ ?</string>
+    <string name="answer18">କୌଣସି ଦୁଇଟି ତାରିଖ ମଧ୍ୟରେ ୟୁଜର କେତେଟି ସର୍ବେକ୍ଷଣ ଭରିଛନ୍ତି ଏବଂ ତହିଁ ମଧ୍ୟରୁ କେତେଟି ସିଂକ୍ରୋନାଇଜ୍ ହୋଇ ନାହିଁ .</string>
+
+    <string name="question19">ମୁଁ ନିଜର ବ୍ଲକ ବଦଳିବାକୁ ଚାହେଁ</string>
+    <string name="answer19">ସେହି ସ୍କ୍ରିନ ଟିକୁ ଯାଆନ୍ତୁ ଯେଉଁଠି ଆପଣ ସର୍ବେକ୍ଷଣର ପ୍ରକାର ଭରି ଥିଲେ . ଉପରର ଡାହାଣ ପଟେ କ୍ଲିକ କରନ୍ତୁ ଓ "ଡାଉନଲୋଡ଼ ଜିଲ୍ଲା-ବ୍ଲକ" ରେ କ୍ଲିକ କରନ୍ତୁ .</string>
+    <string name="question20">ମୁଁ ଭାଷା ବଦଳିବାକୁ ଚାହେଁ</string>
+    <string name="answer20">ସେହି ସ୍କ୍ରିନ ଟିକୁ ଯାଆନ୍ତୁ ଯେଉଁଠି ଆପଣ ସର୍ବେକ୍ଷଣର ପ୍ରକାର ଭରି ଥିଲେ . ଉପରର ଡାହାଣ ପଟେ କ୍ଲିକ କରନ୍ତୁ ଓ "ଭାଷା ବାଛନ୍ତୁ" ରେ କ୍ଲିକ କରନ୍ତୁ.</string>
+
+
+
+
     <string name="grade">-- ଶ୍ରେଣୀ ଚୟନ କରନ୍ତୁ --</string>
     <string name="reportsNotgenerated">ରିପୋର୍ଟ କାର୍ଯ୍ୟକ୍ଷମତା ଏବେ ଉପଲବ୍ଧ ନାହିଁ </string>
     <string name="reportNotAvailable">ଏହି ତାରିଖ ପାଇଁ ରିପୋର୍ଟ ଉପଲବ୍ଧ ନାହିଁ|</string>
@@ -309,12 +303,12 @@
     <string name="doyouwantuploadPhoto">ଆପଣ ଫଟୋ ଅପଲୋଡ କରିବାକୁ ଚାହାନ୍ତି କି?</string>
     <string name="diseCode">DISE କୋଡ୍: </string>
     <string name="DiseCodeNo">DISE କୋଡ୍ : ଉପଲବ୍ଧ ନାହିଁ</string>
-    <string name="ResendOTP"><![CDATA[<u>Resend OTP</u>]]></string>
-    <string name="ResendOTPMessage">If you have not received the SMS, Please press Resend OTP after the time elapses</string>
-    <string name="resendingOtp">Resending OTP...</string>
-    <string name="update_app_message">Please, update app to new version to continue</string>
+    <string name="ResendOTP"><![CDATA[<u>ଓଟିପିଟି ଆଉଥରେ ପଠାଓ</u>]]></string>
+    <string name="ResendOTPMessage">ଯଦି ତୁମେ ଏସଏମଏସ ପାଇନାହଁ ,ତାହାଲେ ସମୟ ବିତିଲା ପରେ ଦୟାକରି ପଠାଯାଇଥିବା ଓଟିପିକୁ ପ୍ରେସ କର.</string>
+    <string name="resendingOtp">ଆଉଥରେ ଓଟିପି ପଠଉଛି...</string>
+    <string name="update_app_message">ଦୟାକରି ଆପକୁ ଜାରି ରଖିବା ପାଇଁ ନୂଆ ଭର୍ସନ ରେ ଅପଡେଟ କର.</string>
     <string name="update_app_btn">ଅଦ୍ୟତନ କରନ୍ତୁ</string>
-    <string name="update_app_btn_neg">No,Thanks</string>
+    <string name="update_app_btn_neg">ନାହିଁ ଧନ୍ୟବାଦ </string>
 
 
     <string-array name="grade_array">

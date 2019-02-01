@@ -682,7 +682,10 @@ public class ReportsActivity extends BaseActivity {
 
                 showSignupResultDialog(
                         getResources().getString(R.string.app_name),
-                        getResources().getString(R.string.noInternetCon) + ",\n" + sync.getStoriesCount() + " " + getResources().getString(R.string.survey_taken),
+                        getResources().getString(R.string.noInternetCon) + ",\n"  +  String.format(
+                                getString(R.string.survey_taken),
+                                sync.getStoriesCount()
+                        ),
                         getResources().getString(R.string.Ok));
 
             } else {

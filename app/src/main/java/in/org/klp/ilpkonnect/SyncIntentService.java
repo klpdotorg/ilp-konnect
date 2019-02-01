@@ -191,7 +191,7 @@ public class SyncIntentService extends IntentService {
     private ArrayList<Integer> processUploadResponse(JSONObject response) {
         int failedCount = 0, successCount = 0;
         try {
-            Log.d(this.toString(), response.toString());
+         //   Log.d(this.toString(), response.toString());
             // TODO: show error
             String error = response.optString("error");
 
@@ -199,7 +199,7 @@ public class SyncIntentService extends IntentService {
                 //    Toast.makeText(MainDashList.this, error, Toast.LENGTH_LONG).show();
             } else {
                 JSONObject success = response.getJSONObject("success");
-                Log.d("shri", success.toString());
+              //  Log.d("shri", success.toString());
                 Iterator<String> keys = success.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();

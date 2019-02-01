@@ -159,14 +159,12 @@ public class LanguageSelectionActivity extends BaseActivity {
                             Intent intent = new Intent(new Intent(getApplicationContext(), LoginActivity.class));
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                                 System.exit(0);
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
 
-                            }
-
-                            else{
+                            } else {
                                 finish();
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                             }
@@ -179,10 +177,6 @@ public class LanguageSelectionActivity extends BaseActivity {
                             showSignupResultDialog(getResources().getString(R.string.app_name), message, getResources().getString(R.string.Ok));
                         }
                     });
-
-
-
-
 
 
                 } else {
@@ -326,8 +320,7 @@ public class LanguageSelectionActivity extends BaseActivity {
             resultDialog.setArguments(signUpResult);
             resultDialog.setCancelable(false);
             resultDialog.show(getSupportFragmentManager(), "Registration result");
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }

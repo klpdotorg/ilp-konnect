@@ -44,6 +44,7 @@ public class SplashScreen extends BaseActivity {
     private SessionManager mSession;
     ProgressDialog dailog;
     Button btnInternt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class SplashScreen extends BaseActivity {
         DatabaseCopyHelper dbCopyHelper = new DatabaseCopyHelper(this);
         SQLiteDatabase dbCopy = dbCopyHelper.getReadableDatabase();
         db = ((KLPApplication) getApplicationContext()).getDb();
-        btnInternt= findViewById(R.id.btnInternt);
+        btnInternt = findViewById(R.id.btnInternt);
         dailog = ProgressUtil.showProgress(SplashScreen.this, getResources().getString(R.string.authenticating));
 
 
@@ -67,16 +68,15 @@ public class SplashScreen extends BaseActivity {
 
         if (mSession.isLoggedIn()) {
             //langauge screen
-            if(getStateCount()==0) {
-               loadStateDeatil();
-            }else {
-                if(mSession.isLoggedIn()&&  mSession.isSetupDone()) {
+            if (getStateCount() == 0) {
+                loadStateDeatil();
+            } else {
+                if (mSession.isLoggedIn() && mSession.isSetupDone()) {
                     Intent intent = new Intent(getApplicationContext(), SurveyTypeActivity.class);
                     startActivity(intent);
                     finish();
                     overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                }
-                else {
+                } else {
                     Intent intent = new Intent(SplashScreen.this, TempLoading.class);
                     startActivity(intent);
                     finish();
@@ -122,14 +122,12 @@ public class SplashScreen extends BaseActivity {
             public void failed(String message) {
 
                 dailog.dismiss();
-                if(AppStatus.isConnected(getApplicationContext())) {
+                if (AppStatus.isConnected(getApplicationContext())) {
                     DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
                     btnInternt.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
-                btnInternt.setVisibility(View.VISIBLE);
+                } else {
+                    DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                    btnInternt.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -163,8 +161,7 @@ public class SplashScreen extends BaseActivity {
                 return stateCursor.getCount();
             else
                 return 0;
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             return 0;
         }
 

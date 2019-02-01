@@ -29,13 +29,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseIIDService";
 
 
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
 
-        if (remoteMessage.getData()!=null&&remoteMessage.getData().size() > 0) {
-            if(remoteMessage.getData().get("key")!=null) {
+        if (remoteMessage.getData() != null && remoteMessage.getData().size() > 0) {
+            if (remoteMessage.getData().get("key") != null) {
                 showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
             }
 
@@ -43,54 +42,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null&&remoteMessage.getNotification().getBody() != null) {
-            showNotification(getApplicationContext(),remoteMessage.getNotification().getBody(),new Intent());
+        if (remoteMessage.getNotification() != null && remoteMessage.getNotification().getBody() != null) {
+            showNotification(getApplicationContext(), remoteMessage.getNotification().getBody(), new Intent());
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void showNotification(Context context, String body, Intent intent)
-    {
-
+    public void showNotification(Context context, String body, Intent intent) {
 
 
         String channelId = "ILP";
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.ilp_logo)
-                   .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
-                     .setContentText(body)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
+                        .setContentText(body)
                         .setAutoCancel(false)
                         .setSound(defaultSoundUri)
                         .setContentIntent(PendingIntent.getActivity(this,
-                                0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
+                                0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -105,17 +78,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         try {
             notificationManager.notify(getNumber(), notificationBuilder.build());
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
 
-   public int getNumber()
-   {
-       Random random = new Random();
-       return  random.nextInt(9999);
-   }
+    public int getNumber() {
+        Random random = new Random();
+        return random.nextInt(9999);
+    }
 
 
 }

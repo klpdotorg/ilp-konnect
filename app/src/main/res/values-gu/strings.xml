@@ -1,0 +1,315 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="response_neutral">ઠીક છે</string>
+    <string name="response_positive">હા</string>
+    <string name="response_negative">ના/ નહિ</string>
+    <string name="action_logout">લોગઆઉટ</string>
+    <string name="reports">મને રિપોર્ટ્સ પર લઇ જાઓ</string>
+    <!-- Strings related to Boundary selection -->
+    <string name="district">જિલ્લો</string>
+    <string name="block">બ્લોક</string>
+    <string name="cluster">સમૂહ</string>
+    <string name="prompt_district">જિલ્લો પસંદ કરો</string>
+    <string name="prompt_block">બ્લોક પસંદ કરો</string>
+    <string name="prompt_cluster">સમૂહ પસંદ કરો</string>
+    <string name="prompt_school">સ્કુલ પસંદ કરો</string>
+    <string name="prompt_user_type">જવાબ નો પ્રકાર પસંદ કરો</string>
+    <!-- Strings related to login -->
+    <string name="register">રજીસ્ટર કરો</string>
+    <string name="login">લૉગિન</string>
+    <string name="forgotPassword">પાસવર્ડ ભૂલી ગયા?</string>
+    <string name="confirmPassword">પાસવર્ડની ખાતરી  કરો</string>
+    <string name="action_sign_in_short">લૉગિન</string>
+
+    <string name="error_field_required">આ જગ્યા/ફિલ્ડ  જરૂરી છે</string>
+
+    <string name="title_activity_question">પ્રશ્નો</string>
+
+    <!-- Dialog button strings -->
+    <string name="Submit">સબમિટ કરો</string>
+    <string name="Cancel">રદ/કેન્સલ કરો</string>
+    <string name="Ok">બરાબર  છે</string>
+    <string name="Ok_">બરાબર  છે</string>
+
+    <!-- Strings for sign up activity -->
+    <string name="title_activity_forgot_password">પાસવર્ડ ભૂલી ગયા.</string>
+    <string name="prompt_enter_email1_">ઈ-મેલ (વૈકલ્પિક)</string>
+    <string name="prompt_enter_password">પાસવર્ડ</string>
+    <string name="first_name"> પ્રથમ નામ</string>
+    <string name="last_name">છેલ્લું નામ</string>
+    <string name="mobile_number">મોબાઇલ નંબર</string>
+    <!-- survey activity strings -->
+    <string name="new_response">નવો સર્વે +</string>
+    <!--Story list activity-->
+    <string name="meta_medium">કુલ જવાબો: %1$s</string>
+    <!--<string name="meta_small">Created by %1$s on %2$s</string>-->
+    <string name="meta_small">%1$s  %2$s</string>
+    <string name="meta_total">કુલ વાર્તાઓ: %1$d</string>
+    <string name="meta_total_">કુલ વાર્તાઓ:0</string>
+    <string name="meta_daterange">%1$s થી %2$s  સુધી</string>
+    <string name="meta_total_by_user">તમારા દ્વારા કુલ વાર્તાઓ: %1$d</string>
+    <string name="meta_total_by_user_">તમારા દ્વારા કુલ વાર્તાઓ:0</string>
+    <string name="meta_total_by_user_nsy">તમારી વાર્તાઓ સિંક થઇ નથી: %1$d</string>
+    <string name="meta_total_by_user_nsy_">તમારી વાર્તાઓ સિંક થઇ નથી:0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="answer_yes">હા</string>
+    <string name="answer_no">ના/ નહિ</string>
+    <string name="answer_unknown">ખબર નથી</string>
+
+    <string name="prompt_new_rsponse">શું તમે બીજી એક પ્રતિક્રિયા રેકોર્ડ કરવા માંગો છો?</string>
+
+
+    <string name="survey_empty_response_body">* વાર્તા સબમિટ કરવા માટે તમારે એક અથવા વધુ પ્રશ્નોનો જવાબ આપવો જરૂરી  છે.</string>
+
+
+    <!-- Shridhar Dev-->
+    <string name="enter_valid_email_or_Phone">કૃપા કરી માન્ય મોબાઇલ નંબર દાખલ કરો</string>
+    <string name="enter_valid_email">કૃપા કરી માન્ય ઇમેઇલ આઈડી દાખલ કરો</string>
+    <string name="enter_ten_digit_number">કૃપા કરી એક  માન્ય 10 અંકનો ફોન નંબર દાખલ કરો</string>
+
+    <string name="selectState">કૃપા કરીને તમારી સર્વે રાજ્ય ને પસંદ કરો</string>
+    <string name="selectLanguage">કૃપા કરીને એપ્લિકેશન ની ભાષા પસંદ કરો</string>
+
+    <string name="english">English</string>
+
+
+    <array name="reportType">
+        <item>જિલ્લો</item>
+        <item>બ્લોક</item>
+        <item>સમૂહ</item>
+        <item>સ્કૂલ</item>
+
+
+    </array>
+
+
+    <string name="noInternetCon"> ઇન્ટરનેટ કનેક્શન નથી</string>
+
+    <string name="authenticating">પ્રમાણિત કરી રહ્યું છે ...</string>
+    <string name="resetPassword">પાસવર્ડ ફરીથી સેટ કરો</string>
+    <string name="numberOfSchools">સ્કૂલો ની સંખ્યા</string>
+    <string name="numberOfSchoolsWithRespo">સર્વેવાળી  સ્કૂલો ની સંખ્યા</string>
+    <string name="numberOfRespo">સર્વે ની કુલ સંખ્યા</string>
+    <string name="downloadingSurvey"> સર્વે  ડાઉનલોડ કરી રહ્યું છે </string>
+    <string name="survey"> સર્વે  </string>
+    <string name="settings">ભાષા ને પસંદ કરો</string>
+    <string name="next">આગામી/પછી નું</string>
+    <string name="surveyType">તમારા  સર્વે ને  પસંદ કરો</string>
+    <string name="dataAlreadynSync">બધા સર્વેક્ષણો સમન્વયિત કરવામાં આવી છે</string>
+    <string name="summary">યુઝર  સારાંશ</string>
+    <string name="download_survey">સર્વે માટે પ્રશ્નો ડાઉનલોડ કરો</string>
+    <string name="syncSurvey">સર્વે સમન્વય/સિંક કરો</string>
+
+
+    <string name="responseSaved">સર્વે  સફળતાપૂર્વક સેવ થયેલ છે</string>
+    <string name="selectSummaryLevel">સારાંશ નું સ્તર પસંદ કરો</string>
+    <string name="selectReportLevel">રિપોર્ટ નો  સ્તર પસંદ કરો</string>
+    <string name="new_Password">નવો પાસવર્ડ</string>
+    <string name="loadSurveyImage"><u>સર્વે ફોટા લોડ થઇ રહ્યા છે</u></string>
+    <string name="dob">ડીઓબી (ડીડી-એમએમ-વાયવાયવાયવાય)</string>
+    <string name="schools">સ્કૂલો</string>
+    <string name="pleaseSelectrespondanttype">જવાબ નો પ્રકાર પસંદ કરો</string>
+    <string name="doesnotmatcherwithpass">આ ક્ષેત્ર/ફિલ્ડ  આવશ્યક છે અને પાસવર્ડ ફીલ્ડમાં દાખલ કરેલ મૂલ્ય સાથે મેળ ખાય તે જરૂરી  છે</string>
+    <string name="signupsuccess">તમે સફળતાપૂર્વક સાઇન અપ થયા છો. કૃપા કરી લોગીન  કરો.</string>
+    <string name="pleaseSelectsurveyLanguage">કૃપા કરીને તમારું રાજ્ય અને ભાષા પસંદ કરો</string>
+    <string name="loading">લોડ કરી રહ્યું છે ...</string>
+    <string name="dataAlreadynSyn">બધા સર્વેક્ષણો સમન્વયિત કરવામાં આવી છે</string>
+    <string name="nooserveyimage">કોઈ સર્વે ફોટા મળેલ નથી</string>
+    <string name="failed">નિષ્ફળ</string>
+    <string name="syncTitle">સિંક</string>
+    <string name="downloadingsurveypleasewait">વાર્તાઓ  ડાઉનલોડ કરી રહ્યા છીએ. કૃપા કરી રાહ જુઓ .</string>
+    <string name="syncing">સીંકિંગ ..</string>
+    <string name="uploading"> અપલોડ કરી રહ્યું છે </string>
+    <string name="uploadingstorw">ડેટા લોડ કરી રહ્યું છે ..</string>
+    <string name="upload">અપલોડ કરો</string>
+    <string name="downloading"> ડાઉનલોડ કરી રહ્યું છે </string>
+    <string name="datasync">ડેટા સિંક..</string>
+    <string name="surveysyncsucc">સર્વે સફળતાપૂર્વક સિંક:</string>
+    <string name="surveysyncfail">સર્વે સિંક નિષ્ફળ:</string>
+    <string name="resettingpassword">તમારો પાસવર્ડ ફરીથી સેટ કરી રહ્યું છે ...</string>
+    <string name="overallreport">સારાંશ રિપોર્ટ</string>
+    <string name="pleaseataachsurveyimage">જ્યારે શિક્ષક ભણાવતા હોય ત્યારે અથવા વિદ્યાર્થીઓ સમૂહ માં ભણી રહ્યા હોય તેવો વર્ગખંડ નો ફોટો લો.</string>
+    <string name="takephoto">ફોટો લો</string>
+    <string name="choosefromlib">ગેલેરીમાંથી પસંદ કરો</string>
+    <string name="cancel">રદ/કેન્સલ  કરો</string>
+    <string name="permission">પરવાનગી જરૂરી છે</string>
+    <string name="externalstorage">બાહ્ય સંગ્રહ/એક્સટર્નલ સ્ટોરેજ માટે  પરવાનગી જરૂરી  છે</string>
+    <string name="pleaseSelectAppropriateImage">કૃપા કરીને યોગ્ય ફોટો  પસંદ કરો</string>
+
+
+    <string name="bydate">તારીખ દ્વારા</string>
+    <string name="all">બધા</string>
+    <string name="searchSurveyimage">સર્વે ફોટા શોધો ના દ્વારા ?</string>
+    <string name="netWorkError">નેટવર્ક ની ભૂલ .. કૃપા કરીને ઇન્ટરનેટ તપાસો અને ફરી પ્રયાસ કરો</string>
+    <string name="nextbutton">આગામી/પછી નું</string>
+    <string name="enterValidDate">માન્ય તારીખ ફોર્મેટ (ડીડી-એમએમ-વાયવાયવાયવાય) દાખલ કરો</string>
+    <string name="survey_taken">మీరు తీసుకున్న %1$d సర్వే, మీరు ఇంటర్నెట్ ప్రాంతంలో ఉన్నప్పుడు సమకాలీకరించండి</string>
+    <string name="updateProfile">પ્રોફાઇલ અપડેટ કરો</string>
+    <string name="response_summary">પ્રતિભાવ સારાંશ</string>
+    <string name="synced">સમન્વયિત/ સિંક કરવામાં આવ્યું</string>
+    <string name="notSynced">સમન્વયિત નથી/ સિંક કરેલ નથી</string>
+    <string name="noSummarydetail">કોઈ સારાંશ વિગતો મળી નથી</string>
+    <string name="noschoolfound">સ્કૂલો  હાલમાં મળી નથી</string>
+    <string name="noblock">બ્લોક્સ મળ્યાં નથી</string>
+    <string name="noClusterfound">સમૂહ  મળ્યાં નથી</string>
+    <string name="getAllSurveystories">બધી સર્વે  વાર્તાઓ મેળવો</string>
+    <string name="setup">જિલ્લાઓ ના -બ્લોક ડાઉનલોડ કરો</string>
+    <string name="updating_profile">પ્રોફાઇલ અપડેટ કરી રહ્યું છે ...</string>
+    <string name="profileUpdatedSuccessfully">પ્રોફાઇલ સફળતાપૂર્વક અપડેટ થઇ</string>
+    <string name="oops">અરે કંઈક ખોટું થયું છે, કૃપા કરીને પછી ફરી થી પ્રયાસ કરો</string>
+    <string name="name_of_survey">સર્વેનું નામ: </string>
+    <string name="total_number_of_survey_synced">સિંક થયેલ સર્વે ની સંખ્યા : </string>
+    <string name="total_number_of_school_surveyd">સર્વેક્ષણ થયેલ સ્કૂલો ની કુલ  સંખ્યા :</string>
+    <string name="total_number_of_survey_pending">સિંક  માટે બાકી રહેલ સર્વે ની કુલ સંખ્યા :</string>
+
+    <string name="fromData">તારીખથી (ડીડી-એમએમ-વાયવાયવાયવાય)</string>
+    <string name="endDate">તારીખ સુધી  (ડીડી-એમએમ-વાયવાયવાયવાય)</string>
+    <string name="invalidOTP">અમાન્ય ઓટીપી(OTP)</string>
+    <string name="otpSentonNumber">ઓટીપી (OTP) તમને તમારા મોબાઇલ ફોન પર મોકલવામાં આવ્યો છે</string>
+    <string name="enterOTPCode">ઓટીપી(OTP) કોડ દાખલ કરો</string>
+    <string name="passwordChanged">તમારો પાસવર્ડ સફળતાપૂર્વક બદલવામાં આવ્યો છે</string>
+
+
+    //Language
+    <string name="selectStateForLanguage">રાજ્ય ને પસંદ કરો</string>
+    <string name="selectLanguageForLanguage">ભાષા ને પસંદ કરો</string>
+    <string name="selectYourState">---- રાજ્ય ને પસંદ કરો ----</string>
+    <string name="selectYourLanguage">---- ભાષા ને પસંદ કરો ----</string>
+    <string name="sendOTP">ઓટીપી(OTP) મોકલો</string>
+    <string name="enterMobileNumber">તમારો મોબાઇલ નંબર દાખલ કરો</string>
+    <string name="update">અપડેટ કરો</string>
+    <string name="loadingStateDistrict">રાજ્યના જિલ્લાઓ લોડ કરી રહ્યું છે ...</string>
+    <string name="districtblockloading">જીલ્લા ના બ્લોક્સ લોડ કરી રહ્યું છે ...</string>
+    <string name="districtClusterLoading">જિલ્લા ના સમૂહો  લોડ કરી રહ્યું છે ...</string>
+    <string name="pleaseLoadDataforSelectedState">કૃપા કરીને પસંદ કરેલ રાજ્ય માટે જિલ્લાનો  ડેટા લોડ કરો</string>
+    <string name="downloadDistrcitData">નોંધ: જરૂરી  જિલ્લાના ડેટા ડાઉનલોડ કરો</string>
+    <string name="downloadDistrcitDataNext">નોંધ: પછી ની સ્ક્રીન નેવિગેટ કરવા માટે જિલ્લા સ્તરનો ડેટા ડાઉનલોડ કરો</string>
+    <string name="districtDownloaded">જિલ્લાઓ ડાઉનલોડ થયેલ છે</string>
+    <string name="pleaseEnterValidOTP">કૃપા કરીને માન્ય ઓટીપી(OTP) દાખલ કરો</string>
+    <string name="forgotPasswordqu">તમારો પાસવર્ડ ભૂલી ગયા છો?</string>
+    <string name="selectDistrict">--જિલ્લો પસંદ કરો--</string>
+    <string name="to">થી/તરફ</string>
+    <string name="downloadedSurveysandQuestions">સફળતાપૂર્વક સર્વે  અને પ્રશ્નો ડાઉનલોડ થયેલ છે</string>
+    <string name="profileUpdationFailed">પ્રોફાઇલ અપડેટ કરવામાં નિષ્ફળ. કૃપા કરીને પછીથી પ્રયાસ કરો</string>
+    <string name="schoolloadingfailed">સ્કુલ ના  ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="summaryLoadingFailed">સારાંશ/સમરી ના  ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="reportsLoadingFailed">રિપોર્ટ ના  ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="questionLoadingFailed">સર્વેના પ્રશ્નો ના ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="syncFailed">સર્વે સિંક નિષ્ફળ</string>
+    <string name="clusterDataLoadingFailed">સમૂહ નો ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="districtDataLoadingFailed">જિલ્લા નો ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="blocksDataLoadingFailed">બ્લોક્સ નો ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="stateLoadingFailed">રાજ્ય નો ડેટા લોડ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="surveyLoadingfailed">સર્વેના  ડેટા નું લોડિંગ નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો</string>
+    <string name="pleaseSelectrespondanttypequestion">જવાબ નો પ્રકાર પસંદ કરો</string>
+    <string name="districtDataAlreadyFound">જિલ્લો: બ્લોક્સ અને સમૂહ  પહેલેથી જ ડાઉનલોડ થયેલ છે. શું તમે ફરીથી ડાઉનલોડ કરવા માંગો છો?</string>
+    <string name="surveyQuestionNotFound">સર્વે માટે  પ્રશ્નો મળ્યાં નથી, કૃપા કરીને સર્વે ના  પ્રશ્નો ડાઉનલોડ કરો અને સર્વે કરો</string>
+    <string name="doyouwantToLogout">શું તમે ખરેખર લૉગ આઉટ થવા  માંગો છો?</string>
+    <string name="blockDataAlreadyFound">બ્લોક: ડેટા પહેલેથી જ ડાઉનલોડ થયો છે. શું તમે ફરીથી ડાઉનલોડ કરવા માંગો છો?</string>
+    <string name="blockSchoolLoading">બ્લોક: સ્કુલ  લોડ થાય છે. ડાઉનલોડ પૂર્ણ થવામાં થોડો સમય લાગશે. ધીરજ રાખવા બદલ તમારો આભાર !!!</string>
+    <string name="blockLeveldataLoadedSchussfully">બ્લોક સ્તરના  ડેટા સફળતાપૂર્વક લોડ થયેલ છે</string>
+    <string name="selectblock">--બ્લોક પસંદ કરો--</string>
+    <string name="blockandCLusterdownloaded">જિલ્લો : બ્લોક્સ અને સમૂહ  ડાઉનલોડ થયેલ છે</string>
+    <string name="allSurvey">સબમિટ કરવામાં આવેલા તમામ સર્વે સિન્કિંગ ના 24 કલાક પછી રિપોર્ટ જનરેશન માટે ઉપલબ્ધ થશે</string>
+    <string name="selectgrade">ગ્રેડ પસંદ કરો</string>
+    <string name="comment">તમારી કમેન્ટ  ઉમેરો</string>
+    <string name="FAQ">એફએક્યુ (FAQ)</string>
+    <string name="PleaseSelectGrade">કૃપા કરીને ગ્રેડ પસંદ કરો</string>
+    <string name="reportsnotavailableforthissurveys">આ સર્વે માટે રિપોર્ટ ઉપલબ્ધ નથી</string>
+
+
+    <string name="question1">શું હું મારી મુલાકાત દરમિયાન 1 થી વધુ વર્ગ નું નિરીક્ષણ કરી શકું? જો હા, તો હું તે કેવી રીતે રેકોર્ડ કરું?</string>
+    <string name="answer1">હા તમે તમારી મુલાકાત દરમિયાન એક થી વધુ વર્ગ પસંદ કરી શકો છો. પરંતુ તમારે મુલાકાત લેતા દરેક વર્ગ માટે એક જ સર્વેક્ષણ આપવું પડશે</string>
+
+    <string name="question2">જો વર્ગ ના વિવિધ વિભાગ હોય તો શું?</string>
+    <string name="answer2">તમે વર્ગના  ક્ષેત્રમાં \'બહુ-ગ્રેડ\' વિકલ્પ પસંદ કરી શકો છો</string>
+
+    <string name="question3">શું થાય જો ગણિત શિક્ષક મારી મુલાકાત દરમિયાન ગણિત વર્ગનું સંચાલન નથી કરી રહ્યા, પરંતુ વર્ગખંડ પ્રવૃત્તિના ભાગરૂપે તે ગણિત કીટનો ઉપયોગ કરે છે</string>
+    <string name="answer3">કૃપા કરીને કીટનો ઉપયોગ ફક્ત ત્યારે જ રેકોર્ડ કરો જ્યારે શિક્ષક તમારી શાળા મુલાકાત દરમિયાન ગણિત કીટનો ઉપયોગ કરે. નહિંતર તમે તે હકીકતનો ઉલ્લેખ કરી શકો છો કે શિક્ષક ટિપ્પણીઓ વિભાગમાં ગણિત કીટનો ઉપયોગ કરે છે.</string>
+
+    <string name="question4">ગણિત શિક્ષક મહેમાન શિક્ષક હતા અને જીકેએ શિક્ષકની તાલીમનો ભાગ નહોતા. અમે તેમને કેવી રીતે તાલીમ આપી શકીએ?</string>
+    <string name="answer4">તમે મહેમાન શિક્ષક ને કીટ બતાવી શકો છો અને કીટ ના વિવિધ ઉપયોગ વિશે જણાવતા એક કલાક વિતાવી શકો છો. શિક્ષક સાથે વિદ્યાર્થીઓ ને પણ તે બતાવો</string>
+
+    <string name="question5">ઍ ઍચ પી (ALP) કીટ એક કબાટમાં રાખવામાં આવે છે અને તેનો ઉપયોગ કરવામાં આવતો નથી. અમે તેની જાણ કેવી રીતે કરી શકીએ?</string>
+    <string name="answer5">કકિટ વપરાશ સંબંધિત બધા પ્રશ્નોના જવાબમાં ના  આપો. કિટની સ્થિતિ દર્શાવતી ટિપ્પણી લખો અને એક ફોટો અપલોડ કરો</string>
+
+
+    <string name="question6">CRA ની પ્રતિનિધિત્વ પદ્ધતિ નો અભ્યાસ કરવા  કરવા માટે શાળામાં કોઈ વર્ગ શાસિત પુસ્તકો નથી. શું કરી શકાય?</string>
+    <string name="answer6">કાળા બોર્ડનો ઉપયોગ કરો કે જે દીવાલ પર બાળકો માટે દોરવામાં આવે છે અને તેને ચોરસ શાસિત બૉક્સથી દર્શાવો (બે 9 બૉક્સેસ એક બીજાની નીચે).</string>
+
+    <string name="question7">શિક્ષકએ થોડા ટી.એલ.એમ.(TLM) તૈયાર કર્યા છે. શું તેનો ઉપયોગ વર્ગખંડમાં બાળકોને ભણાવવા માટે કરી શકાય છે?</string>
+    <string name="answer7">હા . શિક્ષકોને તેમના  પોતાના ટી.એલ.એમ.(TLM)નો ઉપયોગ કરવાની છૂટ છે</string>
+
+    <string name="question8">વર્ગખંડમાં 40 થી વધુ વિદ્યાર્થીઓ છે અને શિક્ષક માને છે કે એક કિટ બાળકો ને ગણિત શીખવવા માટે પૂરતી નથી.</string>
+    <string name="answer8">જીકેએ (GKA) ના ભાગ રૂપે પ્રદાન કરવામાં આવેલ કિટ્સ વિકસાવવા શિક્ષકોને પ્રોત્સાહિત કરો. શિક્ષકો ગણિત કિટ કન્ટેન્ટ(સામગ્રી) ની  નકલ કરી શકે છે .</string>
+
+    <string name="question9">શિક્ષકોએ મને ગણિત ના ખ્યાલો અને ગણિત કીટ ટીએલએમ(TLM)ના ઉપયોગ વિશે એક પ્રશ્ન પૂછ્યો. મારી પાસે કોઈ જવાબ ન હતો તો  શું કરું?</string>
+    <string name="answer9">જો તમને જવાબો ખબર નથી, તો કૃપા કરીને સીઆરપી / અક્ષરા સ્ટાફ અથવા એચએમને પ્રશ્ન પૂછો</string>
+
+    <string name="question10">ગુજરાતી માં ટિપ્પણીઓ/કમેન્ટ  લખવા માટે અસમર્થ.</string>
+    <string name="answer10">એવા કીબોર્ડનો ઉપયોગ કરો કે જે ગુજરાતી અક્ષરો ટાઇપ કરવા દે છે.</string>
+
+    <string name="question11">ટિપ્પણીઓ/કમેન્ટ  માટે શબ્દો /અક્ષરો પર મર્યાદા શું છે?</string>
+    <string name="answer11">500 થી વધુ શબ્દો નહિ</string>
+
+    <string name="question12">શું હું ફોટા ના બદલે વિડિયોઝ અપલોડ કરી શકું છું?</string>
+    <string name="answer12">અમારી પાસે હાલમાં આ સુવિધા નથી. અમે તેને આગામી શૈક્ષણિક વર્ષ રજૂ કરીશું.</string>
+
+    <string name="question13">શું મારે દરરોજ સ્કૂલની મુલાકાતના  સર્વેક્ષણ નું સિંક કરવું પડશે? સર્વેક્ષણ સિન્કિંગ કરવાની આવૃત્તિ  કેટલી છે?</string>
+    <string name="answer13">જો તમે ઑનલાઇન હોવ તો સર્વેક્ષણને સિંક કરવાની જરૂર નથી. સિન્કિંગ  આપમેળે થશે</string>
+
+    <string name="question14">અત્યાર સુધી કરેલા મોનિટર સર્વેક્ષણ વિશે મને કેવી રીતે ખબર પડશે?</string>
+    <string name="answer14">તમે આઇએલપી કનેક્ટ (ILP Konnect) નો ઉપયોગ કરીને રિપોર્ટ જનરેટ કરી શકો છો</string>
+
+    <string name="question15">ALP વર્ગ મુલાકાત માટે કોણ  આઇએલપી કનેક્ટ (ILP Konnect)  એપ્લિકેશનનો ઉપયોગ કરી શકે છે?</string>
+    <string name="answer15">એનજીઓ સ્ટાફ (અક્ષરા અથવા અન્ય કોઈ), સ્વયંસેવકો, શિક્ષણ અધિકારીઓ (CRP , BRP, DIET, BEO વગેરે), એચએમ</string>
+
+    <string name="question16">શું શિક્ષકો આ \'ALP વર્ગ મુલાકાત\' એપ્લિકેશનનો ઉપયોગ કરી શકે છે ?</string>
+    <string name="answer16">જીકેએ સ્કૂલની દેખરેખ માટે નહીં. પરંતુ શિક્ષકો માટે પ્રતિસાદ અને સૂચનો રજુ  કરવા માટે એક અલગ એપ્લિકેશન છે</string>
+
+    <string name="selectoption">વિકલ્પો પસંદ કરો </string>
+    <string name="surveynotavailable">સર્વે  ઉપલબ્ધ નથી</string>
+
+    <string name="question17">શિક્ષકો જીકેએ કીટ પર ટિપ્પણીઓ, સૂચનો અથવા પ્રતિસાદ પ્રદાન કરે છે. મારે તેના વિશે શું કરવું જોઈએ?</string>
+    <string name="answer17">કૃપા કરીને તેમને ટિપ્પણીઓ તરીકે ઉમેરો અને શિક્ષકનો ફોટો લો જે મૂલ્યવાન સૂચનો પ્રદાન કરે છે</string>
+
+    <string name="question18">વપરાશકર્તા(યુઝર)  સારાંશ રિપોર્ટ શેની  માહિતી પ્રદાન કરે છે?</string>
+    <string name="answer18">તે આપેલ નિશ્ચિત તારીખ શ્રેણી માટે કરેલા સર્વેક્ષણોની ગણતરી અને સર્વેક્ષણોની સંખ્યા પ્રદાન કરે છે કે જે સર્વર સાથે સિંક થવાના બાકી છે</string>
+
+    <string name="question19">હું  મારા બ્લોકને બદલવા ઈચ્છું છું</string>
+    <string name="answer19">સ્ક્રીન પર જાઓ જ્યાં તમે તમારા લૉગિન માટે સર્વેક્ષણોનો પ્રકાર પસંદ કરો છો.  જમણી બાજુના ખૂણા માં સાઇન ઇન કરો: પર ક્લિક કરો. બ્લોક બદલવા માટે \'ડાઉનલોડ જિલ્લો-બ્લોક\' મેનુ વિકલ્પ પર ક્લિક કરો</string>
+
+    <string name="question20">હું ભાષા બદલવા ઈચ્છું છું.</string>
+    <string name="answer20">તે સ્ક્રીન પર જાઓ જ્યાં તમે તમારા લૉગિન માટે સર્વેક્ષણોનો પ્રકાર પસંદ કરો છો. જમણી બાજુના ખૂણા માં સાઇન ઇન કરો: પર ક્લિક કરો. બ્લોક બદલવા માટે \'પસંદ કરો ભાષા\' મેનુ વિકલ્પ પર ક્લિક કરો</string>
+
+
+    <string name="grade">-- ગ્રેડ પસંદ કરો --</string>
+    <string name="reportsNotgenerated">રિપોર્ટ તૈયાર કરવા ની સુવિધા હમણાં ઉપલબ્ધ નથી</string>
+    <string name="reportNotAvailable">પસંદ કરેલી તારીખ માટે રિપોર્ટ્સ ઉપલબ્ધ નથી</string>
+    <string name="performinglogout">మీరు సమకాలీకరించడానికి %1$d  సర్వేలు ఇంకా అనిశ్చిత స్దితిలో ఉన్నాయి. నిష్క్రమించి  లాగౌట్ చేసిన అన్ని సర్వేలను తొలగిస్తుంది. </string>
+
+    <string name="unsyncedSurveysFound">શું તમે સિંક ના થયેલ ડેટા થી પણ રિપોર્ટ બનાવવા માંગો છો ?</string>
+    <string name="doyouwantuploadPhoto">શું તમે એક ફોટો અપલોડ કરવા માંગો છો?</string>
+    <string name="diseCode">ડીઆઈએસઈ(DISE) કોડ: </string>
+    <string name="DiseCodeNo">ડીઆઈએસઈ(DISE) કોડ: એનએ</string>
+    <string name="ResendOTP"><![CDATA[<u>OTP ફરીવાર મોકલો</u>]]></string>
+    <string name="ResendOTPMessage">જો તમને  SMS નથી મળ્યો તો પૂરું થયા બાદ કૃપા કરી  Resend OTP દબાવો</string>
+    <string name="resendingOtp">OTP ફરીવાર મોકલી રહ્યા છે...</string>
+    <string name="update_app_message">કૃપા કરી આગળ વધવા માટે એપ નું નવું વર્ઝન અપડેટ કરો</string>
+    <string name="update_title">નવું વર્ઝન ઉપલબ્ધ છે</string>
+    <string name="update_app_btn">અપડેટ કરો</string>
+    <string name="update_app_btn_neg">ના,આભાર</string>
+
+    <string-array name="grade_array">
+
+        <item>Grade 1</item>
+        <item>Grade 2</item>
+        <item>Grade 3</item>
+        <item>Grade 4</item>
+        <item>Grade 5</item>
+        <item>Multigrade</item>
+
+
+    </string-array>
+</resources>

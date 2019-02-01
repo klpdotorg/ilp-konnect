@@ -3,27 +3,23 @@
     <string name="response_neutral">OK</string>
     <string name="response_positive">Yes</string>
     <string name="response_negative">No</string>
-    <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
-    <string name="action_refresh">Refresh</string>
-     <string name="reports">Take me to the reports!</string>
+    <string name="reports">Take me to the reports!</string>
     <!-- Strings related to Boundary selection -->
     <string name="district">District</string>
-    <string name="block">Block</string>
+    <string name="block">Block/Mandal</string>
     <string name="cluster">Cluster</string>
-    <string name="school">School</string>
     <string name="prompt_district">Select District</string>
-    <string name="prompt_block">Select Block</string>
+    <string name="prompt_block">Select Block/Mandal</string>
     <string name="prompt_cluster">Select Cluster</string>
     <string name="prompt_school">Select School</string>
     <string name="prompt_user_type">Select Respondent Type</string>
     <!-- Strings related to login -->
     <string name="register">REGISTER</string>
     <string name="login">LOGIN</string>
-    <string name="changePassword">Change password</string>
     <string name="forgotPassword">Forgot password?</string>
     <string name="confirmPassword">CONFIRM PASSWORD</string>
-     <string name="action_sign_in_short">LOGIN</string>
+    <string name="action_sign_in_short">LOGIN</string>
 
     <string name="error_field_required">This field is required</string>
 
@@ -42,11 +38,9 @@
     <string name="first_name"> FIRST NAME</string>
     <string name="last_name">LAST NAME</string>
     <string name="mobile_number">MOBILE NUMBER</string>
-    <string name="action_register">REGISTER</string>
     <!-- survey activity strings -->
     <string name="new_response">New Survey+</string>
-    <string name="generate_report">Create Survey Report</string>
-     <!--Story list activity-->
+    <!--Story list activity-->
     <string name="meta_medium">Total Answers: %1$s</string>
     <!--<string name="meta_small">Created by %1$s on %2$s</string>-->
     <string name="meta_small">%1$s  %2$s</string>
@@ -82,7 +76,7 @@
 
     <array name="reportType">
         <item>District</item>
-        <item>Block</item>
+        <item>Block/Mandal</item>
         <item>Cluster</item>
         <item>School</item>
 
@@ -97,14 +91,8 @@
     <string name="numberOfSchools">Number of schools</string>
     <string name="numberOfSchoolsWithRespo">Number of schools with surveys</string>
     <string name="numberOfRespo">Total number of surveys</string>
-    <string name="updateSurveys">Update Surveys</string>
-     <string name="sync">Sync</string>
-    <string name="uploadingStories">Uploading Stories</string>
     <string name="downloadingSurvey"> Downloading survey </string>
-    <string name="downloadingQuestion"> Downloading question </string>
-    <string name="downloadingQuestionGroup"> Downloading question group </string>
     <string name="survey"> Survey </string>
-    <string name="updateSurvey">Update Survey</string>
     <string name="settings">Select language</string>
     <string name="next">Next</string>
     <string name="surveyType">Choose your survey</string>
@@ -114,46 +102,31 @@
     <string name="syncSurvey">Sync survey</string>
 
 
-
-
-
-
-
-
-
     <string name="responseSaved">Survey saved successfully</string>
     <string name="selectSummaryLevel">Select Summary Level</string>
     <string name="selectReportLevel">Select Report Level</string>
     <string name="new_Password">NEW PASSWORD</string>
     <string name="loadSurveyImage"><u>Load Survey Image</u></string>
-    <string name="loadSurveyImage_">Load Survey Image</string>
     <string name="dob">DOB (DD-MM-YYYY)</string>
     <string name="schools">SCHOOLS</string>
     <string name="pleaseSelectrespondanttype">SELECT RESPONDENT TYPE</string>
     <string name="doesnotmatcherwithpass">This field is required and must match the value entered in the password field</string>
     <string name="signupsuccess">You have been successfully signed up. Please Login.</string>
-    <string name="signupfail">Failed</string>
     <string name="pleaseSelectsurveyLanguage">Please select your state and language</string>
     <string name="loading">Loading...</string>
     <string name="dataAlreadynSyn">All surveys have been synced</string>
-    <string name="doyouwant">Do you want to download reports?</string>
     <string name="nooserveyimage">No survey images found</string>
     <string name="failed">Failed</string>
     <string name="syncTitle">Sync</string>
     <string name="downloadingsurveypleasewait">Downloading stories. Please wait.</string>
     <string name="syncing">Syncing..</string>
-    <string name="uploaded">Uploaded</string>
-    <string name="stories">stories..</string>
-    <string name="uploadingstroespleasewait">Uploading stories. Please wait</string>
     <string name="uploading"> Uploading </string>
     <string name="uploadingstorw">Data loading..</string>
     <string name="upload">upload</string>
     <string name="downloading"> Downloading </string>
     <string name="datasync">Data Sync..</string>
-       <string name="surveysyncsucc">Survey synced success:</string>
+    <string name="surveysyncsucc">Survey synced success:</string>
     <string name="surveysyncfail">Survey sync failed:</string>
-    <string name="question"> question </string>
-    <string name="questiongroup"> question group </string>
     <string name="resettingpassword">Resetting your password...</string>
     <string name="overallreport">Summary report</string>
     <string name="pleaseataachsurveyimage">Take picture of the classroom while the teacher is teaching or students are doing group learning</string>
@@ -162,9 +135,7 @@
     <string name="cancel">Cancel</string>
     <string name="permission">Permission necessary</string>
     <string name="externalstorage">External storage permission is necessary</string>
-    <string name="pleaseuploadimage">* Please upload image</string>
     <string name="pleaseSelectAppropriateImage">Please select appropriate image</string>
-
 
 
     <string name="bydate">By Date</string>
@@ -172,10 +143,8 @@
     <string name="searchSurveyimage">Search survey images by?</string>
     <string name="netWorkError">Network error..Please check internet and try again</string>
     <string name="nextbutton">Next</string>
-    <string name="profileUpdated">Profile updated successfully. Please Login.</string>
     <string name="enterValidDate">Enter valid date format(DD-MM-YYYY)</string>
-    <string name="enteredDateinFuture">You cannot enter a date in the future</string>
-    <string name="survey_taken"> survey you have taken,Please sync when you are in internet zone</string>
+    <string name="survey_taken">%1$d survey you have taken,Please sync when you are in internet zone</string>
     <string name="updateProfile">Update profile</string>
     <string name="response_summary">RESPONSE SUMMARY</string>
     <string name="synced">Synced</string>
@@ -185,7 +154,7 @@
     <string name="noblock">Blocks not found</string>
     <string name="noClusterfound">Clusters not found</string>
     <string name="getAllSurveystories">Get All Survey Stories</string>
-    <string name="setup">Download districts-block</string>
+    <string name="setup">Download districts-block/mandal</string>
     <string name="updating_profile">Updating profile...</string>
     <string name="profileUpdatedSuccessfully">Profile updated successfully</string>
     <string name="oops">Oops some thing went wrong,Please try later</string>
@@ -213,7 +182,6 @@
     <string name="loadingStateDistrict">state districts loading..</string>
     <string name="districtblockloading">district blocks loading...</string>
     <string name="districtClusterLoading">district clusters loading...</string>
-    <string name="districtLeveldataLoadedSchussfully">District level data loaded successfully</string>
     <string name="pleaseLoadDataforSelectedState">Please load district data for selected state</string>
     <string name="downloadDistrcitData">Note : Download required district data</string>
     <string name="downloadDistrcitDataNext">Note : download district level data to navigate next screen</string>
@@ -238,17 +206,16 @@
     <string name="districtDataAlreadyFound">district: blocks and clusters already downloaded. Do you want to re-download?</string>
     <string name="surveyQuestionNotFound">Survey questions not found,Please download survey questions and take survey</string>
     <string name="doyouwantToLogout">Are you sure you want to log out?</string>
-    <string name="blockDataAlreadyFound">block : data already downloaded. Do you want to re-download?</string>
-    <string name="blockSchoolLoading">block: schools loading. It will take few minutes for download to complete. Thanks for your patience !!!</string>
-    <string name="blockLeveldataLoadedSchussfully">block level data loaded successfully</string>
-    <string name="selectblock">--Select Block--</string>
+    <string name="blockDataAlreadyFound">block/mandal : data already downloaded. Do you want to re-download?</string>
+    <string name="blockSchoolLoading">block/mandal: schools loading. It will take few minutes for download to complete. Thanks for your patience !!!</string>
+    <string name="blockLeveldataLoadedSchussfully">block/mandal level data loaded successfully</string>
+    <string name="selectblock">--Select Block/Mandal--</string>
     <string name="blockandCLusterdownloaded">district: blocks and clusters downloaded</string>
     <string name="allSurvey">All the surveys submitted will be available for report generation after 24 hours of syncing</string>
     <string name="selectgrade">Select grade</string>
     <string name="comment">Add your comment</string>
     <string name="FAQ">FAQ</string>
-    <string name="pleaseLoginandcontue">Please login and continue</string>
-     <string name="PleaseSelectGrade">Please select grade</string>
+    <string name="PleaseSelectGrade">Please select grade</string>
     <string name="reportsnotavailableforthissurveys">Report not available for this survey</string>
 
 
@@ -258,6 +225,7 @@
     <string name="answer2">You can select \'multi-grade\' option in the classroom field</string>
     <string name="question3">What happens if the math teacher is not conducting the math class during my visit, but he/she uses the math kit as part of the classroom activity</string>
     <string name="answer3">Please record the kit usage only if the teacher is found using the math kit during your school visit. Otherwise you can mention the fact that teacher uses the math kit in the comments section.</string>
+
     <string name="question4">The math teacher was a guest teacher and was not part of the GKA teacher\'s training. How do we train them?</string>
     <string name="answer4">You can demo the kit to the guest teacher and spend an hour explaining the various usage of the kit. Demo it to the teacher with the students as well</string>
     <string name="question5">GKA kit is kept in a cupboard and was not in use. How do we report this?</string>
@@ -266,28 +234,43 @@
     <string name="answer6">Use the black board that is painted for the kids on the side walls and paint it with square ruled boxes (two 9 boxes one below the other)</string>
     <string name="question7">Teacher has prepared a few TLMs him/herself. Can that be used to teach kids in the classroom?</string>
     <string name="answer7">Yes. It is allowed for teachers to use her/his own TLMs</string>
+
     <string name="question8">There are more than 40 students in the classroom and teacher feels one kit is not sufficient to teach kids mathematics.</string>
     <string name="answer8">Encourage teachers to develop kits similar to provided as part of GKA. Teachers can replicate the math kit contents.</string>
+
     <string name="question9">Teachers asked me a question on the math concepts and usage of the math kit TLMs. I did not have any answer what to do?</string>
     <string name="answer9">If you do not know the answers, please direct the question to CRPs/Akshara staff or HMs</string>
     <string name="question10">Unable to type comments in Kannada/Odia.</string>
     <string name="answer10">Use the keyboard that allows kannada/Odia letters to be typed.</string>
+
+
     <string name="question11">What is the limit on words/letters for the comments field?</string>
     <string name="answer11">Not more than 500 words</string>
     <string name="question12">Can I upload videos instead of photos?</string>
     <string name="answer12">We currently do not have this facility. We will introduce it next academic year.</string>
-    <string name="question13">Do I have to sync the school visit survey everyday? What is the frequency of syncing survey?</string>
+    <string name="question13">Do I have to sync the class visit survey everyday? What is the frequency of syncing survey?</string>
     <string name="answer13">There is no need to sync survey if you are online. Syncing will happen automatically</string>
+
     <string name="question14">How do I know about the monitoring surveys I have done so far?</string>
     <string name="answer14">You can generate the report using the ILP Konnect</string>
-    <string name="question15">Who can use ILP Konnect app for GKA school visit?</string>
+    <string name="question15">Who can use ILP Konnect app for GKA class visit?</string>
     <string name="answer15">NGO Staff (Akshara or any other), Volunteers, Education officers (CRP, BRP, DIET, BEO etc), HMs</string>
-    <string name="question16">Can Teachers use this app?</string>
-    <string name="answer16">Not for GKA school visit monitoring.</string>
+    <string name="question16">Can Teachers use this \'GKA class visit\' app?</string>
+    <string name="answer16">Not for GKA school visit monitoring. But there is a separate app for teachers to provide feedback and suggestions/innovation</string>
+
     <string name="selectoption">Select option</string>
     <string name="surveynotavailable">Surveys not available</string>
+
     <string name="question17">Teachers are providing comments, suggestions or feedback on the GKA kit. What should I do about it?</string>
     <string name="answer17">Please add them as comments and take the picture of the teacher who is providing valuable suggestions</string>
+
+    <string name="question18">What information does the User Summary Report provide?</string>
+    <string name="answer18">It provides the count of surveys done for a given date range and also the number of surveys that is pending syncing with the server</string>
+
+    <string name="question19">I would like to change my block/mandal</string>
+    <string name="answer19">Go to the screen where you choose the type of the surveys for your login. Click on the : sign on right top corner. click on \'download district-block\Mandal\' menu option to change block\mandal</string>
+    <string name="question20">I would like to change the language</string>
+    <string name="answer20">Go to the screen where you choose the type of the surveys for your login. Click on the : sign on right top corner. click on \'select language\' menu option to change block/mandal</string>
 
 
     <string name="grade">-- Select Grade --</string>

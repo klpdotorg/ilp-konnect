@@ -202,9 +202,6 @@ public class MainDashList extends BaseActivity {
     }
 
 
-
-
-
     public void sync1(final boolean var) {
 
         dt = new DownloadTasks();
@@ -232,7 +229,7 @@ public class MainDashList extends BaseActivity {
 
                         JSONObject jsonData = SyncDataCall(data);
 
-                    //    Log.d("shri", "Res:" + jsonData.toString());
+                        //    Log.d("shri", "Res:" + jsonData.toString());
                         ArrayList<Integer> countData = ut.processUploadResponse(jsonData);
                         String msg = getResources().getString(R.string.noInternetCon);
                         if (countData != null && countData.size() >= 2) {
@@ -324,12 +321,12 @@ public class MainDashList extends BaseActivity {
         if (count > 0) {
 
             ArrayList<JSONObject> jsondata = doUploadForSyncSurvey();
-          //  Log.d("shri","))))))))))))))))"+jsondata.toString().getBytes().length);
+            //  Log.d("shri","))))))))))))))))"+jsondata.toString().getBytes().length);
             if (jsondata != null && jsondata.size() > 0) {
                 progressOnlySync(count);
 
                 try {
-                 //   Log.d("shri",jsondata.get(0)+"");
+                    //   Log.d("shri",jsondata.get(0)+"");
                     sync2(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
 
                 } catch (Exception e) {
@@ -370,7 +367,7 @@ public class MainDashList extends BaseActivity {
 
             if (!okresponse.isSuccessful()) {
                 //     log("Upload Error", "There is something wrong with the Internet connection.");
-             //   Log.d("shri", "--" + okresponse.message());
+                //   Log.d("shri", "--" + okresponse.message());
                 return new JSONObject(okresponse.message());
             }
 
@@ -459,7 +456,7 @@ public class MainDashList extends BaseActivity {
             int size = 0, i = 0;
             if (storiesCursor != null) {
                 size = storiesCursor.getCount();
-             //   Log.d("shri", size + "{-------------------]");
+                //   Log.d("shri", size + "{-------------------]");
             }
             while (storiesCursor != null && storiesCursor.moveToNext()) {
                 i++;
@@ -479,9 +476,9 @@ public class MainDashList extends BaseActivity {
                 }
                 storyJson.put("answers", answerArray);
 
-              // for (int k = 0; k < 5; k++) {
-                    storyArray.put(storyJson);
-               // }
+                // for (int k = 0; k < 5; k++) {
+                storyArray.put(storyJson);
+                // }
 
                 if (storyArray.length() >= Constants.SYNC_MAX_COUNT_AT_SINGLE) {
                     jsonDataList.add(new JSONObject().put("stories", storyArray));
@@ -501,7 +498,7 @@ public class MainDashList extends BaseActivity {
 
         }
 
-      //  Log.d("shri", jsonDataList.size() + "---------");
+        //  Log.d("shri", jsonDataList.size() + "---------");
 //Log.d("shri",requestJson.toString().getBytes().length+"--------------------------");
         return jsonDataList;
 
@@ -705,7 +702,7 @@ public class MainDashList extends BaseActivity {
     private void updateSyncProgress(int count) {
         progress.setMessage(getResources().getString(R.string.syncing));
         progress.setProgress(count);
-        Log.d("shri", count + "------------------count");
+        //   Log.d("shri", count + "------------------count");
     }
 
     private void finishSyncProgress() {
