@@ -3,13 +3,9 @@ package in.org.klp.ilpkonnect;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,12 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
 import com.yahoo.squidb.sql.Update;
@@ -32,26 +23,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterfaceSync;
-import in.org.klp.ilpkonnect.Pojo.VersionControlPojo;
 import in.org.klp.ilpkonnect.adapters.MainDashListAdapter;
 import in.org.klp.ilpkonnect.db.Answer;
-import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-import in.org.klp.ilpkonnect.db.Question;
-
-import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
-import in.org.klp.ilpkonnect.db.School;
 import in.org.klp.ilpkonnect.db.Story;
 import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.dialogs.SignUpResultDialogFragment;
@@ -60,7 +41,6 @@ import in.org.klp.ilpkonnect.utils.DailogUtill;
 import in.org.klp.ilpkonnect.utils.ILPService;
 import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
 import in.org.klp.ilpkonnect.utils.SessionManager;
-import in.org.klp.ilpkonnect.utils.SyncManager;
 import needle.Needle;
 import needle.UiRelatedProgressTask;
 import okhttp3.MediaType;
@@ -298,7 +278,8 @@ public class MainDashList extends BaseActivity {
             public void failed(String message) {
                 //  if(size==count_loop) {
                 finishSyncProgress();
-                DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                // message changed as per CR remove_login
+                DailogUtill.showDialog(getString(R.string.postfailed), getSupportFragmentManager(), getApplicationContext());
                 //}
             }
 
@@ -317,17 +298,51 @@ public class MainDashList extends BaseActivity {
 
 
     public void newSync() {
-        int count = getStoryCount();
+        final int count = getStoryCount();
         if (count > 0) {
 
-            ArrayList<JSONObject> jsondata = doUploadForSyncSurvey();
+            final ArrayList<JSONObject> jsondata = doUploadForSyncSurvey();
             //  Log.d("shri","))))))))))))))))"+jsondata.toString().getBytes().length);
             if (jsondata != null && jsondata.size() > 0) {
                 progressOnlySync(count);
 
                 try {
                     //   Log.d("shri",jsondata.get(0)+"");
-                    sync2(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
+
+                    // Code written for CR remove_login for calling Login API
+                    try {
+                        new ProNetworkSettup(MainDashList.this).tokenAuth(mSession.getMobile(), new StateInterface() {
+                            @Override
+                            public void success(String message) {
+
+                                try {
+                                    JSONObject userLoginInfo = new JSONObject(message);
+                                    if (userLoginInfo.has("secure_login_token")) {
+                                        mSession.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+                                        // after success of login then call update
+                                        sync2(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
+
+                                    } else
+                                        finishSyncProgress();
+
+                                } catch (Exception e) {
+                                    finishSyncProgress();
+                                }
+
+                            }
+
+                            @Override
+                            public void failed(String message) {
+                                finishSyncProgress();
+
+                                DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
+
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                 } catch (Exception e) {
                     Crashlytics.log(e.getMessage());
@@ -731,6 +746,7 @@ public class MainDashList extends BaseActivity {
         }
 
     }
+
 
 }
 

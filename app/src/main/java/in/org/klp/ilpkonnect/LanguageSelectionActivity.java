@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,16 +19,11 @@ import com.yahoo.squidb.sql.Query;
 import java.util.ArrayList;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
-import in.org.klp.ilpkonnect.InterfacesPack.UserRolesInterface;
 import in.org.klp.ilpkonnect.Pojo.LanguagePojo;
 import in.org.klp.ilpkonnect.Pojo.StatePojo;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-
-import in.org.klp.ilpkonnect.db.Respondent;
 import in.org.klp.ilpkonnect.db.State;
 import in.org.klp.ilpkonnect.dialogs.SignUpResultDialogFragment;
-import in.org.klp.ilpkonnect.utils.Constants;
-import in.org.klp.ilpkonnect.utils.ILPService;
 import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
 import in.org.klp.ilpkonnect.utils.ProgressUtil;
 import in.org.klp.ilpkonnect.utils.SessionManager;
@@ -156,7 +150,9 @@ public class LanguageSelectionActivity extends BaseActivity {
                             // Toast.makeText(getApplicationContext(),stateKey+":"+languagekey,Toast.LENGTH_SHORT).show();
                             KLPApplication.setLanguage(getApplicationContext(), languagekey);
                             sessionManager.setLanguagePosition(spnSelectLanguage.getSelectedItemPosition());
-                            Intent intent = new Intent(new Intent(getApplicationContext(), LoginActivity.class));
+
+                           // Intent intent = new Intent(new Intent(getApplicationContext(), LoginActivity.class));
+                            Intent intent = new Intent(new Intent(getApplicationContext(), VerifyMobileNumber.class)); // navigated user to mobile number screen instead login screen for CR remove_login
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {

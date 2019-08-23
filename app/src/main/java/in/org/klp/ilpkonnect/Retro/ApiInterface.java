@@ -1,23 +1,17 @@
 package in.org.klp.ilpkonnect.Retro;
 
 
-
 import in.org.klp.ilpkonnect.BlocksPojo.BlockDetailPojo;
 import in.org.klp.ilpkonnect.ClusterPojos.ClusterDetailPojo;
 import in.org.klp.ilpkonnect.DistrictPojos.DistrictPojos;
 import in.org.klp.ilpkonnect.Pojo.ForgotPassswordOtpPojo;
-import in.org.klp.ilpkonnect.Pojo.ForgotPasswordPojo;
 import in.org.klp.ilpkonnect.Pojo.ImagesPOJO;
-import in.org.klp.ilpkonnect.Pojo.LoginMobilePojo;
 import in.org.klp.ilpkonnect.Pojo.RegstrationResponsePojo;
 import in.org.klp.ilpkonnect.Pojo.ResetPasswordPojo;
-import in.org.klp.ilpkonnect.Pojo.UpdateProfilePojo;
 import in.org.klp.ilpkonnect.QuestionsPojoPack.QuestionsPojos;
-import in.org.klp.ilpkonnect.RepondentPack.RespondentListPojo;
 import in.org.klp.ilpkonnect.SchoolDataPojo.SchoolDataPojo;
 import in.org.klp.ilpkonnect.SurveyAndQuestionGPojoPsck.SurveyAndQuestionGrPojo;
 import in.org.klp.ilpkonnect.SurveyDetailPojos.SurveyDeailPojo;
-import in.org.klp.ilpkonnect.TotalSummaryPOJOs.SummaryTotalPojo;
 import in.org.klp.ilpkonnect.UserRolesPojosPackage.UserRolesPojos;
 import in.org.klp.ilpkonnect.utils.ILPService;
 import okhttp3.RequestBody;
@@ -28,7 +22,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -51,24 +44,22 @@ public interface ApiInterface {
 */
 
 
-
     @POST(ILPService.REGISTRATION)
     @FormUrlEncoded
-    Call<RegstrationResponsePojo> registrationService(@Field("email") String email,@Field("mobile_no") String mobilenumber,
-                                                      @Field("first_name") String firstName,@Field("last_name") String lastName,
-                                                      @Field("password") String password,@Field("source") String source,
+    Call<RegstrationResponsePojo> registrationService(@Field("email") String email, @Field("mobile_no") String mobilenumber,
+                                                      @Field("first_name") String firstName, @Field("last_name") String lastName,
+                                                      @Field("password") String password, @Field("source") String source,
                                                       @Field("user_type") String usertype,
-                                                      @Field("dob") String dob,@Field("state") String stateKey);
-
+                                                      @Field("dob") String dob, @Field("state") String stateKey);
 
 
     @POST(ILPService.REGISTRATION)
     @FormUrlEncoded
     Call<RegstrationResponsePojo> registrationServiceWithoutEmail(@Field("mobile_no") String mobilenumber,
-                                                                  @Field("first_name") String firstName,@Field("last_name") String lastName,
-                                                                  @Field("password") String password,@Field("source") String source,
+                                                                  @Field("first_name") String firstName, @Field("last_name") String lastName,
+                                                                  @Field("password") String password, @Field("source") String source,
                                                                   @Field("user_type") String usertype,
-                                                                  @Field("dob") String dob,@Field("state") String stateKey);
+                                                                  @Field("dob") String dob, @Field("state") String stateKey);
   /*  @POST(ILPService.UPDATION)
     @FormUrlEncoded
     Call<RegstrationResponsePojo> updateService(@Field("email") String email,@Field("mobile") String mobilenumber,
@@ -81,16 +72,16 @@ public interface ApiInterface {
     @GET
     Call<DistrictPojos> getAllDistrictData(@Url String url);
 
-   // @GET(ILPService.BLOCKS)
-  //  Call<GetBlockPojo> getAllBlocksData();
-@GET
-    Call<BlockDetailPojo> getAllBlocksData(@Url String url,@Header("Authorization") String authHeader);
+    // @GET(ILPService.BLOCKS)
+    //  Call<GetBlockPojo> getAllBlocksData();
+    @GET
+    Call<BlockDetailPojo> getAllBlocksData(@Url String url, @Header("Authorization") String authHeader);
 
     @GET
-    Call<ClusterDetailPojo> getAllClusterData(@Url String url,@Header("Authorization") String authHeader);
+    Call<ClusterDetailPojo> getAllClusterData(@Url String url, @Header("Authorization") String authHeader);
 
     @GET
-    Call<SchoolDataPojo> getAllSchoolsData(@Url String url,@Header("Authorization") String authHeader);
+    Call<SchoolDataPojo> getAllSchoolsData(@Url String url, @Header("Authorization") String authHeader);
 
 
  /*   @POST(ILPService.FORGOTPASSWORD)
@@ -114,10 +105,10 @@ public interface ApiInterface {
 */
 
     @GET("/api/v1/surveys/assessments/images?")
-    Call<ImagesPOJO> getImages(@Query("school_id") String school_id,@Query("state") String stateKey,@Header("Authorization") String authHeader);
+    Call<ImagesPOJO> getImages(@Query("school_id") String school_id, @Query("state") String stateKey, @Header("Authorization") String authHeader);
 
     @GET("/api/v1/surveys/assessments/images?")
-    Call<ImagesPOJO> getImagesbyDate(@Query("school_id") String school_id,@Query("from") String fromdate,@Query("to") String todate,@Query("state") String stateKey,@Header("Authorization") String authHeader);
+    Call<ImagesPOJO> getImagesbyDate(@Query("school_id") String school_id, @Query("from") String fromdate, @Query("to") String todate, @Query("state") String stateKey, @Header("Authorization") String authHeader);
 
 
     //new
@@ -126,28 +117,19 @@ public interface ApiInterface {
     Call<UserRolesPojos> getStateDeailFromNetwork();
 
     @GET("/api/v1/surveys/")
-    Call<SurveyDeailPojo>getSurveyDetailsFromNetwork();
-
-
-
-
-
-  @GET("/api/v1/surveys/questiongroupdetails/?survey_tag=gka")
-    Call<ResponseBody>fetchReportData(@Query("questiongroup_id") long questiongroup_id,@Query("boundary_id") long boundary_id,@Query("from") String from,@Query("to") String to,@Query("state") String stateKey,@Header("Authorization") String authHeader,@Query("survey_id") long surveyid,@Query("survey_tag") String survey_tag);
-
+    Call<SurveyDeailPojo> getSurveyDetailsFromNetwork();
 
 
     @GET("/api/v1/surveys/questiongroupdetails/?survey_tag=gka")
-    Call<ResponseBody>fetchReportDataSchool(@Query("questiongroup_id") long questiongroup_id,@Query("institution_id") long institution_id,@Query("from") String from,@Query("to") String to,@Query("state") String stateKey,@Header("Authorization") String authHeader,@Query("survey_id") long surveyid,@Query("survey_tag") String survey_tag);
+    Call<ResponseBody> fetchReportData(@Query("questiongroup_id") long questiongroup_id, @Query("boundary_id") long boundary_id, @Query("from") String from, @Query("to") String to, @Query("state") String stateKey, @Header("Authorization") String authHeader, @Query("survey_id") long surveyid, @Query("survey_tag") String survey_tag);
 
 
-
-
-
+    @GET("/api/v1/surveys/questiongroupdetails/?survey_tag=gka")
+    Call<ResponseBody> fetchReportDataSchool(@Query("questiongroup_id") long questiongroup_id, @Query("institution_id") long institution_id, @Query("from") String from, @Query("to") String to, @Query("state") String stateKey, @Header("Authorization") String authHeader, @Query("survey_id") long surveyid, @Query("survey_tag") String survey_tag);
 
 
     @GET
-    Call<UserRolesPojos>getRespondentListFromNetwork(@Url String url);
+    Call<UserRolesPojos> getRespondentListFromNetwork(@Url String url);
 
 
 
@@ -158,62 +140,70 @@ public interface ApiInterface {
 */
 
     @GET(ILPService.USER_SUMMERY)
-    Call<ResponseBody> getMySummary(@Query("questiongroup_id") long questiongroup,@Query("from") String from,@Query("to") String to,@Header("Authorization") String authHeader,@Query("state") String statekey,@Query("survey_id") long surveyid);
+    Call<ResponseBody> getMySummary(@Query("questiongroup_id") long questiongroup, @Query("from") String from, @Query("to") String to, @Query("token") String authHeader, @Query("state") String statekey, @Query("survey_id") long surveyid);
 
 
     @FormUrlEncoded
     @PUT(ILPService.UPDATE_PROFILE)
-        Call<ResponseBody> setUpdateProfile(@Field("first_name") String firstName, @Field("last_name") String lastName,
-                                              @Field("user_type") String userType,@Field("dob") String dob,
-                                                 @Field("email") String email,
-                                                 @Header("Authorization") String authHeader,@Field("state") String stateKey);
+    Call<ResponseBody> setUpdateProfile(@Field("first_name") String firstName, @Field("last_name") String lastName,
+                                        @Field("user_type") String userType, @Field("dob") String dob,
+                                        @Field("email") String email,
+                                        @Query("token") String authHeader, @Field("state") String stateKey);
 
 
     @FormUrlEncoded
     @PUT(ILPService.UPDATE_PROFILE)
     Call<ResponseBody> setUpdateProfileWithoutEmail(@Field("first_name") String firstName, @Field("last_name") String lastName,
-                                        @Field("user_type") String userType,@Field("dob") String dob,
-                                         @Header("Authorization") String authHeader,@Field("state") String stateKey);
-
-
-
-
+                                                    @Field("user_type") String userType, @Field("dob") String dob,
+                                                    @Header("Authorization") String authHeader, @Field("state") String stateKey);
 
 
     @POST(ILPService.LOGIN_API)
     @FormUrlEncoded
-    Call<ResponseBody> userLogin(@Field("username") String mobile, @Field("password") String password,@Field("state") String statekey);
+    Call<ResponseBody> userLogin(@Field("username") String mobile, @Field("password") String password, @Field("state") String statekey);
 
 
     @POST(ILPService.OTP_SIGNUP)
     @FormUrlEncoded
-    Call<ResponseBody> otpSignUp(@Field("mobile_no") String mobile,@Field("otp") String otp,@Field("state") String statekey);
-
-
-
-    @POST(ILPService.FORGOTPASSWORD_GENERATE_OTP)
-    @FormUrlEncoded
-    Call<ForgotPassswordOtpPojo>generateOtpForForgotPassword(@Field("mobile_no") String mobile_no,@Field("state") String statekey);
+    Call<ResponseBody> otpSignUp(@Field("mobile_no") String mobile, @Field("otp") String otp, @Field("state") String statekey);
 
 
     @POST(ILPService.FORGOTPASSWORD_GENERATE_OTP)
     @FormUrlEncoded
-    Call<ForgotPassswordOtpPojo>generateOtpForForgotPasswordResend(@Field("mobile_no") String mobile_no,@Field("state") String statekey,@Field("option") String option);
+    Call<ForgotPassswordOtpPojo> generateOtpForForgotPassword(@Field("mobile_no") String mobile_no, @Field("state") String statekey);
+
+
+    @POST(ILPService.FORGOTPASSWORD_GENERATE_OTP)
+    @FormUrlEncoded
+    Call<ForgotPassswordOtpPojo> generateOtpForForgotPasswordResend(@Field("mobile_no") String mobile_no, @Field("state") String statekey, @Field("option") String option);
 
 
     @POST(ILPService.FORGOTPASSWORD_RESETWITH_OTP)
     @FormUrlEncoded
-    Call<ResetPasswordPojo>forgotPasswordResetWithOTP(@Field("mobile_no") String mobile_no,@Field("otp") String otp,@Field("password") String password,@Field("state") String statekey);
+    Call<ResetPasswordPojo> forgotPasswordResetWithOTP(@Field("mobile_no") String mobile_no, @Field("otp") String otp, @Field("password") String password, @Field("state") String statekey);
 
     @GET
-    Call<QuestionsPojos> fetchCummunitySurveyQuestions(@Url String url,@Header("Authorization") String authHeader);
+    Call<QuestionsPojos> fetchCummunitySurveyQuestions(@Url String url, @Header("Authorization") String authHeader);
 
 
-   // @Headers({"CONNECT_TIMEOUT:10000", "READ_TIMEOUT:10000", "WRITE_TIMEOUT:10000"})
+    // @Headers({"CONNECT_TIMEOUT:10000", "READ_TIMEOUT:10000", "WRITE_TIMEOUT:10000"})
     @POST(ILPService.SYNC)
-    Call<ResponseBody> syncDataforServerWithRetro(@Body RequestBody requestBody,@Header("Authorization") String authHeader);
+    Call<ResponseBody> syncDataforServerWithRetro(@Body RequestBody requestBody, @Header("Authorization") String authHeader);
 
 
     @GET
-    Call<SurveyAndQuestionGrPojo>getSurveyAndQuestionGFromNetworn(@Url String url,@Header("Authorization") String authHeader);
+    Call<SurveyAndQuestionGrPojo> getSurveyAndQuestionGFromNetworn(@Url String url, @Header("Authorization") String authHeader);
+
+    /**
+     * Code for CR remove_login to check mobile number is registered or not
+     */
+    @GET(ILPService.CHECK_MOBILE)
+    Call<ResponseBody> checkMobile(@Query("mobile_no") String mobile);
+
+    @POST(ILPService.TOKEN_AUTH)
+    Call<ResponseBody> tokenAuth(@Query("mobile_no") String mobile);
+
+    @POST(ILPService.SYNC_SURVEY)
+    Call<ResponseBody> newsyncDataforServerWithRetro(@Body RequestBody requestBody, @Query("token") String header);
+
 }

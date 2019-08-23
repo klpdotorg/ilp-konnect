@@ -15,7 +15,7 @@
     <string name="prompt_school">Select School</string>
     <string name="prompt_user_type">Select Respondent Type</string>
     <!-- Strings related to login -->
-    <string name="register">REGISTER</string>
+    <string name="register"><u>REGISTER</u></string>
     <string name="login">LOGIN</string>
     <string name="forgotPassword">Forgot password?</string>
     <string name="confirmPassword">CONFIRM PASSWORD</string>
@@ -301,4 +301,11 @@
 
 
     </string-array>
+    <string name="confirm_mobile_number">CONFIRM MOBILE NUMBER</string>
+    <string name="registeredsuccessful">Registration Successful</string>
+    <string name="doesnotmatcherwithmobileno">This field is required and must match the value entered in the mobile number field </string>
+    <string name="mobilenumbernotfound">Mobile number not registered. Please register to use the ILP Konnect app.</string>
+    <string name="authfailed">Some features of the app may not work as expected because authentication failed</string>
+    <string name="postfailed">POST failed because of authentication reasons</string>
+    <string name="surveySyncInProgress">Survey sync in progress</string>
 </resources>

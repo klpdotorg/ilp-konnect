@@ -248,6 +248,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".VerifyMobileNumber"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/KLPTheme"></activity>
 
     </application>
 

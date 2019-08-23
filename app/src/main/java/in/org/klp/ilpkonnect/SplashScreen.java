@@ -1,20 +1,15 @@
 package in.org.klp.ilpkonnect;
 
 import android.app.ProgressDialog;
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
-
 import android.os.Bundle;
-
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +19,7 @@ import com.yahoo.squidb.sql.Query;
 
 import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.constants.ApplicationConstants;
 import in.org.klp.ilpkonnect.db.DatabaseCopyHelper;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.State;
@@ -64,6 +60,16 @@ public class SplashScreen extends BaseActivity {
         }
 
 
+        // Code written for CR remove_login to check whether password is encryoted and saved in mobile DB
+        if (mSession.getPASSWORD().isEmpty()) {
+            try {
+                mSession.setPASSWORD(ApplicationConstants.encrypt());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
         // check state and language if user first time login
 
         if (mSession.isLoggedIn()) {
@@ -71,6 +77,7 @@ public class SplashScreen extends BaseActivity {
             if (getStateCount() == 0) {
                 loadStateDeatil();
             } else {
+                //checkLogin();
                 if (mSession.isLoggedIn() && mSession.isSetupDone()) {
                     Intent intent = new Intent(getApplicationContext(), SurveyTypeActivity.class);
                     startActivity(intent);
@@ -102,7 +109,6 @@ public class SplashScreen extends BaseActivity {
 
 
     }
-
 
     public void loadStateDeatil() {
         dailog.show();
@@ -166,6 +172,8 @@ public class SplashScreen extends BaseActivity {
         }
 
     }
+
+
 }
 
 

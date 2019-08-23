@@ -6,9 +6,8 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
-import in.org.klp.ilpkonnect.LanguageSelectionActivity;
-import in.org.klp.ilpkonnect.LoginActivity;
 import in.org.klp.ilpkonnect.SplashScreen;
+import in.org.klp.ilpkonnect.VerifyMobileNumber;
 
 /**
  * Created by bibhas on 6/16/16.
@@ -46,7 +45,7 @@ public class SessionManager {
     public static final String LANGUAGE = "LANGUAGE";
     public static final String LANGUAGE_KEY = "LANGUAGE_KEY";
     public static final String STATE_KEY = "STATE_KEY";
-public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
+    public static final String BOUNDARYPOSITION = "BOUNDARYPOSITION";
 
     public static final String DOB = "DOB";
     public static final String LAST_NAME = "LAST_NAME";
@@ -57,6 +56,9 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
     public static final String STATESELECTION = "STATESELECTION";
 
     public static final String LANGUAGEPOSITION = "LANGUAGEPOSITION";
+
+    // for password saving
+    public static final String PASSWORD = "";
 
     // Constructor
     public SessionManager(Context context) {
@@ -141,7 +143,7 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         // Check login status
         if (!this.isLoggedIn()) {
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, LoginActivity.class);
+            Intent i = new Intent(_context, VerifyMobileNumber.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -189,7 +191,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         return pref.getString(KEY_NAME, null);
 
     }
- public int getLanguagePosition() {
+
+    public int getLanguagePosition() {
         return pref.getInt(LANGUAGEPOSITION, 0);
 
     }
@@ -256,7 +259,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
 
 
     public String getToken() {
-        return "Token " + pref.getString(KEY_TOKEN, "");
+        //return "Token " + pref.getString(KEY_TOKEN, "");
+        return "" + pref.getString(KEY_TOKEN, "");
 
     }
 
@@ -264,7 +268,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         editor.putInt(STATEPOSITION, statePosition);
         editor.commit();
     }
-  public void setLanguagePosition(int langpos) {
+
+    public void setLanguagePosition(int langpos) {
         editor.putInt(LANGUAGEPOSITION, langpos);
         editor.commit();
     }
@@ -272,10 +277,24 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
 
     public int getStatePosition() {
 
-       return pref.getInt(STATEPOSITION,0);
+        return pref.getInt(STATEPOSITION, 0);
     }
 
-/*    public void setBoundaryPosition(int boundaryPosition) {
+    public String getPASSWORD() {
+        return pref.getString(PASSWORD, "");
+    }
+
+    public void setPASSWORD(String pass) {
+        editor.putString(PASSWORD, pass);
+        editor.commit();
+    }
+
+    public void setKEY_TOKEN(String key) {
+        editor.putString(KEY_TOKEN, key);
+        editor.commit();
+    }
+
+   /*    public void setBoundaryPosition(int boundaryPosition) {
         editor.putInt(BOUNDARYPOSITION, boundaryPosition);
         editor.commit();
     }

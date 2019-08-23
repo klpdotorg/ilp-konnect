@@ -40,7 +40,8 @@
                 android:singleLine="true" />
 
 
-            <EditText
+            <!--Commented for CR remove_login-->
+            <!--<EditText
                 android:id="@+id/password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -48,17 +49,28 @@
                 android:hint="@string/prompt_enter_password"
                 android:inputType="textPassword"
 
-                android:singleLine="true" />
+                android:singleLine="true" />-->
 
 
+            <!-- <EditText
+                 android:id="@+id/verify_password"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="10dp"
+                 android:hint="@string/confirmPassword"
+                 android:inputType="textPassword"
+
+                 android:singleLine="true" />-->
             <EditText
-                android:id="@+id/verify_password"
+                android:id="@+id/verify_user_phone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/confirmPassword"
-                android:inputType="textPassword"
-
+                android:digits="0123456789"
+                android:hint="@string/confirm_mobile_number"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:password="true"
                 android:singleLine="true" />
 
             <EditText
@@ -81,27 +93,27 @@
 
                 android:singleLine="true" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <EditText
-                android:id="@+id/edtDob"
-                android:layout_width="0dp"
-                android:layout_weight="0.84"
-                android:singleLine="true"
-                android:inputType="date"
-                android:digits="0123456789-"
-                android:layout_height="wrap_content"
-                android:hint="@string/dob"
-              />
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="0.158"
-                    android:id="@+id/calBtn"
-                    android:layout_height="40dp"
-                    android:src="@drawable/calendarico"/>
-            </LinearLayout>
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal">
+             <EditText
+                 android:id="@+id/edtDob"
+                 android:layout_width="0dp"
+                 android:layout_weight="0.84"
+                 android:singleLine="true"
+                 android:inputType="date"
+                 android:digits="0123456789-"
+                 android:layout_height="wrap_content"
+                 android:hint="@string/dob"
+               />
+                 <ImageView
+                     android:layout_width="0dp"
+                     android:layout_weight="0.158"
+                     android:id="@+id/calBtn"
+                     android:layout_height="40dp"
+                     android:src="@drawable/calendarico"/>
+             </LinearLayout>-->
 
             <EditText
                 android:id="@+id/user_email"

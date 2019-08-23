@@ -19,7 +19,7 @@
 
     <!-- Strings related to login -->
 
-    <string name="register">ରେଜିଷ୍ଟର</string>
+    <string name="register"><u>ରେଜିଷ୍ଟର</u></string>
     <string name="login">ଲଗ୍ ଇନ୍</string>
     <string name="forgotPassword">ପାସୱାର୍ଡ୍ ଭୁଲି ଗଲେ କି?</string>
     <string name="confirmPassword">ପାସୱାର୍ଡ୍ ସୁନିଶ୍ଚିତ କରନ୍ତୁ</string>
@@ -157,7 +157,7 @@
     <string name="nextbutton">ପରବର୍ତ୍ତୀ</string>
     <string name="enterValidDate">ବୈଧ ତାରିଖ ଫର୍ମାଟ୍(DD-MM-YYYY) Enter କରନ୍ତୁ</string>
 
-    <string name="survey_taken">%1$d ସର୍ବେକ୍ଷଣ ନେଇ ସାରିଛନ୍ତି | ଦୟା କରି ଇଣ୍ଟରନେଟ୍ ଜୋନ ରେ ଆସିଲେ ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
+    <string name="survey_taken">ସର୍ବେକ୍ଷଣ ନେଇ ସାରିଛନ୍ତି | ଦୟା କରି ଇଣ୍ଟରନେଟ୍ ଜୋନ ରେ ଆସିଲେ ସିଂକ୍ରୋନାଇଜ୍ କରନ୍ତୁ</string>
     <string name="updateProfile">ପ୍ରୋଫାଇଲ୍ ଅଦ୍ୟତନ</string>
     <string name="response_summary">ସାରାଂଶ ଅନୁକ୍ରିୟା</string>
     <string name="synced">ସିଂକ୍ରୋନାଇଜ୍ ହୋଇଗଲା</string>
@@ -321,4 +321,11 @@
         <item>Multigrade</item>
 
     </string-array>
+    <string name="confirm_mobile_number">CONFIRM MOBILE NUMBER</string>
+    <string name="registeredsuccessful">Registration Successful</string>
+    <string name="doesnotmatcherwithmobileno">This field is required and must match the value entered in the mobile number field </string>
+    <string name="mobilenumbernotfound">Mobile number not registered. Please register to use the ILP Konnect app. </string>
+    <string name="authfailed">Some features of the app may not work as expected because authentication failed</string>
+    <string name="postfailed">POST failed because of authentication reasons</string>
+    <string name="surveySyncInProgress">Survey sync in progress</string>
 </resources>

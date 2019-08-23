@@ -1,32 +1,22 @@
 package in.org.klp.ilpkonnect;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yahoo.squidb.data.SquidCursor;
 import com.yahoo.squidb.sql.Query;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-
 import in.org.klp.ilpkonnect.db.MySummary;
-
-import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
 import in.org.klp.ilpkonnect.db.Story;
 import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.DailogUtill;
@@ -86,7 +76,6 @@ public class SummaryActiivity extends BaseActivity {
     }
 
     public String getOneDayExstra(String date) {
-
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
@@ -208,27 +197,30 @@ public class SummaryActiivity extends BaseActivity {
 
 
     public void mySync() {
-        progressDialog.show();
-        final String fromd = getRevDate(from);
-        final String endd = getRevDate(getOneDayExstra(end));
 
-        //  Toast.makeText(getApplicationContext(),fromd+":"+endd,Toast.LENGTH_SHORT).show();
+        //if(!ApplicationConstants.isSyncing){
+            progressDialog.show();
+            final String fromd = getRevDate(from);
+            final String endd = getRevDate(getOneDayExstra(end));
 
-        //  startActivity(new Intent(getApplicationContext(),TempLoading.class));
-        new ProNetworkSettup(getApplicationContext()).getMySummary(questiongroup, sessionManager.getStateSelection(), fromd, endd, sessionManager.getToken(),surveyId, new StateInterface() {
-            @Override
-            public void success(String message) {
-                progressDialog.setMessage(message);
-                fetchData(surveyId, sessionManager.getStateSelection(), from, end);
-                closeProgress();
-            }
 
-            @Override
-            public void failed(String message) {
-                closeProgress();
-                  DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
-            }
-        });
+            new ProNetworkSettup(getApplicationContext()).getMySummary(questiongroup, sessionManager.getStateSelection(), fromd, endd, sessionManager.getToken(),surveyId, new StateInterface() {
+                @Override
+                public void success(String message) {
+                    progressDialog.setMessage(message);
+                    fetchData(surveyId, sessionManager.getStateSelection(), from, end);
+                    closeProgress();
+                }
+
+                @Override
+                public void failed(String message) {
+                    closeProgress();
+                    DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
+                }
+            });
+       /* }else{
+            DailogUtill.showDialog(getString(R.string.surveySyncInProgress),getSupportFragmentManager(),getApplicationContext());
+        }*/
 
     }
 

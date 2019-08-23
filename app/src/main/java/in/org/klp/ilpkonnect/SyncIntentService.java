@@ -1,7 +1,9 @@
 package in.org.klp.ilpkonnect;
 
+import android.app.AlertDialog;
 import android.app.IntentService;
-import android.content.Context;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,20 +21,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
+import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.db.Answer;
-import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-import in.org.klp.ilpkonnect.db.Question;
-import in.org.klp.ilpkonnect.db.QuestionGroup;
-import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
-import in.org.klp.ilpkonnect.db.School;
 import in.org.klp.ilpkonnect.db.Story;
-import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.utils.AppStatus;
 import in.org.klp.ilpkonnect.utils.Constants;
 import in.org.klp.ilpkonnect.utils.ILPService;
+import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
 import in.org.klp.ilpkonnect.utils.SessionManager;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -50,9 +47,12 @@ public class SyncIntentService extends IntentService {
      */
     private KontactDatabase db;
     private OkHttpClient okclient;
+    SessionManager sessionManager;
+    ProgressDialog progressDialog;
 
     public SyncIntentService(String name) {
         super(name);
+        sessionManager = new SessionManager(getApplicationContext());
     }
 
     public SyncIntentService() {
@@ -63,10 +63,10 @@ public class SyncIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         try {
 
-           startSyncData();
+            startSyncData();
 
         } catch (Exception e) {
-         //   Log.d("Shri", "++++++++++++++++++++++++" + e.getMessage());
+            //   Log.d("Shri", "++++++++++++++++++++++++" + e.getMessage());
         }
 
 
@@ -74,24 +74,64 @@ public class SyncIntentService extends IntentService {
 
 
     public void startSyncData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                db = ((KLPApplication) getApplicationContext()).getDb();
-                if (AppStatus.isConnected(getApplicationContext())) {
-                    if (getStoryCount() > 0) {
-                       ArrayList< JSONObject> object = doUploadForSyncSurvey();
-                         for (JSONObject jsob : object) {
-                           //  Log.d("shri", "------First" + jsob.toString());
-                        JSONObject resp = SyncDataCall(jsob.toString());
-                            // Log.d("shri", "------Responc" + resp.toString());
-                             processUploadResponse(resp);
+        final SessionManager session = new SessionManager(getApplicationContext());
+        db = ((KLPApplication) getApplicationContext()).getDb();
+        if (AppStatus.isConnected(getApplicationContext())) {
+            if (getStoryCount() > 0) {
+                //ApplicationConstants.isSyncing= true;
+                try {
+                    new ProNetworkSettup(getApplicationContext()).tokenAuth(session.getMobile(), new StateInterface() {
+                        @Override
+                        public void success(String message) {
+                            try {
+                                JSONObject userLoginInfo = new JSONObject(message);
+                                if (userLoginInfo.has("secure_login_token")) {
+                                    session.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+                                    //ApplicationConstants.isSyncing= false;
+                                    // after success of login then call update
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ArrayList<JSONObject> object = doUploadForSyncSurvey();
+                                            for (JSONObject jsob : object) {
+                                                //  Log.d("shri", "------First" + jsob.toString());
+                                                JSONObject resp = SyncDataCall(jsob.toString());
+                                                // Log.d("shri", "------Responc" + resp.toString());
+                                                processUploadResponse(resp);
+
+                                            }
+                                        }
+                                    }).start();
+
+                                }
+
+                            } catch (Exception e) {
+                                //ApplicationConstants.isSyncing= false;
+                            }
 
                         }
-                    }
+
+                        @Override
+                        public void failed(String message) {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
+                            dialog.setCancelable(false);
+                            dialog.setMessage(getResources().getString(R.string.authfailed));
+                            dialog.setPositiveButton(getString(R.string.Ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            dialog.show();
+                            //ApplicationConstants.isSyncing= false;
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        }).start();
+        }
     }
 
     @Override
@@ -129,7 +169,7 @@ public class SyncIntentService extends IntentService {
         JSONArray storyArray = new JSONArray();
 
         try {
-           int size=0,i=0;
+            int size = 0, i = 0;
             if (storiesCursor != null) {
                 size = storiesCursor.getCount();
                 // Log.d("shri", size + "{-------------------]");
@@ -151,18 +191,17 @@ public class SyncIntentService extends IntentService {
                 }
 
                 storyJson.put("answers", answerArray);
-               // for(int k=0;k<2;k++) {
-                    storyArray.put(storyJson);
-               // }
-                if(storyArray.length()>= Constants.SYNC_MAX_COUNT_AT_SINGLE)
-                {
-                   jsonDataList.add( new JSONObject().put("stories", storyArray));
-                   storyArray=null;
-                   storyArray=new JSONArray();
-                }else if(i==size) {
-                    jsonDataList.add( new JSONObject().put("stories", storyArray));
-                    storyArray=null;
-                    storyArray=new JSONArray();
+                // for(int k=0;k<2;k++) {
+                storyArray.put(storyJson);
+                // }
+                if (storyArray.length() >= Constants.SYNC_MAX_COUNT_AT_SINGLE) {
+                    jsonDataList.add(new JSONObject().put("stories", storyArray));
+                    storyArray = null;
+                    storyArray = new JSONArray();
+                } else if (i == size) {
+                    jsonDataList.add(new JSONObject().put("stories", storyArray));
+                    storyArray = null;
+                    storyArray = new JSONArray();
                 }
 
             }
@@ -173,7 +212,7 @@ public class SyncIntentService extends IntentService {
             if (answerCursor != null) answerCursor.close();
         }
         try {
-           // requestJson.put("stories", storyArray);
+            // requestJson.put("stories", storyArray);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,7 +230,7 @@ public class SyncIntentService extends IntentService {
     private ArrayList<Integer> processUploadResponse(JSONObject response) {
         int failedCount = 0, successCount = 0;
         try {
-         //   Log.d(this.toString(), response.toString());
+            //   Log.d(this.toString(), response.toString());
             // TODO: show error
             String error = response.optString("error");
 
@@ -199,7 +238,7 @@ public class SyncIntentService extends IntentService {
                 //    Toast.makeText(MainDashList.this, error, Toast.LENGTH_LONG).show();
             } else {
                 JSONObject success = response.getJSONObject("success");
-              //  Log.d("shri", success.toString());
+                //  Log.d("shri", success.toString());
                 Iterator<String> keys = success.keys();
                 while (keys.hasNext()) {
                     String key = keys.next();
@@ -242,16 +281,16 @@ public class SyncIntentService extends IntentService {
                 .build();
         SessionManager mSession = new SessionManager(getApplicationContext());
         JSONObject respJson = new JSONObject();
-        final String SYNC_URL = BuildConfig.HOST + ILPService.SYNC;
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         HashMap<String, String> user = mSession.getUserDetails();
         RequestBody body = RequestBody.create(JSON, data);
+        final String SYNC_URL = BuildConfig.HOST + ILPService.SYNC_SURVEY + "token=" + user.get("token");
 
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .url(SYNC_URL)
-                .post(body)
-                .addHeader("Authorization", "Token " + user.get("token"))
-                .build();
+                .post(body).build();
+        //.addHeader("Authorization", "Token " + user.get("token"))
+
         try {
             okhttp3.Response okresponse = okclient.newCall(request).execute();
 
@@ -277,5 +316,6 @@ public class SyncIntentService extends IntentService {
         // Log.d("shri","===="+respJson.toString());
         return respJson;
     }
+
 
 }

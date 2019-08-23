@@ -5,23 +5,21 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.yahoo.squidb.data.SquidCursor;
-import com.yahoo.squidb.sql.Query;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,9 +43,10 @@ import in.org.klp.ilpkonnect.utils.SessionManager;
 
 public class UpdateProfileActivity extends BaseActivity {
 
-    ImageView calBtn;
+    //ImageView calBtn;
     ProgressDialog progressDialog;
-    EditText edtFirstName, edtLastName, edtDob, edtEmail;
+    EditText edtFirstName, edtLastName, edtEmail;
+    //EditText edtDob;
     int cyear, cmonth, cdate;
     SquidCursor<Respondent> respondentCursor = null;
     private LinkedHashMap<String, String> userType;
@@ -63,33 +62,33 @@ public class UpdateProfileActivity extends BaseActivity {
         setContentView(R.layout.update_profile);
         this.setTitle(getResources().getString(R.string.updateProfile));
 
-        calBtn = findViewById(R.id.calBtn);
-        edtDob = findViewById(R.id.edtDob);
+        // Code commented for CR remove_login
+        //calBtn = findViewById(R.id.calBtn);
+        //edtDob = findViewById(R.id.edtDob);
         edtFirstName = findViewById(R.id.edtFirstName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         edtLastName = findViewById(R.id.edtLastName);
         edtEmail = findViewById(R.id.edtEmail);
         spnRespondantType = findViewById(R.id.spnRespondantType);
         sessionManager = new SessionManager(getApplicationContext());
-        String stateKey=sessionManager.getStateSelection();
+        String stateKey = sessionManager.getStateSelection();
         btnUpdate = findViewById(R.id.btnUpdate);
         edtFirstName.setText(sessionManager.getFirstName());
         edtLastName.setText(sessionManager.getLastName());
-        edtEmail.setText(sessionManager.getEmail() != null &&!sessionManager.getEmail().equalsIgnoreCase("null") ? sessionManager.getEmail() : "");
-        edtDob.setText(getDDMMYYdate(sessionManager.getDOB()));
+        edtEmail.setText(sessionManager.getEmail() != null && !sessionManager.getEmail().equalsIgnoreCase("null") ? sessionManager.getEmail() : "");
+        //edtDob.setText(getDDMMYYdate(sessionManager.getDOB()));
         cyear = 1988;
         cdate = 1;
         cmonth = 0;
 
 
-
-       spnRespondantType.setOnTouchListener(new View.OnTouchListener() {
-           @Override
-           public boolean onTouch(View view, MotionEvent motionEvent) {
-               hideKeyboard(UpdateProfileActivity.this);
-               return false;
-           }
-       });
+        spnRespondantType.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hideKeyboard(UpdateProfileActivity.this);
+                return false;
+            }
+        });
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,13 +97,14 @@ public class UpdateProfileActivity extends BaseActivity {
             }
         });
 
-        calBtn.setOnClickListener(new View.OnClickListener() {
+        // Code commented for CR remove_login
+      /*  calBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 setdate(null, cyear, cmonth, cdate);
             }
-        });
+        });*/
         db = ((KLPApplication) getApplicationContext()).getDb();
       /*  Query listQGQquery = Query.select().from(Respondent.TABLE)
                 .orderBy(Respondent.NAME.asc());
@@ -119,7 +119,7 @@ public class UpdateProfileActivity extends BaseActivity {
 
         }*/
         userType = new LinkedHashMap<String, String>();
-        userType.putAll(RolesUtils.getUserRoles(getApplicationContext(), db,stateKey));
+        userType.putAll(RolesUtils.getUserRoles(getApplicationContext(), db, stateKey));
 
         if (userType != null && userType.size() > 0) {
             List<String> userTypeNames = new ArrayList<>();
@@ -160,8 +160,6 @@ public class UpdateProfileActivity extends BaseActivity {
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -194,18 +192,19 @@ public class UpdateProfileActivity extends BaseActivity {
         finish();
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
+
     private void setdate(DatePicker view, int y, int m, int d) {
         DatePickerDialog dpd;
 
         dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                edtDob.setText(String.format("%02d-%02d-%04d", dayOfMonth, monthOfYear + 1, year));
+                //edtDob.setText(String.format("%02d-%02d-%04d", dayOfMonth, monthOfYear + 1, year));
                 cyear = year;
                 cdate = dayOfMonth;
                 cmonth = monthOfYear;
                 //   ReqDate = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                edtDob.setError(null);
+                // edtDob.setError(null);
             }
         }, y, m, d);
         try {
@@ -223,7 +222,7 @@ public class UpdateProfileActivity extends BaseActivity {
     public void validation() {
         View focusView = null;
         boolean cancel = false;
-        String dateofBirth = edtDob.getText().toString().trim();
+        //String dateofBirth = edtDob.getText().toString().trim();
 
         if (TextUtils.isEmpty(edtFirstName.getText().toString().trim())) {
             edtFirstName.setError(getResources().getString(R.string.error_field_required));
@@ -233,7 +232,9 @@ public class UpdateProfileActivity extends BaseActivity {
             edtLastName.setError(getResources().getString(R.string.error_field_required));
             focusView = edtLastName;
             cancel = true;
-        } else if (TextUtils.isEmpty(dateofBirth)) {
+        }
+        // Code commented for CR remove_login
+        /*else if (TextUtils.isEmpty(dateofBirth)) {
             edtDob.setError(getResources().getString(R.string.error_field_required));
             focusView = edtDob;
             cancel = true;
@@ -245,7 +246,7 @@ public class UpdateProfileActivity extends BaseActivity {
             edtDob.setError("You cannot enter a date in the future");
             focusView = edtDob;
             cancel = true;
-        } else if (!isEmailValid(edtEmail.getText().toString().trim())) {
+        } */ else if (!isEmailValid(edtEmail.getText().toString().trim())) {
             //emailWidget.setError("This email address is invalid");
             focusView = edtEmail;
             cancel = true;
@@ -257,35 +258,72 @@ public class UpdateProfileActivity extends BaseActivity {
         } else {
 
             showProgress(true);
-            new ProNetworkSettup(getApplicationContext()).setProfileUpdateAction(edtFirstName.getText().toString().trim(),
-                    edtLastName.getText().toString().trim(), edtEmail.getText().toString().trim(), getRevDate(edtDob.getText().toString().trim()),
-                    userType.get(spnRespondantType.getSelectedItem().toString()), sessionManager.getToken(),sessionManager.getStateSelection(), new StateInterface() {
-                        @Override
-                        public void success(String message) {
+
+            // Code written for CR remove_login to call Token Auth API for background verification
+            try {
+                new ProNetworkSettup(UpdateProfileActivity.this).tokenAuth(sessionManager.getMobile(), new StateInterface() {
+                    @Override
+                    public void success(String message) {
+
+                        try {
+                            JSONObject userLoginInfo = new JSONObject(message);
+                            if (userLoginInfo.has("secure_login_token") && userLoginInfo.getString("secure_login_token") != null && !userLoginInfo.getString("secure_login_token").trim().equalsIgnoreCase("")) {
+                                sessionManager.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+                                // after success of login then call update
+                                new ProNetworkSettup(getApplicationContext()).setProfileUpdateAction(edtFirstName.getText().toString().trim(),
+                                        edtLastName.getText().toString().trim(), edtEmail.getText().toString().trim(), "",
+                                        userType.get(spnRespondantType.getSelectedItem().toString()), sessionManager.getToken(), sessionManager.getStateSelection(), new StateInterface() {
+                                            @Override
+                                            public void success(String message) {
+                                                showProgress(false);
+                                                //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
+
+                                                DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully), getSupportFragmentManager(), getApplicationContext());
+
+                                                try {
+                                                    subscribetoTopicsForNotification(sessionManager.getState(), sessionManager.getUserType());
+                                                } catch (Exception e) {
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void failed(String message) {
+                                                showProgress(false);
+                                                //showSignupResultDialog(getString(R.string.app_name),message,getResources().getString(R.string.Ok));
+                                                DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+
+                                            }
+                                        });
+
+                            } else
+                                showProgress(false);
+
+                        } catch (Exception e) {
                             showProgress(false);
-                            //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
-
-                            DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully), getSupportFragmentManager(), getApplicationContext());
-
-                            try {
-                                subscribetoTopicsForNotification(sessionManager.getState(), sessionManager.getUserType());
-                            } catch (Exception e) {
-
-                            }
                         }
 
-                        @Override
-                        public void failed(String message) {
-                            showProgress(false);
-                            //showSignupResultDialog(getString(R.string.app_name),message,getResources().getString(R.string.Ok));
-                            DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+                    }
+
+                    @Override
+                    public void failed(String message) {
+                        showProgress(false);
+
+                        DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
+
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
-                        }
-                    });
+
+
+
+            /**/
         }
     }
-
 
 
     private void subscribetoTopicsForNotification(String state, String stateUserType) {
@@ -294,8 +332,7 @@ public class UpdateProfileActivity extends BaseActivity {
             FirebaseMessaging.getInstance().subscribeToTopic(state);
             FirebaseMessaging.getInstance().subscribeToTopic(state + "-" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType));
             //   Toast.makeText(getApplicationContext(),state+"-"+state + ":" + RolesUtils.getUserRoleValueForFcmGroup(getApplicationContext(), db, stateUserType),Toast.LENGTH_SHORT).show();
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             //may be topic contains some special symbols
         }
     }

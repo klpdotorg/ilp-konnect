@@ -40,8 +40,19 @@
                 android:textSize="20sp"
                 android:singleLine="true" />
 
-
             <EditText
+                android:id="@+id/verify_user_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:digits="0123456789"
+                android:hint="@string/confirm_mobile_number"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:minHeight="60dp"
+                android:textSize="20sp"
+                android:singleLine="true" />
+           <!-- <EditText
                 android:id="@+id/password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +75,7 @@
                 android:textSize="20sp"
                 android:inputType="textPassword"
 
-                android:singleLine="true" />
+                android:singleLine="true" />-->
 
             <EditText
                 android:id="@+id/user_first_name"
@@ -90,7 +101,7 @@
 
                 android:singleLine="true" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -112,7 +123,7 @@
                     android:id="@+id/calBtn"
                     android:layout_height="60dp"
                     android:src="@drawable/calendarico"/>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <EditText
                 android:id="@+id/user_email"

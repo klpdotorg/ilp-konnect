@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import in.org.klp.ilpkonnect.LoginActivity;
 import in.org.klp.ilpkonnect.R;
+import in.org.klp.ilpkonnect.VerifyMobileNumber;
 
 /**
  * Created by Subha on 5/31/16.
@@ -26,7 +26,7 @@ public class SignUpResultDialogFragment extends DialogFragment {
                 .setPositiveButton(args.getString("buttonText"), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if(args.getString("buttonText").equalsIgnoreCase(getResources().getString(R.string.login))) {
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            Intent intent = new Intent(getActivity(), VerifyMobileNumber.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             getActivity().finish();

@@ -1,7 +1,6 @@
 package in.org.klp.ilpkonnect;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -18,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
@@ -55,9 +52,10 @@ import in.org.klp.ilpkonnect.utils.SessionManager;
 
 public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
-    ImageView calBtn;
+    //ImageView calBtn;
     ProgressDialog progressDialog;
-    EditText edtFirstName, edtLastName, edtDob, edtEmail;
+    EditText edtFirstName, edtLastName, edtEmail;
+    //EditText edtDob;
     int cyear, cmonth, cdate;
     SquidCursor<Respondent> respondentCursor = null;
     private LinkedHashMap<String, String> userType;
@@ -75,8 +73,9 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
         setContentView(R.layout.update_profile);
         this.setTitle(getResources().getString(R.string.updateProfile));
 
-        calBtn = findViewById(R.id.calBtn);
-        edtDob = findViewById(R.id.edtDob);
+        // Code commented for CR remove_login
+        /*calBtn = findViewById(R.id.calBtn);
+        edtDob = findViewById(R.id.edtDob);*/
         edtFirstName = findViewById(R.id.edtFirstName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         edtLastName = findViewById(R.id.edtLastName);
@@ -89,10 +88,9 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
         String firstName = getIntent().getStringExtra("firstName");
         String lastName = getIntent().getStringExtra("lastName");
         token = getIntent().getStringExtra("token");
-      //  token = "9a5817a691d1e6d1b6fabc5b0400650e505e8b36";
+        //  token = "9a5817a691d1e6d1b6fabc5b0400650e505e8b36";
         String email = getIntent().getStringExtra("email");
-        if(email!=null&&email.equalsIgnoreCase("null"))
-        {
+        if (email != null && email.equalsIgnoreCase("null")) {
             edtEmail.setText(email);
         }
         edtFirstName.setText(firstName);
@@ -118,13 +116,14 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
             }
         });
 
-        calBtn.setOnClickListener(new View.OnClickListener() {
+        // Code commented for CR remove_login
+        /*calBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 setdate(null, cyear, cmonth, cdate);
             }
-        });
+        });*/
 
         db = ((KLPApplication) getApplicationContext()).getDb();
 
@@ -140,11 +139,11 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
             spnRespondantType.setAdapter(userTypeAdapter);
 
 
-
         }
 
 
     }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -155,6 +154,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
     private boolean isEmailValid(String email) {
         if (TextUtils.isEmpty(email)) {
             emailValue = "";
@@ -202,12 +202,12 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
         dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                edtDob.setText(String.format("%02d-%02d-%04d", dayOfMonth, monthOfYear + 1, year));
+                //edtDob.setText(String.format("%02d-%02d-%04d", dayOfMonth, monthOfYear + 1, year));
                 cyear = year;
                 cdate = dayOfMonth;
                 cmonth = monthOfYear;
                 //   ReqDate = String.format("%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                edtDob.setError(null);
+                //edtDob.setError(null);
             }
         }, y, m, d);
         try {
@@ -225,7 +225,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
     public void validation() {
         View focusView = null;
         boolean cancel = false;
-        String dateofBirth = edtDob.getText().toString().trim();
+        //String dateofBirth = edtDob.getText().toString().trim();
 
         if (TextUtils.isEmpty(edtFirstName.getText().toString().trim())) {
             edtFirstName.setError(getResources().getString(R.string.error_field_required));
@@ -243,7 +243,9 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
             errorText.setText(getResources().getString(R.string.pleaseSelectrespondanttype));
             focusView = spnRespondantType;
             cancel = true;
-        } else if (TextUtils.isEmpty(dateofBirth)) {
+        }
+        // Code commented for CR remove_login
+        /* else if (TextUtils.isEmpty(dateofBirth)) {
             edtDob.setError(getResources().getString(R.string.error_field_required));
             focusView = edtDob;
             cancel = true;
@@ -255,7 +257,8 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
             edtDob.setError("You cannot enter a date in the future");
             focusView = edtDob;
             cancel = true;
-        } else if (!isEmailValid(edtEmail.getText().toString().trim())) {
+        }*/
+        else if (!isEmailValid(edtEmail.getText().toString().trim())) {
             //emailWidget.setError("This email address is invalid");
             focusView = edtEmail;
             cancel = true;
@@ -266,57 +269,82 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
         } else {
 
-            showProgress(true,getResources().getString(R.string.updating_profile));
-            new ProNetworkSettup(getApplicationContext()).setProfileUpdateAction(edtFirstName.getText().toString().trim(),
-                    edtLastName.getText().toString().trim(), edtEmail.getText().toString().trim(), getRevDate(edtDob.getText().toString().trim()),
-                    userType.get(spnRespondantType.getSelectedItem().toString()), "Token " + token, sessionManager.getStateSelection(), new StateInterface() {
-                        @Override
-                        public void success(final String message) {
-                              showProgress(false,"");
-                            //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
+            showProgress(true, getResources().getString(R.string.updating_profile));
 
-                            // DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully) + "\n" + getString(R.string.pleaseLoginandcontue), getSupportFragmentManager(), getApplicationContext());
-                            android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(UpdateProfileBeforeLoginActivity.this).create();
+            new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).tokenAuth(sessionManager.getMobile(), new StateInterface() {
+                @Override
+                public void success(String message) {
 
-                            alertDialog.setCancelable(false);
-                            alertDialog.setMessage(getResources().getString(R.string.profileUpdatedSuccessfully));
-                            alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
-                                    new DialogInterface.OnClickListener() {
+                    try {
+                        JSONObject userLoginInfo = new JSONObject(message);
+                        if (userLoginInfo.has("secure_login_token") && userLoginInfo.getString("secure_login_token") != null && !userLoginInfo.getString("secure_login_token").trim().equalsIgnoreCase("")) {
+                            sessionManager.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+                            // after success of login then call update
+                            new ProNetworkSettup(getApplicationContext()).setProfileUpdateAction(edtFirstName.getText().toString().trim(),
+                                    edtLastName.getText().toString().trim(), edtEmail.getText().toString().trim(), "",
+                                    userType.get(spnRespondantType.getSelectedItem().toString()), "" + sessionManager.getToken(), sessionManager.getStateSelection(), new StateInterface() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            showProgress(true,getResources().getString(R.string.downloadingSurvey));
-                                            downloadSurveyInfo(message, sessionManager.getStateSelection(),"Token " + token);
+                                        public void success(final String message) {
+                                            showProgress(false, "");
+                                            //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
+
+                                            // DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully) + "\n" + getString(R.string.pleaseLoginandcontue), getSupportFragmentManager(), getApplicationContext());
+                                            android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(UpdateProfileBeforeLoginActivity.this).create();
+
+                                            alertDialog.setCancelable(false);
+                                            alertDialog.setMessage(getResources().getString(R.string.profileUpdatedSuccessfully));
+                                            alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                            showProgress(true, getResources().getString(R.string.downloadingSurvey));
+                                                            downloadSurveyInfo(message, sessionManager.getStateSelection(), "" + token);
+                                                        }
+                                                    });
+                                            alertDialog.show();
+
+                                            //parse the userInfo String
+
+                                            //downloadSurveyInfo(message, "");
+                                        }
+
+                                        @Override
+                                        public void failed(String message) {
+                                            showProgress(false, "");
+                                            //showSignupResultDialog(getString(R.string.app_name),message,getResources().getString(R.string.Ok));
+                                            DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+
                                         }
                                     });
-                            alertDialog.show();
+
+                        } else
+                            showProgress(false, "");
+
+                    } catch (Exception e) {
+                        showProgress(false, "");
+                    }
+
+                }
+
+                @Override
+                public void failed(String message) {
+                    showProgress(false, "");
+                    DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
+
+                }
+            });
 
 
-                            //parse the userInfo String
-
-                            //downloadSurveyInfo(message, "");
-
-
-                        }
-
-                        @Override
-                        public void failed(String message) {
-                            showProgress(false,"");
-                            //showSignupResultDialog(getString(R.string.app_name),message,getResources().getString(R.string.Ok));
-                            DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
-
-
-                        }
-                    });
         }
     }
 
     private void downloadSurveyInfo(final String userInfo, String stateKey, final String tokenlo) {
 
 
-        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey+"&status=AC&per_page=0";
+        String URL = BuildConfig.HOST + "/api/v1/surveys/?survey_tag=konnect&state=" + stateKey + "&status=AC&per_page=0";
 
-        new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).getSurveyandQuestionGroup(URL, stateKey,tokenlo, new StateInterface() {
+        new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).getSurveyandQuestionGroup(URL, stateKey, tokenlo, new StateInterface() {
             @Override
             public void success(final String message) {
 
@@ -328,8 +356,8 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
                     for (int i = 0; i < pojoList.size(); i++) {
                         flag = i;
 
-                        String url = BuildConfig.HOST +"/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + sessionManager.getStateSelection()+"&per_page=0";
-                        new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(),tokenlo, new StateInterface() {
+                        String url = BuildConfig.HOST + "/api/v1/surveys/" + pojoList.get(i).getId() + "/questiongroup/" + pojoList.get(i).getQuestionGroupId() + "/questions/?state=" + sessionManager.getStateSelection() + "&per_page=0";
+                        new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).getCommunitySurveyQuestions(url, pojoList.get(i).getQuestionGroupId(), flag, pojoList.size(), tokenlo, new StateInterface() {
                             @Override
                             public void success(String message) {
 
@@ -337,42 +365,41 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
                                 try {
                                     JSONObject userLoginInfo = new JSONObject(userInfo);
 
-                                        // create session
-                                        String users = "PR";
-                                        if (userLoginInfo.getString("user_type") != null && !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")) {
-                                            users = userLoginInfo.getString("user_type").toUpperCase();
-                                        }
+                                    // create session
+                                    String users = "PR";
+                                    if (userLoginInfo.getString("user_type") != null && !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")) {
+                                        users = userLoginInfo.getString("user_type").toUpperCase();
+                                    }
 
-                                        sessionManager.createLoginSession(
-                                                userLoginInfo.getString("first_name"),
-                                                userLoginInfo.getString("id"),
-                                                token,
-                                                userLoginInfo.getString("last_name"),
-                                                userLoginInfo.getString("email"),
-                                                userLoginInfo.getString("mobile_no"),
-                                                userLoginInfo.getString("dob"),
-                                                users);
+                                    sessionManager.createLoginSession(
+                                            userLoginInfo.getString("first_name"),
+                                            userLoginInfo.getString("id"),
+                                            token,
+                                            userLoginInfo.getString("last_name"),
+                                            userLoginInfo.getString("email"),
+                                            userLoginInfo.getString("mobile_no"),
+                                            userLoginInfo.getString("dob"),
+                                            users);
 
-                                        showProgress(false,"");
+                                    showProgress(false, "");
 
-                                        try {
-                                            subscribetoTopicsForNotification(sessionManager.getState(), sessionManager.getUserType());
-                                        } catch (Exception e) {
+                                    try {
+                                        subscribetoTopicsForNotification(sessionManager.getState(), sessionManager.getUserType());
+                                    } catch (Exception e) {
 
-                                        }
-                                        Intent intent = new Intent(UpdateProfileBeforeLoginActivity.this, TempLoading.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                                        finish();
-
+                                    }
+                                    Intent intent = new Intent(UpdateProfileBeforeLoginActivity.this, TempLoading.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                                    finish();
 
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(getApplicationContext(),"Login to continue",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Login to continue", Toast.LENGTH_SHORT).show();
                                     finish();
-                                    showProgress(false,"");
+                                    showProgress(false, "");
                                 }
 
 
@@ -380,7 +407,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
                             @Override
                             public void failed(String message) {
-                                showProgress(false,"");
+                                showProgress(false, "");
                                 showSignupResultDialog(
                                         getResources().getString(R.string.app_name),
                                         message,
@@ -392,7 +419,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
 
                 } else {
-                    showProgress(false,"");
+                    showProgress(false, "");
                     showSignupResultDialog(
                             getResources().getString(R.string.app_name),
                             getResources().getString(R.string.surveyLoadingfailed),
@@ -404,7 +431,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
             @Override
             public void failed(String message) {
-                showProgress(false,"");
+                showProgress(false, "");
                 showSignupResultDialog(
                         getResources().getString(R.string.app_name),
                         message,
@@ -423,20 +450,19 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
     }
 
     private void showSignupResultDialog(String title, String message, String buttonText) {
-       try {
-           Bundle signUpResult = new Bundle();
-           signUpResult.putString("title", title);
-           signUpResult.putString("result", message);
-           signUpResult.putString("buttonText", buttonText);
+        try {
+            Bundle signUpResult = new Bundle();
+            signUpResult.putString("title", title);
+            signUpResult.putString("result", message);
+            signUpResult.putString("buttonText", buttonText);
 
-           SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
-           resultDialog.setArguments(signUpResult);
-           resultDialog.setCancelable(false);
-           resultDialog.show(getSupportFragmentManager(), "Registration result");
-       }catch (Exception e)
-       {
+            SignUpResultDialogFragment resultDialog = new SignUpResultDialogFragment();
+            resultDialog.setArguments(signUpResult);
+            resultDialog.setCancelable(false);
+            resultDialog.show(getSupportFragmentManager(), "Registration result");
+        } catch (Exception e) {
 
-       }
+        }
     }
 
 
@@ -509,7 +535,7 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
     }
 
 
-    private void showProgress(final boolean show,String message) {
+    private void showProgress(final boolean show, String message) {
         if (show) {
             progressDialog = new ProgressDialog(UpdateProfileBeforeLoginActivity.this);
             progressDialog.setIndeterminate(true);
