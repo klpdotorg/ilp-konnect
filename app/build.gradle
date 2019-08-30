@@ -18,7 +18,7 @@ android {
         applicationId "in.org.klp.ilpkonnect"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 11
+        versionCode 12
         versionName "2.1"
         vectorDrawables.useSupportLibrary = true
     }
