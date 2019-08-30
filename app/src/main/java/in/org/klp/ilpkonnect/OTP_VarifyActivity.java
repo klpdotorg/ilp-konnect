@@ -296,7 +296,7 @@ public class OTP_VarifyActivity extends BaseActivity {
                                             users = userLoginInfo.getString("user_type").toUpperCase();
                                         }
 
-                                        sessionManager.createLoginSession(
+                                        /*sessionManager.createLoginSession(
                                                 userLoginInfo.getString("first_name"),
                                                 userLoginInfo.getString("id"),
                                                 userLoginInfo.getString("token"),
@@ -304,7 +304,7 @@ public class OTP_VarifyActivity extends BaseActivity {
                                                 userLoginInfo.getString("email"),
                                                 userLoginInfo.getString("mobile_no"),
                                                 userLoginInfo.getString("dob"),
-                                                users);
+                                                users);*/
 
                                         showProgress(false);
 

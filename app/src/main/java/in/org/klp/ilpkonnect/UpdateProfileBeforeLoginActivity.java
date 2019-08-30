@@ -28,6 +28,8 @@ import com.yahoo.squidb.sql.Query;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +39,7 @@ import java.util.List;
 
 import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.constants.ApplicationConstants;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.Respondent;
 import in.org.klp.ilpkonnect.db.Survey;
@@ -271,69 +274,33 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
             showProgress(true, getResources().getString(R.string.updating_profile));
 
-            new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).tokenAuth(sessionManager.getMobile(), new StateInterface() {
-                @Override
-                public void success(String message) {
 
-                    try {
-                        JSONObject userLoginInfo = new JSONObject(message);
-                        if (userLoginInfo.has("secure_login_token") && userLoginInfo.getString("secure_login_token") != null && !userLoginInfo.getString("secure_login_token").trim().equalsIgnoreCase("")) {
-                            sessionManager.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
-                            // after success of login then call update
-                            new ProNetworkSettup(getApplicationContext()).setProfileUpdateAction(edtFirstName.getText().toString().trim(),
-                                    edtLastName.getText().toString().trim(), edtEmail.getText().toString().trim(), "",
-                                    userType.get(spnRespondantType.getSelectedItem().toString()), "" + sessionManager.getToken(), sessionManager.getStateSelection(), new StateInterface() {
-                                        @Override
-                                        public void success(final String message) {
-                                            showProgress(false, "");
-                                            //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
+            // Code written for CR remove_login to call Token Auth API for background verification
+            // check whether token is valid or expired
+            if (!sessionManager.getEXPIRY_DATETIME().isEmpty() || !sessionManager.getCURRENT_DATETIME().isEmpty()) {
 
-                                            // DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully) + "\n" + getString(R.string.pleaseLoginandcontue), getSupportFragmentManager(), getApplicationContext());
-                                            android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(UpdateProfileBeforeLoginActivity.this).create();
+                Date currentDateTime = new Date();
+                String tokenExpiryDate = sessionManager.getEXPIRY_DATETIME();
 
-                                            alertDialog.setCancelable(false);
-                                            alertDialog.setMessage(getResources().getString(R.string.profileUpdatedSuccessfully));
-                                            alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            dialog.dismiss();
-                                                            showProgress(true, getResources().getString(R.string.downloadingSurvey));
-                                                            downloadSurveyInfo(message, sessionManager.getStateSelection(), "" + token);
-                                                        }
-                                                    });
-                                            alertDialog.show();
+                Date expiryDateFormat = null;
+                DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-                                            //parse the userInfo String
-
-                                            //downloadSurveyInfo(message, "");
-                                        }
-
-                                        @Override
-                                        public void failed(String message) {
-                                            showProgress(false, "");
-                                            //showSignupResultDialog(getString(R.string.app_name),message,getResources().getString(R.string.Ok));
-                                            DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
-
-                                        }
-                                    });
-
-                        } else
-                            showProgress(false, "");
-
-                    } catch (Exception e) {
-                        showProgress(false, "");
-                    }
-
+                try {
+                    expiryDateFormat = sdf.parse(tokenExpiryDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
 
-                @Override
-                public void failed(String message) {
-                    showProgress(false, "");
-                    DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
-
+                if (currentDateTime.before(expiryDateFormat)) {
+                    saveUpdateProfile();
+                } else {
+                    getNewToken();
                 }
-            });
+
+            } else {
+                getNewToken();
+
+            }
 
 
         }
@@ -371,6 +338,10 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
                                         users = userLoginInfo.getString("user_type").toUpperCase();
                                     }
 
+                                    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                                    Date currentDate = new Date();
+                                    String currentTime = formatter.format(currentDate);
+
                                     sessionManager.createLoginSession(
                                             userLoginInfo.getString("first_name"),
                                             userLoginInfo.getString("id"),
@@ -379,7 +350,8 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
                                             userLoginInfo.getString("email"),
                                             userLoginInfo.getString("mobile_no"),
                                             userLoginInfo.getString("dob"),
-                                            users);
+                                            users, currentTime,
+                                            ApplicationConstants.getExpiryDateAndTime(currentDate));
 
                                     showProgress(false, "");
 
@@ -563,6 +535,83 @@ public class UpdateProfileBeforeLoginActivity extends BaseActivity {
 
         }
         return pojoList;
+    }
+
+    private void saveUpdateProfile() {
+        new ProNetworkSettup(getApplicationContext()).setProfileUpdateAction(edtFirstName.getText().toString().trim(),
+                edtLastName.getText().toString().trim(), edtEmail.getText().toString().trim(), "",
+                userType.get(spnRespondantType.getSelectedItem().toString()), "" + sessionManager.getToken(), sessionManager.getStateSelection(), new StateInterface() {
+                    @Override
+                    public void success(final String message) {
+                        showProgress(false, "");
+                        //showSignupResultDialog(getString(R.string.app_name),,getResources().getString(R.string.Ok));
+
+                        // DailogUtill.showDialog(getResources().getString(R.string.profileUpdatedSuccessfully) + "\n" + getString(R.string.pleaseLoginandcontue), getSupportFragmentManager(), getApplicationContext());
+                        android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(UpdateProfileBeforeLoginActivity.this).create();
+
+                        alertDialog.setCancelable(false);
+                        alertDialog.setMessage(getResources().getString(R.string.profileUpdatedSuccessfully));
+                        alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.response_neutral),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        showProgress(true, getResources().getString(R.string.downloadingSurvey));
+                                        downloadSurveyInfo(message, sessionManager.getStateSelection(), "" + token);
+                                    }
+                                });
+                        alertDialog.show();
+
+                        //parse the userInfo String
+
+                        //downloadSurveyInfo(message, "");
+                    }
+
+                    @Override
+                    public void failed(String message) {
+                        showProgress(false, "");
+                        //showSignupResultDialog(getString(R.string.app_name),message,getResources().getString(R.string.Ok));
+                        DailogUtill.showDialog(message, getSupportFragmentManager(), getApplicationContext());
+
+                    }
+                });
+    }
+
+    private void getNewToken() {
+        new ProNetworkSettup(UpdateProfileBeforeLoginActivity.this).tokenAuth(sessionManager.getMobile(), new StateInterface() {
+            @Override
+            public void success(String message) {
+
+                try {
+                    JSONObject userLoginInfo = new JSONObject(message);
+                    if (userLoginInfo.has("secure_login_token") && userLoginInfo.getString("secure_login_token") != null && !userLoginInfo.getString("secure_login_token").trim().equalsIgnoreCase("")) {
+                        sessionManager.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                        Date currentDate = new Date();
+                        String currentDateTime = formatter.format(currentDate);
+
+                        sessionManager.setCURRENT_DATETIME(currentDateTime);
+                        sessionManager.setEXPIRY_DATETIME(ApplicationConstants.getExpiryDateAndTime(currentDate));
+                        // after success of login then call update
+                        saveUpdateProfile();
+
+                    } else
+                        showProgress(false, "");
+
+                } catch (Exception e) {
+                    showProgress(false, "");
+                }
+
+            }
+
+            @Override
+            public void failed(String message) {
+                showProgress(false, "");
+                DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
+
+            }
+        });
     }
 
 }

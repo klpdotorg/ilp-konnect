@@ -20,11 +20,15 @@ import com.yahoo.squidb.sql.Query;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.LoginInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.constants.ApplicationConstants;
 import in.org.klp.ilpkonnect.db.DatabaseCopyHelper;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.Survey;
@@ -45,10 +49,6 @@ public class VerifyMobileNumber extends BaseActivity {
     private ProgressDialog progressDialog = null;
     KontactDatabase db;
     int flag = 0;
-    final static int PERMISSION_REQUEST_CODE = 12;
-    Handler handler = new Handler();
-    Runnable r;
-    int i = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +77,6 @@ public class VerifyMobileNumber extends BaseActivity {
         });
 
 
-        r =  new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        };
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +86,7 @@ public class VerifyMobileNumber extends BaseActivity {
 
                     String mobilenumber = txtMobileNumber.getText().toString().trim();
 
+                    // Code written for CR remove_login to verify mobile number is registered or not.
                     new ProNetworkSettup(VerifyMobileNumber.this).checkMobileNumberRegistered(mobilenumber, new LoginInterface() {
                         @Override
                         public void success(String message) {
@@ -300,6 +295,9 @@ public class VerifyMobileNumber extends BaseActivity {
                                         if (userLoginInfo.getString("user_type") != null && !userLoginInfo.getString("user_type").trim().equalsIgnoreCase("null")) {
                                             users = userLoginInfo.getString("user_type").toUpperCase();
                                         }
+                                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                                        Date currentDate = new Date();
+                                        String currentTime = formatter.format(currentDate);
 
                                         mSession.createLoginSession(
                                                 userLoginInfo.getString("first_name"),
@@ -309,7 +307,7 @@ public class VerifyMobileNumber extends BaseActivity {
                                                 userLoginInfo.getString("email"),
                                                 userLoginInfo.getString("mobile_no"),
                                                 userLoginInfo.getString("dob"),
-                                                users);
+                                                users, currentTime, ApplicationConstants.getExpiryDateAndTime(currentDate));
 
                                         showProgress(false);
 
@@ -415,7 +413,4 @@ public class VerifyMobileNumber extends BaseActivity {
         }
     }
 
-    public void incoming_Timer() {
-        handler.postDelayed(r, 1000);
-    }
 }

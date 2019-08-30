@@ -17,12 +17,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.constants.ApplicationConstants;
 import in.org.klp.ilpkonnect.db.Answer;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.Story;
@@ -47,12 +52,10 @@ public class SyncIntentService extends IntentService {
      */
     private KontactDatabase db;
     private OkHttpClient okclient;
-    SessionManager sessionManager;
     ProgressDialog progressDialog;
 
     public SyncIntentService(String name) {
         super(name);
-        sessionManager = new SessionManager(getApplicationContext());
     }
 
     public SyncIntentService() {
@@ -75,60 +78,36 @@ public class SyncIntentService extends IntentService {
 
     public void startSyncData() {
         final SessionManager session = new SessionManager(getApplicationContext());
+
         db = ((KLPApplication) getApplicationContext()).getDb();
+        // Code written for CR remove_login to call Token Auth API for background verification
+        // check whether token is valid or expired
         if (AppStatus.isConnected(getApplicationContext())) {
             if (getStoryCount() > 0) {
-                //ApplicationConstants.isSyncing= true;
-                try {
-                    new ProNetworkSettup(getApplicationContext()).tokenAuth(session.getMobile(), new StateInterface() {
-                        @Override
-                        public void success(String message) {
-                            try {
-                                JSONObject userLoginInfo = new JSONObject(message);
-                                if (userLoginInfo.has("secure_login_token")) {
-                                    session.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
-                                    //ApplicationConstants.isSyncing= false;
-                                    // after success of login then call update
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ArrayList<JSONObject> object = doUploadForSyncSurvey();
-                                            for (JSONObject jsob : object) {
-                                                //  Log.d("shri", "------First" + jsob.toString());
-                                                JSONObject resp = SyncDataCall(jsob.toString());
-                                                // Log.d("shri", "------Responc" + resp.toString());
-                                                processUploadResponse(resp);
+                ApplicationConstants.isSyncing = true;
+                if (!session.getEXPIRY_DATETIME().isEmpty() || !session.getCURRENT_DATETIME().isEmpty()) {
 
-                                            }
-                                        }
-                                    }).start();
+                    Date currentDateTime = new Date();
+                    String tokenExpiryDate = session.getEXPIRY_DATETIME();
 
-                                }
+                    Date expiryDateFormat = null;
+                    DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-                            } catch (Exception e) {
-                                //ApplicationConstants.isSyncing= false;
-                            }
+                    try {
+                        expiryDateFormat = sdf.parse(tokenExpiryDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-                        }
+                    if (currentDateTime.before(expiryDateFormat)) {
+                        syncData();
+                    } else {
+                        getNewToken();
+                    }
 
-                        @Override
-                        public void failed(String message) {
-                            AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
-                            dialog.setCancelable(false);
-                            dialog.setMessage(getResources().getString(R.string.authfailed));
-                            dialog.setPositiveButton(getString(R.string.Ok), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
+                } else {
+                    getNewToken();
 
-                            dialog.show();
-                            //ApplicationConstants.isSyncing= false;
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -317,5 +296,69 @@ public class SyncIntentService extends IntentService {
         return respJson;
     }
 
+    public void syncData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<JSONObject> object = doUploadForSyncSurvey();
+                for (JSONObject jsob : object) {
+                    //  Log.d("shri", "------First" + jsob.toString());
+                    JSONObject resp = SyncDataCall(jsob.toString());
+                    // Log.d("shri", "------Responc" + resp.toString());
+                    processUploadResponse(resp);
 
+                }
+            }
+        }).start();
+        ApplicationConstants.isSyncing = false;
+    }
+
+    public void getNewToken() {
+        final SessionManager session = new SessionManager(getApplicationContext());
+
+        try {
+            new ProNetworkSettup(getApplicationContext()).tokenAuth(session.getMobile(), new StateInterface() {
+                @Override
+                public void success(String message) {
+                    try {
+                        JSONObject userLoginInfo = new JSONObject(message);
+                        if (userLoginInfo.has("secure_login_token")) {
+                            session.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+                            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                            Date currentDate = new Date();
+                            String currentDateTime = formatter.format(currentDate);
+
+                            session.setCURRENT_DATETIME(currentDateTime);
+                            session.setEXPIRY_DATETIME(ApplicationConstants.getExpiryDateAndTime(currentDate));
+                            //ApplicationConstants.isSyncing= false;
+                            syncData();
+
+                        }
+
+                    } catch (Exception e) {
+                        ApplicationConstants.isSyncing = false;
+                    }
+
+                }
+
+                @Override
+                public void failed(String message) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
+                    dialog.setCancelable(false);
+                    dialog.setMessage(getResources().getString(R.string.authfailed));
+                    dialog.setPositiveButton(getString(R.string.Ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+                    //ApplicationConstants.isSyncing= false;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

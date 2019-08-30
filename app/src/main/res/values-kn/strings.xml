@@ -322,5 +322,5 @@
     <string name="mobilenumbernotfound">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ . ದಯವಿಟ್ಟು  ILP konnect  ಬಳಸಲು ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ರಿಜಿಸ್ಟರ್ ಮಾಡಿ . </string>
     <string name="authfailed">ಧೃಡೀಕರಣ ವಿಫಲಗೊಂಡ ಕಾರಣ  ಕೆಲವು ವೈಶಿಷ್ಟ್ಯಗಳು  ಉಪಯೋಗಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ.</string>
     <string name="postfailed">ತಾಂತ್ರಿಕ ದೋಷದಿಂದಾಗಿ ನಿಮ್ಮ ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿಲ್ಲ</string>
-    <string name="surveySyncInProgress">Survey sync in progress</string>
+    <string name="surveySyncInProgress">ಸರ್ವೇ ಸಿಂಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
 </resources>

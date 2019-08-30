@@ -3,6 +3,8 @@ package in.org.klp.ilpkonnect.constants;
 import android.util.Base64;
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -15,7 +17,11 @@ public class ApplicationConstants {
 
     public static String DEFAULT_PASSWORD = "rqHTnR464KUppi4";
     public static String encryptDecryptPassword = "KLP";
-    //public static boolean isSyncing= false;
+    public static final long HOUR = 3600*1000; // in milli-seconds.
+
+
+    public static boolean isSyncing= false;
+
     /**
      * Code written for CR remove_login to encrypt a password
      */
@@ -53,4 +59,14 @@ public class ApplicationConstants {
 
         return spec;
     }
+
+    /**
+     * Code written for CR remove_login to get token expire date and time
+     */
+    public static String getExpiryDateAndTime(Date currentDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date expiryDate = new Date(currentDate.getTime() + 8*HOUR);
+        return formatter.format(expiryDate);
+    }
+
 }

@@ -23,7 +23,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterfaceSync;
 import in.org.klp.ilpkonnect.adapters.MainDashListAdapter;
+import in.org.klp.ilpkonnect.constants.ApplicationConstants;
 import in.org.klp.ilpkonnect.db.Answer;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.Story;
@@ -71,7 +76,6 @@ public class MainDashList extends BaseActivity {
     String surveyName, partner;
     boolean isImageRequired = false;
     MainDashList mainDashList;
-
     int flag = 0;
     private ProgressDialog progress;
 
@@ -116,6 +120,8 @@ public class MainDashList extends BaseActivity {
 
         mSession = new SessionManager(getApplicationContext());
         mSession.checkLogin();
+
+
         // Log user details to be used for crashlytics
 
 
@@ -307,42 +313,33 @@ public class MainDashList extends BaseActivity {
                 progressOnlySync(count);
 
                 try {
-                    //   Log.d("shri",jsondata.get(0)+"");
 
                     // Code written for CR remove_login for calling Login API
-                    try {
-                        new ProNetworkSettup(MainDashList.this).tokenAuth(mSession.getMobile(), new StateInterface() {
-                            @Override
-                            public void success(String message) {
+                    if (!mSession.getEXPIRY_DATETIME().isEmpty() || !mSession.getCURRENT_DATETIME().isEmpty()) {
 
-                                try {
-                                    JSONObject userLoginInfo = new JSONObject(message);
-                                    if (userLoginInfo.has("secure_login_token")) {
-                                        mSession.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
-                                        // after success of login then call update
-                                        sync2(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
+                        Date currentDateTime = new Date();
+                        String tokenExpiryDate = mSession.getEXPIRY_DATETIME();
 
-                                    } else
-                                        finishSyncProgress();
+                        Date expiryDateFormat=null;
+                        DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-                                } catch (Exception e) {
-                                    finishSyncProgress();
-                                }
+                        try {
+                            expiryDateFormat = sdf.parse(tokenExpiryDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (currentDateTime.before(expiryDateFormat)) {
+                            sync2(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
 
-                            }
+                        } else {
+                            getNewToken(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
 
-                            @Override
-                            public void failed(String message) {
-                                finishSyncProgress();
+                        }
 
-                                DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
+                    } else {
+                        getNewToken(jsondata.get(0).toString().trim(), jsondata.size(), 0, count, jsondata);
 
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-
 
                 } catch (Exception e) {
                     Crashlytics.log(e.getMessage());
@@ -747,6 +744,50 @@ public class MainDashList extends BaseActivity {
 
     }
 
+    /**
+     *  Code written for CR remove_login to call Token Auth API for background verification
+     */
+    private void getNewToken(final String str, final int size1, final int i, final int count, final ArrayList<JSONObject> jsondata) {
+        try {
+            new ProNetworkSettup(MainDashList.this).tokenAuth(mSession.getMobile(), new StateInterface() {
+                @Override
+                public void success(String message) {
 
+                    try {
+                        JSONObject userLoginInfo = new JSONObject(message);
+                        if (userLoginInfo.has("secure_login_token")) {
+                            mSession.setKEY_TOKEN(userLoginInfo.getString("secure_login_token"));
+
+                            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                            Date currentDate = new Date();
+                            String currentDateTime = formatter.format(currentDate);
+
+                            mSession.setCURRENT_DATETIME(currentDateTime);
+                            mSession.setEXPIRY_DATETIME(ApplicationConstants.getExpiryDateAndTime(currentDate));
+                            // after success of login then call update
+
+                            sync2(str, size1, i, count, jsondata);
+
+                        } else
+                            finishSyncProgress();
+
+                    } catch (Exception e) {
+                        finishSyncProgress();
+                    }
+
+                }
+
+                @Override
+                public void failed(String message) {
+                    finishSyncProgress();
+
+                    DailogUtill.showDialog(getString(R.string.authfailed), getSupportFragmentManager(), getApplicationContext());
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 

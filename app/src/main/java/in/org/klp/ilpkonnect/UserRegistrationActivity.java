@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,6 +81,7 @@ public class UserRegistrationActivity extends BaseActivity {
     SquidCursor<Respondent> respondentCursor = null;
     int flag = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +103,14 @@ public class UserRegistrationActivity extends BaseActivity {
                 }
             });
         }
+        if (sessionManager.getPASSWORD().isEmpty()) {
+            try {
+                sessionManager.setPASSWORD(ApplicationConstants.encrypt());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+        }
         cyear = 1988;
         cdate = 1;
         cmonth = 0;
@@ -283,6 +292,7 @@ public class UserRegistrationActivity extends BaseActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
                                             showProgress(true);
+                                            // Code written for CR remove_login to get Token after registration successful.
                                             try {
                                                 new ProNetworkSettup(UserRegistrationActivity.this).tokenAuth(phoneNoValue, new StateInterface() {
                                                     @Override
@@ -589,6 +599,10 @@ public class UserRegistrationActivity extends BaseActivity {
                                             users = userLoginInfo.getString("user_type").toUpperCase();
                                         }
 
+                                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                                        Date currentDate = new Date();
+                                        String currentTime = formatter.format(currentDate);
+
                                         sessionManager.createLoginSession(
                                                 userLoginInfo.getString("first_name"),
                                                 userLoginInfo.getString("id"),
@@ -597,7 +611,7 @@ public class UserRegistrationActivity extends BaseActivity {
                                                 userLoginInfo.getString("email"),
                                                 userLoginInfo.getString("mobile_no"),
                                                 userLoginInfo.getString("dob"),
-                                                users);
+                                                users,currentTime,ApplicationConstants.getExpiryDateAndTime(currentDate));
 
                                         showProgress(false);
 

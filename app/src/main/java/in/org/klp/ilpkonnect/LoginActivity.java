@@ -376,7 +376,7 @@ public class LoginActivity extends BaseActivity {
                                             users = userLoginInfo.getString("user_type").toUpperCase();
                                         }
 
-                                        mSession.createLoginSession(
+                                       /* mSession.createLoginSession(
                                                 userLoginInfo.getString("first_name"),
                                                 userLoginInfo.getString("id"),
                                                 userLoginInfo.getString("token"),
@@ -384,7 +384,7 @@ public class LoginActivity extends BaseActivity {
                                                 userLoginInfo.getString("email"),
                                                 userLoginInfo.getString("mobile_no"),
                                                 userLoginInfo.getString("dob"),
-                                                users);
+                                                users);*/
 
                                         showProgress(false);
 

@@ -60,16 +60,6 @@ public class SplashScreen extends BaseActivity {
         }
 
 
-        // Code written for CR remove_login to check whether password is encryoted and saved in mobile DB
-        if (mSession.getPASSWORD().isEmpty()) {
-            try {
-                mSession.setPASSWORD(ApplicationConstants.encrypt());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
         // check state and language if user first time login
 
         if (mSession.isLoggedIn()) {

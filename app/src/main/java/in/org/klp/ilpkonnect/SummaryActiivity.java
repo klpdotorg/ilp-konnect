@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
+import in.org.klp.ilpkonnect.constants.ApplicationConstants;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
 import in.org.klp.ilpkonnect.db.MySummary;
 import in.org.klp.ilpkonnect.db.Story;
@@ -198,7 +199,7 @@ public class SummaryActiivity extends BaseActivity {
 
     public void mySync() {
 
-        //if(!ApplicationConstants.isSyncing){
+        if(!ApplicationConstants.isSyncing){
             progressDialog.show();
             final String fromd = getRevDate(from);
             final String endd = getRevDate(getOneDayExstra(end));
@@ -218,9 +219,9 @@ public class SummaryActiivity extends BaseActivity {
                     DailogUtill.showDialog(message,getSupportFragmentManager(),getApplicationContext());
                 }
             });
-       /* }else{
+        }else{
             DailogUtill.showDialog(getString(R.string.surveySyncInProgress),getSupportFragmentManager(),getApplicationContext());
-        }*/
+        }
 
     }
 

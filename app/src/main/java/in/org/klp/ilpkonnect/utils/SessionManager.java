@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import in.org.klp.ilpkonnect.SplashScreen;
@@ -59,6 +60,8 @@ public class SessionManager {
 
     // for password saving
     public static final String PASSWORD = "";
+    public static final String CURRENT_DATETIME = "";
+    public static final String EXPIRY_DATETIME="";
 
     // Constructor
     public SessionManager(Context context) {
@@ -70,7 +73,7 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(String name, String id, String token, String lastName, String email, String mobile, String dob, String usertype) {
+    public void createLoginSession(String name, String id, String token, String lastName, String email, String mobile, String dob, String usertype, String currentdate, String expiryDate) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGGED_IN, true);
         // Storing name in pref
@@ -85,6 +88,8 @@ public class SessionManager {
         editor.putString(MOBILE, mobile);
         editor.putString(DOB, dob);
         editor.putBoolean(SETUP, false);
+        editor.putString(CURRENT_DATETIME,currentdate);
+        editor.putString(EXPIRY_DATETIME,expiryDate);
 
         // commit changes
         editor.commit();
@@ -294,7 +299,24 @@ public class SessionManager {
         editor.commit();
     }
 
-   /*    public void setBoundaryPosition(int boundaryPosition) {
+    public String getCURRENT_DATETIME() {
+        return pref.getString(CURRENT_DATETIME, "");
+    }
+
+    public void setCURRENT_DATETIME(String date) {
+        editor.putString(CURRENT_DATETIME, date);
+        editor.commit();
+    }
+    public String getEXPIRY_DATETIME() {
+        return pref.getString(EXPIRY_DATETIME, "");
+    }
+
+    public void setEXPIRY_DATETIME(String exdate) {
+        editor.putString(EXPIRY_DATETIME, exdate);
+        editor.commit();
+    }
+
+    /*    public void setBoundaryPosition(int boundaryPosition) {
         editor.putInt(BOUNDARYPOSITION, boundaryPosition);
         editor.commit();
     }

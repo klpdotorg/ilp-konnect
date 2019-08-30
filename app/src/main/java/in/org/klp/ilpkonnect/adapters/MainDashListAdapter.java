@@ -159,7 +159,10 @@ public class MainDashListAdapter extends RecyclerView.Adapter<MainDashListAdapte
                     {
                        // DialogConstants dialogConstants = new DialogConstants(mainDashList, mainDashList.getResources().getString(R.string.noInternetCon)+"\n"+"You have taken "+storyCount+" surveys,Please sync when your in internet zone");
                        // dialogConstants.show();
-                        mainDashList.showSignupResultDialog(mainDashList.getString(R.string.app_name), mainDashList.getResources().getString(R.string.noInternetCon)+",\n"+storyCount+" "+mainDashList.getResources().getString(R.string.survey_taken),mainDashList.getResources().getString(R.string.Ok));
+                        //mainDashList.showSignupResultDialog(mainDashList.getString(R.string.app_name), mainDashList.getResources().getString(R.string.noInternetCon)+",\n"+storyCount+" "+mainDashList.getResources().getString(R.string.survey_taken),mainDashList.getResources().getString(R.string.Ok));
+
+                        mainDashList.showSignupResultDialog(mainDashList.getString(R.string.app_name), mainDashList.getResources().getString(R.string.noInternetCon)+",\n"+String.format(mainDashList.getResources().getString(R.string.survey_taken), storyCount),mainDashList.getResources().getString(R.string.Ok));
+
 
                     }else {
                         //DialogConstants dialogConstants = new DialogConstants(mainDashList, mainDashList.getResources().getString(R.string.dataAlreadynSyn));
