@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import java.util.Date;
 import java.util.HashMap;
 
-import in.org.klp.ilpkonnect.LanguageSelectionActivity;
-import in.org.klp.ilpkonnect.LoginActivity;
 import in.org.klp.ilpkonnect.SplashScreen;
+import in.org.klp.ilpkonnect.VerifyMobileNumber;
 
 /**
  * Created by bibhas on 6/16/16.
@@ -46,7 +46,7 @@ public class SessionManager {
     public static final String LANGUAGE = "LANGUAGE";
     public static final String LANGUAGE_KEY = "LANGUAGE_KEY";
     public static final String STATE_KEY = "STATE_KEY";
-public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
+    public static final String BOUNDARYPOSITION = "BOUNDARYPOSITION";
 
     public static final String DOB = "DOB";
     public static final String LAST_NAME = "LAST_NAME";
@@ -58,6 +58,11 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
 
     public static final String LANGUAGEPOSITION = "LANGUAGEPOSITION";
 
+    // for password saving
+    public static final String PASSWORD = "";
+    public static final String CURRENT_DATETIME = "";
+    public static final String EXPIRY_DATETIME="";
+
     // Constructor
     public SessionManager(Context context) {
         this._context = context;
@@ -68,7 +73,7 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
     /**
      * Create login session
      */
-    public void createLoginSession(String name, String id, String token, String lastName, String email, String mobile, String dob, String usertype) {
+    public void createLoginSession(String name, String id, String token, String lastName, String email, String mobile, String dob, String usertype, String currentdate, String expiryDate) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGGED_IN, true);
         // Storing name in pref
@@ -83,6 +88,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         editor.putString(MOBILE, mobile);
         editor.putString(DOB, dob);
         editor.putBoolean(SETUP, false);
+        editor.putString(CURRENT_DATETIME,currentdate);
+        editor.putString(EXPIRY_DATETIME,expiryDate);
 
         // commit changes
         editor.commit();
@@ -141,7 +148,7 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         // Check login status
         if (!this.isLoggedIn()) {
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, LoginActivity.class);
+            Intent i = new Intent(_context, VerifyMobileNumber.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -189,7 +196,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         return pref.getString(KEY_NAME, null);
 
     }
- public int getLanguagePosition() {
+
+    public int getLanguagePosition() {
         return pref.getInt(LANGUAGEPOSITION, 0);
 
     }
@@ -256,7 +264,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
 
 
     public String getToken() {
-        return "Token " + pref.getString(KEY_TOKEN, "");
+        //return "Token " + pref.getString(KEY_TOKEN, "");
+        return "" + pref.getString(KEY_TOKEN, "");
 
     }
 
@@ -264,7 +273,8 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
         editor.putInt(STATEPOSITION, statePosition);
         editor.commit();
     }
-  public void setLanguagePosition(int langpos) {
+
+    public void setLanguagePosition(int langpos) {
         editor.putInt(LANGUAGEPOSITION, langpos);
         editor.commit();
     }
@@ -272,10 +282,41 @@ public  static final String BOUNDARYPOSITION="BOUNDARYPOSITION";
 
     public int getStatePosition() {
 
-       return pref.getInt(STATEPOSITION,0);
+        return pref.getInt(STATEPOSITION, 0);
     }
 
-/*    public void setBoundaryPosition(int boundaryPosition) {
+    public String getPASSWORD() {
+        return pref.getString(PASSWORD, "");
+    }
+
+    public void setPASSWORD(String pass) {
+        editor.putString(PASSWORD, pass);
+        editor.commit();
+    }
+
+    public void setKEY_TOKEN(String key) {
+        editor.putString(KEY_TOKEN, key);
+        editor.commit();
+    }
+
+    public String getCURRENT_DATETIME() {
+        return pref.getString(CURRENT_DATETIME, "");
+    }
+
+    public void setCURRENT_DATETIME(String date) {
+        editor.putString(CURRENT_DATETIME, date);
+        editor.commit();
+    }
+    public String getEXPIRY_DATETIME() {
+        return pref.getString(EXPIRY_DATETIME, "");
+    }
+
+    public void setEXPIRY_DATETIME(String exdate) {
+        editor.putString(EXPIRY_DATETIME, exdate);
+        editor.commit();
+    }
+
+    /*    public void setBoundaryPosition(int boundaryPosition) {
         editor.putInt(BOUNDARYPOSITION, boundaryPosition);
         editor.commit();
     }

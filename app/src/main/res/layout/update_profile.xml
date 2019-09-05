@@ -102,7 +102,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
+      <!--  <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -132,7 +132,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="0.158"
                 android:src="@drawable/calendarico" />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

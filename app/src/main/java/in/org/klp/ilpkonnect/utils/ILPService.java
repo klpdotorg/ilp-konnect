@@ -25,11 +25,15 @@ public class ILPService {
 
 
    // public static final String RESPONDENTLIST ="/api/v1/surveys/assessments/respondent-types/" ;
-    public static final String UPDATE_PROFILE ="/api/v1/users/profile" ;
+    public static final String UPDATE_PROFILE ="/api/v1/users/profile/?" ;
 
 
     public static final String LOGIN_API="/api/v1/users/login/";
     public static final String OTP_SIGNUP ="/api/v1/users/otp-update/" ;
     public static final String FORGOTPASSWORD_GENERATE_OTP = "/api/v1/users/otp-generate/";
     public static final String FORGOTPASSWORD_RESETWITH_OTP ="/api/v1/users/otp-password-reset/" ;
+    public static final String CHECK_MOBILE ="api/v1/users/checkregistered/?";
+    public static final String TOKEN_AUTH = "api/v1/users/tokenauth/?";
+    public static final String SYNC_SURVEY ="/api/v1/surveys/assessments/sync/?";
+
 }

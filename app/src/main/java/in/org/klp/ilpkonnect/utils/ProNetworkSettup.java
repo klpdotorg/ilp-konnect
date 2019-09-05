@@ -2,10 +2,8 @@ package in.org.klp.ilpkonnect.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 import com.yahoo.squidb.data.SquidCursor;
@@ -17,44 +15,36 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import in.org.klp.ilpkonnect.BlocksPojo.BlockDetailPojo;
 import in.org.klp.ilpkonnect.ClusterPojos.ClusterDetailPojo;
 import in.org.klp.ilpkonnect.DistrictPojos.DistrictPojos;
 import in.org.klp.ilpkonnect.Errorpack.ForgotOTPError;
 import in.org.klp.ilpkonnect.Errorpack.InvalidOTp;
+import in.org.klp.ilpkonnect.InterfacesPack.LoginInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.RestPasswordStateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.SchoolStateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterfaceSync;
-import in.org.klp.ilpkonnect.InterfacesPack.UserRolesInterface;
 import in.org.klp.ilpkonnect.KLPApplication;
 import in.org.klp.ilpkonnect.Pojo.ForgotPassswordOtpPojo;
 import in.org.klp.ilpkonnect.Pojo.ResetPasswordPojo;
-import in.org.klp.ilpkonnect.Pojo.UpdateProfilePojo;
 import in.org.klp.ilpkonnect.QuestionsPojoPack.QuestionsPojos;
 import in.org.klp.ilpkonnect.R;
-import in.org.klp.ilpkonnect.RepondentPack.RespondentListPojo;
 import in.org.klp.ilpkonnect.Retro.ApiClient;
 import in.org.klp.ilpkonnect.Retro.ApiInterface;
 import in.org.klp.ilpkonnect.SchoolDataPojo.SchoolDataPojo;
 import in.org.klp.ilpkonnect.SurveyAndQuestionGPojoPsck.Questiongroup;
 import in.org.klp.ilpkonnect.SurveyAndQuestionGPojoPsck.SurveyAndQuestionGrPojo;
-import in.org.klp.ilpkonnect.SurveyDetailPojos.Result;
-import in.org.klp.ilpkonnect.SurveyDetailPojos.SurveyDeailPojo;
 import in.org.klp.ilpkonnect.UserRolesPojosPackage.UserRolesPojos;
 import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-
 import in.org.klp.ilpkonnect.db.MySummary;
 import in.org.klp.ilpkonnect.db.Question;
 import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
@@ -65,9 +55,7 @@ import in.org.klp.ilpkonnect.db.SummaryInfo;
 import in.org.klp.ilpkonnect.db.Summmary;
 import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.db.Surveyuser;
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -405,7 +393,7 @@ public class ProNetworkSettup {
 
     public void parseStateDeailIntoDb(Response<UserRolesPojos> jsonObject) {
 
-        if (jsonObject != null & jsonObject.body() != null && jsonObject.body().getResults() != null) {
+        if (jsonObject != null && jsonObject.body() != null && jsonObject.body().getResults() != null) {
 
             db.deleteAll(State.class);
             db.deleteAll(Respondent.class);
@@ -1610,7 +1598,7 @@ public class ProNetworkSettup {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), data);
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        apiInterface.syncDataforServerWithRetro(requestBody, header).enqueue(new Callback<ResponseBody>() {
+        apiInterface.newsyncDataforServerWithRetro(requestBody, header).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -1664,5 +1652,88 @@ public class ProNetworkSettup {
 
     }
 
+    /**
+     * Code written for CR remove_login to check whether mobile number is registered or not
+     */
+    public void checkMobileNumberRegistered(String mobile, final LoginInterface loginInterface) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        apiInterface.checkMobile(mobile).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful() && response.code() == 200) {
+                    try {
+                        loginInterface.success(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if (response.code() == 401) {
+
+                    loginInterface.failed(errorHandling(response.errorBody()).getDetail());
+                } else if (response.code() == 400) {
+                    //mobile invalid
+                    loginInterface.failed(errorHandling(response.errorBody()).getNonFieldErrors().get(0));
+                } else {
+                    //mobile invalid
+                    loginInterface.failed(context.getResources().getString(R.string.oops));
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                loginInterface.failed(getFailureMessage(t));
+
+            }
+        });
+
+
+    }
+    /**
+     * Code written for CR remove_login to get token
+     */
+    public void tokenAuth(String mobile, final StateInterface stateInterface) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        apiInterface.tokenAuth(mobile).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful() && response.code() == 200) {
+                    try {
+                        stateInterface.success(response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        //  stateInterface.failed(context.getResources().getString(R.string.oops));
+                    }
+
+                } else if (response.code() == 401) {
+
+                    stateInterface.failed(errorHandling(response.errorBody()).getDetail());
+                } else if (response.code() == 400) {
+                    //email or password invalid
+                    stateInterface.failed(errorHandling(response.errorBody()).getNonFieldErrors().get(0));
+                } else {
+                    //email or password invalid
+                    stateInterface.failed(context.getResources().getString(R.string.oops));
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+
+                stateInterface.failed(getFailureMessage(t));
+
+
+            }
+        });
+
+
+    }
 
 }

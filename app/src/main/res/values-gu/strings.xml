@@ -15,7 +15,7 @@
     <string name="prompt_school">સ્કુલ પસંદ કરો</string>
     <string name="prompt_user_type">જવાબ નો પ્રકાર પસંદ કરો</string>
     <!-- Strings related to login -->
-    <string name="register">રજીસ્ટર કરો</string>
+    <string name="register"><u>રજીસ્ટર કરો</u></string>
     <string name="login">લૉગિન</string>
     <string name="forgotPassword">પાસવર્ડ ભૂલી ગયા?</string>
     <string name="confirmPassword">પાસવર્ડની ખાતરી  કરો</string>
@@ -144,7 +144,7 @@
     <string name="netWorkError">નેટવર્ક ની ભૂલ .. કૃપા કરીને ઇન્ટરનેટ તપાસો અને ફરી પ્રયાસ કરો</string>
     <string name="nextbutton">આગામી/પછી નું</string>
     <string name="enterValidDate">માન્ય તારીખ ફોર્મેટ (ડીડી-એમએમ-વાયવાયવાયવાય) દાખલ કરો</string>
-    <string name="survey_taken">మీరు తీసుకున్న %1$d సర్వే, మీరు ఇంటర్నెట్ ప్రాంతంలో ఉన్నప్పుడు సమకాలీకరించండి</string>
+    <string name="survey_taken">%1$d survey you have taken,Please sync when you are in internet zone</string>
     <string name="updateProfile">પ્રોફાઇલ અપડેટ કરો</string>
     <string name="response_summary">પ્રતિભાવ સારાંશ</string>
     <string name="synced">સમન્વયિત/ સિંક કરવામાં આવ્યું</string>
@@ -312,4 +312,12 @@
 
 
     </string-array>
+    <string name="confirm_mobile_number">CONFIRM MOBILE NUMBER</string>
+    <string name="registeredsuccessful">Registration Successful</string>
+    <string name="doesnotmatcherwithmobileno">This field is required and must match the value entered in the mobile number field </string>
+    <string name="mobilenumbernotfound">Mobile number not registered. Please register to use the ILP Konnect app. </string>
+    <string name="authfailed">Some features of the app may not work as expected because authentication failed</string>
+    <string name="postfailed">POST failed because of authentication reasons</string>
+    <string name="surveySyncInProgress">Survey sync in progress</string>
+
 </resources>

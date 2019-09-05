@@ -14,7 +14,7 @@
     <string name="prompt_school">ಶಾಲೆ ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="prompt_user_type">ಪ್ರತಿಕ್ರಿಯೆಗಾರ ಆಯ್ಕೆ ಮಾಡಿ</string>
     <!-- Strings related to login -->
-    <string name="register">ರಿಜಿಸ್ಟರ್</string>
+    <string name="register"><u>ರಿಜಿಸ್ಟರ್</u></string>
     <string name="login">ಲಾಗಿನ್</string>
     <string name="forgotPassword">ಪಾಸ್ವರ್ಡ್ ಮರೆತು ಹೋಯಿತೇ?</string>
     <string name="confirmPassword">ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ</string>
@@ -152,7 +152,7 @@
     <string name="nextbutton">ಮುಂದೆ ಹೋಗಿ</string>
     <string name="enterValidDate">ಮಾನ್ಯವಾದ ದಿನಾಂಕ ಸ್ವರೂಪವನ್ನು ನಮೂದಿಸಿ (DD/MM/YYYY)</string>
 
-    <string name="survey_taken">%1$d  ಸಮೀಕ್ಷೆ ನೀವು ತೆಗೆದುಕೊಂಡಾಗಿದೆ. ನೀವು ಇಂಟರ್ನೆಟ್ ವಲಯದಲ್ಲಿರುವಾಗ ದಯವಿಟ್ಟು ಸಿಂಕ್ ಮಾಡಿ</string>
+    <string name="survey_taken">ಸಮೀಕ್ಷೆ ನೀವು ತೆಗೆದುಕೊಂಡಾಗಿದೆ. ನೀವು ಇಂಟರ್ನೆಟ್ ವಲಯದಲ್ಲಿರುವಾಗ ದಯವಿಟ್ಟು ಸಿಂಕ್ ಮಾಡಿ</string>
     <string name="updateProfile">ಪ್ರೊಫೈಲ್ ಅಪ್ಡೇಟ್ ಮಾಡಿ</string>
     <string name="response_summary">ಪ್ರತಿಕ್ರಿಯೆ ಸಾರಾಂಶ</string>
     <string name="synced">ಸಿಂಕ್ ಮಾಡಲಾಗಿದೆ</string>
@@ -316,5 +316,11 @@
         <item>Multigrade</item>
 
     </string-array>
-
+    <string name="confirm_mobile_number">ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಯನ್ನು ಖಚಿತಪಡಿಸಿ</string>
+    <string name="registeredsuccessful">ರಿಜಿಸ್ಟ್ರೇಷನ್ ಯಶಸ್ವಿಯಾಗಿದೆ</string>
+    <string name="doesnotmatcherwithmobileno">ಮೊಬೈಲ್  ಸಂಖ್ಯೆ ನಮೂದಿಸಿದ್ದಕ್ಕೆ ಕಡ್ಡಾಯವಾಗಿ  ಈ ಸಂಖ್ಯೆಯು ಹೊಂದಾಣಿಕೆಯಾಗಬೇಕು</string>
+    <string name="mobilenumbernotfound">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ . ದಯವಿಟ್ಟು  ILP konnect  ಬಳಸಲು ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ರಿಜಿಸ್ಟರ್ ಮಾಡಿ . </string>
+    <string name="authfailed">ಧೃಡೀಕರಣ ವಿಫಲಗೊಂಡ ಕಾರಣ  ಕೆಲವು ವೈಶಿಷ್ಟ್ಯಗಳು  ಉಪಯೋಗಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ.</string>
+    <string name="postfailed">ತಾಂತ್ರಿಕ ದೋಷದಿಂದಾಗಿ ನಿಮ್ಮ ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿಲ್ಲ</string>
+    <string name="surveySyncInProgress">ಸರ್ವೇ ಸಿಂಕ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
 </resources>

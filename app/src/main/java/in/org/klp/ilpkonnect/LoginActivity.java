@@ -2,10 +2,7 @@ package in.org.klp.ilpkonnect;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,17 +11,13 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.yahoo.squidb.data.SquidCursor;
@@ -37,19 +30,11 @@ import java.util.ArrayList;
 
 import in.org.klp.ilpkonnect.DataLoad.TempLoading;
 import in.org.klp.ilpkonnect.InterfacesPack.StateInterface;
-import in.org.klp.ilpkonnect.InterfacesPack.UserRolesInterface;
-import in.org.klp.ilpkonnect.Pojo.IdsPojos;
-import in.org.klp.ilpkonnect.db.Boundary;
 import in.org.klp.ilpkonnect.db.DatabaseCopyHelper;
 import in.org.klp.ilpkonnect.db.KontactDatabase;
-import in.org.klp.ilpkonnect.db.Question;
-import in.org.klp.ilpkonnect.db.QuestionGroupQuestion;
-import in.org.klp.ilpkonnect.db.Respondent;
 import in.org.klp.ilpkonnect.db.Survey;
 import in.org.klp.ilpkonnect.dialogs.SignUpResultDialogFragment;
-import in.org.klp.ilpkonnect.utils.AppSettings;
 import in.org.klp.ilpkonnect.utils.DailogUtill;
-import in.org.klp.ilpkonnect.utils.ILPService;
 import in.org.klp.ilpkonnect.utils.ProNetworkSettup;
 import in.org.klp.ilpkonnect.utils.RolesUtils;
 import in.org.klp.ilpkonnect.utils.SessionManager;
@@ -74,7 +59,7 @@ public class LoginActivity extends BaseActivity {
 
 
         // Calling getReadableDatabase() uses SQLiteAssetHelper
-        // to copy the prepopulated database to the device.
+        // to copy the prepopulated database to theusername_sign_up_button device.
         // Read comments at DatabaseCopyHelper class.
         mSession = new SessionManager(getApplicationContext());
         DatabaseCopyHelper dbCopyHelper = new DatabaseCopyHelper(this);
@@ -166,19 +151,19 @@ public class LoginActivity extends BaseActivity {
     //For fragments
     public static boolean isStoragePermissionGranted(Activity activity, Fragment fragment) {
         if (Build.VERSION.SDK_INT >= 23) {
-            if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.RECEIVE_SMS)
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECEIVE_SMS)
                     == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(activity, android.Manifest.permission.READ_SMS)
+                    ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_SMS)
                             == PackageManager.PERMISSION_GRANTED) {
                 return true;
             } else {
                 if (fragment == null) {
                     ActivityCompat.requestPermissions(activity,
-                            new String[]{android.Manifest.permission.RECEIVE_SMS,
-                                    android.Manifest.permission.READ_SMS}, PERMISSION_REQUEST_CODE);
+                            new String[]{Manifest.permission.RECEIVE_SMS,
+                                    Manifest.permission.READ_SMS}, PERMISSION_REQUEST_CODE);
                 } else {
                     fragment.requestPermissions(
-                            new String[]{android.Manifest.permission.RECEIVE_SMS,
+                            new String[]{Manifest.permission.RECEIVE_SMS,
                                     Manifest.permission.READ_SMS}, PERMISSION_REQUEST_CODE);
                 }
                 return false;
@@ -391,7 +376,7 @@ public class LoginActivity extends BaseActivity {
                                             users = userLoginInfo.getString("user_type").toUpperCase();
                                         }
 
-                                        mSession.createLoginSession(
+                                       /* mSession.createLoginSession(
                                                 userLoginInfo.getString("first_name"),
                                                 userLoginInfo.getString("id"),
                                                 userLoginInfo.getString("token"),
@@ -399,7 +384,7 @@ public class LoginActivity extends BaseActivity {
                                                 userLoginInfo.getString("email"),
                                                 userLoginInfo.getString("mobile_no"),
                                                 userLoginInfo.getString("dob"),
-                                                users);
+                                                users);*/
 
                                         showProgress(false);
 

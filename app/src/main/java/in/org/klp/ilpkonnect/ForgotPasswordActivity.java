@@ -347,7 +347,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                                         String email = userInfo.getEmail() != null ? userInfo.getEmail() : "";
                                         String mobile = userInfo.getMobileNo() != null ? userInfo.getMobileNo() : "";
                                         String dob = userInfo.getDob() != null ? userInfo.getDob() : "";
-                                        sessionManager.createLoginSession(
+                                       /* sessionManager.createLoginSession(
                                                 firstname,
                                                 userid + "",
                                                 tokenID,
@@ -355,7 +355,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                                                 email,
                                                 mobile,
                                                 dob,
-                                                users);
+                                                users);*/
 
                                         closeProgress();
 
